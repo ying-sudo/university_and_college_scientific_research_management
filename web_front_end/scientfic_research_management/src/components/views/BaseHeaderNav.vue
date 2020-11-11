@@ -14,9 +14,9 @@
         :key="item.index"
         :index="item.index"
       >
-        <!-- <router-link :to="getURL(item)"> -->
-        {{ item.title }}
-        <!-- </router-link> -->
+        <router-link :to="getURL(item)">
+          {{ item.title }}
+        </router-link>
       </el-menu-item>
 
       <el-menu-item
@@ -59,9 +59,9 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log("子组件 " + key, keyPath);
+      // console.log("子组件 " + key, keyPath);
       this.selectIndex = key;
-      console.log("子组件 " + this.selectIndex);
+      // console.log("子组件 " + this.selectIndex);
       this.$emit("handelSelect", Number(this.selectIndex));
     },
 

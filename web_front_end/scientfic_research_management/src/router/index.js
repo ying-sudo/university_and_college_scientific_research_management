@@ -21,6 +21,10 @@ export default new Router({
       component: Home
     },
     {
+      path: '/home',
+      redirect: "/"
+    },
+    {
       path: '/header',
       name: 'BaseHeaderNav',
       component: BaseHeaderNav
