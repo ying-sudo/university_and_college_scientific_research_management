@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "label": "项目编号",
+        "type": "text",
+        "prop": "project_id"
+    },
+    {
+        "id": 2,
+        "label": "项目名",
+        "type": "text",
+        "prop": "project_name"
+    },
+    {
+        "id": 3,
+        "label": "所属学院",
+        "type": "text",
+        "prop": "project_belongs_college"
+    },
+    {
+        "id": 4,
+        "label": "项目分类",
+        "type": "text",
+        "prop": "project_classcification"
+    },
+    {
+        "id": 5,
+        "label": "负责人",
+        "type": "text",
+        "prop": "charger"
+    },
+    {
+        "id": 6,
+        "label": "立项日期",
+        "type": "text",
+        "prop": "project_begin_date"
+    },
+    {
+        "id": 7,
+        "label": "项目经费",
+        "type": "text",
+        "prop": "project_funds"
+    },
+    {
+        "id": 8,
+        "label": "到账金额",
+        "type": "text",
+        "prop": "project_accounte"
+    },
+    {
+        "id": 9,
+        "label": "操作",
+        "type": "text",
+        "prop": "operation"
+    } 
+]

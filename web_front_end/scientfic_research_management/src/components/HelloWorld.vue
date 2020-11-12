@@ -4,6 +4,7 @@
     <MyButton></MyButton>
 	
 	</div>
+
 </template>
 
 
@@ -14,7 +15,6 @@
 
   export default {
     components: {
-      MyButton
     }
   };
 
