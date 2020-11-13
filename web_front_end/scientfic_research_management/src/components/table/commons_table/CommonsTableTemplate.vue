@@ -1,4 +1,6 @@
 <template>
+  <!--表格组件模板，负责实现一个只有表格元素，没有任何数据的组件  -->
+
   <!-- @data:数据列的来源 
      @width:table的宽度 
      @max-height:列的最大高度 -->
@@ -37,7 +39,7 @@ export default {
   name:'CommonsTable',
   data() {
     return {
-  
+      
     };
   },
   props:['itemOptions','tableData'],
