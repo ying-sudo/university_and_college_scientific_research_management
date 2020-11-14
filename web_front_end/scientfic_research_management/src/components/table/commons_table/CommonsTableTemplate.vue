@@ -1,5 +1,7 @@
 <template>
-  <!--表格组件模板，负责实现一个只有表格元素，没有任何数据的组件  -->
+
+  <div>
+    <!--表格组件模板，负责实现一个只有表格元素，没有任何数据的组件  -->
 
   <!-- @data:数据列的来源 
      @width:table的宽度 
@@ -8,8 +10,8 @@
     :data="tableData"
     fit
     highlight-current-row
-    style="width: 90%"
-    max-height="100"
+    style="width: 100%"
+    size="mini"
   > 
     <!-- @item:表中的每一列  
          @:key: 第几列
@@ -32,6 +34,8 @@
       </template>
     </el-table-column>
   </el-table>
+  <!-- <p>{{this.itemOptions}}</p> -->
+  </div>
 </template>
 
 <script>
@@ -47,5 +51,11 @@ export default {
 };
 </script>
 <style>
+.el-main {
+    background-color: #e9eef3;
+    color: #333;
+    /* text-align: center; */
+    line-height: 80px !important;
+}
 </style>
 

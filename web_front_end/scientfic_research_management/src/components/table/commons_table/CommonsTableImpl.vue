@@ -3,7 +3,7 @@
   <div>
     <!-- 调用抽象成CommonsTable标签的公共表格组件 -->
     <CommonsTableTemplate
-      v-if="tableData != null"
+      v-if="itemOptionsFileName != null"
       :itemOptions="itemOptions"
       :tableData="tableData"
     >
@@ -45,7 +45,7 @@ export default {
     //从相应json文件中读取表格数据
     this.axios
       .get(
-        "http://localhost:8080/static/table/table_data/project_table/ProjectTableData.json"
+        "http://localhost:8080/static/table/table_data//ProjectTableData.json"
       )
       .then((res) => {
         this.tableData = res.data;
