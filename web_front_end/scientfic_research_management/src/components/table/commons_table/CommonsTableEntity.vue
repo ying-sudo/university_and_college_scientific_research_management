@@ -1,11 +1,12 @@
+// 该组件已经被抛弃
 <template>
   <!-- 表格组件实体，用以传入表格行列数据 -->
   <div>
     <CommonsTableImpl
-      v-if="this.itemOptionsFileName != null"
+      v-if="this.itemOptionsFileName !== null"
       :itemOptionsFileName="itemOptionsFileName"
     ></CommonsTableImpl>
-    <p>{{ table_map.get("/project") }}</p>
+    <p>{{ table_map.get("/funds") }}</p>
     <!-- <p>{{ itemOptionsFileName }}</p> -->
   </div>
 </template>
@@ -32,10 +33,23 @@ export default {
   // },
   created() {
     this.table_map = getTableMap();
-    this.itemOptionsFileName = this.table_map.get("/project");
+    this.itemOptionsFileName = this.table_map.get(
+      "/" + this.$route.params.tableKey
+    );
+    // this.itemOptionsFileName = "/" + this.$route.params.id;
   },
   components: {
     CommonsTableImpl,
+  },
+  watch: {
+    $route(to, from) {
+      // this.loading = true;
+      alert(this.$route.params.tableKey);
+      this.itemOptionsFileName = this.table_map.get(
+        "/" + this.$route.params.tableKey
+      );
+      // console.log(this.itemOptionsFileName);
+    },
   },
 };
 </script>

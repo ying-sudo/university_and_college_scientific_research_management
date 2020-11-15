@@ -46,11 +46,4 @@
         "label": "到账金额",
         "type": "text",
         "prop": "project_received_account"
-    },
-    {
-        "id": 9,
-        "label": "操作",
-        "type": "text",
-        "prop": "operation"
-    } 
 ]

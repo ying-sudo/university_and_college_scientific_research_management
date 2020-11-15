@@ -75,22 +75,22 @@ export default {
     },
 
     /**
-     * 得到跳转的url
-     * @param subMenu: headerLists中的其中一个元素
+     * 得到跳转的url，如果有子菜单subMenu
+     * 则返回对于选中的菜单项中的urlPath
+     *
+     * @param menu: headerLists中的其中一个元素
      * @param index: 鼠标点击的位置
      */
-    getURL: function (subMenu, index) {
-      // console.log("getURL: "+index)
+    getURL: function (menu, index) {
+      console.log("getURL: " + index);
       let path = "";
-      let arr = subMenu.index.split("-");
-      // console.log(arr);
-      let menuObj = this.parentHeaderLists[Number(arr[0]) - 1];
-      path += menuObj.urlPath;
-      // console.log(path)
 
-      for (let i = 1; i < arr.length; i++) {
-        menuObj = menuObj.subMenu[Number(arr[i]) - 1];
-        path += menuObj.urlPath;
+      if (menu.subMenu !== null) {
+        let arr = menu.index.split("-");
+        menu = menu[Number(arr[0] - 1)];
+        path = menu.urlPath;
+      } else {
+        path = menu.urlPath;
       }
       console.log(path);
 
