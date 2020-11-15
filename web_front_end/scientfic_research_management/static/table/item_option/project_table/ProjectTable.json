@@ -57,7 +57,7 @@
         "id": 10,
         "label": "到账金额",
         "type": "text",
-        "prop": "project_account"
+        "prop": "project_received_account"
     },
     {
         "id": 11,
