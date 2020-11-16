@@ -14,13 +14,13 @@
         {
           "index": "2-1",
           "title": "项目列表",
-          "urlPath": "/projectlists",
+          "urlPath": "/table/projectlists",
           "subMenu": null
         },
         {
           "index": "2-2",
           "title": "经费列表",
-          "urlPath": "/fundlists",
+          "urlPath": "/table/fundlists",
           "subMenu": null
         }
       ]

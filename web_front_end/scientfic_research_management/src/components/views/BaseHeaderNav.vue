@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-menu
-      :default-active="activeIndex"
+      :default-active="selectIndex"
       class="el-menu-demo"
       mode="horizontal"
       @select="handleSelect"
@@ -68,7 +68,7 @@ export default {
     /**
      * 得到导航栏中按钮对应的url
      * 如果没有子菜单则直接返回对象中的urlPath,
-     * 如果有则返回对象中的urlPath和子菜单中第一个urlPath拼接后的url
+     * 如果有则返回对象中的子菜单中第一个urlPath
      *
      * @param data中的headerLists参数，默认为第一条
      */
@@ -77,7 +77,7 @@ export default {
     ) {
       let resURL = menuObj.urlPath;
       if (menuObj.subMenu != null) {
-        resURL += menuObj.subMenu[0].urlPath;
+        resURL = menuObj.subMenu[0].urlPath;
       }
       // console.log(resURL);
       return resURL;

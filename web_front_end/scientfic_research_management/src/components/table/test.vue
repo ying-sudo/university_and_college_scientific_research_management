@@ -14,6 +14,10 @@
       :total="400"
     >
     </el-pagination>
+    <!-- 直接跳转 -->
+    <router-link to="@">
+      <button>点击跳转</button>
+    </router-link>
   </div>
 </template>
 

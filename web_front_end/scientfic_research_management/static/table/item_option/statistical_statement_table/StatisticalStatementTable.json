@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "label": "报表文件名",
+        "type": "text",
+        "prop": "statement_file_name"
+    },
+    {
+        "id": 2,
+        "label": "所属学院",
+        "type": "text",
+        "prop": "statement_belongs_college"
+    },
+    {
+        "id": 3,
+        "label": "报表类型",
+        "type": "text",
+        "prop": "statement_type"
+    },
+    {
+        "id": 4,
+        "label": "发布日期",
+        "type": "text",
+        "prop": "statement_release_date"
+    },
+    {
+        "id": 5,
+        "label": "操作",
+        "type": "text",
+        "prop": "statements_operation"
+    }
+]
