@@ -1,22 +1,22 @@
 <template>
-  <div>
+	<div>
 
-    <MyButton></MyButton>
-	
+		<!-- <MyButton></MyButton> -->
+		<login></login>
+
 	</div>
 
 </template>
 
 
-
 <script>
-
-  import MyButton from './commons/forms/Button.vue'
+  import login from './login/login.vue'
 
   export default {
     components: {
+      login
     }
-  };
+  }
 
 </script>
 

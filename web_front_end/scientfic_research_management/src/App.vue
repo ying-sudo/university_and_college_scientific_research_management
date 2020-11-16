@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="frame">
     <el-container>
 
       <el-header>
@@ -33,7 +33,6 @@ import headernav from "@/components/views/BaseHeaderNav";
 import sidenav from "@/components/views/BaseSideNav";
 
 export default {
-  name: "App",
   components: { headernav: headernav, sidenav: sidenav },
   data() {
     return {
@@ -43,10 +42,10 @@ export default {
   },
 
   created: function () {
-    // console.log("header axiosè¯·æ±‚");
+    // console.log("header axiosÇëÇó");
     this.axios.get("http://localhost:8080/static/BaseHeaderNavData.json").then(
       (response) => {
-        // console.log("header æœ‰å“åº”äº†");
+        // console.log("header ÓĞÏìÓ¦ÁË");
         this.headerLists = response.data.headerLists;
         // console.log(this.parentHeaderLists);
       },
@@ -66,7 +65,7 @@ export default {
 </script>
 
 <style>
-#app {
+#frame {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -88,7 +87,7 @@ export default {
   display: block;
   position: relative;
 
-  /* æ»šåŠ¨æ¡éšè— */
+  /* ¹ö¶¯ÌõÒş²Ø */
   overflow-y: auto;
   scrollbar-width: none; /* firefox */
   -ms-overflow-style: none; /* IE 10+ */
@@ -102,7 +101,7 @@ export default {
   width: 200px;
 }
 
-/* æ»šåŠ¨æ¡éšè— */
+/* ¹ö¶¯ÌõÒş²Ø */
 .el-aside::-webkit-scrollbar {
   display: none; /* Chrome Safari */
 }
