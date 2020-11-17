@@ -36,6 +36,10 @@
       父组件对应标签内的所有内容将代替子组件的<slot>标签及它的内容 -->
       <slot name="table_template_slot"></slot>
     </el-table>
+    
+    <!-- @totalRows 传入总数据量
+         @currentPage 当前页码
+         @pageSize 单页数据量  -->
     <Pagination
       :totalRows="tableData.length"
       :currentPage="currentPage"
@@ -89,11 +93,12 @@ export default {
         (this.currentPage - 1) * this.pageSize,
         this.currentPage * this.pageSize
       );
-      this.$forceUpdate(); 
     },
   },
   created() {
+    
     this.getNewData();
+    this.$forceUpdate();
   },
 };
 </script>
