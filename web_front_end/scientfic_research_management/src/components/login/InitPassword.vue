@@ -1,16 +1,16 @@
 <template>
 
-  <div style="height: 100%; background-color: #00D6B2; padding: 20px;">
-    <!-- 图标 -->
-    <div style="height: 100px; background-color: #00D6B2; margin-top: 100px;">
+  <div style="height: 916px; background-color: #00D6B2; padding: 20px;">
+    <!-- 四川师范大学图标 -->
+    <div style="height: 100px; background-color: #00D6B2; margin-top: 50px;">
       <img src="../../assets/images/LoginLogo.png" style="width: 296px;" alt="">
     </div>
 
     <!-- 忘记密码界面 -->
-    <div style="background-color: white; margin:0px auto; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); width: 450px; height: 600px; border-radius: 30px">
+    <div style="background-color: white; margin:0px auto; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); width: 450px; height: 730px; border-radius: 30px">
 
       <!-- 图标 -->
-     <div style="padding: 10px;">
+      <div style="padding: 10px;">
         <mu-row justify-content="center">
           <mu-avatar :size="100">
             <img src="../../assets/images/Logo.jpg">
@@ -39,22 +39,19 @@
 
       <!-- 图形验证码 -->
       <div style="margin: 20px; text-align: center;">
-        <el-popover placement="top-start" width="400" trigger="click">
+        <el-popover ref="verifyFlag" placement="top" width="400" trigger="click">
           <!-- 验证码 -->
           <div>
-            <Verify @success="alert('success')" @error="alert('error')" :type="5" font-size="20px"></Verify>
+            <Verify @success="verify_success" @error="verify_error" :type="5" font-size="20px"></Verify>
           </div>
           <!-- 验证按钮 -->
-          <el-button slot="reference" class="ButtonStyle">点击验证</el-button>
+          <el-button slot="reference" class="ButtonStyle" v-text='verify_flag ? "验证成功" : "点击验证"'>点击验证</el-button>
         </el-popover>
       </div>
 
-      <!-- 按钮 -->
-      <div style="text-align: center; padding: 10px;">
-        <mu-button color="teal" @click="fullscreen()" class="ButtonStyle">确认</mu-button>
-        <div style="padding: 10px;"></div>
-        <mu-button color="secondary" @click="login()" class="ButtonStyle">返回</mu-button>
-      </div>
+      <mu-button color="teal" @click="initSure()" class="ButtonStyle">确认</mu-button>
+      <div style="padding: 10px;"></div>
+      <mu-button color="secondary" @click="login()" class="ButtonStyle">返回</mu-button>
     </div>
   </div>
 </template>
@@ -66,23 +63,32 @@
     data() {
       return {
         value13: '',
-        value14: ''
+        value14: '',
+        verify_flag: false
       }
     },
     methods: {
-      fullscreen() {
-        const loading = this.$loading();
-        setTimeout(() => {
-          loading.close();
-        }, 1000)
-      },
-      alert(text) {
-        console.log(text)
+      initSure() {
+        if (this.verify_flag) {
+          const loading = this.$loading();
+          setTimeout(() => {
+            loading.close();
+            this.login();
+          }, 500);
+        } else {
+          alert('请通过验证');
+        }
+
       },
       login() {
-        this.$router.push({
-          path: '/InitPWD'
-        })
+        this.$router.push('./login')
+      },
+      verify_success() {
+        this.verify_flag = true;
+        this.$refs.verifyFlag.showPopper = false;
+      },
+      verify_error() {
+        this.verify_flag = false;
       }
     },
     components: {

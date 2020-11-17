@@ -1,9 +1,9 @@
 <template>
 
-  <div id="login" style="height: 100%; background-color: #00D6B2; padding: 20px;">
-    <!-- 图标 -->
+  <div id="login" style="height: 916px; background-color: #00D6B2; padding: 20px;">
+    <!-- 四川师范大学图标 -->
     <div style="height: 100px; background-color: #00D6B2; margin-top: 100px;">
-      <img src="../../assets/images/LoginLogo.png" style="width: 296px; margin-left: 300px;" alt="">
+      <img src="../../assets/images/LoginLogo.png" style="width: 296px;" alt="">
     </div>
 
     <!-- 登录界面 -->
@@ -35,19 +35,19 @@
 
       <!-- 图形验证码 -->
       <div style="margin: 20px; text-align: center;">
-        <el-popover placement="top" width="400" trigger="click">
+        <el-popover ref="verifyFlag" placement="top" width="400" trigger="click">
           <!-- 验证码 -->
           <div>
-            <Verify @success="alert('success')" @error="alert('error')" :type="5" font-size="20px"></Verify>
+            <Verify @success="verify_success" @error="verify_error" :type="5" font-size="20px"></Verify>
           </div>
           <!-- 验证按钮 -->
-          <el-button slot="reference" class="ButtonStyle">点击验证</el-button>
+          <el-button slot="reference" class="ButtonStyle" v-text='verify_flag ? "验证成功" : "点击验证"'>点击验证</el-button>
         </el-popover>
       </div>
 
       <!-- 按钮 -->
       <div style="text-align: center; padding: 10px;">
-        <mu-button color="teal" @click="fullscreen()" class="ButtonStyle">登录</mu-button>
+        <mu-button color="teal" @click="login_success()" class="ButtonStyle">登录</mu-button>
         <div style="padding: 10px;"></div>
         <mu-button color="secondary" @click="init()" class="ButtonStyle">忘记密码</mu-button>
       </div>
@@ -67,23 +67,33 @@
       return {
         value13: '',
         value14: '',
-        visible: false
+        verify_flag: false
       }
     },
     methods: {
-      fullscreen() {
-        const loading = this.$loading();
-        setTimeout(() => {
-          loading.close();
-        }, 1000);
-        this.$router.replace('home');
+      login_success() {
+        if (this.verify_flag) {
+          const loading = this.$loading();
+          setTimeout(() => {
+            loading.close();
+            this.login();
+          }, 500);
+        } else {
+          alert('请通过验证');
+        }
       },
-      alert(text) {
-        console.log(text);
+      login() {
+        this.$router.push('./home');
       },
       init() {
-        console.log('text');
-        this.$router.replace('/initPWD');
+        this.$router.push('/initPWD');
+      },
+      verify_success() {
+        this.verify_flag = true;
+        this.$refs.verifyFlag.showPopper = false;
+      },
+      verify_error() {
+        this.verify_flag = false;
       }
     }
   };
