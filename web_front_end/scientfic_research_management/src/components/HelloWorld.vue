@@ -1,24 +1,38 @@
 <template>
-	<div>
+  <div>
 
-		<!-- <MyButton></MyButton> -->
-		<login></login>
+    <MButton></MButton>
 
-	</div>
+  </div>
 
 </template>
 
 
 <script>
-  import login from './login/login.vue'
+  import MButton from './forms/Button.vue'
 
   export default {
     components: {
-      login
+      MButton
     }
-  }
-
+  };
 </script>
+
+
+
+<!--
+
+<script>
+
+  import MyButton from './forms/Button.vue'
+
+  export default {
+    components: {
+      MyButton
+    }
+  };
+
+</script> -->
 
 <style>
 
