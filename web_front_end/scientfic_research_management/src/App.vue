@@ -2,7 +2,7 @@
   <div id="app">
     <el-container>
 
-      <el-header>
+      <el-header v-if="isLoginPage">
         <headernav
           v-if="headerLists.length>0"
           :parentHeaderLists="headerLists"
@@ -11,7 +11,10 @@
       </el-header>
 
       <el-container>
-        <el-aside width="14%">
+        <el-aside
+          width="14%"
+          v-if="isLoginPage"
+        >
           <sidenav
             v-if="headerLists.length>0"
             :parentHeaderLists="headerLists"
@@ -54,6 +57,17 @@ export default {
         console.log("header error");
       }
     );
+  },
+
+  computed: {
+    /**
+     * 判断当前url是否为登录页面的url
+     * 如果是则不渲染导航栏，
+     * 如果不是则渲染
+     */
+    isLoginPage: function () {
+      return this.$route.path !== "/login";
+    },
   },
 
   methods: {
@@ -100,6 +114,7 @@ export default {
   text-align: center;
   /* line-height: 200px; */
   width: 200px;
+  /* min-height: 300px; */
 }
 
 /* 滚动条隐藏 */
