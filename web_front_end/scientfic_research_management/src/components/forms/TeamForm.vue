@@ -4,7 +4,7 @@
     <mu-container>
       <mu-dialog width="800" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert">
         <div class="mu-dialog-title">
-          团队申报表单
+          团队申报
           <mu-button fab small color="indigo" @click="closeAlertDialog">
             <i class="el-icon-close" style="font-size: 32px;"></i>
           </mu-button>
