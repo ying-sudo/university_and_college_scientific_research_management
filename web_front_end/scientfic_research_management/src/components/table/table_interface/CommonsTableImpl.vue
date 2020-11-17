@@ -1,21 +1,35 @@
 <template>
   <!--表格实现组件，基本思路：根据当前url地址的参数:tableKey
   从一个map中取出表头数据(json文件) -->
+
   <div>
     <!-- 调用抽象成CommonsTable标签的公共表格组件 -->
     <CommonsTableTemplate
-      v-if="this.tableMapKey !== null"
+      v-if="this.tableMapKey !== null && tableData !== null" 
       :itemOptions="itemOptions"
       :tableData="tableData"
     >
+    <!--TableTemplate slot标签挂载点的内容为操作列  -->
+      <el-table-column
+        slot="table_template_slot"
+        fixed="right"
+        label="操作"
+        width="100"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <el-button @click="handleClick(scope.row)" type="text" size="small"
+            >查看</el-button
+          >
+        </template>
+      </el-table-column>
     </CommonsTableTemplate>
-    <p>{{this.$route.params}}</p>
+    <!-- <p>{{ this.$route.params }}</p> -->
   </div>
-
 </template>
 
 <script>
-import CommonsTableTemplate from "@/components/table/commons_table/CommonsTableTemplate";
+import CommonsTableTemplate from "@/components/table/table_template/CommonsTableTemplate";
 import { getTableMap } from "@/components/table/table_map/TableMap.js";
 
 export default {
@@ -27,7 +41,7 @@ export default {
 
       //从map中取到的表头文件的文件名
       itemOptionsFileName: "",
-      
+
       //map中的key，对于url地址中的参数
       tableMapKey: "",
 
@@ -36,7 +50,6 @@ export default {
 
       //返回到表格中的数据
       tableData: [],
-
     };
   },
   components: {
@@ -59,7 +72,7 @@ export default {
       this.axios
         .get("http://localhost:8080/static/table/table_data/" + fileName)
         .then((res) => {
-          this.tableData = res.data;
+          this.tableData = res.data;   
         });
     },
 
@@ -68,7 +81,7 @@ export default {
       return this.tableMap.get(tableMapKey);
     },
   },
-  
+
   created: function () {
     this.tableMap = getTableMap();
     this.tableMapKey = "/" + this.$route.params.tableKey;
