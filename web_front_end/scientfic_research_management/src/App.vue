@@ -2,7 +2,7 @@
   <div id="app">
     <el-container>
 
-      <el-header>
+      <el-header v-if="isLoginPage">
         <headernav
           v-if="headerLists.length>0"
           :parentHeaderLists="headerLists"
@@ -11,7 +11,10 @@
       </el-header>
 
       <el-container>
-        <el-aside width="14%">
+        <el-aside
+          width="14%"
+          v-if="isLoginPage"
+        >
           <sidenav
             v-if="headerLists.length>0"
             :parentHeaderLists="headerLists"
@@ -33,7 +36,6 @@ import headernav from "@/components/views/BaseHeaderNav";
 import sidenav from "@/components/views/BaseSideNav";
 
 export default {
-  name: "App",
   components: { headernav: headernav, sidenav: sidenav },
   data() {
     return {
@@ -43,10 +45,10 @@ export default {
   },
 
   created: function () {
-    // console.log("header axios请求");
+    // console.log("header axios����");
     this.axios.get("http://localhost:8080/static/BaseHeaderNavData.json").then(
       (response) => {
-        // console.log("header 有响应了");
+        // console.log("header ����Ӧ��");
         this.headerLists = response.data.headerLists;
         // console.log(this.parentHeaderLists);
       },
@@ -54,6 +56,17 @@ export default {
         console.log("header error");
       }
     );
+  },
+
+  computed: {
+    /**
+     * 判断当前url是否为登录页面的url
+     * 如果是则不渲染导航栏，
+     * 如果不是则渲染
+     */
+    isLoginPage: function () {
+      return this.$route.path !== "/login";
+    },
   },
 
   methods: {
@@ -66,7 +79,7 @@ export default {
 </script>
 
 <style>
-#app {
+#frame {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -88,21 +101,22 @@ export default {
   display: block;
   position: relative;
 
-  /* 滚动条隐藏 */
+  /* ���������� */
   overflow-y: auto;
   scrollbar-width: none; /* firefox */
   -ms-overflow-style: none; /* IE 10+ */
   overflow-x: hidden;
 
-  background-color: #324157 !important;
+  /* background-color: #324157 !important; */
   margin: 8px 6px 0px 20px;
   color: #333;
   text-align: center;
   /* line-height: 200px; */
   width: 200px;
+  /* min-height: 300px; */
 }
 
-/* 滚动条隐藏 */
+/* ���������� */
 .el-aside::-webkit-scrollbar {
   display: none; /* Chrome Safari */
 }
