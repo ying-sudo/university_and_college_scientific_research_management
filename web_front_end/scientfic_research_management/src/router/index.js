@@ -20,12 +20,12 @@ export default new Router({
     },
     {
       path: '/',
-      redirect: "/login"
+      redirect: "/home"
     },
     {
       path: '/home',
       name: 'Home',
-      components: Home
+      component: Home
     },
     {
       path: '/header',
@@ -45,7 +45,7 @@ export default new Router({
     {
       path: '/initPWD',
       name: 'InitPassword',
-      components: InitPassword
+      component: InitPassword
     },
     // 表格访问地址根据tableKey参数决定表格(如表头以及表格中的数据)
     {

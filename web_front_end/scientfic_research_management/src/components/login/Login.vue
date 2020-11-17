@@ -82,8 +82,7 @@
         console.log(text);
       },
       init() {
-        console.log('text');
-        this.$router.replace('/initPWD');
+        this.$router.push('/initPWD')
       }
     }
   };
