@@ -1,47 +1,86 @@
 <template>
-  <div class="block">
-    <!--@page-sizes:选择一页有多少条数据
-        @page-size:默认一页10条数据
-        @total:总共的数据行数
-        @layout:在页面显示的效果 -->
-    <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[10, 20, 50, 100]"
-      :page-size="10"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="400"
-    >
-    </el-pagination>
-    <!-- 直接跳转 -->
-    <router-link to="@">
-      <button>点击跳转</button>
-    </router-link>
+  <div>
+    <el-table :data="tableDataList" border style="width: 100%">
+      <el-table-column fixed prop="date" label="日期" width="150">
+      </el-table-column>
+      <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
+      <el-table-column prop="province" label="省份" width="120">
+      </el-table-column>
+      <el-table-column prop="city" label="市区" width="120"> </el-table-column>
+      <el-table-column prop="address" label="地址" width="300">
+      </el-table-column>
+      <el-table-column prop="zip" label="邮编" width="120"> </el-table-column>
+      <slot name="huan">替换失败</slot>
+    </el-table>
+    <!-- <slot name="function">function替换失败</slot> -->
+    <Pagination
+      :totalRows="tableData.length"
+      :currentPage="currentPage"
+      :pageSize="pageSize"
+      @pageChange="pageChange"
+    ></Pagination>
+    <!-- <p>{{ this.pageSize }}</p> -->
   </div>
 </template>
 
 <script>
+import Pagination from "./pagination/pagination.vue";
 export default {
+  components: {
+    Pagination,
+  },
   methods: {
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+    handleClick(row) {
+      console.log(row);
     },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+    pageChange(pageSize, currentPage) {
+      this.currentPage = currentPage;
+      this.pageSize = pageSize;
+      this.getNewData();
+    },
+    getNewData() {
+      this.tableDataList = this.tableData.slice(
+        (this.currentPage - 1) * this.pageSize,
+        this.currentPage * this.pageSize
+      );
     },
   },
+  created() {
+    this.getNewData();
+  },
+
   data() {
-    //开始指向第一页
     return {
-      currentPage1: 1,
-      currentPage2: 1,
-      currentPage3: 1,
-      currentPage4: 1,
+      currentPage: 1,
+      pageSize: 1,
+      tableDataList: [],
+      tableData: [
+        {
+          date: "2016-05-02",
+          name: "王小虎",
+          province: "上海",
+          city: "普陀区",
+          address: "上海市普陀区金沙江路 1518 弄",
+          zip: 200333,
+        },
+        {
+          date: "2016-05-02",
+          name: "王小",
+          province: "上海",
+          city: "普陀区",
+          address: "上海市普陀区金沙江路 1518 弄",
+          zip: 200333,
+        },
+        {
+          date: "2016-05-02",
+          name: "王虎",
+          province: "上海",
+          city: "普陀区",
+          address: "上海市普陀区金沙江路 1518 弄",
+          zip: 200333,
+        },
+      ],
     };
   },
 };
 </script>
-
-<style>
-</style>

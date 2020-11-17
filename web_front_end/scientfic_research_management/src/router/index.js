@@ -5,7 +5,7 @@ import BaseHeaderNav from '@/components/views/BaseHeaderNav'
 import BaseSideNav from '@/components/views/BaseSideNav'
 import Home from '@/components/views/Home'
 import First from '@/components/views/First'
-import Table from '@/components/table/commons_table/CommonsTableImpl'
+import Table from '@/components/table/table_interface/CommonsTableImpl'
 
 Vue.use(Router)
 
@@ -41,5 +41,6 @@ export default new Router({
       name: 'Table',
       component: Table
     }
+   
   ]
 })
