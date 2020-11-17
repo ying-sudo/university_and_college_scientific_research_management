@@ -45,6 +45,5 @@
         "id": 8,
         "label": "到账金额",
         "type": "text",
-        "prop": "project_accounte"
-    }
+        "prop": "project_received_account"
 ]
