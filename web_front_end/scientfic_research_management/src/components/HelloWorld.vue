@@ -1,10 +1,7 @@
 <template>
   <div>
 
-    <!-- <MButton></MButton> -->
-    sfsadfsdf
-    
-    <Login></Login>
+    <MButton></MButton>
 
   </div>
 
@@ -13,12 +10,10 @@
 
 <script>
   import MButton from './forms/Button.vue'
-  import Login from './login/Login.vue'
 
   export default {
     components: {
-      MButton,
-      Login
+      MButton
     }
   };
 </script>
