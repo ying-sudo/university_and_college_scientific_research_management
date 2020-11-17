@@ -60,7 +60,7 @@
 </template>
 
 <script>
-  import Verify from 'vue2-verify'
+  import Verify from '@/addModules/vue2-verify'
 
   export default {
     data() {
