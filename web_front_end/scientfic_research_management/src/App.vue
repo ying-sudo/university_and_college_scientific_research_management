@@ -1,5 +1,5 @@
 <template>
-  <div id="frame">
+  <div id="app">
     <el-container>
 
       <el-header v-if="isLoginPage">
@@ -45,10 +45,10 @@ export default {
   },
 
   created: function () {
-    // console.log("header axiosÇëÇó");
+    // console.log("header axiosï¿½ï¿½ï¿½ï¿½");
     this.axios.get("http://localhost:8080/static/BaseHeaderNavData.json").then(
       (response) => {
-        // console.log("header ÓÐÏìÓ¦ÁË");
+        // console.log("header ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½");
         this.headerLists = response.data.headerLists;
         // console.log(this.parentHeaderLists);
       },
@@ -101,13 +101,13 @@ export default {
   display: block;
   position: relative;
 
-  /* ¹ö¶¯ÌõÒþ²Ø */
+  /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
   overflow-y: auto;
   scrollbar-width: none; /* firefox */
   -ms-overflow-style: none; /* IE 10+ */
   overflow-x: hidden;
 
-  background-color: #324157 !important;
+  /* background-color: #324157 !important; */
   margin: 8px 6px 0px 20px;
   color: #333;
   text-align: center;
@@ -116,7 +116,7 @@ export default {
   /* min-height: 300px; */
 }
 
-/* ¹ö¶¯ÌõÒþ²Ø */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 .el-aside::-webkit-scrollbar {
   display: none; /* Chrome Safari */
 }

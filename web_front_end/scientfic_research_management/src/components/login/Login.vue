@@ -56,7 +56,7 @@
 </template>
 
 <script>
-  import Verify from 'vue2-verify'
+  import Verify from '@/addModules/vue2-verify'
 
   export default {
     // name: "Login",
@@ -76,7 +76,7 @@
         setTimeout(() => {
           loading.close();
         }, 1000);
-        this.$router.replace('/home');
+        this.$router.replace('home');
       },
       alert(text) {
         console.log(text);

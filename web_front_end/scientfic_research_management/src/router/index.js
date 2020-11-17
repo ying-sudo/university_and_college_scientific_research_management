@@ -6,7 +6,6 @@ import BaseSideNav from '@/components/views/BaseSideNav'
 import Home from '@/components/views/Home'
 import Login from '@/components/login/Login.vue'
 import InitPassword from '@/components/login/InitPassword.vue'
-import First from '@/components/views/First'
 import Table from '@/components/table/commons_table/CommonsTableImpl'
 
 Vue.use(Router)
@@ -25,18 +24,18 @@ export default new Router({
     {
       path: '/home',
       name: 'Home',
-      components: Home
+      component: Home
     },
-    {
-      path: '/header',
-      name: 'BaseHeaderNav',
-      component: BaseHeaderNav
-    },
-    {
-      path: '/side',
-      name: 'BaseSideNav',
-      component: BaseSideNav
-    },
+    // {
+    //   path: '/header',
+    //   name: 'BaseHeaderNav',
+    //   component: BaseHeaderNav
+    // },
+    // {
+    //   path: '/side',
+    //   name: 'BaseSideNav',
+    //   component: BaseSideNav
+    // },
     {
       path: '/login',
       name: 'Login',
@@ -45,7 +44,7 @@ export default new Router({
     {
       path: '/initPWD',
       name: 'InitPassword',
-      components: InitPassword
+      component: InitPassword
     },
     // 表格访问地址根据tableKey参数决定表格(如表头以及表格中的数据)
     {
