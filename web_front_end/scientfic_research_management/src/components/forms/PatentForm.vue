@@ -2,14 +2,6 @@
 
   <div>
     <mu-container>
-      <!-- 表单按钮 -->
-      <mu-flex justify-content="center">
-        <mu-button @click="openAlertDialog" color="primary">
-          专利申请表单&nbsp;&nbsp;
-          <i right class="el-icon-document-add"></i>
-        </mu-button>
-      </mu-flex>
-
       <!-- 表单头部 -->
       <mu-dialog width="800" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert">
         <div class="mu-dialog-title">
@@ -143,6 +135,11 @@
 
 <script>
   export default {
+    props: ['openAlert'],
+    model: {
+      prop: 'openAlert',
+      event: 'click'
+    },
     data() {
       return {
         options: [
@@ -207,17 +204,13 @@
           date: '',
           radio: '',
           textarea: ''
-        },
-        openAlert: false,
-        openAlertProjectMessage: false
+        }
       };
     },
     methods: {
-      openAlertDialog() {
-        this.openAlert = true;
-      },
-      closeAlertDialog() {
-        this.openAlert = false;
+      closeAlertDialog(openAlert) {
+        openAlert = false;
+        this.$emit('click', openAlert);
       },
       deleteRow(index, rows) {
         rows.splice(index, 1);

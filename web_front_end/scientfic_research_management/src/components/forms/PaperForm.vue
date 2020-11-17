@@ -2,12 +2,6 @@
 
   <div>
     <mu-container>
-      <mu-flex justify-content="center">
-        <mu-button @click="openAlertDialog" color="primary">
-          论文成果表单&nbsp;&nbsp;
-          <i right class="el-icon-document-add"></i>
-        </mu-button>
-      </mu-flex>
 
       <mu-dialog width="1250px" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert">
         <div class="mu-dialog-title">
@@ -112,7 +106,6 @@
 
               </mu-form>
             </mu-container>
-
           </div>
 
           <!-- 右侧选择框 -->
@@ -128,7 +121,6 @@
               </div>
             </div>
           </div>
-
         </div>
 
         <!-- 确定按钮 -->
@@ -139,14 +131,17 @@
           </mu-button>
         </div>
       </mu-dialog>
-
     </mu-container>
   </div>
-
 </template>
 
 <script>
   export default {
+    props: ['openAlert'],
+    model: {
+      prop: 'openAlert',
+      event: 'click'
+    },
     data() {
       return {
         options: [
@@ -212,8 +207,6 @@
           radio: '',
           textarea: ''
         },
-        openAlert: false,
-        openAlertProjectMessage: false,
         checkbox: {
           value1: [],
           value2: false,
@@ -222,11 +215,9 @@
       };
     },
     methods: {
-      openAlertDialog() {
-        this.openAlert = true;
-      },
-      closeAlertDialog() {
-        this.openAlert = false;
+      closeAlertDialog(openAlert) {
+        openAlert = false;
+        this.$emit('click', openAlert);
       },
       deleteRow(index, rows) {
         rows.splice(index, 1);
@@ -234,7 +225,6 @@
     }
   };
 </script>
-
 
 <style>
   .mu-demo-form {

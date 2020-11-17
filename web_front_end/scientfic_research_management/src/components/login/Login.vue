@@ -47,9 +47,9 @@
 
       <!-- 按钮 -->
       <div style="text-align: center; padding: 10px;">
-        <mu-button color="teal" @click="fullscreen()" class="ButtonStyle" ripple>登录</mu-button>
+        <mu-button color="teal" @click="fullscreen()" class="ButtonStyle">登录</mu-button>
         <div style="padding: 10px;"></div>
-        <mu-button color="secondary" @click="login()" class="ButtonStyle" ripple>忘记密码</mu-button>
+        <mu-button color="secondary" @click="init()" class="ButtonStyle">忘记密码</mu-button>
       </div>
     </div>
   </div>
@@ -75,15 +75,15 @@
         const loading = this.$loading();
         setTimeout(() => {
           loading.close();
-        }, 1000)
+        }, 1000);
+        this.$router.replace('/home');
       },
       alert(text) {
-        console.log(text)
+        console.log(text);
       },
-      login() {
-        this.$router.push({
-          path: '/InitPWD'
-        })
+      init() {
+        console.log('text');
+        this.$router.replace('/initPWD');
       }
     }
   };
