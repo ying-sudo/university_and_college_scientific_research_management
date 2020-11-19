@@ -3,6 +3,7 @@
   <div>
     <mu-container>
 
+		<!-- 表单头部 -->
       <mu-dialog width="1250px" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert">
         <div class="mu-dialog-title">
           论文成果详情
