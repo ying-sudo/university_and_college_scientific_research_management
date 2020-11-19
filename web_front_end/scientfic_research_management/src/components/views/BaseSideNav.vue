@@ -10,6 +10,7 @@
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b"
+          :default-openeds="['' + parentHeaderLists[selectIndex].index]"
         >
           <el-menu-item
             v-if="!parentHeaderLists[selectIndex].subMenu"
