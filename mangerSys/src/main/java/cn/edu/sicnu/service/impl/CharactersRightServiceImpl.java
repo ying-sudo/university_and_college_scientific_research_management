@@ -13,7 +13,7 @@ import java.util.List;
  * (CharactersRight)表服务实现类
  *
  * @author makejava
- * @since 2020-11-19 23:25:29
+ * @since 2020-11-20 22:47:24
  */
 @Service("charactersRightService")
 @Transactional

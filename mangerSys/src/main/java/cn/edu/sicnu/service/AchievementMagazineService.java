@@ -8,7 +8,7 @@ import java.util.List;
  * (AchievementMagazine)表服务接口
  *
  * @author makejava
- * @since 2020-11-19 23:25:26
+ * @since 2020-11-20 22:47:21
  */
 public interface AchievementMagazineService {
 

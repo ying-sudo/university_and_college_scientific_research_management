@@ -7,10 +7,10 @@ import java.util.Date;
  * (ScientificAchievement)实体类
  *
  * @author makejava
- * @since 2020-11-19 23:25:36
+ * @since 2020-11-20 22:47:31
  */
 public class ScientificAchievement implements Serializable {
-    private static final long serialVersionUID = -32295376486098416L;
+    private static final long serialVersionUID = -14080332813216877L;
 
     private String id;
 
@@ -19,8 +19,6 @@ public class ScientificAchievement implements Serializable {
     private String collegeId;
 
     private Date beginDate;
-
-    private String scientificId;
 
     private String userId;
 
@@ -41,12 +39,11 @@ public class ScientificAchievement implements Serializable {
     public ScientificAchievement() {
     }
 
-    public ScientificAchievement(String id, String name, String collegeId, Date beginDate, String scientificId, String userId, Object isTranslate, String translateLanguage, String firstDiscipline, String discipline, String characters, String workSource, String information) {
+    public ScientificAchievement(String id, String name, String collegeId, Date beginDate, String userId, Object isTranslate, String translateLanguage, String firstDiscipline, String discipline, String characters, String workSource, String information) {
         this.id = id;
         this.name = name;
         this.collegeId = collegeId;
         this.beginDate = beginDate;
-        this.scientificId = scientificId;
         this.userId = userId;
         this.isTranslate = isTranslate;
         this.translateLanguage = translateLanguage;
@@ -87,14 +84,6 @@ public class ScientificAchievement implements Serializable {
 
     public void setBeginDate(Date beginDate) {
         this.beginDate = beginDate;
-    }
-
-    public String getScientificId() {
-        return scientificId;
-    }
-
-    public void setScientificId(String scientificId) {
-        this.scientificId = scientificId;
     }
 
     public String getUserId() {
@@ -168,7 +157,6 @@ public class ScientificAchievement implements Serializable {
                 ", name='" + name + '\'' +
                 ", collegeId='" + collegeId + '\'' +
                 ", beginDate=" + beginDate +
-                ", scientificId='" + scientificId + '\'' +
                 ", userId='" + userId + '\'' +
                 ", isTranslate=" + isTranslate +
                 ", translateLanguage='" + translateLanguage + '\'' +

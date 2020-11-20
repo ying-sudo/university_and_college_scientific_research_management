@@ -7,7 +7,6 @@
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="collegeId" column="college_id" jdbcType="VARCHAR"/>
         <result property="beginDate" column="begin_date" jdbcType="TIMESTAMP"/>
-        <result property="scientificId" column="scientific_id" jdbcType="VARCHAR"/>
         <result property="userId" column="user_id" jdbcType="VARCHAR"/>
         <result property="isTranslate" column="is_translate" jdbcType="OTHER"/>
         <result property="translateLanguage" column="translate_language" jdbcType="VARCHAR"/>
@@ -24,7 +23,6 @@
                name,
                college_id,
                begin_date,
-               scientific_id,
                user_id,
                is_translate,
                translate_language,
@@ -43,7 +41,6 @@
                name,
                college_id,
                begin_date,
-               scientific_id,
                user_id,
                is_translate,
                translate_language,
@@ -61,7 +58,6 @@
                name,
                college_id,
                begin_date,
-               scientific_id,
                user_id,
                is_translate,
                translate_language,
@@ -76,8 +72,8 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="ScientificAchievementMap">
         select
-        id, name, college_id, begin_date, scientific_id, user_id, is_translate, translate_language, first_discipline,
-        discipline, characters, work_source, information
+        id, name, college_id, begin_date, user_id, is_translate, translate_language, first_discipline, discipline,
+        characters, work_source, information
         from scientific_research.scientific_achievement
         <where>
             <if test="id != null and id != ''">
@@ -91,9 +87,6 @@
             </if>
             <if test="beginDate != null">
                 and begin_date = #{beginDate}
-            </if>
-            <if test="scientificId != null and scientificId != ''">
-                and scientific_id = #{scientificId}
             </if>
             <if test="userId != null and userId != ''">
                 and user_id = #{userId}
@@ -127,7 +120,6 @@
         insert into scientific_research.scientific_achievement (name,
                                                                 college_id,
                                                                 begin_date,
-                                                                scientific_id,
                                                                 user_id,
                                                                 is_translate,
                                                                 translate_language,
@@ -139,7 +131,6 @@
         values (#{name},
                 #{collegeId},
                 #{beginDate},
-                #{scientificId},
                 #{userId},
                 #{isTranslate},
                 #{translateLanguage},
@@ -151,30 +142,30 @@
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into scientific_research.scientific_achievement(name, college_id, begin_date, scientific_id, user_id,
-        is_translate, translate_language, first_discipline, discipline, characters, work_source, information)
+        insert into scientific_research.scientific_achievement(name, college_id, begin_date, user_id, is_translate,
+        translate_language, first_discipline, discipline, characters, work_source, information)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.name}, #{entity.collegeId}, #{entity.beginDate}, #{entity.scientificId}, #{entity.userId},
-            #{entity.isTranslate}, #{entity.translateLanguage}, #{entity.firstDiscipline}, #{entity.discipline},
-            #{entity.characters}, #{entity.workSource}, #{entity.information})
+            (#{entity.name}, #{entity.collegeId}, #{entity.beginDate}, #{entity.userId}, #{entity.isTranslate},
+            #{entity.translateLanguage}, #{entity.firstDiscipline}, #{entity.discipline}, #{entity.characters},
+            #{entity.workSource}, #{entity.information})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into scientific_research.scientific_achievement(name, college_id, begin_date, scientific_id, user_id,
-        is_translate, translate_language, first_discipline, discipline, characters, work_source, information)
+        insert into scientific_research.scientific_achievement(name, college_id, begin_date, user_id, is_translate,
+        translate_language, first_discipline, discipline, characters, work_source, information)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.name}, #{entity.collegeId}, #{entity.beginDate}, #{entity.scientificId}, #{entity.userId},
-            #{entity.isTranslate}, #{entity.translateLanguage}, #{entity.firstDiscipline}, #{entity.discipline},
-            #{entity.characters}, #{entity.workSource}, #{entity.information})
+            (#{entity.name}, #{entity.collegeId}, #{entity.beginDate}, #{entity.userId}, #{entity.isTranslate},
+            #{entity.translateLanguage}, #{entity.firstDiscipline}, #{entity.discipline}, #{entity.characters},
+            #{entity.workSource}, #{entity.information})
         </foreach>
         on duplicate key update
-        name = values(name) , college_id = values(college_id) , begin_date = values(begin_date) , scientific_id =
-        values(scientific_id) , user_id = values(user_id) , is_translate = values(is_translate) , translate_language =
-        values(translate_language) , first_discipline = values(first_discipline) , discipline = values(discipline) ,
-        characters = values(characters) , work_source = values(work_source) , information = values(information)
+        name = values(name) , college_id = values(college_id) , begin_date = values(begin_date) , user_id =
+        values(user_id) , is_translate = values(is_translate) , translate_language = values(translate_language) ,
+        first_discipline = values(first_discipline) , discipline = values(discipline) , characters = values(characters)
+        , work_source = values(work_source) , information = values(information)
     </insert>
 
     <!--通过主键修改数据-->
@@ -189,9 +180,6 @@
             </if>
             <if test="beginDate != null">
                 begin_date = #{beginDate},
-            </if>
-            <if test="scientificId != null and scientificId != ''">
-                scientific_id = #{scientificId},
             </if>
             <if test="userId != null and userId != ''">
                 user_id = #{userId},

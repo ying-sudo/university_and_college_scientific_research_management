@@ -6,10 +6,10 @@ import java.io.Serializable;
  * (UserCharacter)实体类
  *
  * @author makejava
- * @since 2020-11-19 23:25:42
+ * @since 2020-11-20 22:47:42
  */
 public class UserCharacter implements Serializable {
-    private static final long serialVersionUID = -19345962562270959L;
+    private static final long serialVersionUID = 721274005462920123L;
 
     private String characterId;
 

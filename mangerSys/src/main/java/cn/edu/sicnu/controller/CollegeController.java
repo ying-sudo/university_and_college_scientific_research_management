@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  * (College)表控制层
  *
  * @author makejava
- * @since 2020-11-19 23:25:30
+ * @since 2020-11-20 22:47:25
  */
 @RestController
 @RequestMapping("college")

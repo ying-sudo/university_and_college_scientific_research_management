@@ -6,10 +6,10 @@ import java.io.Serializable;
  * (TeamMember)实体类
  *
  * @author makejava
- * @since 2020-11-19 23:25:41
+ * @since 2020-11-20 22:47:34
  */
 public class TeamMember implements Serializable {
-    private static final long serialVersionUID = 712844302657486642L;
+    private static final long serialVersionUID = 471377657101607559L;
 
     private String teamId;
 
@@ -50,4 +50,12 @@ public class TeamMember implements Serializable {
         this.post = post;
     }
 
+    @Override
+    public String toString() {
+        return "TeamMember{" +
+                "teamId='" + teamId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", post='" + post + '\'' +
+                '}';
+    }
 }

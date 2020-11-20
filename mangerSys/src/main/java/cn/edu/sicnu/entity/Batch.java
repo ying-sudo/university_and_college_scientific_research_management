@@ -7,10 +7,10 @@ import java.util.Date;
  * (Batch)实体类
  *
  * @author makejava
- * @since 2020-11-19 23:25:27
+ * @since 2020-11-20 22:47:22
  */
 public class Batch implements Serializable {
-    private static final long serialVersionUID = -38432265966545908L;
+    private static final long serialVersionUID = 398542907102297172L;
 
     private String id;
 

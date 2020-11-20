@@ -7,10 +7,10 @@ import java.util.Date;
  * (WorkAchievement)实体类
  *
  * @author makejava
- * @since 2020-11-19 23:25:43
+ * @since 2020-11-20 22:47:43
  */
 public class WorkAchievement implements Serializable {
-    private static final long serialVersionUID = 269562302964093783L;
+    private static final long serialVersionUID = 271155200618951498L;
 
     private String id;
 

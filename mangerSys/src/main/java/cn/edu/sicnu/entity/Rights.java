@@ -6,10 +6,10 @@ import java.io.Serializable;
  * (Rights)实体类
  *
  * @author makejava
- * @since 2020-11-19 23:25:35
+ * @since 2020-11-20 22:47:31
  */
 public class Rights implements Serializable {
-    private static final long serialVersionUID = 765337454130221137L;
+    private static final long serialVersionUID = 429899327233676964L;
 
     private String id;
 

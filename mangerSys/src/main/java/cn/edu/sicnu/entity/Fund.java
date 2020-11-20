@@ -7,10 +7,10 @@ import java.util.Date;
  * (Fund)实体类
  *
  * @author makejava
- * @since 2020-11-19 23:25:31
+ * @since 2020-11-20 22:47:26
  */
 public class Fund implements Serializable {
-    private static final long serialVersionUID = 909604887412868448L;
+    private static final long serialVersionUID = 211210334644363063L;
 
     private String id;
 

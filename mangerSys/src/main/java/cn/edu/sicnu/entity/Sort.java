@@ -6,10 +6,10 @@ import java.io.Serializable;
  * (Sort)实体类
  *
  * @author makejava
- * @since 2020-11-19 23:25:37
+ * @since 2020-11-20 22:47:32
  */
 public class Sort implements Serializable {
-    private static final long serialVersionUID = -61608419906649689L;
+    private static final long serialVersionUID = 829734356605213819L;
 
     private String id;
 

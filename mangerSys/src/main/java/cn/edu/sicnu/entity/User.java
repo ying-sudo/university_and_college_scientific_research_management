@@ -7,10 +7,10 @@ import java.util.Date;
  * (User)实体类
  *
  * @author makejava
- * @since 2020-11-19 23:25:42
+ * @since 2020-11-20 22:47:42
  */
 public class User implements Serializable {
-    private static final long serialVersionUID = 567947981399446736L;
+    private static final long serialVersionUID = -94969933867965484L;
 
     private String id;
 
@@ -150,4 +150,21 @@ public class User implements Serializable {
         this.post = post;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", idNumber='" + idNumber + '\'' +
+                ", collegeId='" + collegeId + '\'' +
+                ", register=" + register +
+                ", note='" + note + '\'' +
+                ", sex='" + sex + '\'' +
+                ", birthDate=" + birthDate +
+                ", post='" + post + '\'' +
+                '}';
+    }
 }

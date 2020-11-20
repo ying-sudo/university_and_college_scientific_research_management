@@ -7,10 +7,10 @@ import java.util.Date;
  * (PatentAchievement)实体类
  *
  * @author makejava
- * @since 2020-11-19 23:25:33
+ * @since 2020-11-20 22:47:28
  */
 public class PatentAchievement implements Serializable {
-    private static final long serialVersionUID = -72385830908222460L;
+    private static final long serialVersionUID = -53004703122614833L;
 
     private String id;
 

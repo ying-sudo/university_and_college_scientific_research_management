@@ -6,10 +6,10 @@ import java.io.Serializable;
  * (Magazine)实体类
  *
  * @author makejava
- * @since 2020-11-19 23:25:32
+ * @since 2020-11-20 22:47:27
  */
 public class Magazine implements Serializable {
-    private static final long serialVersionUID = 956598807173408071L;
+    private static final long serialVersionUID = 485863263839966019L;
 
     private String id;
 

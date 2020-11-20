@@ -6,10 +6,10 @@ import java.io.Serializable;
  * (AchievementMagazine)实体类
  *
  * @author makejava
- * @since 2020-11-19 23:25:26
+ * @since 2020-11-20 22:47:21
  */
 public class AchievementMagazine implements Serializable {
-    private static final long serialVersionUID = -18119150795434729L;
+    private static final long serialVersionUID = -14464576089987241L;
 
     private String achievementId;
 
@@ -38,7 +38,6 @@ public class AchievementMagazine implements Serializable {
     public void setMagazineId(String magazineId) {
         this.magazineId = magazineId;
     }
-
 
     @Override
     public String toString() {
