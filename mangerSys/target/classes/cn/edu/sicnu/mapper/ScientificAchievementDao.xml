@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.sicnu.dao.ScientificAchievementDao">
+
+    <resultMap type="cn.edu.sicnu.entity.ScientificAchievement" id="ScientificAchievementMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="collegeId" column="college_id" jdbcType="VARCHAR"/>
+        <result property="beginDate" column="begin_date" jdbcType="TIMESTAMP"/>
+        <result property="scientificId" column="scientific_id" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="isTranslate" column="is_translate" jdbcType="OTHER"/>
+        <result property="translateLanguage" column="translate_language" jdbcType="VARCHAR"/>
+        <result property="firstDiscipline" column="first_discipline" jdbcType="VARCHAR"/>
+        <result property="discipline" column="discipline" jdbcType="VARCHAR"/>
+        <result property="characters" column="characters" jdbcType="VARCHAR"/>
+        <result property="workSource" column="work_source" jdbcType="VARCHAR"/>
+        <result property="information" column="information" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ScientificAchievementMap">
+        select id,
+               name,
+               college_id,
+               begin_date,
+               scientific_id,
+               user_id,
+               is_translate,
+               translate_language,
+               first_discipline,
+               discipline,
+               characters,
+               work_source,
+               information
+        from scientific_research.scientific_achievement
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ScientificAchievementMap">
+        select id,
+               name,
+               college_id,
+               begin_date,
+               scientific_id,
+               user_id,
+               is_translate,
+               translate_language,
+               first_discipline,
+               discipline,
+               characters,
+               work_source,
+               information
+        from scientific_research.scientific_achievement
+                     limit #{offset}, #{limit}
+    </select>
+    <!--查询表所有对象-->
+    <select id="findAll" resultMap="ScientificAchievementMap">
+        select id,
+               name,
+               college_id,
+               begin_date,
+               scientific_id,
+               user_id,
+               is_translate,
+               translate_language,
+               first_discipline,
+               discipline,
+               characters,
+               work_source,
+               information
+        from scientific_research.scientific_achievement
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ScientificAchievementMap">
+        select
+        id, name, college_id, begin_date, scientific_id, user_id, is_translate, translate_language, first_discipline,
+        discipline, characters, work_source, information
+        from scientific_research.scientific_achievement
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                and college_id = #{collegeId}
+            </if>
+            <if test="beginDate != null">
+                and begin_date = #{beginDate}
+            </if>
+            <if test="scientificId != null and scientificId != ''">
+                and scientific_id = #{scientificId}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+            <if test="isTranslate != null">
+                and is_translate = #{isTranslate}
+            </if>
+            <if test="translateLanguage != null and translateLanguage != ''">
+                and translate_language = #{translateLanguage}
+            </if>
+            <if test="firstDiscipline != null and firstDiscipline != ''">
+                and first_discipline = #{firstDiscipline}
+            </if>
+            <if test="discipline != null and discipline != ''">
+                and discipline = #{discipline}
+            </if>
+            <if test="characters != null and characters != ''">
+                and characters = #{characters}
+            </if>
+            <if test="workSource != null and workSource != ''">
+                and work_source = #{workSource}
+            </if>
+            <if test="information != null and information != ''">
+                and information = #{information}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into scientific_research.scientific_achievement (name,
+                                                                college_id,
+                                                                begin_date,
+                                                                scientific_id,
+                                                                user_id,
+                                                                is_translate,
+                                                                translate_language,
+                                                                first_discipline,
+                                                                discipline,
+                                                                characters,
+                                                                work_source,
+                                                                information)
+        values (#{name},
+                #{collegeId},
+                #{beginDate},
+                #{scientificId},
+                #{userId},
+                #{isTranslate},
+                #{translateLanguage},
+                #{firstDiscipline},
+                #{discipline},
+                #{characters},
+                #{workSource},
+                #{information})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into scientific_research.scientific_achievement(name, college_id, begin_date, scientific_id, user_id,
+        is_translate, translate_language, first_discipline, discipline, characters, work_source, information)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.collegeId}, #{entity.beginDate}, #{entity.scientificId}, #{entity.userId},
+            #{entity.isTranslate}, #{entity.translateLanguage}, #{entity.firstDiscipline}, #{entity.discipline},
+            #{entity.characters}, #{entity.workSource}, #{entity.information})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into scientific_research.scientific_achievement(name, college_id, begin_date, scientific_id, user_id,
+        is_translate, translate_language, first_discipline, discipline, characters, work_source, information)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.collegeId}, #{entity.beginDate}, #{entity.scientificId}, #{entity.userId},
+            #{entity.isTranslate}, #{entity.translateLanguage}, #{entity.firstDiscipline}, #{entity.discipline},
+            #{entity.characters}, #{entity.workSource}, #{entity.information})
+        </foreach>
+        on duplicate key update
+        name = values(name) , college_id = values(college_id) , begin_date = values(begin_date) , scientific_id =
+        values(scientific_id) , user_id = values(user_id) , is_translate = values(is_translate) , translate_language =
+        values(translate_language) , first_discipline = values(first_discipline) , discipline = values(discipline) ,
+        characters = values(characters) , work_source = values(work_source) , information = values(information)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update scientific_research.scientific_achievement
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                college_id = #{collegeId},
+            </if>
+            <if test="beginDate != null">
+                begin_date = #{beginDate},
+            </if>
+            <if test="scientificId != null and scientificId != ''">
+                scientific_id = #{scientificId},
+            </if>
+            <if test="userId != null and userId != ''">
+                user_id = #{userId},
+            </if>
+            <if test="isTranslate != null">
+                is_translate = #{isTranslate},
+            </if>
+            <if test="translateLanguage != null and translateLanguage != ''">
+                translate_language = #{translateLanguage},
+            </if>
+            <if test="firstDiscipline != null and firstDiscipline != ''">
+                first_discipline = #{firstDiscipline},
+            </if>
+            <if test="discipline != null and discipline != ''">
+                discipline = #{discipline},
+            </if>
+            <if test="characters != null and characters != ''">
+                characters = #{characters},
+            </if>
+            <if test="workSource != null and workSource != ''">
+                work_source = #{workSource},
+            </if>
+            <if test="information != null and information != ''">
+                information = #{information},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from scientific_research.scientific_achievement
+        where id = #{id}
+    </delete>
+
+</mapper>
