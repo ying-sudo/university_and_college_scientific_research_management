@@ -63,6 +63,14 @@ export default {
   },
   mounted() {
     this.drawLine();
+    this.axios
+      .post("/api/test")
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((res) => {
+        alert("wrong");
+      });
   },
   methods: {
     drawLine: function () {

@@ -48,9 +48,10 @@ export default {
   },
 
   created: function () {
-    this.axios.get("http://localhost:8080/static/BaseHeaderNavData.json").then(
+    this.axios.get("/api/header").then(
       (response) => {
-        this.headerLists = response.data.headerLists;
+        this.headerLists = response.data.data.headerLists;
+        console.log(response.data.data.headerLists);
       },
       (response) => {
         console.log("header error");

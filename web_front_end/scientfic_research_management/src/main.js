@@ -21,6 +21,9 @@ Vue.prototype.$echarts = echarts
 
 Vue.config.productionTip = false
 
+// 引入mock
+require('./mock/index.js')
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
