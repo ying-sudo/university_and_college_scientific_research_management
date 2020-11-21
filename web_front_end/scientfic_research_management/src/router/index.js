@@ -4,7 +4,8 @@ import HelloWorld from '@/components/HelloWorld'
 
 import Login from '@/components/login/Login.vue'
 import InitPassword from '@/components/login/InitPassword.vue'
-import Table from '@/components/table/table_interface/CommonsTableImpl'
+// import Table from '@/components/table/table_interface/CommonsTableImpl'
+import Table from '@/components/table/table_impl/SPTableEnity'
 
 Vue.use(Router)
 
@@ -24,11 +25,11 @@ export default new Router({
       name: 'Home',
       component: resolve => require(['@/components/views/Home'], resolve)
     },
-    // {
-    //   path: '/header',
-    //   name: 'BaseHeaderNav',
-    //   component: BaseHeaderNav
-    // },
+    {
+      path: '/first',
+      name: 'First',
+      component: resolve => require(['@/components/views/First'], resolve)
+    },
     // {
     //   path: '/side',
     //   name: 'BaseSideNav',

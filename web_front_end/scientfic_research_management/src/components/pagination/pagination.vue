@@ -45,6 +45,9 @@ export default {
       console.log(`当前页: ${cpage}`);
       this.$emit("pageChange", this.sub_pageSize, this.sub_currentPage);
     },
+    created() {
+      console.log("pagination执行了create")
+    },
   },
 };
 </script>

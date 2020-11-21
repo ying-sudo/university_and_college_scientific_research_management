@@ -16,7 +16,13 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
+import echarts from "echarts";
+Vue.prototype.$echarts = echarts
+
 Vue.config.productionTip = false
+
+// 引入mock
+require('./mock/index.js')
 
 /* eslint-disable no-new */
 new Vue({
