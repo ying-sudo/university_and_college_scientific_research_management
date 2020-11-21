@@ -3,10 +3,11 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <mu-dialog width="1250px" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert">
+      <mu-dialog width="1250px" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="flag.openAlertPaper">
         <div class="mu-dialog-title">
-          论文成果申报
+          论文成果
           <mu-button fab small color="indigo" @click="closeAlertDialog">
+            <!-- 关闭按钮 -->
             <i class="el-icon-close" style="font-size: 32px;"></i>
           </mu-button>
         </div>
@@ -17,91 +18,57 @@
           <!-- 左侧框 -->
           <div style="float: left; overflow-y: scroll; width: 800px; height: 650px;">
             <mu-container>
-              <mu-form :model="form" class="mu-demo-form" :label-position="labelPosition" label-width="100">
+              <mu-form :model="paper_achievement" class="mu-demo-form" :label-position="labelPosition" label-width="100">
                 <mu-form-item prop="input" label="论文题目">
-                  <mu-text-field v-model="form.input"></mu-text-field>
+                  <mu-text-field v-model="paper_achievement.name" :disabled="flag.is_disabled"></mu-text-field>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="input" label="发表期刊">
-                  <mu-text-field v-model="form.input"></mu-text-field>
+                  <mu-text-field v-model="paper_achievement.magazine" :disabled="flag.is_disabled"></mu-text-field>
                 </mu-form-item>
 
-                <mu-form-item class="mu-demo-min-form" prop="input" label="发表时间">
-                  <mu-text-field v-model="form.input"></mu-text-field>
+                <mu-col span="8" lg="4" sm="6" class="mu-demo-min-form float_left">
+                  <mu-date-input prop="input" v-model="paper_achievement.begin_date" label="发表时间" label-float
+                    full-width landscape :disabled="flag.is_disabled"></mu-date-input>
+                </mu-col>
+
+                <mu-form-item class="mu-demo-min-form float_left" prop="input" label="论文类型">
+                  <mu-text-field v-model="paper_achievement.paper_type" :disabled="flag.is_disabled"></mu-text-field>
                 </mu-form-item>
 
-                <mu-form-item class="mu-demo-min-form" prop="input" label="论文类型">
-                  <mu-text-field v-model="form.input"></mu-text-field>
+                <mu-form-item class="mu-demo-min-form float_left" prop="input" label="收录号">
+                  <mu-text-field v-model="paper_achievement.record_id" :disabled="flag.is_disabled"></mu-text-field>
                 </mu-form-item>
 
-                <mu-form-item class="mu-demo-min-form float_left" prop="select" label="收录号">
-                  <mu-select v-model="form.select">
-                    <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
-                  </mu-select>
-                </mu-form-item>
-
-                <mu-form-item class="mu-demo-min-form float_left" prop="select" label="学科门类">
-                  <mu-select v-model="form.select">
-                    <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
-                  </mu-select>
+                <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="学科门类">
+                  <mu-radio v-model="paper_achievement.discipline" value="science" label="理工类" :disabled="flag.is_disabled"></mu-radio>
+                  <mu-radio v-model="paper_achievement.discipline" value="social" label="社科类" :disabled="flag.is_disabled"></mu-radio>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="select" label="一级学科">
-                  <mu-select v-model="form.select">
-                    <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
-                  </mu-select>
-                </mu-form-item>
-
-                <mu-form-item class="mu-demo-min-form" prop="select" label="成果归属">
-                  <mu-select v-model="form.select">
-                    <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-select v-model="paper_achievement.first_discipline" filterable :disabled="flag.is_disabled">
+                    <mu-option v-for="option,index in first_discipline" :key="option" :label="option" :value="option"></mu-option>
                   </mu-select>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="项目来源">
-                  <mu-radio v-model="form.radio" value="male" label="横向"></mu-radio>
-                  <mu-radio v-model="form.radio" value="female" label="纵向"></mu-radio>
+                  <mu-radio v-model="paper_achievement.paper_source" value="crosswise" label="横向" :disabled="flag.is_disabled"></mu-radio>
+                  <mu-radio v-model="paper_achievement.paper_source" value="lengthways" label="纵向" :disabled="flag.is_disabled"></mu-radio>
+                </mu-form-item>
+
+                <mu-form-item class="mu-demo-min-form" prop="select" label="成果归属">
+                  <mu-select v-model="paper_achievement.college_id" filterable :disabled="flag.is_disabled">
+                    <mu-option v-for="option,index in college_id" :key="option" :label="option" :value="option"></mu-option>
+                  </mu-select>
                 </mu-form-item>
 
                 <!-- 表单底部表格 -->
-                <div style="padding: 10px;">
-                  <div style=" padding-top: 70px;">
-                    <mu-button style="float: right; margin: 10px;" color="primary">
-                      添加用户&nbsp;&nbsp;
-                      <i class="el-icon-s-custom" style="float: right; "></i>
-                    </mu-button>
-                  </div>
-
-                  <div style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);">
-                    <el-table :data="tableData" style="width: 100%" max-height="250">
-                      <el-table-column fixed prop="name" label="姓名" width="120">
-                      </el-table-column>
-                      <el-table-column prop="province" label="省份" width="120">
-                      </el-table-column>
-                      <el-table-column prop="city" label="市区" width="120">
-                      </el-table-column>
-                      <el-table-column prop="address" label="地址" width="300">
-                      </el-table-column>
-                      <el-table-column prop="zip" label="邮编" width="120">
-                      </el-table-column>
-                      <el-table-column fixed="right" label="操作" width="120">
-                        <template slot-scope="scope">
-                          <el-button @click.native.prevent="deleteRow(scope.$index, tableData)" type="text" size="small">
-                            移除
-                          </el-button>
-                          <el-button @click.native.prevent="deleteRow(scope.$index, tableData)" type="text" size="small">
-                            编辑
-                          </el-button>
-                        </template>
-                      </el-table-column>
-                    </el-table>
-                  </div>
-                </div>
+                <UserTable v-model='flag.is_disabled'></UserTable>
 
                 <!-- 表单备注 -->
-                <mu-form-item style="margin: 10px;" prop="textarea" label="备注">
+                <mu-form-item style="padding-top: 20px; margin: 10px;" prop="textarea" label="详细信息">
                   <mu-text-field style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" multi-line
-                    :rows="3" :rows-max="6" v-model="form.textarea"></mu-text-field>
+                    :rows="3" :rows-max="6" v-model="paper_achievement.information" :disabled="flag.is_disabled"></mu-text-field>
                 </mu-form-item>
 
               </mu-form>
@@ -115,8 +82,9 @@
                 <b>收录情况</b>
               </div>
               <div style="overflow-y: scroll; height: 600px;">
-                <mu-flex class="select-control-row" :key="'Checkbox ' + i" v-for="i in 20">
-                  <mu-checkbox value="ssssssssss" v-model="checkbox.value1" label='sssss'></mu-checkbox>
+                <mu-flex class="select-control-row" :key="magazine_sort.id[i-1]" v-for="i in magazine_sort.id.length">
+                  <mu-checkbox :value="magazine_sort.id[i-1]" v-model="achievement_magazine.magazine_id" :label='magazine_sort.name[i-1]'
+                    :disabled="flag.is_disabled"></mu-checkbox>
                 </mu-flex>
               </div>
             </div>
@@ -125,10 +93,21 @@
 
         <!-- 确定按钮 -->
         <div style="text-align: center;">
-          <mu-button @click="closeAlertDialog" color="primary">
-            确定申报&nbsp;&nbsp;
-            <i right class="el-icon-upload"></i>
-          </mu-button>
+          <div v-if="!flag.is_disabled">
+            <mu-button @click="makesure" color="primary">
+              确定&nbsp;&nbsp;
+              <i right class="el-icon-upload"></i>
+            </mu-button>
+          </div>
+          <div v-else>
+            <mu-button @click="editForm" color="primary">
+              编辑&nbsp;&nbsp;
+              <i right class="el-icon-edit-outline"></i>
+            </mu-button>
+            <mu-button @click="closeAlertDialog" color="primary">
+              返回
+            </mu-button>
+          </div>
         </div>
       </mu-dialog>
     </mu-container>
@@ -136,92 +115,68 @@
 </template>
 
 <script>
+  import UserTable from './UserTable.vue'
+
   export default {
-    props: ['openAlert'],
+    props: ['flag'],
     model: {
-      prop: 'openAlert',
+      prop: 'flag',
       event: 'click'
     },
     data() {
       return {
-        options: [
-          'Option 1', 'Option 2', 'Option 3', 'Option 4',
-          'Option 5', 'Option 6', 'Option 7', 'Option 8',
-          'Option 9', 'Option 10'
-        ],
-        tableData: [{
-          date: '2016-05-03',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-02',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-08',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-06',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-07',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }],
         labelPosition: 'top',
-        form: {
-          input: '',
-          select: '',
-          date: '',
-          radio: '',
-          textarea: ''
+        paper_achievement: { //申报的内容
+          id: 'aaaa', //论文编号
+          name: 'ssss', //论文题目
+          magazine: '期刊', //期刊
+          begin_date: undefined, //发表日期
+          paper_type: '类型', //论文类型
+          record_id: '收录好', //收录号
+          discipline: 'science', //学科门类
+          first_discipline: '文科', //一级学科
+          college_id: 'sssss', //成果归属
+          paper_source: 'lengthways', //项目来源
+          user_id: 'sswwwe', //作者
+          information: '详细信息' //详细信息
         },
-        checkbox: {
-          value1: [],
-          value2: false,
-          value3: false
+        first_discipline: [ //一级学科内容
+          '文科', '理科', '计算机科学', '物理', '生物'
+        ],
+        college_id: [ //成果归属
+          '计算机科学', '物电', '生物', '化学'
+        ],
+        achievement_magazine: { //收录编号表
+          achievement_id: 'aaaa',
+          magazine_id: [
+            '001', '003', '004'
+          ]
+        },
+        magazine_sort: { //编号读取
+          id: [
+            '001', '002', '003', '004', '005'
+          ],
+          name: [
+            '1', '2', '3', '4', '5'
+          ]
         }
       };
     },
     methods: {
-      closeAlertDialog(openAlert) {
-        openAlert = false;
-        this.$emit('click', openAlert);
+      closeAlertDialog() {
+        this.flag.openAlertPaper = false;
+        this.$emit('click', this.flag);
       },
-      deleteRow(index, rows) {
-        rows.splice(index, 1);
+      makesure() {
+        this.closeAlertDialog();
+        window.location.reload(); //重载，刷新页面
+      },
+      editForm() {
+        this.flag.is_disabled = false;
       }
+    },
+    components: {
+      UserTable
     }
   };
 </script>
