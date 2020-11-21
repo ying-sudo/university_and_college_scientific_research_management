@@ -5,11 +5,11 @@
   <div>
     <!-- 调用抽象成CommonsTable标签的公共表格组件 -->
     <CommonsTableTemplate
-      v-if="this.tableMapKey !== null && tableData !== null" 
+      v-if="this.tableMapKey !== null"
       :itemOptions="itemOptions"
       :tableData="tableData"
     >
-    <!--TableTemplate slot标签挂载点的内容为操作列  -->
+      <!--TableTemplate slot标签挂载点的内容为操作列  -->
       <el-table-column
         slot="table_template_slot"
         fixed="right"
@@ -24,7 +24,6 @@
         </template>
       </el-table-column>
     </CommonsTableTemplate>
-    <!-- <p>{{ this.$route.params }}</p> -->
   </div>
 </template>
 
@@ -34,6 +33,7 @@ import { getTableMap } from "@/components/table/table_map/TableMap.js";
 
 export default {
   name: "CommonsTableImpl",
+  props:["tableData"],
   data() {
     return {
       //存储url参数以及对于表头文件名的map(key: url参数, value: 表头文件名)
@@ -45,11 +45,12 @@ export default {
       //map中的key，对于url地址中的参数
       tableMapKey: "",
 
-      //返回到页面中的表格
+      //返回到页面中的表头数据
       itemOptions: [],
 
       //返回到表格中的数据
-      tableData: [],
+      // tableData: [],
+
     };
   },
   components: {
@@ -67,14 +68,14 @@ export default {
         });
     },
 
-    //从相应json文件中读取表格数据
-    getTableData: function (fileName) {
-      this.axios
-        .get("http://localhost:8080/static/table/table_data/" + fileName)
-        .then((res) => {
-          this.tableData = res.data;   
-        });
-    },
+    // //从相应json文件中读取表格数据
+    // getTableData: function (fileName) {
+    //   this.axios
+    //     .get("http://localhost:8080/static/table/table_data/" + fileName)
+    //     .then((res) => {
+    //       this.tableData = res.data;
+    //     });
+    // },
 
     // 从map中取到value(对应表头数据文件的名字)
     getFileName: function (tableMapKey) {
@@ -88,7 +89,8 @@ export default {
     this.itemOptionsFileName = this.getFileName(this.tableMapKey);
 
     this.getTableItem(this.itemOptionsFileName);
-    this.getTableData("/ProjectTableData.json");
+    // this.getTableData("/ProjectTableData.json");
+    console.log("Impl执行了create");
   },
 
   /**

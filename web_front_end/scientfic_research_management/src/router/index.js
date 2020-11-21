@@ -6,7 +6,8 @@ import BaseSideNav from '@/components/views/BaseSideNav'
 import Home from '@/components/views/Home'
 import Login from '@/components/login/Login.vue'
 import InitPassword from '@/components/login/InitPassword.vue'
-import Table from '@/components/table/table_interface/CommonsTableImpl'
+// import Table from '@/components/table/table_interface/CommonsTableImpl'
+import Table from '@/components/table/table_impl/SPTableEnity'
 
 Vue.use(Router)
 
