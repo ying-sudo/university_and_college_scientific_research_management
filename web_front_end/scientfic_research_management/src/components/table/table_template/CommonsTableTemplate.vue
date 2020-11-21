@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.tableDataList !== null">
+  <div>
     <!--表格组件模板，负责实现一个只有表格元素，没有任何数据的组件  -->
 
     <!-- @data:数据列的来源 
@@ -13,7 +13,7 @@
       size="mini"
     >
       <!-- @item:表中的每一列  
-         @:key: 第几列
+         @:key: 当前第几列
          @label:每一列的标签
          @prop:列名
          @scope.row:从tableData中获取一行的数据
@@ -36,7 +36,7 @@
       父组件对应标签内的所有内容将代替子组件的<slot>标签及它的内容 -->
       <slot name="table_template_slot"></slot>
     </el-table>
-    
+
     <!-- @totalRows 传入总数据量
          @currentPage 当前页码
          @pageSize 单页数据量  -->
@@ -46,6 +46,8 @@
       :pageSize="pageSize"
       @pageChange="pageChange"
     ></Pagination>
+    <!-- <p>{{ this.tableDataList }}</p>
+    <p>{{ this.tableData }}</p> -->
   </div>
 </template>
 
@@ -53,7 +55,7 @@
 /**
  * @Pagination 导入底部页码组件
  */
-import Pagination from "@/components/table/pagination/pagination";
+import Pagination from "@/components/pagination/pagination";
 export default {
   name: "CommonsTable",
 
@@ -64,7 +66,7 @@ export default {
    * @tableDataList 分页后的表格数据
    */
   data() {
-    return { currentPage: 1, pageSize: 1, tableDataList: [] };
+    return { currentPage: 1, pageSize: 1, tableDataList: [], ShowPage: false };
   },
 
   /**
@@ -84,10 +86,12 @@ export default {
    */
   methods: {
     pageChange(pageSize, currentPage) {
+      // console.log("pageChange work");
       this.currentPage = currentPage;
       this.pageSize = pageSize;
       this.getNewData();
     },
+
     getNewData() {
       this.tableDataList = this.tableData.slice(
         (this.currentPage - 1) * this.pageSize,
@@ -95,14 +99,28 @@ export default {
       );
     },
   },
-  created() {
-    
+
+  /**
+   * @newVal 就是接受的tableData
+   * newVal存在的话执行getNewData函数
+   */
+  watch: {
+    tableData: function (newVal, oldVal) {
+      this.tableData = newVal;
+      newVal && this.getNewData();
+    },
+  },
+
+  mounted() {
+    // this.$forceUpdate();
+    console.log("Template执行了mounted");
     this.getNewData();
-    this.$forceUpdate();
+    // console.log(this.tableDataList.length);
+    // console.log(this.tableData.length);
   },
 };
 </script>
-
+ 
 <style scoped>
 .el-main {
   background-color: #e9eef3;
