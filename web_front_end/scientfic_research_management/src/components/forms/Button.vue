@@ -79,7 +79,7 @@
 
 <script>
   import ProjectForm from './ProjectForm.vue'
-  import PaperForm from './PaperForm.vue'
+  import PaperForm from './PaperDetail.vue'
   import WorkForm from './WorkForm.vue'
   import PatentForm from './PatentForm.vue'
   import TeamForm from './TeamForm.vue'

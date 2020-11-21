@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <el-container>
+    <el-container id="out-container">
 
       <el-header v-if="isLoginPage">
         <headernav
@@ -36,7 +36,10 @@ import headernav from "@/components/views/BaseHeaderNav";
 import sidenav from "@/components/views/BaseSideNav";
 
 export default {
-  components: { headernav: headernav, sidenav: sidenav },
+  components: {
+    headernav: headernav,
+    sidenav: sidenav,
+  },
   data() {
     return {
       headerLists: [],
@@ -45,17 +48,21 @@ export default {
   },
 
   created: function () {
-    // console.log("header axios����");
     this.axios.get("http://localhost:8080/static/BaseHeaderNavData.json").then(
       (response) => {
-        // console.log("header ����Ӧ��");
         this.headerLists = response.data.headerLists;
-        // console.log(this.parentHeaderLists);
       },
       (response) => {
         console.log("header error");
       }
     );
+
+    // var settime = setTimeout(function () {
+    //   location.reload();
+    // }, 1000);
+    // clearInterval(settime);
+    // this.$router.go(0);
+    // console.log("refresh");
   },
 
   computed: {
@@ -65,7 +72,7 @@ export default {
      * 如果不是则渲染
      */
     isLoginPage: function () {
-      return this.$route.path !== "/login";
+      return this.$route.path !== "/login" && this.$route.path !== "/initPWD";
     },
   },
 
@@ -79,12 +86,22 @@ export default {
 </script>
 
 <style>
-#frame {
+#app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100%;
+}
+
+#out-container {
+  flex-direction: column;
+}
+
+.el-container {
+  min-height: 100%;
+  /* flex-direction: column; */
 }
 
 .el-header,
@@ -94,6 +111,7 @@ export default {
   text-align: center;
   line-height: 60px;
   margin-top: 10px;
+  display: block;
 }
 
 .el-aside {
@@ -103,8 +121,10 @@ export default {
 
   /* ���������� */
   overflow-y: auto;
-  scrollbar-width: none; /* firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none;
+  /* firefox */
+  -ms-overflow-style: none;
+  /* IE 10+ */
   overflow-x: hidden;
 
   /* background-color: #324157 !important; */
@@ -118,15 +138,18 @@ export default {
 
 /* ���������� */
 .el-aside::-webkit-scrollbar {
-  display: none; /* Chrome Safari */
+  display: none;
+  /* Chrome Safari */
 }
 
 .el-main {
   margin: 8px 20px 1px 3px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
   /* background-color: #e9eef3; */
+  /* height: 100%; */
   color: #333;
   text-align: center;
+  /* position: relative; */
   /* line-height: 160px; */
 }
 

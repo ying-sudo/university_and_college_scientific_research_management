@@ -2,10 +2,11 @@
 
   <div>
     <mu-container>
-      <!-- 表单头部 -->
+
+		<!-- 表单头部 -->
       <mu-dialog width="1250px" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert">
         <div class="mu-dialog-title">
-          论文成果申报
+          论文成果详情
           <mu-button fab small color="indigo" @click="closeAlertDialog">
             <i class="el-icon-close" style="font-size: 32px;"></i>
           </mu-button>
@@ -19,48 +20,48 @@
             <mu-container>
               <mu-form :model="form" class="mu-demo-form" :label-position="labelPosition" label-width="100">
                 <mu-form-item prop="input" label="论文题目">
-                  <mu-text-field v-model="form.input"></mu-text-field>
+                  <mu-text-field v-model="form.input" disabled></mu-text-field>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="input" label="发表期刊">
-                  <mu-text-field v-model="form.input"></mu-text-field>
+                  <mu-text-field v-model="form.input" disabled></mu-text-field>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form" prop="input" label="发表时间">
-                  <mu-text-field v-model="form.input"></mu-text-field>
+                  <mu-text-field v-model="form.input" disabled></mu-text-field>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form" prop="input" label="论文类型">
-                  <mu-text-field v-model="form.input"></mu-text-field>
+                  <mu-text-field v-model="form.input" disabled></mu-text-field>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="select" label="收录号">
-                  <mu-select v-model="form.select">
+                  <mu-select v-model="form.select" disabled>
                     <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
                   </mu-select>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="select" label="学科门类">
-                  <mu-select v-model="form.select">
+                  <mu-select v-model="form.select" disabled>
                     <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
                   </mu-select>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="select" label="一级学科">
-                  <mu-select v-model="form.select">
+                  <mu-select v-model="form.select" disabled>
                     <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
                   </mu-select>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form" prop="select" label="成果归属">
-                  <mu-select v-model="form.select">
+                  <mu-select v-model="form.select" disabled>
                     <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
                   </mu-select>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="项目来源">
-                  <mu-radio v-model="form.radio" value="male" label="横向"></mu-radio>
-                  <mu-radio v-model="form.radio" value="female" label="纵向"></mu-radio>
+                  <mu-radio v-model="form.radio" value="male" label="横向" disabled></mu-radio>
+                  <mu-radio v-model="form.radio" value="female" label="纵向" disabled></mu-radio>
                 </mu-form-item>
 
                 <!-- 表单底部表格 -->
@@ -101,7 +102,7 @@
                 <!-- 表单备注 -->
                 <mu-form-item style="margin: 10px;" prop="textarea" label="备注">
                   <mu-text-field style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" multi-line
-                    :rows="3" :rows-max="6" v-model="form.textarea"></mu-text-field>
+                    :rows="3" :rows-max="6" v-model="form.textarea" disabled></mu-text-field>
                 </mu-form-item>
 
               </mu-form>
@@ -116,7 +117,7 @@
               </div>
               <div style="overflow-y: scroll; height: 600px;">
                 <mu-flex class="select-control-row" :key="'Checkbox ' + i" v-for="i in 20">
-                  <mu-checkbox value="ssssssssss" v-model="checkbox.value1" label='sssss'></mu-checkbox>
+                  <mu-checkbox value="ssssssssss" v-model="checkbox.value1" label='sssss' disabled></mu-checkbox>
                 </mu-flex>
               </div>
             </div>

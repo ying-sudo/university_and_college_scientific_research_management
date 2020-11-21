@@ -5,7 +5,7 @@
       <!-- 表单头部 -->
       <mu-dialog width="800" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert">
         <div class="mu-dialog-title">
-          团队申报
+          著作详情
           <mu-button fab small color="indigo" @click="closeAlertDialog">
             <i class="el-icon-close" style="font-size: 32px;"></i>
           </mu-button>
@@ -15,73 +15,82 @@
         <div style="height: 700px; overflow-y: scroll; padding: 10px;">
           <mu-container>
             <mu-form :model="form" class="mu-demo-form" :label-position="labelPosition" label-width="100">
-              <mu-form-item prop="input" label="团队名称">
-                <mu-text-field v-model="form.input"></mu-text-field>
+              <mu-form-item prop="input" label="著作题目">
+                <mu-text-field v-model="form.input" disabled></mu-text-field>
               </mu-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="研究方向">
-                <mu-text-field v-model="form.input"></mu-text-field>
+              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="出版单位">
+                <mu-text-field v-model="form.input" disabled></mu-text-field>
               </mu-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="学科门类">
-                <mu-select v-model="form.select">
+              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="出版社级别">
+                <mu-select v-model="form.select" disabled>
                   <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
+              </mu-form-item>
+
+              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="著作类别">
+                <mu-select v-model="form.select" disabled>
+                  <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
+                </mu-select>
+              </mu-form-item>
+
+              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="出版地">
+                <mu-select v-model="form.select" disabled>
+                  <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
+                </mu-select>
+              </mu-form-item>
+
+              <mu-form-item class="mu-demo-min-form" prop="input" label="ISBN号">
+                <mu-text-field v-model="form.input" disabled></mu-text-field>
+              </mu-form-item>
+
+
+              <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="是否翻译">
+                <mu-radio v-model="form.radio" value="male" label="横向" disabled></mu-radio>
+                <mu-radio v-model="form.radio" value="female" label="纵向" disabled></mu-radio>
+              </mu-form-item>
+
+              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="翻译语种">
+                <mu-select v-model="form.select" disabled>
+                  <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
+                </mu-select>
+              </mu-form-item>
+
+              <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="学科门类">
+                <mu-radio v-model="form.radio" value="male" label="横向" disabled></mu-radio>
+                <mu-radio v-model="form.radio" value="female" label="纵向" disabled></mu-radio>
+              </mu-form-item>
+
+              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="出版时间">
+                <mu-select v-model="form.select" disabled>
+                  <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
+                </mu-select>
+              </mu-form-item>
+
+              <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="研究类别">
+                <mu-radio v-model="form.radio" value="male" label="横向" disabled></mu-radio>
+                <mu-radio v-model="form.radio" value="female" label="纵向" disabled></mu-radio>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="一级学科">
-                <mu-select v-model="form.select">
+                <mu-select v-model="form.select" disabled>
                   <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
-              <mu-form-item class="mu-demo-min-form" prop="select" label="建设时间">
-                <mu-select v-model="form.select">
+              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="成果归属">
+                <mu-select v-model="form.select" disabled>
                   <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
-              <!-- 团队负责人 -->
-              <div>
-                <div style="font-size: 20px;"><b>团队负责人</b></div>
-                <br>
-                <mu-form-item prop="input" label="所在单位">
-                  <mu-text-field v-model="form.input"></mu-text-field>
-                </mu-form-item>
 
-                <mu-form-item class="mu-demo-min-form float_left" prop="input" label="姓名">
-                  <mu-text-field v-model="form.input"></mu-text-field>
-                </mu-form-item>
-
-                <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="性别">
-                  <mu-radio v-model="form.radio" value="male" label="横向"></mu-radio>
-                  <mu-radio v-model="form.radio" value="female" label="纵向"></mu-radio>
-                </mu-form-item>
-
-                <mu-form-item class="mu-demo-min-form float_left" prop="input" label="出生年月">
-                  <mu-text-field v-model="form.input"></mu-text-field>
-                </mu-form-item>
-
-                <mu-form-item class="mu-demo-min-form float_left" prop="input" label="职称">
-                  <mu-text-field v-model="form.input"></mu-text-field>
-                </mu-form-item>
-
-                <mu-form-item class="mu-demo-min-form float_left" prop="input" label="学历">
-                  <mu-text-field v-model="form.input"></mu-text-field>
-                </mu-form-item>
-
-                <mu-form-item class="mu-demo-min-form float_left" prop="input" label="联系电话">
-                  <mu-text-field v-model="form.input"></mu-text-field>
-                </mu-form-item>
-
-                <mu-form-item class="mu-demo-min-form float_left" prop="input" label="办公电话">
-                  <mu-text-field v-model="form.input"></mu-text-field>
-                </mu-form-item>
-
-                <mu-form-item class="mu-demo-min-form" prop="input" label="电子邮箱">
-                  <mu-text-field v-model="form.input"></mu-text-field>
-                </mu-form-item>
-              </div>
+              <mu-form-item class="mu-demo-min-form" prop="select" label="项目来源">
+                <mu-select v-model="form.select" disabled>
+                  <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
+                </mu-select>
+              </mu-form-item>
 
               <!-- 表单底部表格 -->
               <div style="padding: 10px;">
@@ -136,6 +145,7 @@
           </mu-button>
         </div>
       </mu-dialog>
+
     </mu-container>
   </div>
 

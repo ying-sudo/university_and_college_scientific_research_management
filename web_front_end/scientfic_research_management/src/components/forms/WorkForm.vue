@@ -2,9 +2,10 @@
 
   <div>
     <mu-container>
+      <!-- 表单头部 -->
       <mu-dialog width="800" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="openAlert">
         <div class="mu-dialog-title">
-          著作申报表单
+          著作申报
           <mu-button fab small color="indigo" @click="closeAlertDialog">
             <i class="el-icon-close" style="font-size: 32px;"></i>
           </mu-button>
