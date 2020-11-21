@@ -24,11 +24,11 @@ export default new Router({
       name: 'Home',
       component: resolve => require(['@/components/views/Home'], resolve)
     },
-    // {
-    //   path: '/header',
-    //   name: 'BaseHeaderNav',
-    //   component: BaseHeaderNav
-    // },
+    {
+      path: '/first',
+      name: 'First',
+      component: resolve => require(['@/components/views/First'], resolve)
+    },
     // {
     //   path: '/side',
     //   name: 'BaseSideNav',
