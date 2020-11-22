@@ -1,49 +1,11 @@
 <template>
   <div>
-    <el-row id="outer-container">
-      <el-col :span="2" :offset="1">
-        <div class="grid-content bg-purple-dark"><span>可访问视图</span></div>
-      </el-col>
-      <el-col :span="20" :offset="1">
-        <div class="grid-content bg-purple-dark">
-          <el-checkbox-group
-            v-model="checkedItem"
-            @change="handleCheckedItemChange"
-          >
-            <el-checkbox v-for="item in items" :label="item" :key="item">{{
-              item
-            }}</el-checkbox>
-          </el-checkbox-group>
-          <el-checkbox
-            :indeterminate="isIndeterminate"
-            v-model="checkAll"
-            @change="handleCheckAllChange"
-            >全选</el-checkbox
-          >
-        </div>
-      </el-col>
-    </el-row>
-    <el-divider></el-divider>
-    <el-button type="primary" @click="handleSubmit" :loading="onLoad"
-      >保存</el-button
-    >
-    <el-button @click="handleGoBack">返回</el-button>
+    
   </div>
 </template>
 
 <script>
-const itemOptions = [
-  "首页",
-  "项目",
-  "成果",
-  "团队",
-  "考核结果",
-  "统计报表",
-  "项目评审",
-  "考核",
-  "机构及人员",
-  "系统管理",
-];
+
 export default {
   data() {
     return {
