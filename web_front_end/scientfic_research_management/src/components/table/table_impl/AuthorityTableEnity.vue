@@ -2,22 +2,34 @@
   <div v-if="this.tableData !== null">
     <SearchBox :tableData="tableData" @changeTable="changeTable"></SearchBox>
     <CommonsTableImpl :tableData="tableDataToChange">
-
       <!--TableTemplate slot标签挂载点的内容为操作列  -->
       <el-table-column
         slot="table_template_slot"
         fixed="right"
         label="操作"
-        width="100"
+        width="200"
         align="center"
       >
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small"
-            >查看</el-button
-          >
+          <div>
+            <el-button
+              icon="el-icon-view"
+              type="text"
+              @click="handleClick()"
+            ></el-button>
+            <el-button
+              icon="el-icon-share"
+              type="text"
+              @click="handleClick(scope.row)"
+            ></el-button>
+            <el-button
+              icon="el-icon-delete"
+              type="text"
+              @click="handleClick(scope.row)"
+            ></el-button>
+          </div>
         </template>
       </el-table-column>
-      
     </CommonsTableImpl>
   </div>
 </template>
@@ -37,30 +49,24 @@ export default {
       this.tableDataToChange = Tables;
     },
 
-    // //从相应json文件中读取表格数据
-    // getTableData: function (fileName) {
-    //   this.axios
-    //     .get("http://localhost:8080/static/table/table_data/" + fileName)
-    //     .then((res) => {
-    //       this.tableData = res.data;
-    //     });
-    // },
-
     getTableData: function () {
       this.axios.get("/api/table_data").then((res) => {
         this.tableData = res.data.data.TableData;
         console.log(res.data.data.TableData);
       });
     },
+
+    handleClick() {
+      this.$router.push("/author");
+    },
   },
 
   created: function () {
-    // this.getTableData("/ProjectTableData.json");
     this.getTableData();
   },
   watch: {
     tableData: function (newVal, oldVal) {
-      console.log("tableDataToChange is changed");
+      //   console.log("tableDataToChange is changed");
       this.tableDataToChange = this.tableData;
     },
   },
@@ -74,5 +80,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.el-button {
+  /* width: 40px; */
+  color: #545c64;
+  height: 40px;
+  padding: 0;
+  font-size: 18px;
+}
 </style>

@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-
+import BaseHeaderNav from '@/components/views/BaseHeaderNav'
+import BaseSideNav from '@/components/views/BaseSideNav'
+import Home from '@/components/views/Home'
 import Login from '@/components/login/Login.vue'
 import InitPassword from '@/components/login/InitPassword.vue'
 // import Table from '@/components/table/table_interface/CommonsTableImpl'
 import Table from '@/components/table/table_impl/SPTableEnity'
+
 
 Vue.use(Router)
 
@@ -23,18 +26,18 @@ export default new Router({
     {
       path: '/home',
       name: 'Home',
-      component: resolve => require(['@/components/views/Home'], resolve)
+      component: Home
     },
     {
       path: '/first',
       name: 'First',
       component: resolve => require(['@/components/views/First'], resolve)
     },
-    // {
-    //   path: '/side',
-    //   name: 'BaseSideNav',
-    //   component: BaseSideNav
-    // },
+    {
+      path: '/author',
+      name: 'Authority',
+      component: resolve => require(['@/components/views/Authority'], resolve)
+    },
     {
       path: '/login',
       name: 'Login',

@@ -9,20 +9,10 @@
       :itemOptions="itemOptions"
       :tableData="tableData"
     >
-      <!--TableTemplate slot标签挂载点的内容为操作列  -->
-      <el-table-column
-        slot="table_template_slot"
-        fixed="right"
-        label="操作"
-        width="100"
-        align="center"
-      >
-        <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small"
-            >查看</el-button
-          >
-        </template>
-      </el-table-column>
+    <!-- slot中间传递层，真正实现要放到实现类中 -->
+      <div slot="table_template_slot">
+	      <slot name="table_template_slot"></slot>
+	    </div>
     </CommonsTableTemplate>
   </div>
 </template>
