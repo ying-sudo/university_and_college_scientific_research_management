@@ -51,7 +51,7 @@ export default {
     this.axios.get("/api/header").then(
       (response) => {
         this.headerLists = response.data.data.headerLists;
-        console.log(response.data.data.headerLists);
+        console.log(response);
       },
       (response) => {
         console.log("header error");
