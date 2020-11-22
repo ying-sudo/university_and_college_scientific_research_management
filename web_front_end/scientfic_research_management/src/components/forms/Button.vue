@@ -14,7 +14,7 @@
 
 <script>
   import WorkForm from './WorkForm.vue'
-  import PaperButton from './WorkButton.vue'
+  import PaperButton from './PaperButton.vue'
 
   export default {
     data() {

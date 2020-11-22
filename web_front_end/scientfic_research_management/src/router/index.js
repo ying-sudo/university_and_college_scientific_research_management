@@ -60,6 +60,5 @@ export default new Router({
       name: 'Table',
       component: Table
     }
-   
   ]
 })

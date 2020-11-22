@@ -184,12 +184,12 @@
 <style>
   .mu-demo-form {
     width: 100%;
-    max-width: 600px;
+    max-width: 700px;
   }
 
   .mu-demo-min-form {
     width: 100%;
-    max-width: 300px;
+    max-width: 350px;
     padding-right: 40px;
     padding-left: 10px;
   }

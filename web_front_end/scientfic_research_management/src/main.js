@@ -12,6 +12,9 @@ import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 Vue.use(MuseUI)
 
+// import Helpers from 'muse-ui/lib/Helpers';  //muse ui 的按钮波纹效果
+// Vue.use(Helpers);
+
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
@@ -30,4 +33,3 @@ new Vue({
   router,
   render: h => h(App)
 })
-
