@@ -80,7 +80,23 @@ export default {
      * 点击全选按钮触发的事件
      */
     handleCheckAllChange(val) {
-      this.checkedItem = val ? this.items : [];
+      let i = 0,
+        j = 0,
+        arr = [...this.items],
+        tempArr = [];
+      // arr.splice(arr.length - 2, 2);
+      for (const iterator of arr) {
+        tempArr[i++] = iterator.title;
+        if (iterator.subMenu !== null) {
+          for (const subMenuItemTitle of iterator.subMenu) {
+            tempArr[i++] = subMenuItemTitle.title;
+          }
+          j = 0;
+        }
+      }
+      console.log(tempArr);
+
+      this.checkedItem = val ? tempArr : [];
       this.isIndeterminate = false;
       console.log(this.checkedItem);
     },
