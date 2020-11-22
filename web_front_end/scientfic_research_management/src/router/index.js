@@ -32,11 +32,11 @@ export default new Router({
       name: 'First',
       component: resolve => require(['@/components/views/First'], resolve)
     },
-    // {
-    //   path: '/side',
-    //   name: 'BaseSideNav',
-    //   component: BaseSideNav
-    // },
+    {
+      path: '/author',
+      name: 'Authority',
+      component: resolve => require(['@/components/views/Authority'], resolve)
+    },
     {
       path: '/login',
       name: 'Login',
