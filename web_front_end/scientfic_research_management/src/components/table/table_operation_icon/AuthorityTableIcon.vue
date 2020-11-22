@@ -6,7 +6,7 @@
       effect="light"
       content="视图维护"
       placement="bottom-end"
-      open-delay="500"
+      :open-delay="500"
     >
       <el-button
         icon="el-icon-view"
@@ -20,7 +20,7 @@
       effect="light"
       content="权限维护"
       placement="bottom-end"
-      open-delay="500"
+      :open-delay="500"
     >
       <el-button
         icon="el-icon-lock"
@@ -34,7 +34,7 @@
       effect="light"
       content="成员维护"
       placement="bottom-end"
-      open-delay="500"
+      :open-delay="500"
     >
       <el-button
         icon="el-icon-s-custom"
@@ -48,7 +48,7 @@
       effect="light"
       content="编辑分组"
       placement="bottom-end"
-      open-delay="500"
+      :open-delay="500"
     >
       <el-button
         icon="el-icon-edit-outline"
@@ -62,7 +62,7 @@
       effect="light"
       content="复制分组"
       placement="bottom-end"
-      open-delay="500"
+      :open-delay="500"
     >
       <el-button
         icon="el-icon-document-copy"
@@ -76,7 +76,7 @@
       effect="light"
       content="删除分组"
       placement="bottom-end"
-      open-delay="500"
+      :open-delay="500"
     >
       <el-button
         icon="el-icon-delete"

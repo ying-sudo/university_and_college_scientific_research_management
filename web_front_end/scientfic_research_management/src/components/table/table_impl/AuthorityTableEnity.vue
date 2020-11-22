@@ -7,12 +7,18 @@
         slot="table_template_slot"
         fixed="right"
         label="操作"
-        width="200"
+        width="300"
         align="center"
       >
-        <AuthorityTableIcon></AuthorityTableIcon>
+        <!-- <AuthorityTableIcon></AuthorityTableIcon> -->
+        <component
+          :is="item.location"
+          v-for="(item, index) in simulateData"
+          :key="index"
+        />
       </el-table-column>
     </CommonsTableImpl>
+    <!-- <p>this.$route.params{{this.$route.params}}</p> -->
   </div>
 </template>
 
@@ -20,6 +26,7 @@
 import CommonsTableImpl from "@/components/table/table_interface/CommonsTableImpl";
 import SearchBox from "@/components/search_box/SearchBox";
 import AuthorityTableIcon from "@/components/table/table_operation_icon/AuthorityTableIcon";
+// import icon_map from "@/components/table/table_map/OperationIconMap.js";
 export default {
   components: {
     CommonsTableImpl,
@@ -43,6 +50,12 @@ export default {
 
   created: function () {
     this.getTableData();
+    this.simulateData.map((el) => {
+      this.$options.components[el.location] = () =>
+        import(
+          "@/components/table/table_operation_icon/" + el.location + ".vue"
+        );
+    });
   },
   watch: {
     tableData: function (newVal, oldVal) {
@@ -55,6 +68,8 @@ export default {
       //返回到表格中的数据
       tableData: [],
       tableDataToChange: [],
+
+      simulateData: [{ location: "AuthorityTableIcon" }],
     };
   },
 };
