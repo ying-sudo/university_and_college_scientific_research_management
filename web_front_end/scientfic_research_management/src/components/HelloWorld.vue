@@ -3,6 +3,8 @@
 
     <MButton></MButton>
 
+    <!-- <Right></Right> -->
+
   </div>
 
 </template>
@@ -10,29 +12,17 @@
 
 <script>
   import MButton from './forms/Button.vue'
+  import Right from './right/right.vue'
 
   export default {
     components: {
-      MButton
+      MButton,
+      Right
     }
   };
 </script>
 
 
-
-<!--
-
-<script>
-
-  import MyButton from './forms/Button.vue'
-
-  export default {
-    components: {
-      MyButton
-    }
-  };
-
-</script> -->
 
 <style>
 
