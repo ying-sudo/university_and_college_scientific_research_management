@@ -15,7 +15,7 @@
             <el-button
               icon="el-icon-view"
               type="text"
-              @click="handleClick(scope.row)"
+              @click="handleClick()"
             ></el-button>
             <el-button
               icon="el-icon-share"
@@ -55,6 +55,10 @@ export default {
         console.log(res.data.data.TableData);
       });
     },
+
+    handleClick() {
+      this.$router.push("/author");
+    },
   },
 
   created: function () {
@@ -76,7 +80,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .el-button {
   /* width: 40px; */
   color: #545c64;

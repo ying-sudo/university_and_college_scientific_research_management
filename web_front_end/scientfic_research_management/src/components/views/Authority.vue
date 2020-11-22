@@ -1,45 +1,33 @@
 <template>
   <div>
     <el-row id="outer-container">
-      <el-col
-        :span="2"
-        :offset="1"
-      >
-        <div class="grid-content bg-purple-dark"> <span>可访问视图</span>
-        </div>
+      <el-col :span="2" :offset="1">
+        <div class="grid-content bg-purple-dark"><span>可访问视图</span></div>
       </el-col>
-      <el-col
-        :span="20"
-        :offset="1"
-      >
+      <el-col :span="20" :offset="1">
         <div class="grid-content bg-purple-dark">
           <el-checkbox-group
             v-model="checkedItem"
             @change="handleCheckedItemChange"
           >
-            <el-checkbox
-              v-for="item in items"
-              :label="item"
-              :key="item"
-            >{{ item }}</el-checkbox>
-
+            <el-checkbox v-for="item in items" :label="item" :key="item">{{
+              item
+            }}</el-checkbox>
           </el-checkbox-group>
           <el-checkbox
             :indeterminate="isIndeterminate"
             v-model="checkAll"
             @change="handleCheckAllChange"
-          >全选</el-checkbox>
+            >全选</el-checkbox
+          >
         </div>
       </el-col>
-
     </el-row>
     <el-divider></el-divider>
-    <el-button
-      type="primary"
-      @click="handleSubmit"
-      :loading="onLoad"
-    >保存</el-button>
-    <el-button>返回</el-button>
+    <el-button type="primary" @click="handleSubmit" :loading="onLoad"
+      >保存</el-button
+    >
+    <el-button @click="handleGoBack">返回</el-button>
   </div>
 </template>
 
@@ -91,7 +79,13 @@ export default {
     handleSubmit() {
       // 向服务端提交请求
       this.onLoad = true;
+
+      // 还要根据router中的url修改
       this.$router.push("/home");
+    },
+
+    handleGoBack() {
+      this.$router.go(-1);
     },
   },
 };

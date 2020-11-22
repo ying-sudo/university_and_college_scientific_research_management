@@ -9,6 +9,7 @@ import InitPassword from '@/components/login/InitPassword.vue'
 // import Table from '@/components/table/table_interface/CommonsTableImpl'
 import Table from '@/components/table/table_impl/SPTableEnity'
 
+
 Vue.use(Router)
 
 export default new Router({
