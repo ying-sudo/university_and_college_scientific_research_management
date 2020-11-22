@@ -10,25 +10,7 @@
         width="200"
         align="center"
       >
-        <template slot-scope="scope">
-          <div>
-            <el-button
-              icon="el-icon-view"
-              type="text"
-              @click="handleClick()"
-            ></el-button>
-            <el-button
-              icon="el-icon-share"
-              type="text"
-              @click="handleClick(scope.row)"
-            ></el-button>
-            <el-button
-              icon="el-icon-delete"
-              type="text"
-              @click="handleClick(scope.row)"
-            ></el-button>
-          </div>
-        </template>
+        <AuthorityTableIcon></AuthorityTableIcon>
       </el-table-column>
     </CommonsTableImpl>
   </div>
@@ -37,10 +19,12 @@
 <script>
 import CommonsTableImpl from "@/components/table/table_interface/CommonsTableImpl";
 import SearchBox from "@/components/search_box/SearchBox";
+import AuthorityTableIcon from "@/components/table/table_operation_icon/AuthorityTableIcon";
 export default {
   components: {
     CommonsTableImpl,
     SearchBox,
+    AuthorityTableIcon,
   },
   methods: {
     //子组件修改父组件的tableDataToChange
@@ -54,10 +38,6 @@ export default {
         this.tableData = res.data.data.TableData;
         console.log(res.data.data.TableData);
       });
-    },
-
-    handleClick() {
-      this.$router.push("/author");
     },
   },
 
@@ -81,11 +61,4 @@ export default {
 </script>
 
 <style scoped>
-.el-button {
-  /* width: 40px; */
-  color: #545c64;
-  height: 40px;
-  padding: 0;
-  font-size: 18px;
-}
 </style>

@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "label": "编号",
+        "type": "text",
+        "prop": "authority_id"
+    },
+    {
+        "id": 2,
+        "label": "分组名称",
+        "type": "text",
+        "prop": "authority_group_name"
+    },
+    {
+        "id": 3,
+        "label": "分组描述",
+        "type": "text",
+        "prop": "authority_group_description"
+    },
+    {
+        "id": 4,
+        "label": "用户列表",
+        "type": "text",
+        "prop": "authority_user_list"
+    }
+]

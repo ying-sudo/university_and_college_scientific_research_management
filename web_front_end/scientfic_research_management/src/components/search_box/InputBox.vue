@@ -2,7 +2,7 @@
   <div class="input_box">
     <!-- slot 方式插入搜索框 -->
     <!-- @keyup.enter.native="SubChangeTable(search)" 
-      @keyup.delete.native="SubDeleteTable(search)"
+         @keyup.delete.native="SubDeleteTable(search)"
     -->
 
     <!-- input事件 
@@ -20,10 +20,9 @@
       v-model="search"
       type="search"
     >
-    <!-- 搜索图标 -->
+      <!-- 搜索图标 -->
       <i slot="prefix" class="el-input__icon el-icon-search"></i>
     </el-input>
-    
   </div>
 </template>
 
@@ -50,18 +49,10 @@ export default {
       this.search = newVal;
       // console.log(`new: ${newVal} `);
       console.log("tables:" + this.tables.length);
-      this.$emit("changeTable", this.tables); 
+      this.$emit("changeTable", this.tables);
     },
-
-    // SubDeleteTable:function (newVal) {
-    //   this.search = newVal;
-    //   // sub_tables=this.tables;
-    //   console.log(`new: ${newVal} `);
-    //   console.log("tables:" + this.tables.length);
-    //   this.$emit("deleteInput", this.tableData); 
-    // },
   },
-  
+
   /**
    * @watch search 监听用户输入的值
    */
@@ -70,7 +61,7 @@ export default {
       console.log("search new:" + newVal);
     },
   },
-  computed: { 
+  computed: {
     /**
      * 实时监听表格，筛选用户选中的数据
      * @filter 过滤掉search中没选择的表格行数据
@@ -81,7 +72,7 @@ export default {
         return this.tableData.filter((dataNews) => {
           return Object.keys(dataNews).some((key) => {
             return String(dataNews[key]).toLowerCase().indexOf(search) > -1;
-          });  
+          });
         });
       }
       return this.tableData;
