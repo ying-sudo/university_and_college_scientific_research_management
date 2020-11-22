@@ -85,4 +85,9 @@ public interface UserDao {
      */
     int deleteById(String id);
 
+    /**
+     * /login
+     * id password 参数
+     */
+    User findByIdAndPassword(@Param("id") String id,@Param("password") String password);
 }

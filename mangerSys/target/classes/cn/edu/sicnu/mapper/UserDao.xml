@@ -176,5 +176,20 @@
         from scientific_research.user
         where id = #{id}
     </delete>
-
+    <!--登录-->
+    <select id="findByIdAndPassword" resultMap="UserMap">
+        select id,
+               password,
+               name,
+               phone,
+               email,
+               id_number,
+               college_id,
+               register,
+               note,
+               sex,
+               birth_date,
+               post
+        from scientific_research.user where id=#{id} and password=#{password}
+    </select>
 </mapper>

@@ -94,4 +94,13 @@ public class UserServiceImpl implements UserService {
     public boolean deleteById(String id) {
         return this.userDao.deleteById(id) > 0;
     }
+    /**
+     * /login
+     * id password 参数
+     */
+    @Override
+    @Transactional
+    public User findByIdAndPassword(String id, String password) {
+        return userDao.findByIdAndPassword(id,password);
+    }
 }

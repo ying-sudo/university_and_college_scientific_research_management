@@ -59,5 +59,9 @@ public interface UserService {
      * @return 是否成功
      */
     boolean deleteById(String id);
-
+    /**
+     * /login
+     * id password 参数
+     */
+    User findByIdAndPassword(String id,String password);
 }
