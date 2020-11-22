@@ -56,6 +56,34 @@
             arrange: '1',
             contribution: '90'
           },
+          { //作者相关信息
+            id: 'bbb',
+            name: '小b',
+            college_name: '计算机',
+            arrange: '1',
+            contribution: '90'
+          },
+          { //作者相关信息
+            id: 'bbb',
+            name: '小b',
+            college_name: '计算机',
+            arrange: '1',
+            contribution: '90'
+          },
+          { //作者相关信息
+            id: 'bbb',
+            name: '小b',
+            college_name: '计算机',
+            arrange: '1',
+            contribution: '90'
+          },
+          { //作者相关信息
+            id: 'bbb',
+            name: '小b',
+            college_name: '计算机',
+            arrange: '1',
+            contribution: '90'
+          },
         ],
         editFlag: false
       }
