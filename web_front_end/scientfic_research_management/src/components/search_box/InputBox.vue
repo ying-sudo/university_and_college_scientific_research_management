@@ -1,9 +1,6 @@
 <template>
   <div class="input_box">
     <!-- slot 方式插入搜索框 -->
-    <!-- @keyup.enter.native="SubChangeTable(search)" 
-         @keyup.delete.native="SubDeleteTable(search)"
-    -->
 
     <!-- input事件 
     1: 回车

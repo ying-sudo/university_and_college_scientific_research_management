@@ -7,7 +7,7 @@ import Home from '@/components/views/Home'
 import Login from '@/components/login/Login.vue'
 import InitPassword from '@/components/login/InitPassword.vue'
 // import Table from '@/components/table/table_interface/CommonsTableImpl'
-import Table from '@/components/table/table_impl/AuthorityTableEnity'
+// import Table from '@/components/table/table_impl/AuthorityTableEnity'
 // import Icon from '@/components/table/table_impl/AuthorityTableEnity'
 import TestTable from '@/components/table/test_eltable'
 
@@ -59,7 +59,8 @@ export default new Router({
     {
       path: '/table/:tableKey',
       name: 'Table',
-      component: Table
+      // component: Table
+      component: resolve => require(['@/components/table/table_impl/AuthorityTableEnity'], resolve)
     }
   ]
 })

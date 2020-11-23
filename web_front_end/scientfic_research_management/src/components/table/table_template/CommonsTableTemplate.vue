@@ -28,7 +28,12 @@
       >
         <!-- @scope.row:每一行的数据-->
         <template slot-scope="scope">
-          <span>{{ scope.row[item.prop] }}</span>      
+          <span >{{
+            scope.row[item.prop]
+          }}</span>
+
+          <!-- v-html="showDate(scope.row.date)" -->
+               
         </template>
       </el-table-column>
 
@@ -66,7 +71,7 @@ export default {
    * @tableDataList 分页后的表格数据
    */
   data() {
-    return { currentPage: 1, pageSize: 1, tableDataList: [], ShowPage: false };
+    return { currentPage: 1, pageSize: 5, tableDataList: [], ShowPage: false };
   },
 
   /**
@@ -98,6 +103,18 @@ export default {
         this.currentPage * this.pageSize
       );
     },
+
+    // showDate(val) {
+    //   val = val + "";
+    //   if (val.indexOf(this.search) !== -1 && this.search !== "") {
+    //     return val.replace(
+    //       this.search,
+    //       '<font color="#409EFF">' + this.search + "</font>"
+    //     );
+    //   } else {
+    //     return val;
+    //   }
+    // },
   },
 
   /**
