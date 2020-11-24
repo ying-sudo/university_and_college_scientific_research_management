@@ -1,8 +1,6 @@
 <template>
   <div v-if="this.tableData !== null">
-    <SearchBox :tableData="tableData" @changeTable="changeTable">
-      <div slot="able_to_add"><component :is="new_buttons"></component></div>
-    </SearchBox>
+    <SearchBox :tableData="tableData" @changeTable="changeTable"></SearchBox>
 
     <CommonsTableImpl :tableData="tableDataToChange">
       <!--TableTemplate slot标签挂载点的内容为操作列  -->
@@ -16,8 +14,9 @@
         <component :is="apps"></component>
       </el-table-column>
     </CommonsTableImpl>
-    <!-- <p>this.$route.params{{ this.$route.params }}</p> -->
+    <p>this.$route.params{{ this.$route.params }}</p>
     <!-- <p>{{apps}}</p> -->
+    <!-- <p>this.getTableDataMap{{this.getTableDataMap}}</p> -->
   </div>
 </template>
 
@@ -25,8 +24,7 @@
 import CommonsTableImpl from "@/components/table/table_interface/CommonsTableImpl";
 import SearchBox from "@/components/search_box/SearchBox";
 import { getTableIconMap } from "@/components/table/table_map/OperationIconMap.js";
-// import { getTableDataMap } from "@/components/table/table_map/TableDataMap.js";
-import { getButtonMap } from "@/components/table/table_map/NewButtonsMap.js";
+import { getTableDataMap } from "@/components/table/table_map/TableDataMap.js";
 
 export default {
   components: {
@@ -40,10 +38,14 @@ export default {
       this.tableDataToChange = Tables;
     },
 
-    //从后端/mock获取接口表格数据
-    getTableData: function () {
+    //从后端接口获取表格数据
+    getInterface: function (key) {
+      this.back_end_interface = this.TableDataMap.get(key);
+      console.log("this.back_end_interface:" + this.back_end_interface);
+    },
+    getTableData: function (interface1) {
       // this.axios.get("/api/table_data").then((res) => {
-      this.axios.get("/api/table_data").then((res) => {
+      this.axios.get(interface1).then((res) => {
         this.tableData = res.data.data.TableData;
         console.log(res.data.data.TableData);
       });
@@ -51,38 +53,25 @@ export default {
 
     //动态注册操作列按钮
     getIconMapValue: function (key) {
-      console.log("key:" + key);
+      console.log("this.components key :" + key);
       this.components_name = this.icontableMap.get(key);
-      console.log("this.components_name:" + this.components_name);
+      // console.log("this.components_name:" + this.components_name);
     },
     registercomponents: function (component_name) {
+      console.log("this.components_name(in):" + component_name);
+
       this.apps = () =>
         import(
           "@/components/table/table_operation_icon/" + component_name + ".vue"
         );
     },
-
-    //
-    getButtonName: function (key) {
-      this.buttons_name = this.ButtonsMap.get(key);
-      console.log("this.buttons_name:" + this.buttons_name);
-    },
-    addButtons: function (buttons_name) {
-      this.new_buttons = () =>
-        import("@/components/forms/" + buttons_name + ".vue");
-    },
   },
 
   created: function () {
-    //从后端/mock获取接口表格数据
-    this.getTableData();
+    // this.TableDataMap = getTableDataMap();
+    // getInterface(this.$route.params.tableKey);
+    // this.getTableData(this.back_end_interface);
 
-    this.ButtonsMap = getButtonMap();
-    // console.log("this.ButtonsMap"+this.ButtonsMap);
-    this.getButtonName(this.$route.params.tableKey);
-    this.addButtons(this.buttons_name);
-
-    //动态注册操作列按钮
     this.icontableMap = getTableIconMap();
     this.getIconMapValue(this.$route.params.tableKey);
     this.registercomponents(this.components_name);
@@ -95,11 +84,11 @@ export default {
     },
 
     $route(to, from) {
+      // getInterface(this.$route.params.tableKey);
+      // this.getTableData(this.back_end_interface);
+
       this.getIconMapValue(this.$route.params.tableKey);
       this.registercomponents(this.components_name);
-
-      this.getButtonName(this.$route.params.tableKey);
-      this.addButtons(this.buttons_name);
     },
   },
 
@@ -114,10 +103,8 @@ export default {
       components_name: "",
       apps: {},
 
-      //
-      ButtonsMap: [],
-      buttons_name: "",
-      new_buttons: {},
+      TableDataMap: [],
+      back_end_interface: "",
     };
   },
 };

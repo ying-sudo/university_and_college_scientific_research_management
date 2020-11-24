@@ -51,7 +51,20 @@ let dataVal = {
       project_funds: 1,
       project_account: 1,
       operation: 1
-    }
+    },
+    {
+      project_id: 5,
+      project_name: 4,
+      project_belongs_college: 23,
+      project_quality: 3,
+      project_level: 1,
+      project_classification: 1,
+      project_charger: 1,
+      project_state: 1,
+      project_funds: 1,
+      project_account: 1,
+      operation: 1
+    },
   ]
 };
 
