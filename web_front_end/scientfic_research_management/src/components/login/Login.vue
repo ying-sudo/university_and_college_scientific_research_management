@@ -118,7 +118,23 @@
               id: this.username,
               password: this.password
             }
+          }).then((res) =>  {
+            // 存储
+            localStorage.setItem("id", res.data.id);
+            // 检索
+            console.log(localStorage.getItem("id"));
           });
+          
+          this.axios.post("http://192.168.1.106:9999/mangerSys/user/login", {'id': }).then(
+            (response) => {
+              this.headerLists = response.data.data.headerLists;
+              console.log(response);
+            },
+            (response) => {
+              console.log("header error");
+            }
+          );
+          
 
           var resultCode = -1; //返回值，进行登录判断
           if (this.username === 'dqf') {
