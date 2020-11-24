@@ -48,16 +48,15 @@ export default {
   },
 
   created: function () {
-    console.log("nizai");
-    // this.axios.post("http://172.20.10.4:9999/mangerSys/user/test").then(
-    //   (response) => {
-    //     console.log(response.data);
-    //     this.headerLists = response.data.data.headerLists;
-    //   },
-    //   (response) => {
-    //     console.log("header error");
-    //   }
-    // );
+    this.axios.post("/api/header").then(
+      (response) => {
+        console.log(response.data);
+        this.headerLists = response.data.data.headerLists;
+      },
+      (response) => {
+        console.log("header error");
+      }
+    );
 
     // this.axios.post("/").then(
     //   (response) => {

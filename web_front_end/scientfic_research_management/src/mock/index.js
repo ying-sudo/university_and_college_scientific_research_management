@@ -7,7 +7,7 @@ Mock.mock("/api/test", "post", () => {
 
 // 这里引入模拟数据并约定请求地址以及方式，返回的数据
 import CommonHeaderData from "./Header/CommonHeaderData";
-Mock.mock("/api/header", "get", () => {
+Mock.mock("/api/header", "post", () => {
   return CommonHeaderData;
 });
 

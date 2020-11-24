@@ -36,11 +36,12 @@
             v-model="checkedItem"
             @change="handleCheckedItemChange"
           >
-            <el-checkbox :label="item.title">{{ item.title }}</el-checkbox>
+            <el-checkbox :label="item.id">{{ item.title }}</el-checkbox>
 
             <el-checkbox
+              v-show="item.subMenu !== 'null'"
               v-for="subItem in item.subMenu"
-              :label="subItem.title"
+              :label="subItem.id"
               :key="subItem.index"
             >{{
               subItem.title
@@ -98,7 +99,7 @@ export default {
 
       this.checkedItem = val ? tempArr : [];
       this.isIndeterminate = false;
-      console.log(this.checkedItem);
+      // console.log(this.items);
     },
 
     /**
@@ -110,6 +111,10 @@ export default {
       this.isIndeterminate =
         checkedCount > 0 && checkedCount < this.items.length;
       console.log(this.checkedItem);
+
+      // for (const iterator of object) {
+      // }
+      // console.log(this.items);
     },
 
     /**
@@ -126,14 +131,18 @@ export default {
       //   //   },
       //   // }
       // );
-
-      this.axios({
-        method: "post",
-        url: "http://172.20.10.4:9999/mangerSys/user/test",
-        data: {
-          123124: ["首页", "法", "首页"],
-        },
-      });
+      let characterId = localStorage.getItem("id");
+      // console.log("user id: " + characterId);
+      console.log(this.checkedItem);
+      // this.axios({
+      //   method: "post",
+      //   url:
+          // "http://192.168.43.229:9999/mangerSys/charactersRight/updataRights",
+      //   data: {
+      //     id: "001",
+      //     list: this.checkedItem,
+      //   },
+      // });
 
       // this.onLoad = true;
 
@@ -154,23 +163,41 @@ export default {
    * 代表默认选项的checkedItem中存放所有默认选项的title属性
    */
   created: function () {
-    this.axios.get("/api/header").then(
+    // this.axios
+    //   .post("http://192.168.43.229:9999/mangerSys/user/login", {
+    //     id: "1",
+    //     password: "123",
+    //   })
+    this.axios.post("/api/header").then(
       (response) => {
+        // console.log(response.data.data.headerLists);
+        // response = JSON.parse(response.data.data);
+        // console.log(response);
+        console.log(response.data);
         this.items = response.data.data.headerLists;
+        console.log("created");
+        console.log(this.items);
         let i = 0,
           j = 0,
           arr = [...this.items];
         arr.splice(arr.length - 2, 2);
+        console.log(this.checkedItem);
+
         for (const iterator of arr) {
-          this.checkedItem[i++] = iterator.title;
-          if (iterator.subMenu !== null) {
+          // console.log(iterator);
+          this.checkedItem[i++] = iterator.id;
+          // this.submitItems[i++] = iterator.id;
+          if (iterator.subMenu !== "null" && iterator.subMenu !== null) {
             for (const subMenuItemTitle of iterator.subMenu) {
-              this.checkedItem[i++] = subMenuItemTitle.title;
+              this.checkedItem[i++] = subMenuItemTitle.id;
+              // this.submitItems[i++] = subMenuItemTitle.id;
             }
             j = 0;
           }
         }
+        // console.log(this.items);
         console.log(this.checkedItem);
+        // console.log(this.submitItems);
       },
       (response) => {
         console.log("request data error");
