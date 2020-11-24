@@ -117,10 +117,28 @@ export default {
      */
     handleSubmit() {
       // 向服务端提交请求
-      this.onLoad = true;
+      // this.axios.post(
+      //   "http://172.20.10.4:9999/mangerSys/user/test",
+      //   { id: "hello", password: "213" },
+      //   // {
+      //   //   headers: {
+      //   //     "Content-Type": "application/json;charset=UTF-8",
+      //   //   },
+      //   // }
+      // );
+
+      this.axios({
+        method: "post",
+        url: "http://172.20.10.4:9999/mangerSys/user/test",
+        data: {
+          123124: ["首页", "法", "首页"],
+        },
+      });
+
+      // this.onLoad = true;
 
       // 还要根据router中的url修改
-      this.handleGoBack();
+      // this.handleGoBack();
     },
 
     /**

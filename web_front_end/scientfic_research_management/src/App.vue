@@ -48,15 +48,26 @@ export default {
   },
 
   created: function () {
-    this.axios.get("/api/header").then(
-      (response) => {
-        this.headerLists = response.data.data.headerLists;
-        console.log(response);
-      },
-      (response) => {
-        console.log("header error");
-      }
-    );
+    console.log("nizai");
+    // this.axios.post("http://172.20.10.4:9999/mangerSys/user/test").then(
+    //   (response) => {
+    //     console.log(response.data);
+    //     this.headerLists = response.data.data.headerLists;
+    //   },
+    //   (response) => {
+    //     console.log("header error");
+    //   }
+    // );
+
+    // this.axios.post("/").then(
+    //   (response) => {
+    //     console.log(response.data);
+    //     this.headerLists = response.data.data.headerLists;
+    //   },
+    //   (response) => {
+    //     console.log("header error");
+    //   }
+    // );
 
     // var settime = setTimeout(function () {
     //   location.reload();
