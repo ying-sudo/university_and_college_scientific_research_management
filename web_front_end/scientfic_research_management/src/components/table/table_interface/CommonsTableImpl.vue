@@ -38,9 +38,6 @@ export default {
       //返回到页面中的表头数据
       itemOptions: [],
 
-      //返回到表格中的数据
-      // tableData: [],
-
     };
   },
   components: {
@@ -57,15 +54,6 @@ export default {
           this.itemOptions = res.data;
         });
     },
-
-    // //从相应json文件中读取表格数据
-    // getTableData: function (fileName) {
-    //   this.axios
-    //     .get("http://localhost:8080/static/table/table_data/" + fileName)
-    //     .then((res) => {
-    //       this.tableData = res.data;
-    //     });
-    // },
 
     // 从map中取到value(对应表头数据文件的名字)
     getFileName: function (tableMapKey) {

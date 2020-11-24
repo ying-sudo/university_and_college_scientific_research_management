@@ -1,7 +1,7 @@
 <template>
 
   <!-- 专利按钮 -->
-  <div style="padding: 40px;">
+  <div>
     <mu-container>
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
@@ -12,9 +12,18 @@
           </mu-button>
         </div>
         <div v-if="is_disabled">
-          <mu-button @click="openAlertPatentDialog" color="primary">
-            专利详情&nbsp;&nbsp;
-          </mu-button>
+          <el-tooltip
+            effect="light"
+            content="专利详情"
+            placement="bottom-end"
+            :open-delay="500"
+          >
+            <el-button
+              icon="el-icon-view"
+              type="text"
+              @click="openAlertPatentDialog"
+            ></el-button>
+          </el-tooltip>
         </div>
       </mu-flex>
 

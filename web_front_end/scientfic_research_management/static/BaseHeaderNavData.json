@@ -171,6 +171,12 @@
           "title": "分类设置",
           "urlPath": "/sorts",
           "subMenu": null
+        },
+        {
+          "index": "10-3",
+          "title": "权限设置",
+          "urlPath": "/table/authoritylists",
+          "subMenu": null
         }
       ]
     }
