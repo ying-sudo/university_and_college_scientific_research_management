@@ -14,7 +14,7 @@
 
     <!-- 登录界面 -->
     <div style="background-color: white; margin:0px auto; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-                width: 450px; height: 600px; border-radius: 15px; float: right; margin: 80px;">
+                width: 450px; height: 650px; border-radius: 15px; float: right; margin: 80px;">
 
       <div style="background-color: #f1f100; border-radius: 15px;">
         <!-- 图标 -->
@@ -37,12 +37,19 @@
       <div style="text-align: center;">
         <mu-container>
           <i class="el-icon-user" style="font-size: 35px; padding: 5px;"></i>
-          <mu-text-field v-model="value13" label="用户名" label-float help-text="用户名为学工号"></mu-text-field><br />
+          <mu-text-field v-model="username" label="用户名" label-float help-text="用户名为学工号" :rules="usernameRules"></mu-text-field><br />
           <i class="el-icon-lock" style="font-size: 35px; padding: 5px;"></i>
-          <mu-text-field v-model="value14" label="密码" :action-icon="visibility ? 'visibility_off' : 'visibility'"
+          <mu-text-field v-model="password" label="密码" :action-icon="visibility ? 'visibility_off' : 'visibility'"
             :action-click="() => (visibility = !visibility)" :type="visibility ? 'text' : 'password'" label-float
-            error-text="请输入密码"></mu-text-field><br />
+            help-text="请输入密码"></mu-text-field><br />
         </mu-container>
+      </div>
+
+      <!-- 错误警告 -->
+      <div style="width: 400px; margin: 0 auto;">
+        <mu-alert color="red" @delete="alarm = false" delete v-if="alarm" transition="mu-scale-transition" style=" height: 30px;">
+          <mu-icon left value="warning"></mu-icon> {{error_text}}
+        </mu-alert>
       </div>
 
       <!-- 图形验证码 -->
@@ -50,18 +57,18 @@
         <el-popover ref="verifyFlag" placement="top" width="400" trigger="click">
           <!-- 验证码 -->
           <div>
-            <Verify @success="verify_success" @error="verify_error" :type="5" font-size="20px"></Verify>
+            <Verify :key="reload" @success="verify_success" @error="verify_error" :type="5" font-size="20px"></Verify>
           </div>
           <!-- 验证按钮 -->
           <el-button slot="reference" class="ButtonStyle" v-if="!verify_flag">点击验证</el-button>
-          <el-button slot="reference" class="ButtonStyle" v-if="verify_flag" disabled style="color: #0B97C4; font-size: 15px;"><i
+          <el-button slot="reference" class="ButtonStyle" v-if="verify_flag" style="color: #0B97C4; font-size: 15px;"><i
               class="el-icon-success" style="margin-right: 5px;"></i>验证成功</el-button>
         </el-popover>
       </div>
 
       <!-- 按钮 -->
       <div style="text-align: center; padding: 10px;">
-        <mu-button color="teal" @click="login_success()" class="ButtonStyle">登录</mu-button>
+        <mu-button color="teal" @click="login()" class="ButtonStyle">登录</mu-button>
         <div style="padding: 10px;"></div>
         <mu-button color="secondary" @click="init()" class="ButtonStyle">忘记密码</mu-button>
       </div>
@@ -78,26 +85,86 @@
     },
     data() {
       return {
-        value13: '',
-        value14: '',
+        username: '',
+        password: '',
         verify_flag: true,
-        visibility: false
+        visibility: false,
+        alarm: false,
+        error_text: '',
+        reload: '',
+        usernameRules: {
+          validate: (val) => !!val,
+          message: '请输入学工号'
+        },
+        passwordRules: {
+          validate: (val) => !!val,
+          message: '请填写密码'
+        }
       }
     },
     methods: {
-      login_success() {
+      login() {
         if (this.verify_flag) {
-          const loading = this.$loading();
-          setTimeout(() => {
-            loading.close();
-            this.login();
-          }, 500);
+          // this.axios.post('http://192.168.1.106:9999/mangerSys/login',{
+          //     this.username, this.password
+          //   },function(data){
+          //     console.log(data);
+          //   }
+          // );
+          this.axios({
+            method: 'post',
+            url: 'http://192.168.1.106:9999/mangerSys/user/login',
+            data: {
+              id: this.username,
+              password: this.password
+            }
+          }).then((res) =>  {
+            // 存储
+            localStorage.setItem("id", res.data.id);
+            // 检索
+            console.log(localStorage.getItem("id"));
+          });
+          
+          this.axios.post("http://192.168.1.106:9999/mangerSys/user/login", {'id': }).then(
+            (response) => {
+              this.headerLists = response.data.data.headerLists;
+              console.log(response);
+            },
+            (response) => {
+              console.log("header error");
+            }
+          );
+          
+
+          var resultCode = -1; //返回值，进行登录判断
+          if (this.username === 'dqf') {
+            if (this.password === '123') {
+              resultCode = 0;
+            }
+          }
+          if (resultCode == 0) { //成功
+            this.login_success();
+          } else if (resultCode == -1) { //失败
+            this.login_failing('用户名或密码错误');
+          } else {
+            this.login_failing('出现了不可避免的错误，请稍后再试');
+          }
         } else {
-          alert('请通过验证');
+          this.login_failing('请通过验证');
         }
       },
-      login() {
-        this.$router.push('./home');
+      login_success() {
+        const loading = this.$loading();
+        setTimeout(() => {
+          loading.close();
+          this.$router.push('./home');
+        }, 500);
+      },
+      login_failing(error_text) {
+        this.error_text = error_text;
+        this.alarm = true;
+        this.verify_flag = false;
+        this.reload = new Date().getTime();
       },
       init() {
         this.$router.push('/initPWD');
