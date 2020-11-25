@@ -1,7 +1,7 @@
 <template>
   <div v-if="this.tableData !== null">
     <SearchBox :tableData="tableData" @changeTable="changeTable">
-      <div slot="able_to_add"><component :is="new_buttons"></component></div>
+      <div slot="able_to_add"><component :is="new_buttons" :testData01="testData01"></component></div>
     </SearchBox>
 
     <CommonsTableImpl :tableData="tableDataToChange">
@@ -25,7 +25,7 @@
 import CommonsTableImpl from "@/components/table/table_interface/CommonsTableImpl";
 import SearchBox from "@/components/search_box/SearchBox";
 import { getTableIconMap } from "@/components/table/table_map/OperationIconMap.js";
-// import { getTableDataMap } from "@/components/table/table_map/TableDataMap.js";
+import { getTableDataMap } from "@/components/table/table_map/TableDataMap.js";
 import { getButtonMap } from "@/components/table/table_map/NewButtonsMap.js";
 
 export default {
@@ -41,11 +41,19 @@ export default {
     },
 
     //从后端/mock获取接口表格数据
-    getTableData: function () {
+    getInterface:function(key){
+      this.backEndInterface = this.InterfaceMap.get(key);
+      console.log("this.backEndInterface:"+this.backEndInterface);
+
+    },
+    getTableData: function (newVal) {
       // this.axios.get("/api/table_data").then((res) => {
-      this.axios.get("/api/table_data").then((res) => {
-        this.tableData = res.data.data.TableData;
-        console.log(res.data.data.TableData);
+      let userId = localStorage.getItem("id");
+      this.axios.get(`http://172.20.10.4:9999/${newVal}/${userId}`).then((res) => {
+        console.log(res.data.data);
+        // this.tableData = res.data.data.TableData;
+        this.tableData = res.data.data;
+        // console.log(res.data.data.TableData);
       });
     },
 
@@ -75,7 +83,11 @@ export default {
 
   created: function () {
     //从后端/mock获取接口表格数据
-    this.getTableData();
+
+    this.InterfaceMap=getTableDataMap();
+    this.getInterface(this.$route.params.tableKey);
+    // console.log("this.InterfaceMap:"+this.InterfaceMap);
+    this.getTableData(this.backEndInterface);
 
     this.ButtonsMap = getButtonMap();
     // console.log("this.ButtonsMap"+this.ButtonsMap);
@@ -114,10 +126,16 @@ export default {
       components_name: "",
       apps: {},
 
+      // backEndInterface:"mangerSys/project/projects",
+      InterfaceMap:[],
+      backEndInterface:"",
+
       //
       ButtonsMap: [],
       buttons_name: "",
       new_buttons: {},
+
+      testData01:"ok?",
     };
   },
 };
