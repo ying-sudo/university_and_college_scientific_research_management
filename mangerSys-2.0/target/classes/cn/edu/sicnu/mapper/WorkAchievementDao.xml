@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.sicnu.dao.WorkAchievementDao">
+
+    <resultMap type="cn.edu.sicnu.entity.WorkAchievement" id="WorkAchievementMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="publisher" column="publisher" jdbcType="VARCHAR"/>
+        <result property="publishLevel" column="publish_level" jdbcType="VARCHAR"/>
+        <result property="workType" column="work_type" jdbcType="VARCHAR"/>
+        <result property="publishLocation" column="publish_location" jdbcType="VARCHAR"/>
+        <result property="isbnId" column="isbn_id" jdbcType="VARCHAR"/>
+        <result property="isTranslate" column="is_translate" jdbcType="OTHER"/>
+        <result property="translateLanguage" column="translate_language" jdbcType="VARCHAR"/>
+        <result property="discipline" column="discipline" jdbcType="VARCHAR"/>
+        <result property="beginDate" column="begin_date" jdbcType="TIMESTAMP"/>
+        <result property="characters" column="characters" jdbcType="VARCHAR"/>
+        <result property="firstDiscipline" column="first_discipline" jdbcType="VARCHAR"/>
+        <result property="collegeId" column="college_id" jdbcType="VARCHAR"/>
+        <result property="workSource" column="work_source" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="information" column="information" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WorkAchievementMap">
+        select id,
+               name,
+               publisher,
+               publish_level,
+               work_type,
+               publish_location,
+               isbn_id,
+               is_translate,
+               translate_language,
+               discipline,
+               begin_date,
+               characters,
+               first_discipline,
+               college_id,
+               work_source,
+               user_id,
+               information
+        from scientific_research.work_achievement
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="WorkAchievementMap">
+        select id,
+               name,
+               publisher,
+               publish_level,
+               work_type,
+               publish_location,
+               isbn_id,
+               is_translate,
+               translate_language,
+               discipline,
+               begin_date,
+               characters,
+               first_discipline,
+               college_id,
+               work_source,
+               user_id,
+               information
+        from scientific_research.work_achievement
+                     limit #{offset}, #{limit}
+    </select>
+    <!--查询表所有对象-->
+    <select id="findAll" resultMap="WorkAchievementMap">
+        select id,
+               name,
+               publisher,
+               publish_level,
+               work_type,
+               publish_location,
+               isbn_id,
+               is_translate,
+               translate_language,
+               discipline,
+               begin_date,
+               characters,
+               first_discipline,
+               college_id,
+               work_source,
+               user_id,
+               information
+        from scientific_research.work_achievement
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="WorkAchievementMap">
+        select
+        id, name, publisher, publish_level, work_type, publish_location, isbn_id, is_translate, translate_language,
+        discipline, begin_date, characters, first_discipline, college_id, work_source, user_id, information
+        from scientific_research.work_achievement
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="publisher != null and publisher != ''">
+                and publisher = #{publisher}
+            </if>
+            <if test="publishLevel != null and publishLevel != ''">
+                and publish_level = #{publishLevel}
+            </if>
+            <if test="workType != null and workType != ''">
+                and work_type = #{workType}
+            </if>
+            <if test="publishLocation != null and publishLocation != ''">
+                and publish_location = #{publishLocation}
+            </if>
+            <if test="isbnId != null and isbnId != ''">
+                and isbn_id = #{isbnId}
+            </if>
+            <if test="isTranslate != null">
+                and is_translate = #{isTranslate}
+            </if>
+            <if test="translateLanguage != null and translateLanguage != ''">
+                and translate_language = #{translateLanguage}
+            </if>
+            <if test="discipline != null and discipline != ''">
+                and discipline = #{discipline}
+            </if>
+            <if test="beginDate != null">
+                and begin_date = #{beginDate}
+            </if>
+            <if test="characters != null and characters != ''">
+                and characters = #{characters}
+            </if>
+            <if test="firstDiscipline != null and firstDiscipline != ''">
+                and first_discipline = #{firstDiscipline}
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                and college_id = #{collegeId}
+            </if>
+            <if test="workSource != null and workSource != ''">
+                and work_source = #{workSource}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+            <if test="information != null and information != ''">
+                and information = #{information}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into scientific_research.work_achievement (name,
+                                                          publisher,
+                                                          publish_level,
+                                                          work_type,
+                                                          publish_location,
+                                                          isbn_id,
+                                                          is_translate,
+                                                          translate_language,
+                                                          discipline,
+                                                          begin_date,
+                                                          characters,
+                                                          first_discipline,
+                                                          college_id,
+                                                          work_source,
+                                                          user_id,
+                                                          information)
+        values (#{name},
+                #{publisher},
+                #{publishLevel},
+                #{workType},
+                #{publishLocation},
+                #{isbnId},
+                #{isTranslate},
+                #{translateLanguage},
+                #{discipline},
+                #{beginDate},
+                #{characters},
+                #{firstDiscipline},
+                #{collegeId},
+                #{workSource},
+                #{userId},
+                #{information})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into scientific_research.work_achievement(name, publisher, publish_level, work_type, publish_location,
+        isbn_id, is_translate, translate_language, discipline, begin_date, characters, first_discipline, college_id,
+        work_source, user_id, information)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.publisher}, #{entity.publishLevel}, #{entity.workType}, #{entity.publishLocation},
+            #{entity.isbnId}, #{entity.isTranslate}, #{entity.translateLanguage}, #{entity.discipline},
+            #{entity.beginDate}, #{entity.characters}, #{entity.firstDiscipline}, #{entity.collegeId},
+            #{entity.workSource}, #{entity.userId}, #{entity.information})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into scientific_research.work_achievement(name, publisher, publish_level, work_type, publish_location,
+        isbn_id, is_translate, translate_language, discipline, begin_date, characters, first_discipline, college_id,
+        work_source, user_id, information)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.publisher}, #{entity.publishLevel}, #{entity.workType}, #{entity.publishLocation},
+            #{entity.isbnId}, #{entity.isTranslate}, #{entity.translateLanguage}, #{entity.discipline},
+            #{entity.beginDate}, #{entity.characters}, #{entity.firstDiscipline}, #{entity.collegeId},
+            #{entity.workSource}, #{entity.userId}, #{entity.information})
+        </foreach>
+        on duplicate key update
+        name = values(name) , publisher = values(publisher) , publish_level = values(publish_level) , work_type =
+        values(work_type) , publish_location = values(publish_location) , isbn_id = values(isbn_id) , is_translate =
+        values(is_translate) , translate_language = values(translate_language) , discipline = values(discipline) ,
+        begin_date = values(begin_date) , characters = values(characters) , first_discipline = values(first_discipline)
+        , college_id = values(college_id) , work_source = values(work_source) , user_id = values(user_id) , information
+        = values(information)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update scientific_research.work_achievement
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="publisher != null and publisher != ''">
+                publisher = #{publisher},
+            </if>
+            <if test="publishLevel != null and publishLevel != ''">
+                publish_level = #{publishLevel},
+            </if>
+            <if test="workType != null and workType != ''">
+                work_type = #{workType},
+            </if>
+            <if test="publishLocation != null and publishLocation != ''">
+                publish_location = #{publishLocation},
+            </if>
+            <if test="isbnId != null and isbnId != ''">
+                isbn_id = #{isbnId},
+            </if>
+            <if test="isTranslate != null">
+                is_translate = #{isTranslate},
+            </if>
+            <if test="translateLanguage != null and translateLanguage != ''">
+                translate_language = #{translateLanguage},
+            </if>
+            <if test="discipline != null and discipline != ''">
+                discipline = #{discipline},
+            </if>
+            <if test="beginDate != null">
+                begin_date = #{beginDate},
+            </if>
+            <if test="characters != null and characters != ''">
+                characters = #{characters},
+            </if>
+            <if test="firstDiscipline != null and firstDiscipline != ''">
+                first_discipline = #{firstDiscipline},
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                college_id = #{collegeId},
+            </if>
+            <if test="workSource != null and workSource != ''">
+                work_source = #{workSource},
+            </if>
+            <if test="userId != null and userId != ''">
+                user_id = #{userId},
+            </if>
+            <if test="information != null and information != ''">
+                information = #{information},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from scientific_research.work_achievement
+        where id = #{id}
+    </delete>
+
+</mapper>

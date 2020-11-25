@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.sicnu.dao.PaperAchievementDao">
+
+    <resultMap type="cn.edu.sicnu.entity.PaperAchievement" id="PaperAchievementMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="beginDate" column="begin_date" jdbcType="TIMESTAMP"/>
+        <result property="paperType" column="paper_type" jdbcType="VARCHAR"/>
+        <result property="recordId" column="record_id" jdbcType="VARCHAR"/>
+        <result property="descipline" column="descipline" jdbcType="VARCHAR"/>
+        <result property="firstDiscipline" column="first_discipline" jdbcType="VARCHAR"/>
+        <result property="collegeId" column="college_id" jdbcType="VARCHAR"/>
+        <result property="paperSource" column="paper_source" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="information" column="information" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PaperAchievementMap">
+        select id,
+               name,
+               begin_date,
+               paper_type,
+               record_id,
+               descipline,
+               first_discipline,
+               college_id,
+               paper_source,
+               user_id,
+               information
+        from scientific_research.paper_achievement
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PaperAchievementMap">
+        select id,
+               name,
+               begin_date,
+               paper_type,
+               record_id,
+               descipline,
+               first_discipline,
+               college_id,
+               paper_source,
+               user_id,
+               information
+        from scientific_research.paper_achievement
+                     limit #{offset}, #{limit}
+    </select>
+    <!--查询表所有对象-->
+    <select id="findAll" resultMap="PaperAchievementMap">
+        select id,
+               name,
+               begin_date,
+               paper_type,
+               record_id,
+               descipline,
+               first_discipline,
+               college_id,
+               paper_source,
+               user_id,
+               information
+        from scientific_research.paper_achievement
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PaperAchievementMap">
+        select
+        id, name, begin_date, paper_type, record_id, descipline, first_discipline, college_id, paper_source, user_id,
+        information
+        from scientific_research.paper_achievement
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="beginDate != null">
+                and begin_date = #{beginDate}
+            </if>
+            <if test="paperType != null and paperType != ''">
+                and paper_type = #{paperType}
+            </if>
+            <if test="recordId != null and recordId != ''">
+                and record_id = #{recordId}
+            </if>
+            <if test="descipline != null and descipline != ''">
+                and descipline = #{descipline}
+            </if>
+            <if test="firstDiscipline != null and firstDiscipline != ''">
+                and first_discipline = #{firstDiscipline}
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                and college_id = #{collegeId}
+            </if>
+            <if test="paperSource != null and paperSource != ''">
+                and paper_source = #{paperSource}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+            <if test="information != null and information != ''">
+                and information = #{information}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into scientific_research.paper_achievement (name,
+                                                           begin_date,
+                                                           paper_type,
+                                                           record_id,
+                                                           descipline,
+                                                           first_discipline,
+                                                           college_id,
+                                                           paper_source,
+                                                           user_id,
+                                                           information)
+        values (#{name},
+                #{beginDate},
+                #{paperType},
+                #{recordId},
+                #{descipline},
+                #{firstDiscipline},
+                #{collegeId},
+                #{paperSource},
+                #{userId},
+                #{information})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into scientific_research.paper_achievement(name, begin_date, paper_type, record_id, descipline,
+        first_discipline, college_id, paper_source, user_id, information)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.beginDate}, #{entity.paperType}, #{entity.recordId}, #{entity.descipline},
+            #{entity.firstDiscipline}, #{entity.collegeId}, #{entity.paperSource}, #{entity.userId},
+            #{entity.information})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into scientific_research.paper_achievement(name, begin_date, paper_type, record_id, descipline,
+        first_discipline, college_id, paper_source, user_id, information)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.beginDate}, #{entity.paperType}, #{entity.recordId}, #{entity.descipline},
+            #{entity.firstDiscipline}, #{entity.collegeId}, #{entity.paperSource}, #{entity.userId},
+            #{entity.information})
+        </foreach>
+        on duplicate key update
+        name = values(name) , begin_date = values(begin_date) , paper_type = values(paper_type) , record_id =
+        values(record_id) , descipline = values(descipline) , first_discipline = values(first_discipline) , college_id =
+        values(college_id) , paper_source = values(paper_source) , user_id = values(user_id) , information =
+        values(information)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update scientific_research.paper_achievement
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="beginDate != null">
+                begin_date = #{beginDate},
+            </if>
+            <if test="paperType != null and paperType != ''">
+                paper_type = #{paperType},
+            </if>
+            <if test="recordId != null and recordId != ''">
+                record_id = #{recordId},
+            </if>
+            <if test="descipline != null and descipline != ''">
+                descipline = #{descipline},
+            </if>
+            <if test="firstDiscipline != null and firstDiscipline != ''">
+                first_discipline = #{firstDiscipline},
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                college_id = #{collegeId},
+            </if>
+            <if test="paperSource != null and paperSource != ''">
+                paper_source = #{paperSource},
+            </if>
+            <if test="userId != null and userId != ''">
+                user_id = #{userId},
+            </if>
+            <if test="information != null and information != ''">
+                information = #{information},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from scientific_research.paper_achievement
+        where id = #{id}
+    </delete>
+
+</mapper>
