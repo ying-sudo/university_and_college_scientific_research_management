@@ -14,9 +14,13 @@
         <!-- 表单内容 -->
         <div style="height: 700px; overflow-y: scroll; padding: 10px;">
           <mu-container>
-            <mu-form :model="project" class="mu-demo-form" :label-position="labelPosition" label-width="100">
-              <mu-form-item prop="input" label="项目名称">
+            <mu-form :model="project" :label-position="labelPosition" label-width="100">
+              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="项目名称">
                 <mu-text-field v-model="project.name" :disabled="flag.is_disabled"></mu-text-field>
+              </mu-form-item>
+              
+              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="项目编号">
+                <mu-text-field v-model="project.id" :disabled="flag.is_disabled"></mu-text-field>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="项目编号">
@@ -32,19 +36,19 @@
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="所在单位">
-                <mu-select filterable v-model="project.college_id" :disabled="flag.is_disabled">
+                <mu-select  v-model="project.college_id" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in college_id" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="一级学科">
-                <mu-select filterable v-model="project.first_discipline" :disabled="flag.is_disabled">
+                <mu-select  v-model="project.first_discipline" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in first_discipline" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="项目级别">
-                <mu-select filterable v-model="project.level" :disabled="flag.is_disabled">
+                <mu-select  v-model="project.level" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in level" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
@@ -55,7 +59,7 @@
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form" prop="select" label="项目状态">
-                <mu-select filterable v-model="project.state" :disabled="flag.is_disabled">
+                <mu-select  v-model="project.state" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in state" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
@@ -66,7 +70,7 @@
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="项目分类">
-                <mu-select filterable v-model="project.sort" :disabled="flag.is_disabled">
+                <mu-select  v-model="project.sort" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in sort" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
@@ -189,6 +193,23 @@
         this.$emit('click', this.flag);
       },
       makesure() {
+		  
+		  this.axios.post("http://192.168.43.229:9999/mangerSys/", {
+		    paper_achievement
+		  }).then(
+		    (response) => {
+		      console.log('asdf');
+		  
+		      var resultCode = -1; //返回值，进行登录判断
+		      if (resultCode == 0) { //成功
+		        this.login_success();
+		      } else if (resultCode == -1) { //失败
+		        this.login_failing('用户名或密码错误');
+		      } else {
+		        this.login_failing('出现了不可避免的错误，请稍后再试');
+		      }
+		    });
+		  
         this.closeAlertDialog();
         window.location.reload(); //重载，刷新页面
       },

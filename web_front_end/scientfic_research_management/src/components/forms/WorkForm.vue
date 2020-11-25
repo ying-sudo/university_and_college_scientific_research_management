@@ -14,9 +14,13 @@
         <!-- 表单内容 -->
         <div style="height: 700px; overflow-y: scroll; padding: 10px;">
           <mu-container>
-            <mu-form :model="work_achievement" class="mu-demo-form" :label-position="labelPosition" label-width="100">
-              <mu-form-item prop="input" label="著作题目">
+            <mu-form :model="work_achievement" :label-position="labelPosition" label-width="100">
+              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="著作题目">
                 <mu-text-field v-model="work_achievement.name" :disabled="flag.is_disabled"></mu-text-field>
+              </mu-form-item>
+              
+              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="著作编号">
+                <mu-text-field v-model="work_achievement.id" :disabled="flag.is_disabled"></mu-text-field>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="出版单位">
@@ -24,19 +28,19 @@
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="出版社级别">
-                <mu-select filterable v-model="work_achievement.publish_level" :disabled="flag.is_disabled">
+                <mu-select  v-model="work_achievement.publish_level" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in publish_level" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="著作类别">
-                <mu-select filterable v-model="work_achievement.work_type" :disabled="flag.is_disabled">
+                <mu-select  v-model="work_achievement.work_type" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in work_type" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="出版地">
-                <mu-select filterable v-model="work_achievement.publish_location" :disabled="flag.is_disabled">
+                <mu-select  v-model="work_achievement.publish_location" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in publish_location" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
@@ -52,7 +56,7 @@
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="翻译语种">
-                <mu-select filterable v-model="work_achievement.translate_language" :disabled="flag.is_disabled">
+                <mu-select  v-model="work_achievement.translate_language" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in translate_language" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
@@ -74,20 +78,20 @@
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="一级学科">
-                <mu-select filterable v-model="work_achievement.first_discipline" :disabled="flag.is_disabled">
+                <mu-select  v-model="work_achievement.first_discipline" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in first_discipline" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="成果归属">
-                <mu-select filterable v-model="work_achievement.college_id" :disabled="flag.is_disabled">
+                <mu-select  v-model="work_achievement.college_id" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in college_id" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
 
               <mu-form-item class="mu-demo-min-form" prop="select" label="项目来源">
-                <mu-select filterable v-model="work_achievement.work_source" :disabled="flag.is_disabled">
+                <mu-select  v-model="work_achievement.work_source" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in work_source" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>

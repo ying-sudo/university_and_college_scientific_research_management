@@ -50,15 +50,15 @@
               </el-tab-pane>
 
               <el-tab-pane label="团队" name="teams">
-                
+
               </el-tab-pane>
 
               <el-tab-pane label="考核结果" name="assessmentres">
-                
+
               </el-tab-pane>
 
               <el-tab-pane label="统计报表" name="reports">
-                
+
               </el-tab-pane>
 
               <el-tab-pane label="项目评审" name="reviews">
@@ -240,6 +240,7 @@
       changeProject(value) {
         // this.checked.projects.all = value.length === this.check.projects.name.length;
         this.checked.projects.all = value.length > 0 && value.length < this.check.projects.name.length;
+		console.log(this.checkedChildView.projects);
       },
 
       handleCheckAllAchievements(val) {

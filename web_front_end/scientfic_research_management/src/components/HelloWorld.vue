@@ -1,9 +1,9 @@
 <template>
   <div>
 
-    <!-- <MButton></MButton> -->
+    <MButton></MButton>
 
-    <Right></Right>
+    <!-- <Right></Right> -->
 
 
 

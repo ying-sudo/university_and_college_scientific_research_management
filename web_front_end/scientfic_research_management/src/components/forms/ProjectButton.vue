@@ -7,27 +7,18 @@
       <mu-flex justify-content="center">
         <div v-if="!is_disabled">
           <mu-button @click="openAlertProjectDialog" color="primary">
-            项目申报表单&nbsp;&nbsp;
+            新增项目&nbsp;&nbsp;
             <i right class="el-icon-document-add"></i>
           </mu-button>
         </div>
         <div v-if="is_disabled">
-          <el-tooltip
-            effect="light"
-            content="论文详情"
-            placement="bottom-end"
-            :open-delay="500"
-          >
-            <el-button
-              icon="el-icon-view"
-              type="text"
-              @click="openAlertProjectDialog"
-            ></el-button>
+          <el-tooltip effect="light" content="论文详情" placement="bottom-end" :open-delay="500">
+            <el-button icon="el-icon-view" type="text" @click="openAlertProjectDialog"></el-button>
           </el-tooltip>
         </div>
       </mu-flex>
 
-      <ProjectForm v-model="flag"></ProjectForm>
+      <ProjectForm :key="reload" v-model="flag"></ProjectForm>
 
     </mu-container>
   </div>
@@ -47,7 +38,8 @@
         flag: {
           openAlertProject: false, //项目申报表单
           is_disabled: false
-        }
+        },
+        reload: ''
       };
     },
     components: {
@@ -55,6 +47,8 @@
     },
     methods: {
       openAlertProjectDialog() { //项目申报表单
+        this.reload = new Date().getTime();
+
         this.flag.is_disabled = this.is_disabled;
         this.flag.openAlertProject = true;
       }
