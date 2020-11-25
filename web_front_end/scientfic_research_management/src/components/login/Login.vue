@@ -106,20 +106,20 @@
       login() {
         if (this.verify_flag) {
 
-          // console.log('begin:  ');
+          console.log('登录  begin:  ');
 
-          this.axios.post("http://172.20.10.4:9999/mangerSys/user/login", {
+          this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/login", {
             id: this.username,
             password: this.password
           }).then(
             (response) => {
-              // console.log('登录code：  ' + response.data.resultCode);
+              console.log('登录code：  ' + response.data.resultCode);
 
               var resultCode = -1; //返回值，进行登录判断
               resultCode = response.data.resultCode;
               if (resultCode == 0) { //成功
 
-              // 存储  userid 
+              // 存储  userid
               localStorage.setItem("userid", this.username);
               // 检索
               // document.getElementById("result").innerHTML = localStorage.getItem("userid");

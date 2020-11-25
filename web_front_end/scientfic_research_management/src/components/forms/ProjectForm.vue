@@ -18,37 +18,33 @@
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="项目名称">
                 <mu-text-field v-model="project.name" :disabled="flag.is_disabled"></mu-text-field>
               </mu-form-item>
-              
-              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="项目编号">
-                <mu-text-field v-model="project.id" :disabled="flag.is_disabled"></mu-text-field>
-              </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="项目编号">
                 <mu-text-field v-model="project.id" :disabled="flag.is_disabled"></mu-text-field>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form" prop="input" label="批准文号">
-                <mu-text-field v-model="project.approval_number" :disabled="flag.is_disabled"></mu-text-field>
+                <mu-text-field v-model="project.approvalNumber" :disabled="flag.is_disabled"></mu-text-field>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="负责人学工号">
-                <mu-text-field v-model="project.user_id" :disabled="flag.is_disabled"></mu-text-field>
+                <mu-text-field v-model="project.userId" :disabled="flag.is_disabled"></mu-text-field>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="所在单位">
-                <mu-select  v-model="project.college_id" :disabled="flag.is_disabled">
-                  <mu-option v-for="option,index in college_id" :key="option" :label="option" :value="option"></mu-option>
+                <mu-select v-model="project.collegeId" :disabled="flag.is_disabled">
+                  <mu-option v-for="option,index in collegeId" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="一级学科">
-                <mu-select  v-model="project.first_discipline" :disabled="flag.is_disabled">
-                  <mu-option v-for="option,index in first_discipline" :key="option" :label="option" :value="option"></mu-option>
+                <mu-select v-model="project.firstDiscipline" :disabled="flag.is_disabled">
+                  <mu-option v-for="option,index in firstDiscipline" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="项目级别">
-                <mu-select  v-model="project.level" :disabled="flag.is_disabled">
+                <mu-select v-model="project.level" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in level" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
@@ -59,7 +55,7 @@
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form" prop="select" label="项目状态">
-                <mu-select  v-model="project.state" :disabled="flag.is_disabled">
+                <mu-select v-model="project.state" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in state" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
@@ -70,28 +66,28 @@
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="项目分类">
-                <mu-select  v-model="project.sort" :disabled="flag.is_disabled">
+                <mu-select v-model="project.sort" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in sort" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-col span="8" lg="4" sm="6" class="mu-demo-min-form float_left">
-                <mu-date-input prop="input" v-model="project.begin_date" label="立项日期" label-float
-                  full-width landscape :disabled="flag.is_disabled"></mu-date-input>
+                <mu-date-input prop="input" v-model="project.beginDate" label="立项日期" label-float full-width landscape
+                  :disabled="flag.is_disabled"></mu-date-input>
               </mu-col>
 
               <mu-col span="8" lg="4" sm="6" class="mu-demo-min-form float_left">
-                <mu-date-input prop="input" v-model="project.end_date" label="结项日期" label-float
-                  full-width landscape :disabled="flag.is_disabled"></mu-date-input>
+                <mu-date-input prop="input" v-model="project.endDate" label="结项日期" label-float full-width landscape
+                  :disabled="flag.is_disabled"></mu-date-input>
               </mu-col>
 
 
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="申请经费">
-                <mu-text-field v-model="project.request_fund" :disabled="flag.is_disabled"></mu-text-field>
+                <mu-text-field v-model="project.requestFund" :disabled="flag.is_disabled"></mu-text-field>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form" prop="input" label="到账经费">
-                <mu-text-field v-model="project.arrival_fund" :disabled="flag.is_disabled"></mu-text-field>
+                <mu-text-field v-model="project.arrivalFund" :disabled="flag.is_disabled"></mu-text-field>
               </mu-form-item>
 
               <!-- 表单底部表格 -->
@@ -145,30 +141,30 @@
       return {
         labelPosition: 'top',
         project: {
-          id: 'ccc', //项目编号
-          name: 'saaa', //项目名称
-          user_id: 'asdf', //负责人
-          college_id: 'asdf', //所属学院
-          discipline: 'af', //学科门类
+          id: '', //项目编号
+          name: '', //项目名称
+          userId: '', //负责人
+          collegeId: '', //所属学院
+          discipline: '', //学科门类
           characters: '', //项目性质
-          first_discipline: '', //一级学科
+          firstDiscipline: '', //一级学科
           level: '', //项目级别
           sort: '', //项目分类
-          begin_date: '', //立项日期
-          end_date: '', //结项日期
-          request_fund: '', //项目申请经费
-          arrival_fund: '', //到账金额
+          beginDate: '', //立项日期
+          endDate: '', //结项日期
+          requestFund: '', //项目申请经费
+          arrivalFund: '', //到账金额
           state: '', //审核状态
-          approval_number: '', //批准文号
+          approvalNumber: '', //批准文号
           information: '' //项目信息
         },
-        college_id: [ //成果归属
+        collegeId: [ //成果归属
           '计算机科学', '物电', '生物', '化学'
         ],
-        user_id: [ //负责人
+        userId: [ //负责人
           '1', '2', '3'
         ],
-        first_discipline: [ //一级学科内容
+        firstDiscipline: [ //一级学科内容
           '文科', '理科', '计算机科学', '物理', '生物'
         ],
         level: [
@@ -193,25 +189,23 @@
         this.$emit('click', this.flag);
       },
       makesure() {
-		  
-		  this.axios.post("http://192.168.43.229:9999/mangerSys/", {
-		    paper_achievement
-		  }).then(
-		    (response) => {
-		      console.log('asdf');
-		  
-		      var resultCode = -1; //返回值，进行登录判断
-		      if (resultCode == 0) { //成功
-		        this.login_success();
-		      } else if (resultCode == -1) { //失败
-		        this.login_failing('用户名或密码错误');
-		      } else {
-		        this.login_failing('出现了不可避免的错误，请稍后再试');
-		      }
-		    });
-		  
+
+        // console.log(JSON.stringify(this.project));   //form转json
+        var proJson = JSON.stringify(this.project);
+        proJson = JSON.parse(proJson);
+
+        console.log('项目表单  request begin:  ')
+        this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", proJson).then(
+          (response) => {
+
+            console.log('asdf');
+
+            console.log(response.data.resultCode);
+
+            console.log('项目表单  request  over');
+
+          });
         this.closeAlertDialog();
-        window.location.reload(); //重载，刷新页面
       },
       editForm() {
         this.flag.is_disabled = false;
