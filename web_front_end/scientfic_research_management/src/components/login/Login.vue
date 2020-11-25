@@ -106,9 +106,9 @@
       login() {
         if (this.verify_flag) {
 
-          console.log('登录  begin:  ');
+          // console.log('begin:  ');
 
-          this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/login", {
+          this.axios.post("/api/mangerSys/user/login", {
             id: this.username,
             password: this.password
           }).then(
