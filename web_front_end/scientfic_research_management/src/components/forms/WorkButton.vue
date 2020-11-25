@@ -12,13 +12,13 @@
           </mu-button>
         </div>
         <div v-if="is_disabled">
-          <mu-button @click="openAlertWorkDialog" color="primary">
-            项目详情&nbsp;&nbsp;
-          </mu-button>
+          <el-tooltip effect="light" content="论文详情" placement="bottom-end" :open-delay="500">
+            <el-button icon="el-icon-view" type="text" @click="openAlertWorkDialog"></el-button>
+          </el-tooltip>
         </div>
       </mu-flex>
 
-      <WorkForm v-model="flag"></WorkForm>
+      <WorkForm :key="reload" v-model="flag"></WorkForm>
     </mu-container>
   </div>
 
@@ -39,6 +39,7 @@
           openAlertWork: false, //著作申报表单
           is_disabled: false
         },
+        reload: ''
       };
     },
     components: {
@@ -46,6 +47,8 @@
     },
     methods: {
       openAlertWorkDialog() {
+        this.reload = new Date().getTime();
+        
         this.flag.is_disabled = this.is_disabled;
         this.flag.openAlertWork = true;
       }

@@ -18,9 +18,14 @@
           <!-- 左侧框 -->
           <div style="float: left; overflow-y: scroll; width: 800px; height: 650px;">
             <mu-container>
-              <mu-form :model="paper_achievement" class="mu-demo-form" :label-position="labelPosition" label-width="100">
-                <mu-form-item prop="input" label="论文题目">
+              <mu-form :model="paper_achievement" :label-position="labelPosition" label-width="100">
+
+                <mu-form-item prop="input" class="mu-demo-min-form float_left" label="论文题目">
                   <mu-text-field v-model="paper_achievement.name" :disabled="flag.is_disabled"></mu-text-field>
+                </mu-form-item>
+
+                <mu-form-item prop="input" class="mu-demo-min-form float_left" label="论文编号">
+                  <mu-text-field v-model="paper_achievement.id" :disabled="flag.is_disabled"></mu-text-field>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="input" label="发表期刊">
@@ -46,7 +51,7 @@
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="select" label="一级学科">
-                  <mu-select v-model="paper_achievement.first_discipline" filterable :disabled="flag.is_disabled">
+                  <mu-select v-model="paper_achievement.first_discipline" :disabled="flag.is_disabled">
                     <mu-option v-for="option,index in first_discipline" :key="option" :label="option" :value="option"></mu-option>
                   </mu-select>
                 </mu-form-item>
@@ -57,7 +62,7 @@
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form" prop="select" label="成果归属">
-                  <mu-select v-model="paper_achievement.college_id" filterable :disabled="flag.is_disabled">
+                  <mu-select v-model="paper_achievement.college_id" :disabled="flag.is_disabled">
                     <mu-option v-for="option,index in college_id" :key="option" :label="option" :value="option"></mu-option>
                   </mu-select>
                 </mu-form-item>
@@ -130,7 +135,7 @@
           id: 'aaaa', //论文编号
           name: 'ssss', //论文题目
           magazine: '期刊', //期刊
-          begin_date: undefined, //发表日期
+          begin_date: 'Sun Nov 08 2020 20:45:00 GMT+0800 (中国标准时间)', //发表日期
           paper_type: '类型', //论文类型
           record_id: '收录好', //收录号
           discipline: 'science', //学科门类
@@ -168,8 +173,25 @@
         this.$emit('click', this.flag);
       },
       makesure() {
+
+        this.axios.post("http://192.168.43.229:9999/mangerSys/", {
+          paper_achievement
+        }).then(
+          (response) => {
+            console.log('asdf');
+
+            var resultCode = -1; //返回值，进行登录判断
+            if (resultCode == 0) { //成功
+              this.login_success();
+            } else if (resultCode == -1) { //失败
+              this.login_failing('用户名或密码错误');
+            } else {
+              this.login_failing('出现了不可避免的错误，请稍后再试');
+            }
+          });
+
         this.closeAlertDialog();
-        window.location.reload(); //重载，刷新页面
+        // window.location.reload(); //重载，刷新页面
       },
       editForm() {
         this.flag.is_disabled = false;

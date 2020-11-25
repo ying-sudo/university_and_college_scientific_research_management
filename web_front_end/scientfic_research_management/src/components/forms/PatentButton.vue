@@ -12,22 +12,13 @@
           </mu-button>
         </div>
         <div v-if="is_disabled">
-          <el-tooltip
-            effect="light"
-            content="专利详情"
-            placement="bottom-end"
-            :open-delay="500"
-          >
-            <el-button
-              icon="el-icon-view"
-              type="text"
-              @click="openAlertPatentDialog"
-            ></el-button>
+          <el-tooltip effect="light" content="专利详情" placement="bottom-end" :open-delay="500">
+            <el-button icon="el-icon-view" type="text" @click="openAlertPatentDialog"></el-button>
           </el-tooltip>
         </div>
       </mu-flex>
 
-      <PatentForm v-model="flag"></PatentForm>
+      <PatentForm :key="reload" v-model="flag"></PatentForm>
     </mu-container>
   </div>
 
@@ -47,7 +38,8 @@
         flag: {
           openAlertPatent: false, //专利申请表单
           is_disabled: false
-        }
+        },
+        reload: ''
       };
     },
     components: {
@@ -55,6 +47,8 @@
     },
     methods: {
       openAlertPatentDialog() { //专利申请表单
+        this.reload = new Date().getTime();
+        
         this.flag.is_disabled = this.is_disabled;
         this.flag.openAlertPatent = true;
       }

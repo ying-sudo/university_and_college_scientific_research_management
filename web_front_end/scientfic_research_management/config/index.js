@@ -10,7 +10,21 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      // 这里配置 '/api' 就等价于 target , 你在链接里访问 /api === http://localhost:54321
+      '/api': {
+        target: 'http://172.20.10.4:9999', // 真是服务器的接口地址 // http://localhost:54321/json.data.json,
+        changeOrigin: true, // 是否是跨域请求?肯定是啊,不跨域就没有必要配置这个proxyTable了.
+        pathRewirte: {
+          // 这里是追加链接,比如真是接口里包含了 /api,就需要这样配置.
+
+          '^/api': '/',
+          // 等价于
+          // step 1  /api = http://localhost:54321/
+          // step 2 /^api = /api + api == http://localhost:54321/api
+        }
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
@@ -20,7 +34,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */

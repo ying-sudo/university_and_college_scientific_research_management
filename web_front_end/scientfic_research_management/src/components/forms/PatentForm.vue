@@ -15,31 +15,35 @@
         <!-- 表单内容 -->
         <div style="height: 650px; overflow-y: scroll; ">
           <mu-container>
-            <mu-form :model="patent_achievement" class="mu-demo-form" :label-position="labelPosition" label-width="100">
-              <mu-form-item prop="input" label="专利名称">
+            <mu-form :model="patent_achievement" :label-position="labelPosition" label-width="100">
+              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="专利名称">
                 <mu-text-field v-model="patent_achievement.name" :disabled="flag.is_disabled"></mu-text-field>
               </mu-form-item>
 
+              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="专利编号">
+                <mu-text-field v-model="patent_achievement.id" :disabled="flag.is_disabled"></mu-text-field>
+              </mu-form-item>
+
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="专利类型">
-                <mu-select v-model="patent_achievement.patent_type" filterable :disabled="flag.is_disabled">
+                <mu-select v-model="patent_achievement.patent_type" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in patent_type" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="专利范围">
-                <mu-select v-model="patent_achievement.patent_range" filterable :disabled="flag.is_disabled">
+                <mu-select v-model="patent_achievement.patent_range" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in patent_type" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="成果归属">
-                <mu-select v-model="patent_achievement.college_id" filterable :disabled="flag.is_disabled">
+                <mu-select v-model="patent_achievement.college_id" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in patent_type" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="专利状态">
-                <mu-select v-model="patent_achievement.state" filterable :disabled="flag.is_disabled">
+                <mu-select v-model="patent_achievement.state" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in patent_type" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>

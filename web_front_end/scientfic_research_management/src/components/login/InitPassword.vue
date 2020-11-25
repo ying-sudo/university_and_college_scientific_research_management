@@ -37,14 +37,6 @@
         <mu-step>
           <mu-step-label>
             <div style="font-size: 17px;">
-              填写账号
-            </div>
-          </mu-step-label>
-        </mu-step>
-
-        <mu-step>
-          <mu-step-label>
-            <div style="font-size: 17px;">
               身份验证
             </div>
           </mu-step-label>
@@ -72,7 +64,11 @@
           <!-- 第一步 填写账号 -->
           <div v-if="activeStep === 0" style="margin: 15px;">
             <i class="el-icon-user" style="font-size: 35px; padding: 5px;"></i>
-            <mu-text-field v-model="value13" label="用户名" label-float help-text="用户名为学工号"></mu-text-field><br />
+            <mu-text-field v-model="username" label="用户名" label-float help-text="用户名为学工号"></mu-text-field><br />
+
+
+            <i class="el-icon-user" style="font-size: 35px; padding: 5px;"></i>
+            <mu-text-field v-model="userID" label="身份证号" label-float help-text="请输入你的身份证号"></mu-text-field><br />
 
             <!-- 图形验证码 -->
             <div style="text-align: center;">
@@ -89,31 +85,35 @@
             </div>
 
           </div>
-          <!-- 第二步 身份验证 -->
+          <!-- 第二步 设置新密码 -->
           <div v-if="activeStep === 1" style="margin: 15px;">
-            <i class="el-icon-user" style="font-size: 35px; padding: 5px;"></i>
-            <mu-text-field v-model="value13" label="身份证号" label-float help-text="请输入你的身份证号"></mu-text-field><br />
-          </div>
-          <!-- 第三步 设置新密码 -->
-          <div v-if="activeStep === 2" style="margin: 15px;">
             <i class="el-icon-lock" style="font-size: 35px; padding: 5px;"></i>
-            <mu-text-field v-model="value14" label="密码" :action-icon="visibility ? 'visibility_off' : 'visibility'"
+            <mu-text-field v-model="password" label="密码" :action-icon="visibility ? 'visibility_off' : 'visibility'"
               :action-click="() => (visibility = !visibility)" :type="visibility ? 'text' : 'password'" label-float
-              error-text="请输入你要修改的密码"></mu-text-field><br />
+              help-text="请输入你要修改的密码"></mu-text-field><br />
             <i class="el-icon-lock" style="font-size: 35px; padding: 5px;"></i>
-            <mu-text-field v-model="value14" label="确认密码" :action-icon="visibility ? 'visibility_off' : 'visibility'"
+            <mu-text-field v-model="isPWD" label="确认密码" :action-icon="visibility ? 'visibility_off' : 'visibility'"
               :action-click="() => (visibility = !visibility)" :type="visibility ? 'text' : 'password'" label-float
-              error-text="请再次输入你要修改的密码"></mu-text-field><br />
+              help-text="请再次输入你要修改的密码"></mu-text-field><br />
+
+              <!-- 错误警告 -->
+              <div style="width: 400px; margin: 0 auto;">
+                <mu-alert color="red" @delete="alarm = false" delete v-if="alarm" transition="mu-scale-transition" style=" height: 30px;">
+                  <mu-icon left value="warning"></mu-icon> {{error_text}}
+                </mu-alert>
+              </div>
+
           </div>
-          <!-- 第四步 完成 -->
-          <div v-if="activeStep === 3" style="color: #00D6B2; font-size: 20px; margin: 15px;">
+
+          <!-- 第三步 完成 -->
+          <div v-if="activeStep === 2" style="color: #00D6B2; font-size: 20px; margin: 15px;">
             重置密码完成，点击完成进入登录页面
           </div>
 
           <!-- 下一步按钮 -->
           <div>
-            <mu-button class="demo-step-button" color="primary" @click="handleNext"> {{activeStep === 3 ? '完成' : '下一步'}}
-            </mu-button>
+            <mu-button flat class="demo-step-button" :disabled="activeStep !== 1" @click="handlePrev"> 上一步 </mu-button>
+            <mu-button class="demo-step-button" color="primary" @click="handleNext"> {{activeStep === 2 ? '完成' : activeStep === 1 ? '确认' : '下一步'}}</mu-button>
           </div>
         </template>
       </div>
@@ -129,10 +129,15 @@
   export default {
     data() {
       return {
-        value13: '',
-        value14: '',
+        username: '',
+        userID: '',
+        password: '',
+        isPWD: '',
+        error_text: '',
+        alarm: false,
+        passwordError: false,
         verify_flag: true,
-        activeStep: 0,
+        activeStep: 0, //步骤
         visibility: false
       }
     },
@@ -142,14 +147,14 @@
       }
     },
     methods: {
-      initSure() { //按钮事件
+      initSure() { //完成重置按钮事件
         const loading = this.$loading();
         setTimeout(() => {
           loading.close();
           this.login();
         }, 500);
       },
-      login() {
+      login() { //登录页面
         this.$router.push('./login')
       },
       verify_success() { //验证码
@@ -159,17 +164,48 @@
       verify_error() {
         this.verify_flag = false;
       },
+      handlePrev() {
+        this.activeStep--;
+      },
+      login_failing(error_text) {
+        this.error_text = error_text;
+        this.alarm = true;
+        this.verify_flag = false;
+        this.reload = new Date().getTime();
+      },
       handleNext() { //下一步 步骤条
-        if (this.activeStep === 0) {
+        if (this.activeStep === 0) { //验证码确认和学号确认
           if (this.verify_flag) {
+            console.log('username:   ' + this.username);
+            console.log('userID:     ' + this.userID);
             this.activeStep++;
           } else {
             alert('请先通过验证');
           }
-        } else if (this.activeStep === 3) { //最后一步，进入登录页面
+        } else if (this.activeStep === 1) { //密码输入
+          var firstPWD = this.password;
+          var flagPWD = this.isPWD;
+          if (firstPWD != '' && flagPWD != '') {
+            if (firstPWD === flagPWD) {
+              console.log('相等');
+              this.passwordError = false;
+              
+              //这里进行向后端传输，进行判断，是否有错误
+              
+              
+              this.activeStep++;
+            } else {
+              this.login_failing('不相等');
+              console.log('不相等');
+              this.passwordError = true;
+            }
+          } else {
+            this.login_failing('密码不能为空');
+            console.log('不能为空');
+            this.passwordError = true;
+          }
+        } else if (this.activeStep === 2) { //最后一步，进入登录页面
           this.initSure();
-        } else {
-          this.activeStep++;
         }
       }
     },

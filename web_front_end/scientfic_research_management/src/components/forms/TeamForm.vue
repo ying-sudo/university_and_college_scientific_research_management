@@ -14,9 +14,13 @@
         <!-- 表单内容 -->
         <div style="height: 700px; overflow-y: scroll; padding: 10px;">
           <mu-container>
-            <mu-form :model="team" class="mu-demo-form" :label-position="labelPosition" label-width="100">
-              <mu-form-item prop="input" label="团队名称">
+            <mu-form :model="team" :label-position="labelPosition" label-width="100">
+              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="团队名称">
                 <mu-text-field v-model="team.name" :disabled="flag.is_disabled"></mu-text-field>
+              </mu-form-item>
+
+              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="团队编号">
+                <mu-text-field v-model="team.id" :disabled="flag.is_disabled"></mu-text-field>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="研究方向">
@@ -34,7 +38,7 @@
               </mu-col>
 
               <mu-form-item class="mu-demo-min-form" prop="select" label="一级学科">
-                <mu-select filterable v-model="team.first_discipline" :disabled="flag.is_disabled">
+                <mu-select  v-model="team.first_discipline" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in first_discipline" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
