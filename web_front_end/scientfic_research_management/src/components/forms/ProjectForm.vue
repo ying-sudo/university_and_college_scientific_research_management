@@ -56,7 +56,7 @@
 
               <mu-form-item class="mu-demo-min-form" prop="select" label="项目状态">
                 <mu-select v-model="project.state" :disabled="flag.is_disabled">
-                  <mu-option v-for="option,index in state" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-option v-for="option,index in state.name" :key="state.id[index]" :label="option" :value="state.id[index]"></mu-option>
                 </mu-select>
               </mu-form-item>
 
@@ -176,11 +176,18 @@
           '分类1',
           '分类2'
         ],
-        state: [
-          '进行',
-          '结束',
-          '延期'
-        ]
+        state: {
+          id: [
+            1,
+            2,
+            3
+          ],
+          name: [
+            '进行',
+            '结束',
+            '延期'
+          ]
+        }
       };
     },
     methods: {
@@ -192,7 +199,15 @@
 
         // console.log(JSON.stringify(this.project));   //form转json
         var proJson = JSON.stringify(this.project);
+
         proJson = JSON.parse(proJson);
+
+        // 将金额从string转为double  状态转换
+        proJson.requestFund = proJson.requestFund * 1.0;
+        proJson.arrivalFund = proJson.requestFund * 1.0;
+        proJson.state = proJson.state * 1;
+
+        console.log(proJson);
 
         console.log('项目表单  request begin:  ')
         this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", proJson).then(
