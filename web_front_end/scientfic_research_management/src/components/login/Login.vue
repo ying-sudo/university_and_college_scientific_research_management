@@ -1,7 +1,8 @@
 <template>
-
-  <div id="login" style="height: 916px; background-color: #FFFFFF; padding: 20px;">
-
+  <div
+    id="login"
+    style="height: 916px; background-color: #ffffff; padding: 20px"
+  >
     <!-- 四川师范大学图标 -->
     <div
       style="
@@ -31,10 +32,19 @@
     ></div>
 
     <!-- 登录界面 -->
-    <div style="background-color: white; margin:0px auto; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-                width: 450px; height: 650px; border-radius: 15px; float: right; margin: 80px;">
-
-      <div style="background-color: #0b7e05; border-radius: 15px;">
+    <div
+      style="
+        background-color: white;
+        margin: 0px auto;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+        width: 450px;
+        height: 650px;
+        border-radius: 15px;
+        float: right;
+        margin: 80px;
+      "
+    >
+      <div style="background-color: #0b7e05; border-radius: 15px">
         <!-- 图标 -->
         <div style="padding: 10px">
           <mu-row justify-content="center">
@@ -125,10 +135,14 @@
       </div>
 
       <!-- 按钮 -->
-      <div style="text-align: center; padding: 10px;">
-        <mu-button color="teal" @click="login()" class="ButtonStyle">登录</mu-button>
-        <div style="padding: 10px;"></div>
-        <mu-button color="red" @click="init()" class="ButtonStyle">忘记密码</mu-button>
+      <div style="text-align: center; padding: 10px">
+        <mu-button color="teal" @click="login()" class="ButtonStyle"
+          >登录</mu-button
+        >
+        <div style="padding: 10px"></div>
+        <mu-button color="red" @click="init()" class="ButtonStyle"
+          >忘记密码</mu-button
+        >
       </div>
     </div>
   </div>
@@ -137,80 +151,82 @@
 <script>
 import Verify from "@/addModules/vue2-verify";
 
-  export default {
-    components: {
-      Verify
-    },
-    data() {
-      return {
-        username: '',
-        password: '',
-        verify_flag: true,
-        visibility: false,
-        alarm: false,
-        error_text: '',
-        reload: '',
-        usernameRules: {
-          validate: (val) => !!val,
-          message: '请输入学工号'
-        },
-        passwordRules: {
-          validate: (val) => !!val,
-          message: '请填写密码'
-        }
-      }
-    },
-    methods: {
-      login() {
-        if (this.verify_flag) {
+export default {
+  components: {
+    Verify,
+  },
+  data() {
+    return {
+      username: "",
+      password: "",
+      verify_flag: true,
+      visibility: false,
+      alarm: false,
+      error_text: "",
+      reload: "",
+      usernameRules: {
+        validate: (val) => !!val,
+        message: "请输入学工号",
+      },
+      passwordRules: {
+        validate: (val) => !!val,
+        message: "请填写密码",
+      },
+    };
+  },
+  methods: {
+    login() {
+      if (this.verify_flag) {
+        // console.log('begin:  ');
 
-          // console.log('begin:  ');
-
-          this.axios.post("http://172.20.10.4:9999/mangerSys/user/login", {
+        this.axios
+          .post("http://172.20.10.4:9999/mangerSys/user/login", {
             id: this.username,
-            password: this.password
-          }).then(
-            (response) => {
-              // console.log('登录code：  ' + response.data.resultCode);
+            password: this.password,
+          })
+          .then((response) => {
+            // console.log('登录code：  ' + response.data.resultCode);
 
-              var resultCode = -1; //返回值，进行登录判断
-              resultCode = response.data.resultCode;
-              if (resultCode == 0) { //成功
+            var resultCode = -1; //返回值，进行登录判断
+            resultCode = response.data.resultCode;
+            if (resultCode == 0) {
+              //成功
 
-              // 存储  userid 
+              // 存储  userid
               localStorage.setItem("userid", this.username);
               // 检索
               // document.getElementById("result").innerHTML = localStorage.getItem("userid");
               // console.log(localStorage.getItem('userid'));
 
-                this.login_success();
-              } else if (resultCode == -1) { //失败
-                this.login_failing('用户名或密码错误');
-              } else {
-                this.login_failing('出现了不可避免的错误，请稍后再试');
-              }
-            });
-
-        } else {
-          this.login_failing("出现了不可避免的错误，请稍后再试");
-        }
+              this.login_success();
+            } else if (resultCode == -1) {
+              //失败
+              this.login_failing("用户名或密码错误");
+            } else {
+              this.login_failing("出现了不可避免的错误，请稍后再试");
+            }
+          });
       } else {
-        this.login_failing("请通过验证");
+        this.login_failing("出现了不可避免的错误，请稍后再试");
       }
     },
-    created() {
-      //回车登录
-      let that = this;
-      document.onkeypress = function(e) {
-        var keyCode = document.all ? event.keyCode : e.which;
-        //判断是否是在登录页面
-        if (that.$route.path == '/login' && keyCode == 13) {
-          that.login();
-          return;
-        }
+    // else {
+    //   this.login_failing("请通过验证");
+    // }
+  },
+  created() {
+    //回车登录
+    let that = this;
+    document.onkeypress = function (e) {
+      var keyCode = document.all ? event.keyCode : e.which;
+      //判断是否是在登录页面
+      if (that.$route.path == "/login" && keyCode == 13) {
+        that.login();
+        return;
       }
-    }
-  };
+    };
+  },
+};
 </script>
 
 <style>

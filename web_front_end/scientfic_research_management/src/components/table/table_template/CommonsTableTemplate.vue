@@ -28,10 +28,8 @@
       >
         <!-- @scope.row:每一行的数据-->
         <template slot-scope="scope">
-          <span >{{
-            scope.row[item.prop]
-          }}</span>
-
+          <span>{{ scope.row[item.prop] }}</span>
+          <!-- <p>{{scope.$index}}</p>  -->
           <!-- v-html="showDate(scope.row.date)" -->
                
         </template>
@@ -39,7 +37,12 @@
 
       <!-- 在TableTemplate中留下一列供父组件修改的列插槽，将该组件的作用域延迟到父组件编译，
       父组件对应标签内的所有内容将代替子组件的<slot>标签及它的内容 -->
-      <slot name="table_template_slot"></slot>
+      <el-table-column fixed="right" label="操作" width="300" align="center">
+        <!-- <p>{{scope.$index}}</p> -->
+        <template slot-scope="scope">
+          <slot name="table_template_slot" :row="scope.row"></slot>
+        </template>
+      </el-table-column>
     </el-table>
 
     <!-- @totalRows 传入总数据量
@@ -71,7 +74,12 @@ export default {
    * @tableDataList 分页后的表格数据
    */
   data() {
-    return { currentPage: 1, pageSize: 5, tableDataList: [], ShowPage: false };
+    return {
+      currentPage: 1,
+      pageSize: 5,
+      tableDataList: [],
+      ShowPage: false,
+    };
   },
 
   /**

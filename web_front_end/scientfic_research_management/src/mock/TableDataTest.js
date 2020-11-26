@@ -50,7 +50,8 @@ let dataVal = {
       project_state: 1,
       project_funds: 1,
       project_account: 1,
-      operation: 1
+      operation: 1,
+      others1:1,
     },
     {
       project_id: 5,

@@ -1,7 +1,8 @@
 <template>
   <!-- 权限表中的操作列图标 -->
   <div>
-    <ProjectButton v-model="isDisabled"></ProjectButton>
+    <ProjectButton v-model="isDisabled" :TableRow="TableRow"></ProjectButton>
+    <!-- <p>{{this.TableRow}}</p> -->
   </div>
 </template>
 
@@ -12,10 +13,8 @@ export default {
     ProjectButton,
   },
   methods: {
-    handleClick() {
-      this.$router.push("/author");
-    },
   },
+  props:["TableRow"],
   data() {
     return {
       isDisabled: true,
