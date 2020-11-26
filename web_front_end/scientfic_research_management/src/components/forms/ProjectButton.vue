@@ -28,7 +28,7 @@
   import ProjectForm from './ProjectForm.vue'
 
   export default {
-    props: ['is_disabled'],
+    props: ['is_disabled','testData01'],
     model: {
       prop: 'is_disabled',
       event: 'click'
@@ -51,6 +51,7 @@
 
         this.flag.is_disabled = this.is_disabled;
         this.flag.openAlertProject = true;
+        console.log("this.testData01:"+this.testData01);
       }
     }
   };
