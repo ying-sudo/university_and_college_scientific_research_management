@@ -21,11 +21,11 @@
               <mu-form :model="paper_achievement" :label-position="labelPosition" label-width="100">
 
                 <mu-form-item prop="input" class="mu-demo-min-form float_left" label="论文题目">
-                  <mu-text-field v-model="paper_achievement.name" :disabled="flag.is_disabled"></mu-text-field>
+                  <mu-text-field v-model="paper_achievement.name" :disabled="flag.is_disabled || not_disabled"></mu-text-field>
                 </mu-form-item>
 
                 <mu-form-item prop="input" class="mu-demo-min-form float_left" label="论文编号">
-                  <mu-text-field v-model="paper_achievement.id" :disabled="flag.is_disabled"></mu-text-field>
+                  <mu-text-field v-model="paper_achievement.id" :disabled="flag.is_disabled || not_disabled"></mu-text-field>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="input" label="发表期刊">
@@ -33,37 +33,38 @@
                 </mu-form-item>
 
                 <mu-col span="8" lg="4" sm="6" class="mu-demo-min-form float_left">
-                  <mu-date-input prop="input" v-model="paper_achievement.begin_date" label="发表时间" label-float
-                    full-width landscape :disabled="flag.is_disabled"></mu-date-input>
+                  <mu-date-input prop="input" v-model="paper_achievement.beginDate" label="发表时间" label-float
+                    full-width landscape :disabled="flag.is_disabled || not_disabled"></mu-date-input>
                 </mu-col>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="input" label="论文类型">
-                  <mu-text-field v-model="paper_achievement.paper_type" :disabled="flag.is_disabled"></mu-text-field>
+                  <mu-text-field v-model="paper_achievement.paperType" :disabled="flag.is_disabled"></mu-text-field>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="input" label="收录号">
-                  <mu-text-field v-model="paper_achievement.record_id" :disabled="flag.is_disabled"></mu-text-field>
+                  <mu-text-field v-model="paper_achievement.recordId" :disabled="flag.is_disabled"></mu-text-field>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="学科门类">
-                  <mu-radio v-model="paper_achievement.discipline" value="science" label="理工类" :disabled="flag.is_disabled"></mu-radio>
-                  <mu-radio v-model="paper_achievement.discipline" value="social" label="社科类" :disabled="flag.is_disabled"></mu-radio>
+                  <mu-radio v-model="paper_achievement.discipline" value="science" label="理工类" :disabled="flag.is_disabled || not_disabled"></mu-radio>
+                  <mu-radio v-model="paper_achievement.discipline" value="social" label="社科类" :disabled="flag.is_disabled || not_disabled"></mu-radio>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="select" label="一级学科">
-                  <mu-select v-model="paper_achievement.first_discipline" :disabled="flag.is_disabled">
-                    <mu-option v-for="option,index in first_discipline" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-select v-model="paper_achievement.firstDiscipline" :disabled="flag.is_disabled">
+                    <mu-option v-for="option,index in firstDiscipline" :key="option" :label="option" :value="option"></mu-option>
                   </mu-select>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="项目来源">
-                  <mu-radio v-model="paper_achievement.paper_source" value="crosswise" label="横向" :disabled="flag.is_disabled"></mu-radio>
-                  <mu-radio v-model="paper_achievement.paper_source" value="lengthways" label="纵向" :disabled="flag.is_disabled"></mu-radio>
+                  <mu-radio v-model="paper_achievement.paperSource" value="crosswise" label="横向" :disabled="flag.is_disabled || not_disabled"></mu-radio>
+                  <mu-radio v-model="paper_achievement.paperSource" value="lengthways" label="纵向" :disabled="flag.is_disabled || not_disabled"></mu-radio>
                 </mu-form-item>
 
                 <mu-form-item class="mu-demo-min-form" prop="select" label="成果归属">
-                  <mu-select v-model="paper_achievement.college_id" :disabled="flag.is_disabled">
-                    <mu-option v-for="option,index in college_id" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-select v-model="paper_achievement.collegeId" :disabled="flag.is_disabled">
+                    <mu-option v-for="option,index in collegeId.name" :key="collegeId.id[index]" :label="option"
+                      :value="collegeId.id[index]"></mu-option>
                   </mu-select>
                 </mu-form-item>
 
@@ -87,8 +88,8 @@
                 <b>收录情况</b>
               </div>
               <div style="overflow-y: scroll; height: 600px;">
-                <mu-flex class="select-control-row" :key="magazine_sort.id[i-1]" v-for="i in magazine_sort.id.length">
-                  <mu-checkbox :value="magazine_sort.id[i-1]" v-model="achievement_magazine.magazine_id" :label='magazine_sort.name[i-1]'
+                <mu-flex class="select-control-row" :key="magazineSort.id[i-1]" v-for="i in magazineSort.id.length">
+                  <mu-checkbox :value="magazineSort.id[i-1]" v-model="achievement_magazine.magazineId" :label='magazineSort.name[i-1]'
                     :disabled="flag.is_disabled"></mu-checkbox>
                 </mu-flex>
               </div>
@@ -99,7 +100,7 @@
         <!-- 确定按钮 -->
         <div style="text-align: center;">
           <div v-if="!flag.is_disabled">
-            <mu-button @click="makesure" color="primary">
+            <mu-button @click="canMakesure" color="primary">
               确定&nbsp;&nbsp;
               <i right class="el-icon-upload"></i>
             </mu-button>
@@ -131,33 +132,40 @@
     data() {
       return {
         labelPosition: 'top',
+        not_disabled: '', //部分不能更改的标志
+        is_submit: true, //是否可以提交，需要把值全部填完才能进行提交
         paper_achievement: { //申报的内容
-          id: 'aaaa', //论文编号
-          name: 'ssss', //论文题目
-          magazine: '期刊', //期刊
-          begin_date: 'Sun Nov 08 2020 20:45:00 GMT+0800 (中国标准时间)', //发表日期
-          paper_type: '类型', //论文类型
-          record_id: '收录好', //收录号
-          discipline: 'science', //学科门类
-          first_discipline: '文科', //一级学科
-          college_id: 'sssss', //成果归属
-          paper_source: 'lengthways', //项目来源
-          user_id: 'sswwwe', //作者
-          information: '详细信息' //详细信息
+          id: '', //论文编号
+          name: '', //论文题目
+          magazine: '', //期刊
+          beginDate: '', //发表日期
+          paperType: '', //论文类型
+          recordId: '', //收录号
+          discipline: '', //学科门类
+          firstDiscipline: '', //一级学科
+          collegeId: '', //成果归属
+          paperSource: '', //项目来源
+          userId: '', //作者
+          information: '' //详细信息
         },
-        first_discipline: [ //一级学科内容
+        firstDiscipline: [ //一级学科内容
           '文科', '理科', '计算机科学', '物理', '生物'
         ],
-        college_id: [ //成果归属
-          '计算机科学', '物电', '生物', '化学'
-        ],
+        collegeId: {
+          id: [
+            1, 2, 3, 4
+          ],
+          name: [ //成果归属
+            '计算机科学', '物电', '生物', '化学'
+          ]
+        },
         achievement_magazine: { //收录编号表
-          achievement_id: 'aaaa',
-          magazine_id: [
+          achievementId: 'aaaa',
+          magazineId: [
             '001', '003', '004'
           ]
         },
-        magazine_sort: { //编号读取
+        magazineSort: { //编号读取
           id: [
             '001', '002', '003', '004', '005'
           ],
@@ -173,32 +181,36 @@
         this.$emit('click', this.flag);
       },
       makesure() {
-
-        this.axios.post("http://192.168.43.229:9999/mangerSys/", {
-          paper_achievement
-        }).then(
+        var proJson = JSON.stringify(this.paper_achievement);
+        proJson = JSON.parse(proJson);
+        console.log('论文表单  begin:  ');
+        this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/", proJson).then(
           (response) => {
-            console.log('asdf');
-
-            var resultCode = -1; //返回值，进行登录判断
-            if (resultCode == 0) { //成功
-              this.login_success();
-            } else if (resultCode == -1) { //失败
-              this.login_failing('用户名或密码错误');
-            } else {
-              this.login_failing('出现了不可避免的错误，请稍后再试');
-            }
+            console.log('论文表单发送返回的请求值' + response.data.resultCode);
+            console.log('论文表单  request  over');
           });
-
         this.closeAlertDialog();
-        // window.location.reload(); //重载，刷新页面
       },
       editForm() {
+        this.not_disabled = this.flag.is_disabled;
         this.flag.is_disabled = false;
       }
     },
     components: {
       UserTable
+    },
+    canMakesure() {
+      for (var key in this.paper_achievement) {
+        if (this.paper_achievement[key] == '') {
+          this.is_submit = false;
+          console.log(key + '  的数据没有填写！！！');
+          break;
+        }
+        if (this.is_submit) {
+          console.log('it is ok!!!');
+          this.makesure();
+        }
+      }
     }
   };
 </script>

@@ -31,6 +31,35 @@
                 <mu-text-field v-model="project.userId" :disabled="flag.is_disabled"></mu-text-field>
               </mu-form-item>
 
+
+              <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="项目性质">
+                <mu-radio v-model="project.characters" value="crosswise" label="横向" :disabled="flag.is_disabled"></mu-radio>
+                <mu-radio v-model="project.characters" value="lengthways" label="纵向" :disabled="flag.is_disabled"></mu-radio>
+              </mu-form-item>
+
+              <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="学科门类">
+                <mu-radio v-model="project.discipline" value="science" label="理科类" :disabled="flag.is_disabled"></mu-radio>
+                <mu-radio v-model="project.discipline" value="social" label="社科类" :disabled="flag.is_disabled"></mu-radio>
+              </mu-form-item>
+
+
+              <mu-col span="8" lg="4" sm="6" class="mu-demo-min-form float_left">
+                <mu-date-input prop="input" v-model="project.beginDate" label="立项日期" label-float full-width landscape
+                  :disabled="flag.is_disabled"></mu-date-input>
+              </mu-col>
+
+
+              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="申请经费">
+                <mu-text-field v-model="project.requestFund" :disabled="flag.is_disabled"></mu-text-field>
+              </mu-form-item>
+
+
+
+
+
+
+
+
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="所在单位">
                 <mu-select v-model="project.collegeId" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in collegeId" :key="option" :label="option" :value="option"></mu-option>
@@ -49,20 +78,11 @@
                 </mu-select>
               </mu-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="项目性质">
-                <mu-radio v-model="project.characters" value="crosswise" label="横向" :disabled="flag.is_disabled"></mu-radio>
-                <mu-radio v-model="project.characters" value="lengthways" label="纵向" :disabled="flag.is_disabled"></mu-radio>
-              </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form" prop="select" label="项目状态">
                 <mu-select v-model="project.state" :disabled="flag.is_disabled">
                   <mu-option v-for="option,index in state.name" :key="state.id[index]" :label="option" :value="state.id[index]"></mu-option>
                 </mu-select>
-              </mu-form-item>
-
-              <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="学科门类">
-                <mu-radio v-model="project.discipline" value="science" label="理科类" :disabled="flag.is_disabled"></mu-radio>
-                <mu-radio v-model="project.discipline" value="social" label="社科类" :disabled="flag.is_disabled"></mu-radio>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="项目分类">
@@ -72,19 +92,9 @@
               </mu-form-item>
 
               <mu-col span="8" lg="4" sm="6" class="mu-demo-min-form float_left">
-                <mu-date-input prop="input" v-model="project.beginDate" label="立项日期" label-float full-width landscape
-                  :disabled="flag.is_disabled"></mu-date-input>
-              </mu-col>
-
-              <mu-col span="8" lg="4" sm="6" class="mu-demo-min-form float_left">
                 <mu-date-input prop="input" v-model="project.endDate" label="结项日期" label-float full-width landscape
                   :disabled="flag.is_disabled"></mu-date-input>
               </mu-col>
-
-
-              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="申请经费">
-                <mu-text-field v-model="project.requestFund" :disabled="flag.is_disabled"></mu-text-field>
-              </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form" prop="input" label="到账经费">
                 <mu-text-field v-model="project.arrivalFund" :disabled="flag.is_disabled"></mu-text-field>
