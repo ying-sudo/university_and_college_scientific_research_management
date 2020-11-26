@@ -51,7 +51,7 @@ export default {
     // console.log("created");
 
     if (this.$route.path !== "/login" && this.$route.path !== "/initPWD") {
-      console.log("created fasdf");
+      // console.log("created fasdf");
       this.getHeaderData();
     }
   },
@@ -70,14 +70,14 @@ export default {
   methods: {
     headerClick(key) {
       this.parentSelectIndex = key;
-      console.log(this.parentSelectIndex);
+      // console.log(this.parentSelectIndex);
     },
 
     getHeaderData(requestUrl) {
       requestUrl = requestUrl || "/api/header";
       this.axios.post(requestUrl + "").then(
         (response) => {
-          console.log(response.data);
+          // console.log(response.data);
           this.headerLists = response.data.data.headerLists;
         },
         (response) => {
@@ -95,7 +95,7 @@ export default {
       }
       // console.log(this.itemOptionsFileName);
     },
-    immediate: true
+    // immediate: true
   },
 };
 </script>
