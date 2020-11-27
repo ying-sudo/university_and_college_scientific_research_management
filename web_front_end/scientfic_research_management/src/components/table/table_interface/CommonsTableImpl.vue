@@ -9,10 +9,10 @@
       :itemOptions="itemOptions"
       :tableData="tableData"
     >
-    <!-- slot中间传递层，真正实现要放到实现类中 -->
-      <div slot="table_template_slot">
-	      <slot name="table_template_slot"></slot>
-	    </div>
+      <!-- slot中间传递层，真正实现要放到实现类中 -->
+      <template slot="table_template_slot" slot-scope="{ row }">
+        <slot name="table_template_slot" :row="row"></slot>
+      </template>
     </CommonsTableTemplate>
   </div>
 </template>
@@ -23,7 +23,7 @@ import { getTableMap } from "@/components/table/table_map/TableMap.js";
 
 export default {
   name: "CommonsTableImpl",
-  props:["tableData"],
+  props: ["tableData"],
   data() {
     return {
       //存储url参数以及对于表头文件名的map(key: url参数, value: 表头文件名)
@@ -37,7 +37,6 @@ export default {
 
       //返回到页面中的表头数据
       itemOptions: [],
-
     };
   },
   components: {

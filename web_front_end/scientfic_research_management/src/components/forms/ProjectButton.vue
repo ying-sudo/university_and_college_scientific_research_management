@@ -1,5 +1,4 @@
 <template>
-
   <!-- 项目申报按钮 -->
   <div>
     <mu-container>
@@ -16,6 +15,7 @@
             <el-button icon="el-icon-view" type="text" @click="getCollegeData"></el-button>
           </el-tooltip>
         </div>
+        <!-- <p>{{this.TableRow}}</p> -->
       </mu-flex>
 
       <ProjectForm :key="reload" v-model="flag" :collegeInfo="collegeInfo"></ProjectForm>
@@ -28,7 +28,7 @@
   import ProjectForm from "./ProjectForm.vue";
 
   export default {
-    props: ["isDisabled", "testData01"],
+    props: ["isDisabled", "TableRow"], //TableRow获取父组件表格指定行的数据
     model: {
       prop: "isDisabled",
       event: "click",
@@ -54,7 +54,6 @@
 
         this.flag.isDisabled = this.isDisabled;
         this.flag.openAlertProject = true;
-        console.log("this.testData01:" + this.testData01);
       },
 
       getCollegeData() {
