@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.sicnu.dao.PatentAchievementDao">
+
+    <resultMap type="cn.edu.sicnu.entity.PatentAchievement" id="PatentAchievementMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="patentType" column="patent_type" jdbcType="VARCHAR"/>
+        <result property="patentRange" column="patent_range" jdbcType="VARCHAR"/>
+        <result property="collegeId" column="college_id" jdbcType="VARCHAR"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+        <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
+        <result property="applicationDate" column="application_date" jdbcType="TIMESTAMP"/>
+        <result property="publicId" column="public_id" jdbcType="VARCHAR"/>
+        <result property="publicDate" column="public_date" jdbcType="TIMESTAMP"/>
+        <result property="impowerId" column="impower_id" jdbcType="VARCHAR"/>
+        <result property="impowerDate" column="impower_date" jdbcType="TIMESTAMP"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="information" column="information" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PatentAchievementMap">
+        select id,
+               name,
+               patent_type,
+               patent_range,
+               college_id,
+               state,
+               application_id,
+               application_date,
+               public_id,
+               public_date,
+               impower_id,
+               impower_date,
+               user_id,
+               information
+        from scientific_research.patent_achievement
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PatentAchievementMap">
+        select id,
+               name,
+               patent_type,
+               patent_range,
+               college_id,
+               state,
+               application_id,
+               application_date,
+               public_id,
+               public_date,
+               impower_id,
+               impower_date,
+               user_id,
+               information
+        from scientific_research.patent_achievement
+                     limit #{offset}, #{limit}
+    </select>
+    <!--查询表所有对象-->
+    <select id="findAll" resultMap="PatentAchievementMap">
+        select id,
+               name,
+               patent_type,
+               patent_range,
+               college_id,
+               state,
+               application_id,
+               application_date,
+               public_id,
+               public_date,
+               impower_id,
+               impower_date,
+               user_id,
+               information
+        from scientific_research.patent_achievement
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PatentAchievementMap">
+        select
+        id, name, patent_type, patent_range, college_id, state, application_id, application_date, public_id,
+        public_date, impower_id, impower_date, user_id, information
+        from scientific_research.patent_achievement
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="patentType != null and patentType != ''">
+                and patent_type = #{patentType}
+            </if>
+            <if test="patentRange != null and patentRange != ''">
+                and patent_range = #{patentRange}
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                and college_id = #{collegeId}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+            <if test="applicationId != null and applicationId != ''">
+                and application_id = #{applicationId}
+            </if>
+            <if test="applicationDate != null">
+                and application_date = #{applicationDate}
+            </if>
+            <if test="publicId != null and publicId != ''">
+                and public_id = #{publicId}
+            </if>
+            <if test="publicDate != null">
+                and public_date = #{publicDate}
+            </if>
+            <if test="impowerId != null and impowerId != ''">
+                and impower_id = #{impowerId}
+            </if>
+            <if test="impowerDate != null">
+                and impower_date = #{impowerDate}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+            <if test="information != null and information != ''">
+                and information = #{information}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into scientific_research.patent_achievement (name,
+                                                            patent_type,
+                                                            patent_range,
+                                                            college_id,
+                                                            state,
+                                                            application_id,
+                                                            application_date,
+                                                            public_id,
+                                                            public_date,
+                                                            impower_id,
+                                                            impower_date,
+                                                            user_id,
+                                                            information)
+        values (#{name},
+                #{patentType},
+                #{patentRange},
+                #{collegeId},
+                #{state},
+                #{applicationId},
+                #{applicationDate},
+                #{publicId},
+                #{publicDate},
+                #{impowerId},
+                #{impowerDate},
+                #{userId},
+                #{information})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into scientific_research.patent_achievement(name, patent_type, patent_range, college_id, state,
+        application_id, application_date, public_id, public_date, impower_id, impower_date, user_id, information)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.patentType}, #{entity.patentRange}, #{entity.collegeId}, #{entity.state},
+            #{entity.applicationId}, #{entity.applicationDate}, #{entity.publicId}, #{entity.publicDate},
+            #{entity.impowerId}, #{entity.impowerDate}, #{entity.userId}, #{entity.information})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into scientific_research.patent_achievement(name, patent_type, patent_range, college_id, state,
+        application_id, application_date, public_id, public_date, impower_id, impower_date, user_id, information)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.patentType}, #{entity.patentRange}, #{entity.collegeId}, #{entity.state},
+            #{entity.applicationId}, #{entity.applicationDate}, #{entity.publicId}, #{entity.publicDate},
+            #{entity.impowerId}, #{entity.impowerDate}, #{entity.userId}, #{entity.information})
+        </foreach>
+        on duplicate key update
+        name = values(name) , patent_type = values(patent_type) , patent_range = values(patent_range) , college_id =
+        values(college_id) , state = values(state) , application_id = values(application_id) , application_date =
+        values(application_date) , public_id = values(public_id) , public_date = values(public_date) , impower_id =
+        values(impower_id) , impower_date = values(impower_date) , user_id = values(user_id) , information =
+        values(information)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update scientific_research.patent_achievement
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="patentType != null and patentType != ''">
+                patent_type = #{patentType},
+            </if>
+            <if test="patentRange != null and patentRange != ''">
+                patent_range = #{patentRange},
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                college_id = #{collegeId},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="applicationId != null and applicationId != ''">
+                application_id = #{applicationId},
+            </if>
+            <if test="applicationDate != null">
+                application_date = #{applicationDate},
+            </if>
+            <if test="publicId != null and publicId != ''">
+                public_id = #{publicId},
+            </if>
+            <if test="publicDate != null">
+                public_date = #{publicDate},
+            </if>
+            <if test="impowerId != null and impowerId != ''">
+                impower_id = #{impowerId},
+            </if>
+            <if test="impowerDate != null">
+                impower_date = #{impowerDate},
+            </if>
+            <if test="userId != null and userId != ''">
+                user_id = #{userId},
+            </if>
+            <if test="information != null and information != ''">
+                information = #{information},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from scientific_research.patent_achievement
+        where id = #{id}
+    </delete>
+
+</mapper>

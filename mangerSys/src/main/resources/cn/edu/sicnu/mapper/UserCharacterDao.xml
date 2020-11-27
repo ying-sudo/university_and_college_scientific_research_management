@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.sicnu.dao.UserCharacterDao">
+
+    <resultMap type="cn.edu.sicnu.entity.UserCharacter" id="UserCharacterMap">
+        <result property="characterId" column="character_id" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="note" column="note" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserCharacterMap">
+        select character_id, user_id, note
+        from scientific_research.user_character
+        where character_id = #{characterId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserCharacterMap">
+        select character_id, user_id, note
+        from scientific_research.user_character
+                     limit #{offset}, #{limit}
+    </select>
+    <!--查询表所有对象-->
+    <select id="findAll" resultMap="UserCharacterMap">
+        select character_id, user_id, note
+        from scientific_research.user_character
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserCharacterMap">
+        select
+        character_id, user_id, note
+        from scientific_research.user_character
+        <where>
+            <if test="characterId != null and characterId != ''">
+                and character_id = #{characterId}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+            <if test="note != null and note != ''">
+                and note = #{note}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="characterId" useGeneratedKeys="true">
+        insert into scientific_research.user_character (note)
+        values (#{note})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="characterId" useGeneratedKeys="true">
+        insert into scientific_research.user_character(note)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.note})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="characterId" useGeneratedKeys="true">
+        insert into scientific_research.user_character(note)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.note})
+        </foreach>
+        on duplicate key update
+        note = values(note)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update scientific_research.user_character
+        <set>
+            <if test="note != null and note != ''">
+                note = #{note},
+            </if>
+        </set>
+        where character_id = #{characterId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from scientific_research.user_character
+        where character_id = #{characterId}
+    </delete>
+
+</mapper>

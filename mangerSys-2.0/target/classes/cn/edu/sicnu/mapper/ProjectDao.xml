@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.sicnu.dao.ProjectDao">
+
+    <resultMap type="cn.edu.sicnu.entity.Project" id="ProjectMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="collegeId" column="college_id" jdbcType="VARCHAR"/>
+        <result property="discipline" column="discipline" jdbcType="VARCHAR"/>
+        <result property="characters" column="characters" jdbcType="VARCHAR"/>
+        <result property="firstDiscipline" column="first_discipline" jdbcType="VARCHAR"/>
+        <result property="level" column="level" jdbcType="VARCHAR"/>
+        <result property="sort" column="sort" jdbcType="VARCHAR"/>
+        <result property="beginDate" column="begin_date" jdbcType="TIMESTAMP"/>
+        <result property="endDate" column="end_date" jdbcType="TIMESTAMP"/>
+        <result property="requestFund" column="request_fund" jdbcType="NUMERIC"/>
+        <result property="arrivalFund" column="arrival_fund" jdbcType="NUMERIC"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+        <result property="information" column="information" jdbcType="VARCHAR"/>
+        <result property="approvalNumber" column="approval_number" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ProjectMap">
+        select id,
+               name,
+               user_id,
+               college_id,
+               discipline,
+               characters,
+               first_discipline,
+               level,
+               sort,
+               begin_date,
+               end_date,
+               request_fund,
+               arrival_fund,
+               state,
+               information,
+               approval_number
+        from scientific_research.project
+        where id = #{id}
+    </select>
+    <select id="queryByUserId" resultMap="ProjectMap">
+        select id,
+               name,
+               user_id,
+               college_id,
+               discipline,
+               characters,
+               first_discipline,
+               level,
+               sort,
+               begin_date,
+               end_date,
+               request_fund,
+               arrival_fund,
+               state,
+               information,
+               approval_number
+        from scientific_research.project
+        where user_id = #{userId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ProjectMap">
+        select id,
+               name,
+               user_id,
+               college_id,
+               discipline,
+               characters,
+               first_discipline,
+               level,
+               sort,
+               begin_date,
+               end_date,
+               request_fund,
+               arrival_fund,
+               state,
+               information,
+               approval_number
+        from scientific_research.project
+                     limit #{offset}, #{limit}
+    </select>
+    <!--查询表所有对象-->
+    <select id="findAll" resultMap="ProjectMap">
+        select id,
+               name,
+               user_id,
+               college_id,
+               discipline,
+               characters,
+               first_discipline,
+               level,
+               sort,
+               begin_date,
+               end_date,
+               request_fund,
+               arrival_fund,
+               state,
+               information,
+               approval_number
+        from scientific_research.project
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ProjectMap">
+        select
+        id, name, user_id, college_id, discipline, characters, first_discipline, level, sort, begin_date, end_date,
+        request_fund, arrival_fund, state, information, approval_number
+        from scientific_research.project
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+            <if test="collegeId != null and collegeId != ''">
+                and college_id = #{collegeId}
+            </if>
+            <if test="discipline != null and discipline != ''">
+                and discipline = #{discipline}
+            </if>
+            <if test="characters != null and characters != ''">
+                and characters = #{characters}
+            </if>
+            <if test="firstDiscipline != null and firstDiscipline != ''">
+                and first_discipline = #{firstDiscipline}
+            </if>
+            <if test="level != null and level != ''">
+                and level = #{level}
+            </if>
+            <if test="sort != null and sort != ''">
+                and sort = #{sort}
+            </if>
+            <if test="beginDate != null">
+                and begin_date = #{beginDate}
+            </if>
+            <if test="endDate != null">
+                and end_date = #{endDate}
+            </if>
+            <if test="requestFund != null">
+                and request_fund = #{requestFund}
+            </if>
+            <if test="arrivalFund != null">
+                and arrival_fund = #{arrivalFund}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+            <if test="information != null and information != ''">
+                and information = #{information}
+            </if>
+            <if test="approvalNumber != null and approvalNumber != ''">
+                and approval_number = #{approvalNumber}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert">
+        insert into scientific_research.project (id,
+                                                 name,
+                                                 user_id,
+                                                 college_id,
+                                                 discipline,
+                                                 characters,
+                                                 first_discipline,
+                                                 level,
+                                                 sort,
+                                                 begin_date,
+                                                 end_date,
+                                                 request_fund,
+                                                 arrival_fund,
+                                                 state,
+                                                 information,
+                                                 approval_number)
+        values (#{id},
+                #{name},
+                #{userId},
+                #{collegeId},
+                #{discipline},
+                #{characters},
+                #{firstDiscipline},
+                #{level},
+                #{sort},
+                #{beginDate},
+                #{endDate},
+                #{requestFund},
+                #{arrivalFund},
+                #{state},
+                #{information},
+                #{approvalNumber})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into scientific_research.project(name, user_id, college_id, discipline, characters, first_discipline,
+        level, sort, begin_date, end_date, request_fund, arrival_fund, state, information)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.userId}, #{entity.collegeId}, #{entity.discipline}, #{entity.characters},
+            #{entity.firstDiscipline}, #{entity.level}, #{entity.sort}, #{entity.beginDate}, #{entity.endDate},
+            #{entity.requestFund}, #{entity.arrivalFund}, #{entity.state}, #{entity.information})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into scientific_research.project(name, user_id, college_id, discipline, characters, first_discipline,
+        level, sort, begin_date, end_date, request_fund, arrival_fund, state, information)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.userId}, #{entity.collegeId}, #{entity.discipline}, #{entity.characters},
+            #{entity.firstDiscipline}, #{entity.level}, #{entity.sort}, #{entity.beginDate}, #{entity.endDate},
+            #{entity.requestFund}, #{entity.arrivalFund}, #{entity.state}, #{entity.information})
+        </foreach>
+        on duplicate key update
+        name = values(name) , user_id = values(user_id) , college_id = values(college_id) , discipline =
+        values(discipline) , characters = values(characters) , first_discipline = values(first_discipline) , level =
+        values(level) , sort = values(sort) , begin_date = values(begin_date) , end_date = values(end_date) ,
+        request_fund = values(request_fund) , arrival_fund = values(arrival_fund) , state = values(state) , information
+        = values(information)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update scientific_research.project
+        <set>
+            name = #{name},
+            user_id = #{userId},
+            college_id = #{collegeId},
+            discipline = #{discipline},
+            characters = #{characters},
+            first_discipline = #{firstDiscipline},
+            level = #{level},
+            sort = #{sort},
+            begin_date = #{beginDate},
+            end_date = #{endDate},
+            request_fund = #{requestFund},
+            arrival_fund = #{arrivalFund},
+            state = #{state},
+            information = #{information},
+            approval_number = #{approvalNumber}
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from scientific_research.project
+        where id = #{id}
+    </delete>
+
+</mapper>
