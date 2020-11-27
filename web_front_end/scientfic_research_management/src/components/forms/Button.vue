@@ -4,33 +4,9 @@
 
     <div>
       asdfasdfas
-      <PaperButton v-model="isDisabled"></PaperButton>
+      <PaperButton></PaperButton>
     </div>
 
-
-
-<!--
-    <template>
-
-      <div class="block">
-        <span class="demonstration">默认</span>
-        <el-date-picker v-model="value1" type="date" placeholder="选择日期">
-        </el-date-picker>
-      </div>
-
-
-      <mu-container>
-        <mu-row gutter>
-          <mu-col span="8" lg="4" sm="6" class="mu-demo-min-form float_left">
-            <mu-date-input prop="input" v-model="value1" label="发表时间" label-float full-width landscape></mu-date-input>
-          </mu-col>
-        </mu-row>
-      </mu-container>
-
-
-      <button type="default" @click="onClick">asdfsd</button>
-
-    </template> -->
 
 
 
@@ -38,12 +14,12 @@
 </template>
 
 <script>
-  import PaperButton from './ProjectButton.vue'
+  import PaperButton from './UserInformation.vue'
 
   export default {
     data() {
       return {
-        isDisabled: true,
+        isDisabled: false,
         project: {
           id: 'ccc', //项目编号
           name: 'saaa', //项目名称
