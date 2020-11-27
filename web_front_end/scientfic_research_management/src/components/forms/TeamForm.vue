@@ -16,35 +16,35 @@
           <mu-container>
             <mu-form :model="team" :label-position="labelPosition" label-width="100">
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="团队名称">
-                <mu-text-field v-model="team.name" :disabled="flag.is_disabled"></mu-text-field>
+                <mu-text-field v-model="team.name" :disabled="flag.isDisabled"></mu-text-field>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="团队编号">
-                <mu-text-field v-model="team.id" :disabled="flag.is_disabled"></mu-text-field>
+                <mu-text-field v-model="team.id" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="研究方向">
-                <mu-text-field v-model="team.research_diection" :disabled="flag.is_disabled"></mu-text-field>
+                <mu-text-field v-model="team.researchDiection" :disabled="flag.isDisabled"></mu-text-field>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="学科门类">
-                <mu-radio v-model="team.discipline" value="science" label="理工类" :disabled="flag.is_disabled"></mu-radio>
-                <mu-radio v-model="team.discipline" value="social" label="社科类" :disabled="flag.is_disabled"></mu-radio>
+                <mu-radio v-model="team.discipline" value="science" label="理工类" :disabled="flag.isDisabled || notDisabled"></mu-radio>
+                <mu-radio v-model="team.discipline" value="social" label="社科类" :disabled="flag.isDisabled || notDisabled"></mu-radio>
               </mu-form-item>
 
               <mu-col span="8" lg="4" sm="6" class="mu-demo-min-form float_left">
-                <mu-date-input prop="input" v-model="team.founding_time" label="建设时间" label-float full-width landscape
-                  :disabled="flag.is_disabled"></mu-date-input>
+                <mu-date-input prop="input" v-model="team.foundingTime" label="建设时间" label-float full-width landscape
+                  :disabled="flag.isDisabled || notDisabled"></mu-date-input>
               </mu-col>
 
               <mu-form-item class="mu-demo-min-form" prop="select" label="一级学科">
-                <mu-select  v-model="team.first_discipline" :disabled="flag.is_disabled">
-                  <mu-option v-for="option,index in first_discipline" :key="option" :label="option" :value="option"></mu-option>
+                <mu-select v-model="team.firstDiscipline" :disabled="flag.isDisabled || notDisabled">
+                  <mu-option v-for="option,index in firstDiscipline" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form" prop="input" label="办公电话">
-                <mu-text-field v-model="team.phone" disabled></mu-text-field>
+                <mu-text-field v-model="team.phone" :disabled="flag.isDisabled"></mu-text-field>
               </mu-form-item>
 
               <!-- 团队负责人 -->
@@ -54,7 +54,7 @@
                 <div style="padding: 5px; border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);">
 
                   <div>
-                    <div v-if="!flag.is_disabled" style="padding: 5px; margin-top: 5px; text-align: center;">
+                    <div v-if="!flag.isDisabled" style="padding: 5px; margin-top: 5px; text-align: center;">
                       <el-form :inline="true" :model="user" class="demo-form-inline">
                         <el-form-item label="负责人学工号">
                           <el-input v-model="user.id"></el-input>
@@ -79,7 +79,7 @@
                   </div>
 
                   <mu-form-item class="mu-demo-min-form float_left" prop="input" label="所在单位">
-                    <mu-text-field v-model="user.college_id" disabled></mu-text-field>
+                    <mu-text-field v-model="user.collegeId" disabled></mu-text-field>
                   </mu-form-item>
 
                   <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="性别">
@@ -88,7 +88,7 @@
                   </mu-form-item>
 
                   <mu-form-item class="mu-demo-min-form float_left" prop="input" label="出生年月">
-                    <mu-text-field v-model="user.birth_date" disabled></mu-text-field>
+                    <mu-text-field v-model="user.birthDate" disabled></mu-text-field>
                   </mu-form-item>
 
                   <mu-form-item class="mu-demo-min-form float_left" prop="input" label="职称">
@@ -106,12 +106,12 @@
               </div>
 
               <!-- 表单底部表格 -->
-              <UserTable v-model="flag.is_disabled"></UserTable>
+              <UserTable v-model="flag.isDisabled"></UserTable>
 
               <!-- 表单备注 -->
               <mu-form-item style="margin: 10px;" prop="textarea" label="备注">
                 <mu-text-field style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" multi-line
-                  :rows="3" :rows-max="6" v-model="team.information" :disabled="flag.is_disabled"></mu-text-field>
+                  :rows="3" :rows-max="6" v-model="team.information" :disabled="flag.isDisabled"></mu-text-field>
               </mu-form-item>
 
             </mu-form>
@@ -120,8 +120,8 @@
 
         <!-- 确定按钮 -->
         <div style="text-align: center;">
-          <div v-if="!flag.is_disabled">
-            <mu-button @click="makesure" color="primary">
+          <div v-if="!flag.isDisabled">
+            <mu-button @click="canMakesure" color="primary">
               确定&nbsp;&nbsp;
               <i right class="el-icon-upload"></i>
             </mu-button>
@@ -156,27 +156,29 @@
     data() {
       return {
         labelPosition: 'top',
+        notDisabled: false,
+        isSubmit: false,
         team: {
           id: '', //编号
           name: '', //名字
-          research_diection: '', //研究方向
+          researchDiection: '', //研究方向
           discipline: '', //学科门类
-          first_discipline: '', //一级学科
-          founding_time: '', //成立时间
+          firstDiscipline: '', //一级学科
+          foundingTime: '', //成立时间
           phone: '', //办公电话
           information: '', //团队信息
-          user_id: '', //负责人
+          userId: '', //负责人
         },
-        first_discipline: [
+        firstDiscipline: [
           '一级学科1', '一级学科2'
         ],
         user: {
           id: '',
           name: '',
           phone: '',
-          college_id: '',
-          sex: 'male',
-          birth_date: '',
+          collegeId: '',
+          sex: '',
+          birthDate: '',
           post: '',
           email: ''
         },
@@ -184,9 +186,9 @@
             id: '1',
             name: '1',
             phone: '2q3',
-            college_id: '3q2',
+            collegeId: '3q2',
             sex: 'male',
-            birth_date: '4qwqwerqwrqrwerqwrqwerqwrqwerqwrqwrer2',
+            birthDate: '4qwqwerqwrqrwerqwrqwerqwrqwerqwrqwrer2',
             post: '1sa2',
             email: '123a4'
           },
@@ -194,9 +196,9 @@
             id: '2',
             name: '2',
             phone: '23qwe',
-            college_id: '32',
+            collegeId: '32',
             sex: 'male',
-            birth_date: '4qwe2',
+            birthDate: '4qwe2',
             post: '1qwe2',
             email: '12qweqwerqwerqwrqwrqwrqwrqwer34'
           },
@@ -204,9 +206,9 @@
             id: '3',
             name: '3',
             phone: '23rq',
-            college_id: '32',
+            collegeId: '32',
             sex: 'female',
-            birth_date: '42',
+            birthDate: '42',
             post: '1qwerqwererqerqwrqwerqwr2',
             email: '123qwer4'
           },
@@ -220,25 +222,60 @@
         this.$emit('click', this.flag);
       },
       makesure() {
+        console.log('团队表单data：   ' + JSON.stringify(this.team)); //form转json
+        // this.project.userId = localStorage.getItem("userid");
+        // this.project.userId = "2011000416";
+        var proJson = JSON.stringify(this.team);
+        proJson = JSON.parse(proJson);
+        // 将金额从string转为double  状态转换
+
+        console.log(proJson);
+        console.log("团队表单  request begin:  ");
+        this.axios
+          .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", proJson)
+          .then((response) => {
+            console.log('返回值:  ' + response.data.resultCode);
+            console.log("团队表单  request  over");
+          });
         this.closeAlertDialog();
-        window.location.reload(); //重载，刷新页面
       },
       editForm() {
-        this.flag.is_disabled = false;
+        this.notDisabled = this.flag.isDisabled;
+        this.flag.isDisabled = false;
       },
       findUser() {
         for (var i in this.users) {
           if (this.user.id === this.users[i].id) {
             if (this.user.name === this.users[i].name) {
               //找到用户，赋值
+              this.team.userId = this.user.id;
               for (var item in this.users[i]) {
-                this.user[item]  = this.users[i][item];
+                this.user[item] = this.users[i][item];
               }
               return;
             }
           }
         }
         alert("错误！！该用户不存在！！");
+      },
+      canMakesure() {
+        for (var key in this.team) {
+          if (this.team[key] == '') {
+            this.isSubmit = false;
+            alert(key + '  的数据没有填写！！！');
+            break;
+          } else if (this.team[key] === this.team[length-1]) {
+            console.log('last');
+            this.isSubmit = true;
+          }
+
+        }
+        console.log('lenth:  ' + this.team.length);
+        console.log('is submit:  ' + this.isSubmit);
+        if (this.isSubmit) {
+          console.log('it is ok!!!');
+          this.makesure();
+        }
       }
     },
     components: {

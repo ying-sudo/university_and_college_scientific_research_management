@@ -17,71 +17,71 @@
           <mu-container>
             <mu-form :model="patent_achievement" :label-position="labelPosition" label-width="100">
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="专利名称">
-                <mu-text-field v-model="patent_achievement.name" :disabled="flag.is_disabled"></mu-text-field>
+                <mu-text-field v-model="patent_achievement.name" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="专利编号">
-                <mu-text-field v-model="patent_achievement.id" :disabled="flag.is_disabled"></mu-text-field>
+                <mu-text-field v-model="patent_achievement.id" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="专利类型">
-                <mu-select v-model="patent_achievement.patent_type" :disabled="flag.is_disabled">
-                  <mu-option v-for="option,index in patent_type" :key="option" :label="option" :value="option"></mu-option>
+                <mu-select v-model="patent_achievement.patentType" :disabled="flag.isDisabled || notDisabled">
+                  <mu-option v-for="option,index in patentType" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="专利范围">
-                <mu-select v-model="patent_achievement.patent_range" :disabled="flag.is_disabled">
-                  <mu-option v-for="option,index in patent_type" :key="option" :label="option" :value="option"></mu-option>
+                <mu-select v-model="patent_achievement.patentRange" :disabled="flag.isDisabled">
+                  <mu-option v-for="option,index in patentRange" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="成果归属">
-                <mu-select v-model="patent_achievement.college_id" :disabled="flag.is_disabled">
-                  <mu-option v-for="option,index in patent_type" :key="option" :label="option" :value="option"></mu-option>
+                <mu-select v-model="patent_achievement.collegeId" :disabled="flag.isDisabled">
+                  <mu-option v-for="option,index in collegeId" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="专利状态">
-                <mu-select v-model="patent_achievement.state" :disabled="flag.is_disabled">
-                  <mu-option v-for="option,index in patent_type" :key="option" :label="option" :value="option"></mu-option>
+                <mu-select v-model="patent_achievement.state" :disabled="flag.isDisabled">
+                  <mu-option v-for="option,index in state" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-col span="12" lg="4" sm="6" class="mu-demo-min-form float_left">
-                <mu-date-input prop="input" v-model="patent_achievement.application_date" label="申请日期" label-float
-                  full-width landscape :disabled="flag.is_disabled"></mu-date-input>
+                <mu-date-input prop="input" v-model="patent_achievement.applicationDate" label="申请日期" label-float
+                  full-width landscape :disabled="flag.isDisabled || notDisabled" value-format="YYYY-MM-DD"></mu-date-input>
               </mu-col>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="申请编号">
-                <mu-text-field v-model="patent_achievement.application_id" :disabled="flag.is_disabled"></mu-text-field>
+                <mu-text-field v-model="patent_achievement.applicationId" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
               </mu-form-item>
 
               <mu-col span="12" lg="4" sm="6" class="mu-demo-min-form float_left">
-                <mu-date-input prop="input" v-model="patent_achievement.public_date" label="公开日期" label-float
-                  full-width landscape :disabled="flag.is_disabled"></mu-date-input>
+                <mu-date-input prop="input" v-model="patent_achievement.publicDate" label="公开日期" label-float
+                  full-width landscape :disabled="flag.isDisabled" value-format="YYYY-MM-DD"></mu-date-input>
               </mu-col>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="公开编号">
-                <mu-text-field v-model="patent_achievement.public_id" :disabled="flag.is_disabled"></mu-text-field>
+                <mu-text-field v-model="patent_achievement.publicId" :disabled="flag.isDisabled"></mu-text-field>
               </mu-form-item>
 
               <mu-col span="12" lg="4" sm="6" class="mu-demo-min-form float_left">
-                <mu-date-input prop="input" v-model="patent_achievement.impower_date" label="授权日期" label-float
-                  full-width landscape :disabled="flag.is_disabled"></mu-date-input>
+                <mu-date-input prop="input" v-model="patent_achievement.impowerDate" label="授权日期" label-float
+                  full-width landscape :disabled="flag.isDisabled" value-format="YYYY-MM-DD"></mu-date-input>
               </mu-col>
 
               <mu-form-item class="mu-demo-min-form" prop="input" label="授权编号">
-                <mu-text-field v-model="patent_achievement.impower_id" :disabled="flag.is_disabled"></mu-text-field>
+                <mu-text-field v-model="patent_achievement.impowerId" :disabled="flag.isDisabled"></mu-text-field>
               </mu-form-item>
 
               <!-- 表单底部表格 -->
-              <UserTable v-model='flag.is_disabled'></UserTable>
+              <UserTable v-model='flag.isDisabled'></UserTable>
 
               <!-- 表单备注 -->
               <mu-form-item style="margin: 10px; padding-top: 20px;" prop="textarea" label="备注">
                 <mu-text-field style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" multi-line
-                  :rows="3" :rows-max="6" v-model="patent_achievement.information" :disabled="flag.is_disabled"></mu-text-field>
+                  :rows="3" :rows-max="6" v-model="patent_achievement.information" :disabled="flag.isDisabled"></mu-text-field>
               </mu-form-item>
 
             </mu-form>
@@ -90,8 +90,8 @@
 
         <!-- 确定按钮 -->
         <div style="text-align: center;">
-          <div v-if="!flag.is_disabled">
-            <mu-button @click="makesure" color="primary">
+          <div v-if="!flag.isDisabled">
+            <mu-button @click="canMakesure" color="primary">
               确定&nbsp;&nbsp;
               <i right class="el-icon-upload"></i>
             </mu-button>
@@ -126,29 +126,31 @@
     data() {
       return {
         labelPosition: 'top',
+        notDisabled: false,
+        isSubmit: true,
         patent_achievement: {
-          id: 'sss', //专利编号
+          id: '', //专利编号
           name: '', //名称
-          patent_type: '', //专利类型
-          patent_range: '', //专利范围
-          college_id: '', //成果归属
+          patentType: '', //专利类型
+          patentRange: '', //专利范围
+          collegeId: '', //成果归属
           state: '', //专利状态
-          application_id: '', //申请编号
-          application_date: '', //申请日期
-          public_id: '', //公开编号
-          public_date: '', //公开日期
-          impower_id: '', //授权编号
-          impower_date: '', //授权日期
-          user_id: '', //作者
+          applicationId: '', //申请编号
+          applicationDate: '', //申请日期
+          publicId: '', //公开编号
+          publicDate: '', //公开日期
+          impowerId: '', //授权编号
+          impowerDate: '', //授权日期
+          userId: '', //作者
           information: '' //详细信息
         },
-        patent_type: [
+        patentType: [
           '类型1', '类型2'
         ],
-        patent_range: [
+        patentRange: [
           '范围1', '范围2'
         ],
-        college_id: [
+        collegeId: [
           '学院1', '学院2'
         ],
         state: [
@@ -162,11 +164,39 @@
         this.$emit('click', this.flag);
       },
       makesure() {
+        console.log('专利表单data：   ' + JSON.stringify(this.patent_achievement));   //form转json
+        // this.project.userId = localStorage.getItem("userid");
+        // this.project.userId = "2011000416";
+        var proJson = JSON.stringify(this.patent_achievement);
+        proJson = JSON.parse(proJson);
+        // 将金额从string转为double  状态转换
+
+        console.log(proJson);
+        console.log("专利表单  request begin:  ");
+        this.axios
+          .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", proJson)
+          .then((response) => {
+            console.log(response.data.resultCode);
+            console.log("专利表单  request  over");
+          });
         this.closeAlertDialog();
-        window.location.reload(); //重载，刷新页面
       },
       editForm() {
-        this.flag.is_disabled = false;
+        this.notDisabled = this.flag.isDisabled;
+        this.flag.isDisabled = false;
+      },
+      canMakesure() {
+        for (var key in this.patent_achievement) {
+          if (this.patent_achievement[key] == '') {
+            this.isSubmit = false;
+            alert(key + '  的数据没有填写！！！');
+            break;
+          }
+        }
+        if (this.isSubmit) {
+          console.log('it is ok!!!');
+          this.makesure();
+        }
       }
     },
     components: {

@@ -4,7 +4,7 @@
 
     <div>
       asdfasdfas
-      <PaperButton v-model="is_disabled"></PaperButton>
+      <PaperButton v-model="isDisabled"></PaperButton>
     </div>
 
 
@@ -38,12 +38,12 @@
 </template>
 
 <script>
-  import PaperButton from './PaperButton.vue'
+  import PaperButton from './ProjectButton.vue'
 
   export default {
     data() {
       return {
-        is_disabled: true,
+        isDisabled: true,
         project: {
           id: 'ccc', //项目编号
           name: 'saaa', //项目名称

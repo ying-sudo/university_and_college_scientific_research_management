@@ -48,32 +48,12 @@ export default {
   },
 
   created: function () {
-    this.axios.post("/api/header").then(
-      (response) => {
-        console.log(response.data);
-        this.headerLists = response.data.data.headerLists;
-      },
-      (response) => {
-        console.log("header error");
-      }
-    );
+    // console.log("created");
 
-    // this.axios.post("/").then(
-    //   (response) => {
-    //     console.log(response.data);
-    //     this.headerLists = response.data.data.headerLists;
-    //   },
-    //   (response) => {
-    //     console.log("header error");
-    //   }
-    // );
-
-    // var settime = setTimeout(function () {
-    //   location.reload();
-    // }, 1000);
-    // clearInterval(settime);
-    // this.$router.go(0);
-    // console.log("refresh");
+    if (this.$route.path !== "/login" && this.$route.path !== "/initPWD") {
+      // console.log("created fasdf");
+      this.getHeaderData();
+    }
   },
 
   computed: {
@@ -90,8 +70,32 @@ export default {
   methods: {
     headerClick(key) {
       this.parentSelectIndex = key;
-      console.log(this.parentSelectIndex);
+      // console.log(this.parentSelectIndex);
     },
+
+    getHeaderData(requestUrl) {
+      requestUrl = requestUrl || "/api/header";
+      this.axios.post(requestUrl + "").then(
+        (response) => {
+          // console.log(response.data);
+          this.headerLists = response.data.data.headerLists;
+        },
+        (response) => {
+          console.log("header error");
+        }
+      );
+    },
+  },
+
+  watch: {
+    $route(to, from) {
+      // this.loading = true;
+      if (this.$route.path !== "/login" && this.$route.path !== "/initPWD") {
+        this.getHeaderData();
+      }
+      // console.log(this.itemOptionsFileName);
+    },
+    // immediate: true
   },
 };
 </script>

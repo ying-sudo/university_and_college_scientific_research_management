@@ -42,14 +42,17 @@ export default {
       console.log("this.backEndInterface:" + this.backEndInterface);
     },
     getTableData: function (newVal) {
-      this.axios.get("/api/table_data").then((res) => {
-        let userId = localStorage.getItem("id");
-        // this.axios.get(`http://172.20.10.4:9999/${newVal}/${userId}`).then((res) => {
-        console.log(res.data.data);
-        this.tableData = res.data.data.TableData;
-        // this.tableData = res.data.data;
-        // console.log(res.data.data.TableData);
-      });
+      // this.axios.get("/api/table_data").then((res) => {    ${userId}  2011000416
+      let userId = localStorage.getItem("userid");
+      console.log(userId);
+      this.axios
+        .get(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`)
+        .then((res) => {
+          console.log(res.data.data);
+          // this.tableData = res.data.data.TableData;
+          this.tableData = res.data.data;
+          // console.log(res.data.data.TableData);
+        });
     },
 
     //动态注册操作列按钮

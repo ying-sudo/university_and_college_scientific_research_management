@@ -19,6 +19,11 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
+import global_ from './Base.vue'
+Vue.prototype.GLOBAL = global_;
+axios.defaults.baseURI = global_.BASE_URL;
+Vue.prototype.$Api = '/api';  //跨域
+
 import echarts from "echarts";
 Vue.prototype.$echarts = echarts
 
