@@ -195,11 +195,15 @@
           //   name: "经济与管理学院"
           // },
         ],
-        userId: [
-          //负责人
-          "1",
-          "2",
-          "3",
+        users: [
+          {
+            id: "001",
+            contribution: 40
+          },
+          {
+            id: "002",
+            contribution: 90
+          }
         ],
         firstDiscipline: [
           //一级学科内容
@@ -219,7 +223,7 @@
     },
     created: function() {
       console.log('collegeInfo:1   ' + this.collegeInfo);
-      // this.collegeId = this.collegeInfo;
+      this.collegeId = this.collegeInfo;
     },
     methods: {
       closeAlertDialog() {
@@ -230,19 +234,22 @@
         // console.log(JSON.stringify(this.project));   //form转json
         this.project.userId = localStorage.getItem("userid");
         // this.project.userId = "2011000416";
-        var proJson = JSON.stringify(this.project);
-        proJson = JSON.parse(proJson);
-        // 将金额从string转为double  状态转换
-        proJson.requestFund = proJson.requestFund * 1.0;
-        proJson.arrivalFund = proJson.requestFund * 1.0;
-        proJson.state = proJson.state * 1;
-        console.log(proJson);
+        var proString = JSON.stringify(this.project);
+        // proString = JSON.parse(proString);
 
-        this.notDisabled = true;
+        var usersString = JSON.stringify(this.users);
+
+        // 将金额从string转为double  状态转换
+        // proString.requestFund = proString.requestFund * 1.0;
+        // proString.arrivalFund = proString.requestFund * 1.0;
+        // proString.state = proString.state * 1;
+        console.log(proString);
+
+        // this.notDisabled = true;
         if (this.notDisabled) {
           console.log("项目表单修改  request begin:  ");
           this.axios
-            .put(this.GLOBAL.BASE_URL + "/mangerSys/project/projects/" + proJson.id, proJson)
+            .put(this.GLOBAL.BASE_URL + "/mangerSys/project/projects/" + proString.id, proString)
             .then((response) => {
               console.log(response.data.resultCode);
               console.log("项目表单  request  over");
@@ -250,7 +257,11 @@
         } else {
           console.log("项目表单申报  request begin:  ");
           this.axios
-            .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", proJson)
+            .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects",
+            {
+              "project" : proString,
+              "users" : usersString
+            })
             .then((response) => {
               console.log(response.data.resultCode);
               console.log("项目表单  request  over");
@@ -260,7 +271,7 @@
         this.closeAlertDialog();
       },
       editForm() {
-        // this.notDisabled = this.flag.isDisabled;
+        this.notDisabled = this.flag.isDisabled;
         this.flag.isDisabled = false;
       },
       canMakesure() { //判断能否提交，必须全部填写
