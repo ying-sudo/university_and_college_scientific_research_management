@@ -82,7 +82,7 @@
               </mu-col>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="申请经费">
-                <mu-text-field v-model="project.requestFund || notDisabled" :disabled="flag.isDisabled"></mu-text-field>
+                <mu-text-field v-model="project.requestFund" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form" prop="input" label="到账经费">
@@ -238,27 +238,40 @@
         proJson.arrivalFund = proJson.requestFund * 1.0;
         proJson.state = proJson.state * 1;
         console.log(proJson);
-        console.log("项目表单  request begin:  ");
-        this.axios
-          .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", proJson)
-          .then((response) => {
-            console.log(response.data.resultCode);
-            console.log("项目表单  request  over");
-          });
+
+        this.notDisabled = true;
+        if (this.notDisabled) {
+          console.log("项目表单修改  request begin:  ");
+          this.axios
+            .put(this.GLOBAL.BASE_URL + "/mangerSys/project/projects/" + proJson.id, proJson)
+            .then((response) => {
+              console.log(response.data.resultCode);
+              console.log("项目表单  request  over");
+            });
+        } else {
+          console.log("项目表单申报  request begin:  ");
+          this.axios
+            .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", proJson)
+            .then((response) => {
+              console.log(response.data.resultCode);
+              console.log("项目表单  request  over");
+            });
+        }
+
         this.closeAlertDialog();
       },
       editForm() {
-        this.notDisabled = this.flag.isDisabled;
+        // this.notDisabled = this.flag.isDisabled;
         this.flag.isDisabled = false;
       },
       canMakesure() { //判断能否提交，必须全部填写
-        for (var key in this.project) {
-          if (this.project[key] == '') {
-            this.isSubmit = false;
-            alert(key + '  的数据没有填写！！！');
-            break;
-          }
-        }
+        // for (var key in this.project) {
+        //   if (this.project[key] == '') {
+        //     this.isSubmit = false;
+        //     alert(key + '  的数据没有填写！！！');
+        //     break;
+        //   }
+        // }
         if (this.isSubmit) {
           console.log('it is ok!!!');
           this.makesure();

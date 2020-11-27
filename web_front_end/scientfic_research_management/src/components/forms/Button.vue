@@ -38,12 +38,12 @@
 </template>
 
 <script>
-  import PaperButton from './TeamButton.vue'
+  import PaperButton from './ProjectButton.vue'
 
   export default {
     data() {
       return {
-        isDisabled: false,
+        isDisabled: true,
         project: {
           id: 'ccc', //项目编号
           name: 'saaa', //项目名称

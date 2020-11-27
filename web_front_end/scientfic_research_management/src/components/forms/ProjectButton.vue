@@ -60,8 +60,9 @@
       getCollegeData() {
         this.axios.get(this.GLOBAL.BASE_URL + "/mangerSys/college/findAll").then(
           (response) => {
+
             this.collegeInfo = response.data.data;
-            // console.log(response.data.data)
+            console.log(' college id :       ' + response.data.data);
           },
           (response) => {
             console.log("getCollegeData request error");
