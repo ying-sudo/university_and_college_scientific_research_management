@@ -18,7 +18,7 @@
         <!-- <p>{{this.TableRow}}</p> -->
       </mu-flex>
 
-      <ProjectForm :key="reload" v-model="flag" :collegeInfo="collegeInfo"></ProjectForm>
+      <ProjectForm :key="reload" v-model="flag" :TableRow="TableRow" :collegeInfo="collegeInfo"></ProjectForm>
 
     </mu-container>
   </div>
@@ -48,6 +48,8 @@
     },
     methods: {
       openAlertProjectDialog() {
+
+        console.log('table row:       \n' + this.TableRow);
 
         //项目申报表单
         this.reload = new Date().getTime();

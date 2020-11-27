@@ -131,7 +131,7 @@
   import UserTable from "./UserTable.vue";
 
   export default {
-    props: ["flag", "collegeInfo"],
+    props: ["flag", "collegeInfo", "TableRow"],
     model: {
       prop: "flag",
       event: "click",
@@ -195,8 +195,7 @@
           //   name: "经济与管理学院"
           // },
         ],
-        users: [
-          {
+        users: [{
             id: "001",
             contribution: 40
           },
@@ -222,6 +221,10 @@
       };
     },
     created: function() {
+
+      this.project = this.TableRow;
+
+      console.log('project:      \n' + this.project.id);
       console.log('collegeInfo:1   ' + this.collegeInfo);
       this.collegeId = this.collegeInfo;
     },
@@ -257,10 +260,9 @@
         } else {
           console.log("项目表单申报  request begin:  ");
           this.axios
-            .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects",
-            {
-              "project" : proString,
-              "users" : usersString
+            .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", {
+              "project": proString,
+              "users": usersString
             })
             .then((response) => {
               console.log(response.data.resultCode);
