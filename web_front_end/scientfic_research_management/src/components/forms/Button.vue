@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import PaperButton from './UserInformation.vue'
+  import PaperButton from './UserTable.vue'
 
   export default {
     data() {
