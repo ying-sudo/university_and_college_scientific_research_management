@@ -161,39 +161,39 @@
         },
         collegeId: [
           //成果归属
-          // '计算机科学', '物电', '生物', '化学'
-          {
-            id: "0001",
-            name: "中华传统文化学院"
-          },
-          {
-            id: "0002",
-            name: "国际教育学院"
-          },
-          {
-            id: "0003",
-            name: "马克思主义学院"
-          },
-          {
-            id: "0006",
-            name: "教育科学学院"
-          },
-          {
-            id: "0007",
-            name: "历史文化与旅游学院"
-          },
-          {
-            id: "0008",
-            name: "数学与软件科学学院"
-          },
-          {
-            id: "0010",
-            name: "化学与材料科学学院"
-          },
-          {
-            id: "0014",
-            name: "经济与管理学院"
-          },
+          // // '计算机科学', '物电', '生物', '化学'
+          // {
+          //   id: "0001",
+          //   name: "中华传统文化学院"
+          // },
+          // {
+          //   id: "0002",
+          //   name: "国际教育学院"
+          // },
+          // {
+          //   id: "0003",
+          //   name: "马克思主义学院"
+          // },
+          // {
+          //   id: "0006",
+          //   name: "教育科学学院"
+          // },
+          // {
+          //   id: "0007",
+          //   name: "历史文化与旅游学院"
+          // },
+          // {
+          //   id: "0008",
+          //   name: "数学与软件科学学院"
+          // },
+          // {
+          //   id: "0010",
+          //   name: "化学与材料科学学院"
+          // },
+          // {
+          //   id: "0014",
+          //   name: "经济与管理学院"
+          // },
         ],
         userId: [
           //负责人
@@ -218,9 +218,8 @@
       };
     },
     created: function() {
-      console.log('collegeInfo:   ' + this.collegeInfo);
-      this.collegeId = this.collegeInfo;
-      console.log('collegeId:   ' + this.collegeId);
+      console.log('collegeInfo:1   ' + this.collegeInfo);
+      // this.collegeId = this.collegeInfo;
     },
     methods: {
       closeAlertDialog() {
