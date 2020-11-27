@@ -2,7 +2,7 @@
 
   <!-- 表单底部表格 -->
   <div style="padding: 10px;">
-    <div style=" padding-top: 70px;" v-if="!is_disabled">
+    <div style=" padding-top: 70px;" v-if="!isDisabled">
       <mu-button style="float: right; margin: 10px;" color="primary">
         添加用户&nbsp;&nbsp;
         <i class="el-icon-s-custom" style="float: right; "></i>
@@ -15,7 +15,7 @@
         <el-table-column prop="college_name" label="单位" width="300"></el-table-column>
         <el-table-column prop="arrange" label="排名" width="120"></el-table-column>
         <el-table-column prop="contribution" label="贡献率" width="120"></el-table-column>
-        <div v-if="!is_disabled">
+        <div v-if="!isDisabled">
           <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">
               <el-button @click.native.prevent="deleteRow(scope.$index, project_achievement_user)" type="text" size="small">
@@ -35,9 +35,9 @@
 
 <script>
   export default {
-    props: ['is_disabled'],
+    props: ['isDisabled'],
     model: {
-      prop: 'is_disabled',
+      prop: 'isDisabled',
       event: 'click'
     },
     data() {

@@ -5,13 +5,13 @@
     <mu-container>
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
-        <div v-if="!is_disabled">
+        <div v-if="!isDisabled">
           <mu-button @click="openAlertPatentDialog" color="primary">
             专利申请表单&nbsp;&nbsp;
             <i right class="el-icon-document-add"></i>
           </mu-button>
         </div>
-        <div v-if="is_disabled">
+        <div v-if="isDisabled">
           <el-tooltip effect="light" content="专利详情" placement="bottom-end" :open-delay="500">
             <el-button icon="el-icon-view" type="text" @click="openAlertPatentDialog"></el-button>
           </el-tooltip>
@@ -28,16 +28,16 @@
   import PatentForm from './PatentForm.vue'
 
   export default {
-    props: ['is_disabled'],
+    props: ['isDisabled'],
     model: {
-      prop: 'is_disabled',
+      prop: 'isDisabled',
       event: 'click'
     },
     data() {
       return {
         flag: {
           openAlertPatent: false, //专利申请表单
-          is_disabled: false
+          isDisabled: false
         },
         reload: ''
       };
@@ -49,7 +49,7 @@
       openAlertPatentDialog() { //专利申请表单
         this.reload = new Date().getTime();
         
-        this.flag.is_disabled = this.is_disabled;
+        this.flag.isDisabled = this.isDisabled;
         this.flag.openAlertPatent = true;
       }
     }
