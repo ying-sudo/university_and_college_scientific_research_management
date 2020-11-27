@@ -105,7 +105,7 @@
                   :disabled="flag.isDisabled"
                 >
                   <mu-option
-                    v-for="option,index in firstDiscipline"
+                    v-for="option in firstDiscipline"
                     :key="option"
                     :label="option"
                     :value="option"
@@ -123,7 +123,7 @@
                   :disabled="flag.isDisabled"
                 >
                   <mu-option
-                    v-for="option,index in level"
+                    v-for="option in level"
                     :key="option"
                     :label="option"
                     :value="option"
@@ -160,7 +160,7 @@
                   :disabled="flag.isDisabled"
                 >
                   <mu-option
-                    v-for="option,index in state.name"
+                    v-for="{option,index} in state.name"
                     :key="state.id[index]"
                     :label="option"
                     :value="state.id[index]"
@@ -336,6 +336,7 @@ export default {
     "firstDisciplineProp", //第一学科
     "levelProp", //项目级别
     "sortProp", //项目分类
+    "TableRow",
   ],
   model: {
     prop: "flag",
@@ -381,6 +382,8 @@ export default {
     };
   },
   created: function () {
+    this.project = this.TableRow;
+
     this.collegeId = this.collegeInfo;
     console.log(this.collegeId);
 
@@ -396,25 +399,31 @@ export default {
       this.flag.openAlertProject = false;
       this.$emit("click", this.flag);
     },
+
     makesure() {
       // console.log(JSON.stringify(this.project));   //form转json
       this.project.userId = localStorage.getItem("userid");
       // this.project.userId = "2011000416";
-      var proJson = JSON.stringify(this.project);
-      proJson = JSON.parse(proJson);
-      // 将金额从string转为double  状态转换
-      proJson.requestFund = proJson.requestFund * 1.0;
-      proJson.arrivalFund = proJson.requestFund * 1.0;
-      proJson.state = proJson.state * 1;
-      console.log(proJson);
+      var proString = JSON.stringify(this.project);
+      // proString = JSON.parse(proString);
 
-      this.notDisabled = true;
+      var usersString = JSON.stringify(this.users);
+
+      // 将金额从string转为double  状态转换
+      // proString.requestFund = proString.requestFund * 1.0;
+      // proString.arrivalFund = proString.requestFund * 1.0;
+      // proString.state = proString.state * 1;
+      console.log(proString);
+
+      // this.notDisabled = true;
       if (this.notDisabled) {
         console.log("项目表单修改  request begin:  ");
         this.axios
           .put(
-            this.GLOBAL.BASE_URL + "/mangerSys/project/projects/" + proJson.id,
-            proJson
+            this.GLOBAL.BASE_URL +
+              "/mangerSys/project/projects/" +
+              proString.id,
+            proString
           )
           .then((response) => {
             console.log(response.data.resultCode);
@@ -423,7 +432,10 @@ export default {
       } else {
         console.log("项目表单申报  request begin:  ");
         this.axios
-          .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", proJson)
+          .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", {
+            project: proString,
+            users: usersString,
+          })
           .then((response) => {
             console.log(response.data.resultCode);
             console.log("项目表单  request  over");
@@ -433,7 +445,7 @@ export default {
       this.closeAlertDialog();
     },
     editForm() {
-      // this.notDisabled = this.flag.isDisabled;
+      this.notDisabled = this.flag.isDisabled;
       this.flag.isDisabled = false;
     },
     canMakesure() {

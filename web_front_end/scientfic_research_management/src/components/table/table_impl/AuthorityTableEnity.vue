@@ -11,7 +11,6 @@
       <template slot="table_template_slot" slot-scope="{ row }">
         <component :is="apps" :TableRow="row"></component>
         <!-- <p>{{ row }}</p> -->
-        <!-- <p>{{Object.keys(row).length}}</p> -->
       </template>
     </CommonsTableImpl>
   </div>
@@ -42,17 +41,17 @@ export default {
       console.log("this.backEndInterface:" + this.backEndInterface);
     },
     getTableData: function (newVal) {
-      // this.axios.get("/api/table_data").then((res) => {    ${userId}  2011000416
-      let userId = localStorage.getItem("userid");
-      console.log(userId);
-      this.axios
-        .get(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`)
-        .then((res) => {
-          console.log(res.data.data);
-          // this.tableData = res.data.data.TableData;
-          this.tableData = res.data.data;
-          // console.log(res.data.data.TableData);
-        });
+      this.axios.get("/api/table_data").then((res) => {
+        //${userId}  2011000416
+        // let userId = localStorage.getItem("userid");
+        // console.log(userId);
+        this.axios;
+        // .get(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`).then((res) => {
+        console.log(res.data.data);
+        this.tableData = res.data.data.TableData;
+        // this.tableData = res.data.data;
+        // console.log(res.data.data.TableData);
+      });
     },
 
     //动态注册操作列按钮
@@ -132,8 +131,6 @@ export default {
       ButtonsMap: [],
       buttons_name: "",
       new_buttons: {},
-
-      testData01: "ok??",
     };
   },
 };

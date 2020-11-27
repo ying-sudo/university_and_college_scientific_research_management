@@ -10,10 +10,6 @@
       :tableData="tableData"
     >
       <!-- slot中间传递层，真正实现要放到实现类中 -->
-      <!-- <div slot="table_template_slot">
-        <slot name="table_template_slot"></slot>
-      </div> -->
-
       <template slot="table_template_slot" slot-scope="{ row }">
         <slot name="table_template_slot" :row="row"></slot>
       </template>

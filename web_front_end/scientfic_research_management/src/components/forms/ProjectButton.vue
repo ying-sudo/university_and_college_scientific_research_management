@@ -30,6 +30,7 @@
             ></el-button>
           </el-tooltip>
         </div>
+        <!-- <p>{{this.TableRow}}</p> -->
       </mu-flex>
 
       <ProjectForm
@@ -40,6 +41,7 @@
         :firstDisciplineProp="firstDiscipline"
         :levelProp="level"
         :sortProp="sort"
+        :TableRow="TableRow"
       ></ProjectForm>
 
     </mu-container>
@@ -50,7 +52,7 @@
 import ProjectForm from "./ProjectForm.vue";
 
 export default {
-  props: ["isDisabled", "testData01"],
+  props: ["isDisabled", "TableRow"],
   model: {
     prop: "isDisabled",
     event: "click",
@@ -82,6 +84,7 @@ export default {
       this.flag.isDisabled = this.isDisabled;
       this.flag.openAlertProject = true;
       console.log("this.testData01:" + this.testData01);
+
     },
 
     getCollegeData() {
