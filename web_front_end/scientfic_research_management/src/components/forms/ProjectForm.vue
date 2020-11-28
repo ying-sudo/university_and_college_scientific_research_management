@@ -328,6 +328,7 @@
 
 <script>
 import UserTable from "./UserTable.vue";
+
 export default {
   props: [
     "flag",
@@ -402,12 +403,15 @@ export default {
       // this.project.userId = "2011000416";
       var proString = JSON.stringify(this.project);
       // proString = JSON.parse(proString);
+      
+
       var usersString = JSON.stringify(this.users);
       // 将金额从string转为double  状态转换
       // proString.requestFund = proString.requestFund * 1.0;
       // proString.arrivalFund = proString.requestFund * 1.0;
       // proString.state = proString.state * 1;
       console.log(proString);
+      
       // this.notDisabled = true;
       if (this.notDisabled) {
         console.log("项目表单修改  request begin:  ");
@@ -434,6 +438,7 @@ export default {
             console.log("项目表单  request  over");
           });
       }
+      
       this.closeAlertDialog();
     },
     editForm() {
@@ -467,6 +472,7 @@ export default {
   width: 100%;
   max-width: 800px;
 }
+
 .mu-demo-min-form {
   width: 100%;
   max-width: 340px;
