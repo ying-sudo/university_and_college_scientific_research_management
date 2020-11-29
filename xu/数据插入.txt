@@ -1,0 +1,178 @@
+--college
+INSERT INTO college VALUES ("0001","狮子山校区","中华传统文化学院","500","无","1");
+INSERT INTO college VALUES ("0002","狮子山校区","国际教育学院","300","无","1");
+INSERT INTO college VALUES ("0003","狮子山校区","马克思主义学院","300","无","1");
+INSERT INTO college VALUES ("1004","成龙校区","外国语学院","500","无","1");
+INSERT INTO college VALUES ("1005","成龙校区","法学院学院","400","无","1");
+INSERT INTO college VALUES ("0006","狮子山校区","教育科学学院","500","无","1");
+INSERT INTO college VALUES ("0007","狮子山校区","历史文化与旅游学院","300","无","1");
+INSERT INTO college VALUES ("0008","狮子山校区","数学与软件科学学院","500","无","1");
+INSERT INTO college VALUES ("1009","成龙校区","物理与电子工程学院","300","无","1");
+INSERT INTO college VALUES ("0010","狮子山校区","化学与材料科学学院","300","无","1");
+INSERT INTO college VALUES ("1011","成龙校区","生命科学学院","300","无","1");
+INSERT INTO college VALUES ("1012","成龙校区","地理与资源科学学院","300","无","1");
+INSERT INTO college VALUES ("1013","成龙校区","计算机科学学院","300","无","1");
+INSERT INTO college VALUES ("0014","狮子山校区","经济与管理学院","300","无","1");
+INSERT INTO college VALUES ("1015","成龙校区","工学院","300","无","1");
+INSERT INTO college VALUES ("0016","狮子山校区","商学院","300","无","1");
+INSERT INTO college VALUES ("1014","成龙校区","美术学院","300","无","1");
+INSERT INTO college VALUES ("1018","成龙校区","音乐学院","300","无","1");
+INSERT INTO college VALUES ("1019","成龙校区","舞蹈学院","300","无","1");
+INSERT INTO college VALUES ("1020","成龙校区","体育学院","300","无","1");
+INSERT INTO college VALUES ("1021","成龙校区","服装与设计艺术学院","300","无","1");
+INSERT INTO college VALUES ("0022","狮子山校区","影视与传媒学院","300","无","1");
+INSERT INTO college VALUES ("0023","狮子山校区","信息技术学院","300","无","1");
+INSERT INTO college VALUES ("0024","狮子山校区","职业技术学院","300","无","1");
+INSERT INTO college VALUES ("0025","狮子山校区","教师培训学院","300","无","1");
+INSERT INTO college VALUES ("0026","狮子山校区","基础教育学院","300","无","1");
+INSERT INTO college VALUES ("0027","狮子山校区","教师培训学院","500","无","0");
+
+--sort
+INSERT INTO `scientific_research`.`sort`(`id`, `name`, `value`, `note`) VALUES ('01', '科研类', '科研实践', '无');
+INSERT INTO `scientific_research`.`sort`(`id`, `name`, `value`, `note`) VALUES ('02', '科研类', '科研研究', '无');
+INSERT INTO `scientific_research`.`sort`(`id`, `name`, `value`, `note`) VALUES ('03', '文化类', '文化研究', '无');
+INSERT INTO `scientific_research`.`sort`(`id`, `name`, `value`, `note`) VALUES ('04', '文化类', '文化实践', '无');
+
+--batch
+INSERT INTO `scientific_research`.`batch`(`id`, `name`, `begin_date`, `end_data`, `state`, `college_id`, `path`, `note`) VALUES ('1', '2020计科科研第一批次', '2020-01-01', '2020-06-15', 0, '1013', '归档三行八列', '无');
+INSERT INTO `scientific_research`.`batch`(`id`, `name`, `begin_date`, `end_data`, `state`, `college_id`, `path`, `note`) VALUES ('2', '2020计科科研第二批次', '2020-06-16', '2020-12-31', 1, '1013', '归档三行八列', '无');
+INSERT INTO `scientific_research`.`batch`(`id`, `name`, `begin_date`, `end_data`, `state`, `college_id`, `path`, `note`) VALUES ('3', '2020文学院科研第一批次', '2020-01-01', '2020-06-15', 0, '0001', '归档一行一列', '无');
+INSERT INTO `scientific_research`.`batch`(`id`, `name`, `begin_date`, `end_data`, `state`, `college_id`, `path`, `note`) VALUES ('4', '2020文学院科研第二批次', '2020-06-16', '2020-12-31', 1, '0001', '归档一行一列', '无');
+INSERT INTO `scientific_research`.`batch`(`id`, `name`, `begin_date`, `end_data`, `state`, `college_id`, `path`, `note`) VALUES ('5', '2020数软科研第一批次', '2020-01-01', '2020-06-15', 0, '0008', '归档二行三列', '无');
+INSERT INTO `scientific_research`.`batch`(`id`, `name`, `begin_date`, `end_data`, `state`, `college_id`, `path`, `note`) VALUES ('6', '2020数软科研第二批次', '2020-06-16', '2020-12-31', 1, '0008', '归档二行三列', '无');
+
+--users
+INSERT INTO `scientific_research`.`user`(`id`, `password`, `name`, `phone`, `email`, `id_number`, `college_id`, `register`, `note`, `sex`, `birth_date`, `post`) VALUES ('2015000111', '123', '张三', '13815147681', '13454691487@163.com', '5104041987xxxx', '0001', '2015-11-03', '无', '男', '1988-05-15', '副教授');
+INSERT INTO `scientific_research`.`user`(`id`, `password`, `name`, `phone`, `email`, `id_number`, `college_id`, `register`, `note`, `sex`, `birth_date`, `post`) VALUES ('2014000145', '111', '李四', '15489754681', '13348546897@qq.com', '5107041988xxx', '0002', '2014-05-06', '无', '女', '1990-03-04', '讲师');
+INSERT INTO `scientific_research`.`user`(`id`, `password`, `name`, `phone`, `email`, `id_number`, `college_id`, `register`, `note`, `sex`, `birth_date`, `post`) VALUES ('2011000416', '1234', '王五', '15464972136', '15546984751@163.com', '5107041975xxx', '0003', '2011-06-08', '无', '男', '1975-05-09', '教授');
+INSERT INTO `scientific_research`.`user`(`id`, `password`, `name`, `phone`, `email`, `id_number`, `college_id`, `register`, `note`, `sex`, `birth_date`, `post`) VALUES ('2018000111', '456', '赵六', '15314894846', '16488571024@qq.com', '5107041991xxx', '1004', '2018-07-08', '无', '女', '1991-04-03', '讲师');
+
+--projecet
+INSERT INTO `scientific_research`.`project`(`id`, `name`, `user_id`, `college_id`, `discipline`, `characters`, `first_discipline`, `level`, `sort`, `begin_date`, `end_date`, `request_fund`, `arrival_fund`, `state`, `information`, `approval_number`) VALUES ('2020001', '智能起飞系统', '2017000154', '1013', '工学', '科研实践', '计算机科学与技术', '省级', '科研类', '2020-01-01', '2022-01-01', 7000, 0, 1, '基于计算机嵌入式研究的起飞系统', 'CSA123456');
+INSERT INTO `scientific_research`.`project`(`id`, `name`, `user_id`, `college_id`, `discipline`, `characters`, `first_discipline`, `level`, `sort`, `begin_date`, `end_date`, `request_fund`, `arrival_fund`, `state`, `information`, `approval_number`) VALUES ('2020002', '图书管理系统', '2017000154', '1013', '工学', '科研实践', '软件工程', '省级', '科研类', '2020-01-02', '2022-01-02', 8000, 800, 1, '基于java语言开发的高校图书管理系统', 'CSA456816');
+INSERT INTO `scientific_research`.`project`(`id`, `name`, `user_id`, `college_id`, `discipline`, `characters`, `first_discipline`, `level`, `sort`, `begin_date`, `end_date`, `request_fund`, `arrival_fund`, `state`, `information`, `approval_number`) VALUES ('2020003', '中国语言xx关联研究', '2015000111', '0001', '文学', '文学研究', '中国语言文学', '校级', '文化类', '2020-01-03', '2021-01-03', 3000, 500, 1, '探究中华语言与xxx的关联', 'CSA165466');
+INSERT INTO `scientific_research`.`project`(`id`, `name`, `user_id`, `college_id`, `discipline`, `characters`, `first_discipline`, `level`, `sort`, `begin_date`, `end_date`, `request_fund`, `arrival_fund`, `state`, `information`, `approval_number`) VALUES ('2020004', '英美语言比对研究', '2018000111', '1004', '文学', '文学研究', '外国语言文学', '国家级', '文化类', '2020-01-04', '2023-01-04', 15000, 400, 1, '研究英式英语美式英语文化差异渊源', 'CSA465464');
+
+--paper_achievement
+INSERT INTO `scientific_research`.`paper_achievement`(`id`, `name`, `begin_date`, `paper_type`, `record_id`, `descipline`, `first_discipline`, `college_id`, `paper_source`, `user_id`, `information`) VALUES ('2018001', '马克苏理论法治渊源', '2018-04-06', '专题型', '2018xxxxx', '法学', '马克思主义理论', '0003', '我也不知道', '2011000416', '无');
+INSERT INTO `scientific_research`.`paper_achievement`(`id`, `name`, `begin_date`, `paper_type`, `record_id`, `descipline`, `first_discipline`, `college_id`, `paper_source`, `user_id`, `information`) VALUES ('2018002', '辩《xx》', '2018-05-07', '论辩型', '2018xxxxx', '法学', '马克思主义理论', '0003', '我真不知道', '2011000416', '无');
+INSERT INTO `scientific_research`.`paper_achievement`(`id`, `name`, `begin_date`, `paper_type`, `record_id`, `descipline`, `first_discipline`, `college_id`, `paper_source`, `user_id`, `information`) VALUES ('2018003', '基于xxx研究总结', '2018-06-08', '综述型', '2018xxxxx', '理学', '数学', '0008', '我还不知道', '2014000145', '无');
+INSERT INTO `scientific_research`.`paper_achievement`(`id`, `name`, `begin_date`, `paper_type`, `record_id`, `descipline`, `first_discipline`, `college_id`, `paper_source`, `user_id`, `information`) VALUES ('2018004', 'xxx综合研究报告', '2018-08-08', '综合型', '2018xxxxx', '文学', '中国语言文学', '0001', '我就不知道', '2015000111', '无');
+
+--work_achievement
+INSERT INTO `scientific_research`.`work_achievement`(`id`, `name`, `publisher`, `publish_level`, `work_type`, `publish_location`, `isbn_id`, `is_translate`, `translate_language`, `discipline`, `begin_date`, `characters`, `first_discipline`, `college_id`, `work_source`, `user_id`, `information`) VALUES ('001', '著作成果一号', '123出版社', '一级', '文字作品', '四川成都', '12345', 1, '英语', '理学', '2020-11-24', '探索性', '数学', '0008', '数软学院', '2014000145', '无');
+INSERT INTO `scientific_research`.`work_achievement`(`id`, `name`, `publisher`, `publish_level`, `work_type`, `publish_location`, `isbn_id`, `is_translate`, `translate_language`, `discipline`, `begin_date`, `characters`, `first_discipline`, `college_id`, `work_source`, `user_id`, `information`) VALUES ('002', '著作成果二', '456出版社', '二级', '文字作品', '四川成都', '45678', 1, '英语，日语，韩语', '文学', '2020-11-24', '解释性', '中国语言文学', '0001', '文学院', '2015000111', '无');
+INSERT INTO `scientific_research`.`work_achievement`(`id`, `name`, `publisher`, `publish_level`, `work_type`, `publish_location`, `isbn_id`, `is_translate`, `translate_language`, `discipline`, `begin_date`, `characters`, `first_discipline`, `college_id`, `work_source`, `user_id`, `information`) VALUES ('003', '著作成果三', '789出版社', '一级', '文字作品', '四川成都', '15151', 1, '英语，法语', '法学', '2020-11-24', '描述性', '马克思主义理论', '0003', '马院', '2011000416', '无');
+
+--scientific_acievement
+INSERT INTO `scientific_research`.`scientific_achievement`(`id`, `name`, `college_id`, `begin_date`, `user_id`, `is_translate`, `translate_language`, `first_discipline`, `discipline`, `characters`, `work_source`, `information`) VALUES ('001', '科研成果一', '0008', '2020-11-24', '2014000145', 1, '英语，日语，法语', '数学', '理学', '探索性', '数软学院', '无');
+INSERT INTO `scientific_research`.`scientific_achievement`(`id`, `name`, `college_id`, `begin_date`, `user_id`, `is_translate`, `translate_language`, `first_discipline`, `discipline`, `characters`, `work_source`, `information`) VALUES ('002', '科研成果二', '1013', '2020-11-24', '2017000154', 1, '英语', '计算机科学与技术', '工学', '解释性', '计科学院', '无');
+INSERT INTO `scientific_research`.`scientific_achievement`(`id`, `name`, `college_id`, `begin_date`, `user_id`, `is_translate`, `translate_language`, `first_discipline`, `discipline`, `characters`, `work_source`, `information`) VALUES ('003', '科研成果三', '0008', '2020-11-24', '2014000145', 0, NULL, '数学', '理学', '描述性', '数软学院', '无');
+
+--patent_achievement
+INSERT INTO `scientific_research`.`patent_achievement`(`id`, `name`, `patent_type`, `patent_range`, `college_id`, `state`, `application_id`, `application_date`, `public_id`, `public_date`, `impower_id`, `impower_date`, `user_id`, `information`) VALUES ('001', '专利一号', '发明', 'xxx产品独家生产权', '0008', 1, '123123123', '2020-11-24', '111111', '2020-11-24', '12121212', '2020-11-24', '2014000145', '无');
+INSERT INTO `scientific_research`.`patent_achievement`(`id`, `name`, `patent_type`, `patent_range`, `college_id`, `state`, `application_id`, `application_date`, `public_id`, `public_date`, `impower_id`, `impower_date`, `user_id`, `information`) VALUES ('002', '专利二号', '实用新型', 'xxx产品独家生产权', '0008', 1, '122131333', '2020-11-24', '222222', '2020-11-24', '45645665', '2020-11-24', '2014000145', '无');
+INSERT INTO `scientific_research`.`patent_achievement`(`id`, `name`, `patent_type`, `patent_range`, `college_id`, `state`, `application_id`, `application_date`, `public_id`, `public_date`, `impower_id`, `impower_date`, `user_id`, `information`) VALUES ('003', '专利三号', '外观设计', 'xxx外观独家使用权', '0001', 1, '123133113', '2020-11-24', '333333', '2020-11-28', '78787878', '2020-11-24', '2015000111', '无');
+
+--team
+INSERT INTO `scientific_research`.`team`(`id`, `name`, `user_id`, `research_diection`, `discipline`, `first_discipline`, `founding_time`, `phone`, `information`) VALUES ('001', '团队1', '2014000145', 'xxx方向', '理学', '数学', '2018-04-04', '133xxxxx', '无');
+INSERT INTO `scientific_research`.`team`(`id`, `name`, `user_id`, `research_diection`, `discipline`, `first_discipline`, `founding_time`, `phone`, `information`) VALUES ('002', '团队2', '2015000111', 'xxx方向', '文学', '中国语言文学', '2016-08-08', '125xxxxx', '无');
+INSERT INTO `scientific_research`.`team`(`id`, `name`, `user_id`, `research_diection`, `discipline`, `first_discipline`, `founding_time`, `phone`, `information`) VALUES ('003', '团队3', '2017000154', 'xxx方向', '工学', '软件工程，计算机科学与技术', '2019-04-06', '134xxxxx', '无');
+
+--fund
+INSERT INTO `scientific_research`.`fund`(`id`, `request_fund`, `arrival_fund`, `request_date`, `arrival_date`) VALUES ('20201001', 7000, 7000, '2020-01-01', '2020-01-10');
+INSERT INTO `scientific_research`.`fund`(`id`, `request_fund`, `arrival_fund`, `request_date`, `arrival_date`) VALUES ('20201002', 8000, 8000, '2020-01-02', '2020-01-10');
+INSERT INTO `scientific_research`.`fund`(`id`, `request_fund`, `arrival_fund`, `request_date`, `arrival_date`) VALUES ('20201003', 9000, 9000, '2020-01-03', '2020-01-10');
+INSERT INTO `scientific_research`.`fund`(`id`, `request_fund`, `arrival_fund`, `request_date`, `arrival_date`) VALUES ('20201004', 10000, 10000, '2020-01-04', '2020-01-10');
+
+--project_achievem_user
+INSERT INTO `scientific_research`.`project_achievem_user`(`id`, `user_id`, `contribution`, `category`) VALUES ('001', '2017000154', 60, 1);
+INSERT INTO `scientific_research`.`project_achievem_user`(`id`, `user_id`, `contribution`, `category`) VALUES ('002', '2014000145', 20, 1);
+INSERT INTO `scientific_research`.`project_achievem_user`(`id`, `user_id`, `contribution`, `category`) VALUES ('003', '2015000111', 50, 1);
+INSERT INTO `scientific_research`.`project_achievem_user`(`id`, `user_id`, `contribution`, `category`) VALUES ('004', '2018000111', 70, 1);
+
+--magazine
+INSERT INTO `scientific_research`.`magazine`(`id`, `name`, `is_show`) VALUES ('001', 'science', 1);
+INSERT INTO `scientific_research`.`magazine`(`id`, `name`, `is_show`) VALUES ('002', 'nature', 1);
+INSERT INTO `scientific_research`.`magazine`(`id`, `name`, `is_show`) VALUES ('003', 'xx期刊', 1);
+INSERT INTO `scientific_research`.`magazine`(`id`, `name`, `is_show`) VALUES ('004', 'xx研究刊物', 1);
+
+--achievement_magazine
+INSERT INTO `scientific_research`.`achievement_magazine`(`achievement_id`, `magazine_id`) VALUES ('2018001', '001');
+INSERT INTO `scientific_research`.`achievement_magazine`(`achievement_id`, `magazine_id`) VALUES ('2018002', '004');
+INSERT INTO `scientific_research`.`achievement_magazine`(`achievement_id`, `magazine_id`) VALUES ('2018003', '003');
+INSERT INTO `scientific_research`.`achievement_magazine`(`achievement_id`, `magazine_id`) VALUES ('2018004', '002');
+INSERT INTO `scientific_research`.`achievement_magazine`(`achievement_id`, `magazine_id`) VALUES ('2018005', '001');
+
+--team_member
+INSERT INTO `scientific_research`.`team_member`(`team_id`, `user_id`, `post`) VALUES ('001', '2014000145', '负责人');
+INSERT INTO `scientific_research`.`team_member`(`team_id`, `user_id`, `post`) VALUES ('001', '2017000154', '成员');
+INSERT INTO `scientific_research`.`team_member`(`team_id`, `user_id`, `post`) VALUES ('003', '2017000154', '负责人');
+INSERT INTO `scientific_research`.`team_member`(`team_id`, `user_id`, `post`) VALUES ('001', '2015000111', '成员');
+INSERT INTO `scientific_research`.`team_member`(`team_id`, `user_id`, `post`) VALUES ('002', '2015000111', '负责人');
+INSERT INTO `scientific_research`.`team_member`(`team_id`, `user_id`, `post`) VALUES ('002', '2018000111', '成员');
+INSERT INTO `scientific_research`.`team_member`(`team_id`, `user_id`, `post`) VALUES ('002', '2011000416', '成员');
+
+--evaluation_result
+INSERT INTO `scientific_research`.`evaluation_result`(`id`, `score`, `datename`, `sort`) VALUES ('001', 88, '2020-11-24', 'xx类');
+INSERT INTO `scientific_research`.`evaluation_result`(`id`, `score`, `datename`, `sort`) VALUES ('002', 89, '2020-11-24', 'xx类');
+INSERT INTO `scientific_research`.`evaluation_result`(`id`, `score`, `datename`, `sort`) VALUES ('003', 80, '2020-11-24', 'xx类');
+INSERT INTO `scientific_research`.`evaluation_result`(`id`, `score`, `datename`, `sort`) VALUES ('004', 66, '2020-11-24', 'xx类');
+INSERT INTO `scientific_research`.`evaluation_result`(`id`, `score`, `datename`, `sort`) VALUES ('005', 78, '2020-11-24', 'xx类');
+INSERT INTO `scientific_research`.`evaluation_result`(`id`, `score`, `datename`, `sort`) VALUES ('006', 98, '2020-11-24', 'xx类');
+INSERT INTO `scientific_research`.`evaluation_result`(`id`, `score`, `datename`, `sort`) VALUES ('007', 84, '2020-11-24', 'xx类');
+INSERT INTO `scientific_research`.`evaluation_result`(`id`, `score`, `datename`, `sort`) VALUES ('008', 67, '2020-11-24', 'xx类');
+INSERT INTO `scientific_research`.`evaluation_result`(`id`, `score`, `datename`, `sort`) VALUES ('009', 97, '2020-11-24', 'xx类');
+INSERT INTO `scientific_research`.`evaluation_result`(`id`, `score`, `datename`, `sort`) VALUES ('010', 43, '2020-11-24', 'xx类');
+
+
+--characters 
+INSERT into characters VALUES ("001","admin1","");
+INSERT into characters VALUES ("002","admin2","");
+INSERT into characters VALUES ("003","admin3","");
+INSERT into characters VALUES ("004","admin4","");
+INSERT into characters VALUES ("005","admin5","");
+INSERT into characters VALUES ("006","admin6","");
+INSERT into characters VALUES ("007","admin7","");
+INSERT into characters VALUES ("008","admin8","");
+INSERT into characters VALUES ("009","admin9","");
+INSERT into characters VALUES ("010","admin10","");
+INSERT into characters VALUES ("011","admin11","");
+INSERT into characters VALUES ("012","admin12","");
+INSERT into characters VALUES ("013","admin13","");
+INSERT into characters VALUES ("014","admin14","");
+INSERT into characters VALUES ("015","admin15","");
+INSERT into characters VALUES ("016","admin16","");
+
+--rights
+insert into rights(id,name,url_path,abscissa,ordinate,note) values ('1','首页',"/home",1,1,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('2','项目',"/projects",2,1,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('3','项目列表',"/table/projectlists",2,2,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('4','经费列表',"/table/fundlists",2,3,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('5','成果',"/achievements",3,1,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('6','论文成果',"/papers",3,2,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('7','著作成果',"/works",3,3,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('8','科研成果',"/scientifics",3,4,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('9','专利产品',"/patents",3,5,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('10','团队',"/teams",4,1,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note)values('11','考核结果',"/assessmentres",5,1,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('12','统计报表',"/reports",6,1,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('13','项目评审',"/reviews",7,1,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('14','项目批次',"/batch",7,2,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('15','在线评审',"/online",7,3,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('16','考核',"/assessment",8,1,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('17','考核批次',"/batch",8,2,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('18','项目考核',"/project",8,3,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('19','成果考核',"/achievement",8,4,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('20','个人考核',"/personal",8,5,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('21','学院考核',"/college",8,6,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('22','校级团队考核',"/team",8,7,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('23','机构及人员',"/institutions",9,1,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('24','院系机构',"/colleges",9,2,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note)values('25','科研人员',"/people",9,3,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('26','系统管理',"/admin",10,1,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('27','角色管理',"/roles",10,2,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('28','分类设置',"/sorts",10,3,'无');
+insert into rights(id,name,url_path,abscissa,ordinate,note) values('29','权限设置',"/table/authoritylists",10,4,'无');
+
+

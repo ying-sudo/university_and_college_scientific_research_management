@@ -1,0 +1,229 @@
+create table college(                   -- 院系表
+  id varchar(10) primary key,           -- 学院编号（主码）
+  location varchar(100),                -- 校区
+  name varchar(50),                     -- 职工人数
+  snumber int,                           -- 学院信息
+  information varchar(100),             -- 学院状态
+  state smallint                       -- 状态
+)engine = innodb default charset = utf8mb4;
+
+create table sort(                      -- 分类表
+  id varchar(10) primary key,           -- 类名编号(主码)
+  name varchar(20),                     -- 类名
+  value varchar(50),                    -- 值
+  note varchar(100)                    -- 备注
+)engine = innodb default charset = utf8mb4;
+
+create table batch(                     -- 批次表
+  id varchar(10) primary key,           -- 批次编号（主码）
+  name varchar(20),                     -- 批次名称
+  begin_date date,                      -- 开始时间
+  end_data date,                        -- 结束时间
+  state smallint,                       -- 状态
+  college_id varchar(10),               -- 单位
+  path varchar(100),                     -- 文件位置
+  note varchar(100),                     -- 备注
+  foreign key(college_id) references college(id)  -- 外码
+)engine = innodb default charset = utf8mb4;
+
+create table user(                   -- 用户表
+  id varchar(10) primary key,        -- 学工号(主码)
+  password varchar(16),              -- 密码
+  name varchar(20),                  -- 姓名
+  phone varchar(11),                 -- 电话号码
+  email varchar(50),                 -- 电子邮箱
+  id_number varchar(18),             -- 身份证号
+  college_id varchar(10),            -- 所属学院
+  register date,                     -- 注册日期
+  note varchar(100),                 -- 备注
+  sex varchar(10),										-- 性别
+  birth_date date,									-- 出生日期
+  post varchar(20),									-- 职位
+  foreign key(college_id) references college(id) -- 外码    
+)engine = innodb default charset = utf8mb4;
+
+create table project(                -- 项目表
+  id varchar(40) primary key,        -- 项目编号（主码）
+  name varchar(20),                  -- 项目名称
+  user_id varchar(10),               -- 负责人
+  college_id varchar(10),            -- 所属学院
+  discipline varchar(20),            -- 学科门类
+  characters varchar(20),            -- 项目性质
+  first_discipline varchar(20),      -- 一级学科
+  level varchar(20),                 -- 项目级别
+  sort varchar(20),                  -- 项目分类
+  begin_date date,                   -- 立项日期
+  end_date date,                     -- 结项日期
+  request_fund double,               -- 项目申请经费
+  arrival_fund double,               -- 到账金额
+  state smallint,                    -- 审核状态
+  information varchar(100),           -- 项目信息
+	approval_number varchar(40),	-- 批准文号
+  foreign key(user_id) references user(id),       -- 外码
+  foreign key(college_id) references college(id)  -- 外码
+)engine = innodb default charset = utf8mb4;
+
+create table paper_achievement(  -- 论文成果表
+  id varchar(40) primary key,		-- 论文编号（主码）
+  name varchar(20),			-- 论文题目
+  begin_date date,			-- 发表日期
+  paper_type varchar(20),		-- 论文类型
+  record_id varchar(40),		-- 收录号
+  descipline varchar(20),		-- 学科门类
+  first_discipline varchar(20),		-- 一级学科
+  college_id varchar(10),		-- 成果归属（所属学院）
+  paper_source varchar(20),		-- 项目来源
+  user_id varchar(10),		-- 作者
+  information varchar(100),		-- 备注
+  foreign key(user_id) references user(id),   		-- 外码
+  foreign key(college_id) references college(id)		-- 外码
+)engine = innodb default charset = utf8mb4;
+
+
+create table work_achievement(		-- 著作成果表
+  id varchar(40) primary key,		-- 著作编号
+  name varchar(20),		-- 著作题目
+  publisher varchar(40),	-- 出版单位
+  publish_level varchar(20),	-- 出版社级别
+  work_type varchar(20),	-- 著作类别
+  publish_location varchar(100),	-- 出版地
+  isbn_id varchar(10),		-- ISBN号
+  is_translate Boolean,		-- 是否翻译
+  translate_language varchar(10),		-- 翻译语种
+  discipline varchar(20),			-- 学科门类
+  begin_date date,			-- 出版时间
+  characters varchar(10),		-- 研究类别
+  first_discipline varchar(20),		-- 一级学科
+  college_id varchar(10),		-- 成果归属
+  work_source varchar(20),		-- 项目来源
+  user_id varchar(10),		-- 作者
+  information varchar(100),		-- 详细信息
+  foreign key(user_id) references user(id),   		-- 外码
+  foreign key(college_id) references college(id)		-- 外码
+)engine = innodb default charset = utf8mb4;
+
+create table scientific_achievement( -- 科研成果表
+  id varchar(40) primary key,		-- 科研编号
+  name varchar(20),			-- 科研名称
+  college_id varchar(10),		-- 成果归属
+  begin_date date,			-- 发布时间
+  user_id varchar(10),		-- 作者
+  is_translate Boolean,		-- 是否翻译
+  translate_language varchar(10),	-- 翻译语种
+  first_discipline varchar(20),		-- 一级学科
+  discipline varchar(20),		-- 学科门类
+  characters varchar(10),		-- 研究类别
+  work_source varchar(20),		-- 项目来源
+  information varchar(100),		-- 详细信息
+  foreign key(user_id) references user(id),   		-- 外码
+  foreign key(college_id) references college(id)		-- 外码
+)engine = innodb default charset = utf8mb4;
+
+create table patent_achievement(		-- 专利产品表
+  id varchar(40) PRIMARY KEY,			-- 专利编号
+  name varchar(20),			-- 专利名称
+  patent_type varchar(20),		-- 专利类型
+  patent_range varchar(20),		-- 专利范围
+  college_id varchar(10),		-- 成果归属
+  state smallint,			-- 专利状态
+  application_id varchar(40),		-- 申请编号
+  application_date date,		-- 申请日期
+  public_id varchar(40),		-- 公开编号
+  public_date date,			-- 公开日期
+  impower_id varchar(40),		-- 授权编号
+  impower_date date,		-- 授权日期
+  user_id varchar(10),		-- 作者
+  information varchar(100),		-- 详细信息
+  foreign key(user_id) references user(id),   		-- 外码
+  foreign key(college_id) references college(id)		-- 外码
+)engine = innodb default charset = utf8mb4;
+
+create table team(                      -- 团队表
+	id varchar(40) primary key,             -- 团队编号（主码）
+	name varchar(10),                       -- 团队名
+	user_id varchar(10),                    -- 负责人
+	research_diection varchar(20),          -- 研究方向
+	discipline varchar(20),                 -- 学科门类
+	first_discipline varchar(20),           -- 一级学科
+	founding_time date,                     -- 成立时间
+	phone varchar(11),											-- 办公电话
+	information varchar(100),               -- 团队信息
+	foreign key(user_id) references user(id)    -- 外码
+)engine = innodb default charset = utf8mb4;
+
+create table fund(                      -- 经费表                      
+  id varchar(40) primary key,             -- 项目标号（主码）
+  request_fund double,                    -- 申请经费
+  arrival_fund double,                    -- 到账经费
+  request_date date,                      -- 申请时间
+  arrival_date date                       -- 到账时间
+)engine = innodb default charset = utf8mb4;
+
+create table project_achievem_user(       -- 项目成果成员表
+  id varchar(40) PRIMARY KEY,                           -- 编号（主码）
+  user_id varchar(10),                      -- 学工号
+  contribution smallint,                    -- 贡献
+  category smallint,                         -- 类别
+  foreign key(user_id) references user(id)       -- 外码
+)engine = innodb default charset = utf8mb4;
+
+create table magazine(		-- 期刊收录表
+  id varchar(50) primary key,		-- 期刊收录编号(主码)
+  name varchar(40),		-- 期刊名字
+  is_show boolean			-- 是否显示
+)engine = innodb default charset = utf8mb4;
+
+create table achievement_magazine(		-- 成果收录表
+  achievement_id varchar(40) primary key,	-- 成果编号
+  magazine_id varchar(40),			-- 期刊收录编号
+  foreign key(magazine_id) references magazine(id)	-- 外码
+)engine = innodb default charset = utf8mb4;
+
+create table team_member(                    -- 团队成员表
+  team_id varchar(40),                  -- 团队编号   
+  user_id varchar(10),                         -- 成员学工号
+  post varchar(20),                            -- 职位
+  primary key (team_id,user_id),       -- 主码
+  foreign key(user_id) references user(id),         -- 外码
+  foreign key(team_id) references team(id)      -- 外码
+)engine = innodb default charset = utf8mb4;
+
+create table evaluation_result(                 -- 考核结果表
+  id varchar(40) primary key,                     -- 编号（主码）
+  score smallint,                                 -- 考核分数
+  datename date,                                      -- 时间
+  sort varchar(10)                                -- 考核类别
+)engine = innodb default charset = utf8mb4;
+
+create table characters(	-- 角色表
+  id varchar(40) primary key,	-- 编号
+  name varchar(40),		-- 角色名称
+  note varchar(50)		-- 备注
+)engine = innodb default charset = utf8mb4;
+
+create table rights(			-- 权限表
+  id varchar(40) primary key,		-- 编号
+  name varchar(40),			-- 权限横坐标
+  abscissa smallint,			-- 权限纵坐标
+  ordinate smallint,			-- 权限号
+  urlPath varchar(50),                               --路径
+  note varchar(50)			-- 备注
+)engine = innodb default charset = utf8mb4;
+
+create table characters_right(		-- 角色权限表
+  character_id varchar(40),		-- 角色编号
+  right_id varchar(40),		-- 权限编号
+  note varchar(50),			-- 备注
+  primary key(character_id,right_id ),	-- 主码
+  foreign key(character_id) references characters(id),	-- 外码
+  foreign key(right_id) references rights(id)		-- 外码
+)engine = innodb default charset = utf8mb4;
+
+create table user_character(
+  character_id varchar(40),		-- 角色编号
+  user_id varchar(10),		-- 用户编号
+  note varchar(50),			-- 备注
+  primary key(character_id,user_id),	-- 主码
+  foreign key(character_id) references characters(id),	-- 外码
+  foreign key(user_id) references user(id)       --  外码
+)engine = innodb default charset = utf8mb4;
