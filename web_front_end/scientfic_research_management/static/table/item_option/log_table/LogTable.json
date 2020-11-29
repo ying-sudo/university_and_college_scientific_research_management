@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "label": "日志信息",
+        "type": "text",
+        "prop": "logMessage"
+    },
+    {
+        "id": 2,
+        "label": "日志类型",
+        "type": "text",
+        "prop": "logType"
+    },
+    {
+        "id": 3,
+        "label": "产生时间",
+        "type": "text",
+        "prop": "logTime"
+    }
+]

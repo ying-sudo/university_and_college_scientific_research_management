@@ -8,6 +8,7 @@
       v-if="this.tableMapKey !== null"
       :itemOptions="itemOptions"
       :tableData="tableData"
+      :search="search"
     >
       <!-- slot中间传递层，真正实现要放到实现类中 -->
       <template slot="table_template_slot" slot-scope="{ row }">
@@ -23,7 +24,7 @@ import { getTableMap } from "@/components/table/table_map/TableMap.js";
 
 export default {
   name: "CommonsTableImpl",
-  props: ["tableData"],
+  props: ["tableData","search"],
   data() {
     return {
       //存储url参数以及对于表头文件名的map(key: url参数, value: 表头文件名)
