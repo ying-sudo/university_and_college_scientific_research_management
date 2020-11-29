@@ -1,7 +1,7 @@
 <template>
 
   <!-- 表单底部表格 -->
-  <div style="padding: 10px;" :key="reload">
+  <div style="padding: 10px;">
     <div style=" padding-top: 70px;" v-if="!isDisabled">
       <mu-button style="float: right; margin: 10px;" @click="openAlertDialog" color="primary">
         添加用户&nbsp;&nbsp;
@@ -63,11 +63,12 @@
 
 <script>
   import UserInformation from './UserInformation.vue'
+  import Global from './global.vue'
 
   export default {
-    props: ['isDisabled'],
+    props: ['isDisabled', 'users'],
     model: {
-      prop: 'isDisabled',
+      prop: ['isDisabled', 'users'],
       event: 'click'
     },
     data() {
@@ -83,27 +84,31 @@
           openAlert: false,
           isDisabled: false
         },
-        project_achievement_user: [{
+        project_achievement_user: [{}],
+        send_user: [{
           id: 'asd',
           contribution: '23'
         }],
-        reload: ''
+        reload: true
       }
+    },
+    created: function() {
+      this.project_achievement_user = this.users;
     },
     methods: {
       deleteRow(index, rows) { //删除
-        console.log('删除的id： ' + this.project_achievement_user[index].id);
+        console.log('删除的id： ' + this.users[index].id);
         rows.splice(index, 1);
       },
       editRow(index, rows) { //编辑
-        this.flag.isDisabled = true;
-
+        this.flag.openAlert = true;
+        this.user = this.users[index];
         this.openAlertDialog();
       },
       openAlertDialog() { //打开组件
 
-        // this.flag.isDisabled = this.isDisabled;
-        this.flag.openAlert = true;
+        Global.methods.openAlertDialog(this.flag, this.isDisabled);
+
       },
       closeAlertDialog() { //关闭组件
         this.flag.openAlert = false;
@@ -115,31 +120,23 @@
         var userJson = {};
         userJson.id = this.user.id;
         userJson.contribution = this.user.contribution;
-        this.project_achievement_user.push(userJson);
+        console.log('type:  ' + typeof(this.users));
+        this.users.push(userJson);
 
-        console.log('project_achievement_user:       ' + this.project_achievement_user);
+        console.log('project_achievement_user:       ' + this.users);
         this.reload = new Date().getTime(); //重载改组件
         this.closeAlertDialog();
       },
       canMakesure() {
-        console.log(this.user);
-        //判断能否提交，必须全部填写
-        for (var key in this.user) {
-          if (this.user[key] == '') {
-            console.log(this.user[key]);
-            this.isSubmit = false;
-            alert(key + '  的数据没有填写！！！');
-            break;
-          }
-        }
+
+        this.isSubmit = Global.methods.canMakesure(this.user);
+
         if (this.isSubmit) {
           this.reload = false;
-          this.reload = true;
+          // this.reload = true;
           console.log(this.user);
           console.log("it is ok!!!");
           this.makesure();
-        } else {
-          alert('错误，请重试');
         }
       }
     },

@@ -2,7 +2,7 @@
   <div v-if="this.tableData !== null">
     <SearchBox :tableData="tableData" @changeTable="changeTable">
       <div slot="able_to_add">
-        <component :is="new_buttons" :testData01="testData01"></component>
+        <component :is="new_buttons"></component>
       </div>
     </SearchBox>
 
@@ -131,6 +131,7 @@ export default {
       ButtonsMap: [],
       buttons_name: "",
       new_buttons: {},
+
     };
   },
 };

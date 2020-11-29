@@ -3,7 +3,7 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <mu-dialog width="800" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="flag.openAlertPatent">
+      <mu-dialog width="800" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="flag.openAlert">
         <div class="mu-dialog-title">
           专利产品
           <mu-button fab small color="indigo" @click="closeAlertDialog">
@@ -160,7 +160,7 @@
     },
     methods: {
       closeAlertDialog() {
-        this.flag.openAlertPatent = false;
+        this.flag.openAlert = false;
         this.$emit('click', this.flag);
       },
       makesure() {

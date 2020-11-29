@@ -24,6 +24,7 @@
 
 <script>
   import PaperForm from "./PaperForm.vue";
+  import Global from './global.vue'
 
   export default {
     props: ["isDisabled"],
@@ -47,8 +48,7 @@
       openAlertPaperDialog() {
         this.reload = new Date().getTime();
         //论文成果表单
-        this.flag.isDisabled = this.isDisabled;
-        this.flag.openAlertPaper = true;
+        Global.methods.openAlertDialog(this.flag, this.isDisabled);
       },
     },
   };

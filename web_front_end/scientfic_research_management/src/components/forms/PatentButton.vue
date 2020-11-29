@@ -6,14 +6,14 @@
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
         <div v-if="!isDisabled">
-          <mu-button @click="openAlertPatentDialog" color="primary">
+          <mu-button @click="openAlertDialog" color="primary">
             专利申请表单&nbsp;&nbsp;
             <i right class="el-icon-document-add"></i>
           </mu-button>
         </div>
         <div v-if="isDisabled">
           <el-tooltip effect="light" content="专利详情" placement="bottom-end" :open-delay="500">
-            <el-button icon="el-icon-view" type="text" @click="openAlertPatentDialog"></el-button>
+            <el-button icon="el-icon-view" type="text" @click="openAlertDialog"></el-button>
           </el-tooltip>
         </div>
       </mu-flex>
@@ -26,6 +26,7 @@
 
 <script>
   import PatentForm from './PatentForm.vue'
+  import Global from './global.vue'
 
   export default {
     props: ['isDisabled'],
@@ -36,7 +37,7 @@
     data() {
       return {
         flag: {
-          openAlertPatent: false, //专利申请表单
+          openAlert: false, //专利申请表单
           isDisabled: false
         },
         reload: ''
@@ -46,11 +47,11 @@
       PatentForm
     },
     methods: {
-      openAlertPatentDialog() { //专利申请表单
+      openAlertDialog() { //专利申请表单
         this.reload = new Date().getTime(); //重载改组件
-        
-        this.flag.isDisabled = this.isDisabled;
-        this.flag.openAlertPatent = true;
+
+        Global.methods.openAlertDialog(this.flag, this.isDisabled);
+
       }
     }
   }
