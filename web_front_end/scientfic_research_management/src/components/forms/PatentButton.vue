@@ -47,7 +47,7 @@
     },
     methods: {
       openAlertPatentDialog() { //专利申请表单
-        this.reload = new Date().getTime();
+        this.reload = new Date().getTime(); //重载改组件
         
         this.flag.isDisabled = this.isDisabled;
         this.flag.openAlertPatent = true;
