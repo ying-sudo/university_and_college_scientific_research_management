@@ -2,11 +2,11 @@
   <div v-if="this.tableData !== null">
     <SearchBox :tableData="tableData" @changeTable="changeTable">
       <div slot="able_to_add">
-        <component :is="new_buttons"></component>
+        <component :is="new_buttons" ></component>
       </div>
     </SearchBox>
 
-    <CommonsTableImpl :tableData="tableDataToChange">
+    <CommonsTableImpl :tableData="tableDataToChange" :search="search">
       <!--TableTemplate slot标签挂载点的内容为操作列  -->
       <template slot="table_template_slot" slot-scope="{ row }">
         <component :is="apps" :TableRow="row"></component>
@@ -30,9 +30,11 @@ export default {
   },
   methods: {
     //子组件修改父组件的tableDataToChange
-    changeTable: function (Tables) {
+    changeTable: function (Tables,search1) {
       console.log("changeTable work");
       this.tableDataToChange = Tables;
+      this.search=search1;
+      console.log("search:"+this.search);
     },
 
     //从后端/mock获取接口表格数据
@@ -132,6 +134,7 @@ export default {
       buttons_name: "",
       new_buttons: {},
 
+      search:"",
     };
   },
 };

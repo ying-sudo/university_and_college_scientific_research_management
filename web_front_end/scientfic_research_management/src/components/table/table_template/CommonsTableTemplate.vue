@@ -10,7 +10,7 @@
       fit
       highlight-current-row
       style="width: 100%"
-      size="mini"
+      size="middle"
     >
       <!-- @item:表中的每一列  
          @:key: 当前第几列
@@ -28,16 +28,23 @@
       >
         <!-- @scope.row:每一行的数据-->
         <template slot-scope="scope">
-          <span>{{ scope.row[item.prop] }}</span>
+          <span v-html="changeColor(scope.row[item.prop])">{{
+            scope.row[item.prop]
+          }}</span>
           <!-- <p>{{scope.$index}}</p>  -->
-          <!-- v-html="showDate(scope.row.date)" -->
+          <!-- v-html="showDate(scope.row[item.prop])" -->
                
         </template>
       </el-table-column>
-
       <!-- 在TableTemplate中留下一列供父组件修改的列插槽，将该组件的作用域延迟到父组件编译，
       父组件对应标签内的所有内容将代替子组件的<slot>标签及它的内容 -->
-      <el-table-column fixed="right" label="操作" width="300" align="center">
+      <el-table-column
+        fixed="right"
+        label="操作"
+        width="300"
+        align="center"
+        v-if="this.$route.params.tableKey === 'projectlists'"
+      >
         <!-- <p>{{scope.$index}}</p> -->
         <template slot-scope="scope">
           <slot name="table_template_slot" :row="scope.row"></slot>
@@ -86,7 +93,7 @@ export default {
    * @itemOptions 表头数据
    * @tableData 表格数据
    */
-  props: ["itemOptions", "tableData"],
+  props: ["itemOptions", "tableData", "search"],
 
   components: {
     Pagination,
@@ -96,6 +103,7 @@ export default {
    * @pageChange 获取子组件子组件Pagination修改后的currentPage和pageSize，
    *  改变当前页码和单页数据量
    * @getNewData 请求新的分页后的表格数据
+   * @changeColor 筛选字变色
    */
   methods: {
     pageChange(pageSize, currentPage) {
@@ -112,17 +120,17 @@ export default {
       );
     },
 
-    // showDate(val) {
-    //   val = val + "";
-    //   if (val.indexOf(this.search) !== -1 && this.search !== "") {
-    //     return val.replace(
-    //       this.search,
-    //       '<font color="#409EFF">' + this.search + "</font>"
-    //     );
-    //   } else {
-    //     return val;
-    //   }
-    // },
+    changeColor(val) {
+      val = val + ""; //不加上这条会显示不出来数据
+      if (val.indexOf(this.search) !== -1 && this.search !== "") {
+        return val.replace(
+          this.search,
+          '<font color="#409EFF">' + this.search + "</font>"
+        );
+      } else {
+        return val;
+      }
+    },
   },
 
   /**

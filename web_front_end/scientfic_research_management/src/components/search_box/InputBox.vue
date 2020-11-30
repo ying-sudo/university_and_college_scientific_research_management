@@ -46,7 +46,8 @@ export default {
       this.search = newVal;
       // console.log(`new: ${newVal} `);
       console.log("tables:" + this.tables.length);
-      this.$emit("changeTable", this.tables);
+      // this.$emit("changeTable", this.tables);
+      this.$emit("changeTable", this.tables,this.search);
     },
   },
 
