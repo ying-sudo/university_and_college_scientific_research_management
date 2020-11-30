@@ -53,14 +53,14 @@ public class getRights {
      * @return
      */
     public String getRightsByCharacters(String id){
-        Map<String,Integer> map = new HashMap<>();
-        List<Logtable> logtables = logtableService.queryAllByLimit(0, 1);
-        if(logtables.size()==0){
-            map.put("count",0);
-        }else{
-            map.replace("count",logtables.get(0).getId()+1);
-            System.out.println("map = " + map.get("count"));
-        }
+//        Map<String,Integer> map = new HashMap<>();
+//        List<Logtable> logtables = logtableService.queryAllByLimit(0, 1);
+//        if(logtables.size()==0){
+//            map.put("count",0);
+//        }else{
+//            map.replace("count",logtables.get(0).getId()+1);
+//            System.out.println("map = " + map.get("count"));
+//        }
 //        t.set();
         Integer rowPosition=0; //横向递增
         Integer columnPosition=1; //纵向递增

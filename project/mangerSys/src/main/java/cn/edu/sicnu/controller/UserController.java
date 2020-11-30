@@ -66,6 +66,7 @@ public class UserController {
             if(user==null){
                 return "{\"resultCode\": \"-1\",\"resultMsg\": \"登录失败\"}";
             }else {
+                System.out.println("getRightsByCharacters = " + "成功");
                 return "{\"resultCode\": \"0\",\"resultMsg\": \"登录成功\","+getRightsByCharacters+"}";
             }
         }catch (Exception e){

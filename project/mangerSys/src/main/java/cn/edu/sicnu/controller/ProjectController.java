@@ -1,16 +1,20 @@
 package cn.edu.sicnu.controller;
 
 import cn.edu.sicnu.entity.Project;
+import cn.edu.sicnu.entity.Sort;
 import cn.edu.sicnu.service.CollegeService;
 import cn.edu.sicnu.service.LogcolumnService;
 import cn.edu.sicnu.service.LogoperationService;
 import cn.edu.sicnu.service.LogtableService;
 import cn.edu.sicnu.service.ProjectService;
 import cn.edu.sicnu.service.UserService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -114,7 +118,7 @@ public class ProjectController {
      * 通过用户id查询用户的所有项目
      * /project/{id}
      */
-    @GetMapping("/projects/{id}")
+    @PostMapping("/projects/{id}")
     public String findById(@PathVariable String id){
         try {
             System.out.println("id = " + id);
@@ -165,7 +169,10 @@ public class ProjectController {
             project.setArrivalFund((Double)project.getArrivalFund());
             project.setState((Integer)project.getState());
 //            System.out.println("project = " + project);
-//            List<Sort> lst =  objectMapper.readValue(map.get("users").toString(),new TypeReference<List<Sort>>(){});
+            List<Sort> lst =  objectMapper.readValue(map.get("users").toString(),new TypeReference<List<Sort>>(){});
+            for (Sort sort : lst) {
+                System.out.println("sort = " + sort);
+            }
 //            System.out.println("map = " +lst.get(0));
 //            projectService.insert(project);
             /*Logtable logtable = new Logtable();
