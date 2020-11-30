@@ -9,7 +9,7 @@
       </mu-button>
 
       <!-- 添加用户表格 -->
-      <div>
+      <div v-if="flag.openAlert">
         <mu-container>
           <mu-dialog title="人员详细信息" width="570" :open.sync="flag.openAlert">
             <!-- 团队成员信息 -->
@@ -39,9 +39,9 @@
     <!-- 所有用户信息表格 -->
     <div style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);">
       <el-table :data="project_achievement_user" style="width: 100%" max-height="250">
+        <el-table-column fixed prop="id" label="学工号" width="120"></el-table-column>
         <el-table-column fixed prop="name" label="姓名" width="120"></el-table-column>
-        <el-table-column prop="college_name" label="单位" width="300"></el-table-column>
-        <el-table-column prop="arrange" label="排名" width="120"></el-table-column>
+        <el-table-column prop="collegeName" label="单位" width="300"></el-table-column>
         <el-table-column prop="contribution" label="贡献率" width="120"></el-table-column>
         <div v-if="!isDisabled">
           <el-table-column fixed="right" label="操作" width="120">
@@ -66,14 +66,18 @@
   import Global from './global.vue'
 
   export default {
-    props: ['isDisabled', 'users'],
+    props: [
+      'users',
+      "isDisabled",
+    ],
     model: {
-      prop: ['isDisabled', 'users'],
+      prop: ['users'],
       event: 'click'
     },
     data() {
       return {
         isSubmit: true,
+        isInit: true,
         user: {
           id: '',
           name: '',
@@ -85,15 +89,12 @@
           isDisabled: false
         },
         project_achievement_user: [{}],
-        send_user: [{
-          id: 'asd',
-          contribution: '23'
-        }],
         reload: true
       }
     },
     created: function() {
       this.project_achievement_user = this.users;
+      console.log(this.project_achievement_user);
     },
     methods: {
       deleteRow(index, rows) { //删除
@@ -103,6 +104,7 @@
       editRow(index, rows) { //编辑
         this.flag.openAlert = true;
         this.user = this.users[index];
+        this.isInit = false;
         this.openAlertDialog();
       },
       openAlertDialog() { //打开组件
@@ -117,13 +119,10 @@
       },
       makesure() { //确定组件
         //赋值
-        var userJson = {};
-        userJson.id = this.user.id;
-        userJson.contribution = this.user.contribution;
-        console.log('type:  ' + typeof(this.users));
-        this.users.push(userJson);
+        if (this.isInit) {
+          this.project_achievement_user.push(this.user);
+        }
 
-        console.log('project_achievement_user:       ' + this.users);
         this.reload = new Date().getTime(); //重载改组件
         this.closeAlertDialog();
       },
@@ -134,6 +133,7 @@
         if (this.isSubmit) {
           this.reload = false;
           // this.reload = true;
+
           console.log(this.user);
           console.log("it is ok!!!");
           this.makesure();

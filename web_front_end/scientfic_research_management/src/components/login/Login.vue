@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="login"
-    style="height: 916px; background-color: #ffffff; padding: 20px"
-  >
+  <div id="login" style="height: 916px; background-color: #ffffff; padding: 20px">
     <!-- 四川师范大学图标 -->
     <div style="
         float: left;
@@ -24,8 +21,7 @@
       "></div>
 
     <!-- 登录界面 -->
-    <div
-      style="
+    <div style="
         background-color: white;
         margin: 0px auto;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
@@ -34,8 +30,7 @@
         border-radius: 15px;
         float: right;
         margin: 80px;
-      "
-    >
+      ">
       <div style="background-color: #0b7e05; border-radius: 15px">
         <!-- 图标 -->
         <div style="padding: 10px">
@@ -88,13 +83,9 @@
 
       <!-- 按钮 -->
       <div style="text-align: center; padding: 10px">
-        <mu-button color="teal" @click="login()" class="ButtonStyle"
-          >登录</mu-button
-        >
+        <mu-button color="teal" @click="login()" class="ButtonStyle">登录</mu-button>
         <div style="padding: 10px"></div>
-        <mu-button color="red" @click="init()" class="ButtonStyle"
-          >忘记密码</mu-button
-        >
+        <mu-button color="red" @click="init()" class="ButtonStyle">忘记密码</mu-button>
       </div>
     </div>
   </div>
@@ -103,35 +94,57 @@
 <script>
   import Verify from '@/addModules/vue2-verify'
 
-export default {
-  components: {
-    Verify,
-  },
-  data() {
-    return {
-      username: "",
-      password: "",
-      verify_flag: true,
-      visibility: false,
-      alarm: false,
-      error_text: "",
-      reload: "",
-      usernameRules: {
-        validate: (val) => !!val,
-        message: "请输入学工号",
-      },
-      passwordRules: {
-        validate: (val) => !!val,
-        message: "请填写密码",
-      },
-    };
-  },
-  methods: {
-    login() {
-      if (this.verify_flag) {
-        // console.log('begin:  ');
+  export default {
+    components: {
+      Verify,
+    },
+    data() {
+      return {
+        project: {
+          id: "22222", //项目编号
+          name: "项目", //项目名称
+          userId: "2011000416", //负责人
+          collegeId: "0001", //所属学院
+          discipline: "", //学科门类
+          characters: "", //项目性质
+          firstDiscipline: "", //一级学科
+          level: "", //项目级别
+          sort: "", //项目分类
+          beginDate: "", //立项日期
+          endDate: "", //结项日期
+          requestFund: "234", //项目申请经费
+          arrivalFund: "123", //到账金额
+          state: "1", //审核状态
+          approvalNumber: "s20200202", //批准文号
+          information: "note", //项目信息
+        },
+        username: "",
+        password: "",
+        verify_flag: true,
+        visibility: false,
+        alarm: false,
+        error_text: "",
+        reload: "",
+        usernameRules: {
+          validate: (val) => !!val,
+          message: "请输入学工号",
+        },
+        passwordRules: {
+          validate: (val) => !!val,
+          message: "请填写密码",
+        },
+      };
+    },
+    methods: {
+      login() {
+        if (this.verify_flag) {
+          // console.log('begin:  ');
 
           // console.log('begin:  ');
+
+
+          var proString = JSON.stringify(this.project);
+          console.log(proString);
 
           this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/login", {
             id: this.username,

@@ -15,10 +15,10 @@
         <div style="height: 700px; overflow-y: scroll; padding: 10px;">
           <mu-container>
             <mu-form :model="project" :label-position="labelPosition" label-width="100">
-  <!--            <mu-form-item class="mu-demo-min-form float_left" prop="input" label="项目名称">
+              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="项目名称">
                 <mu-text-field v-model="project.name" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
               </mu-form-item>
- -->
+
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="项目编号">
                 <mu-text-field v-model="project.id" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
               </mu-form-item>
@@ -56,7 +56,7 @@
 
               <mu-form-item class="mu-demo-min-form" prop="select" label="项目状态">
                 <mu-select v-model="project.state" :disabled="flag.isDisabled">
-                  <mu-option v-for="{option,index} in state.name" :key="state.id[index]" :label="option" :value="state.id[index]"></mu-option>
+                  <mu-option v-for="option in state" :key="option.id" :label="option.name" :value="option.id"></mu-option>
                 </mu-select>
               </mu-form-item>
 
@@ -90,7 +90,7 @@
               </mu-form-item>
 
               <!-- 表单底部表格 -->
-              <UserTable v-model='flag.isDisabled, users'></UserTable>
+              <UserTable v-model='users' :isDisabled="flag.isDisabled"></UserTable>
 
               <!-- 表单备注 -->
               <mu-form-item style="padding-top: 20px; margin: 10px;" prop="textarea" label="备注">
@@ -172,24 +172,35 @@
           //参加人员
           {
             id: '2011000416',
+            name: 'asdf',
+            collegeName: '12342we',
             contribution: 23
           }
         ],
         firstDiscipline: [], //一级学科内容
         level: [], //项目级别
         sort: [], //项目分类
-        state: {
-          id: [1, 2, 3],
-          name: ["进行", "结束", "延期"],
-        },
+        state: [{
+            id: 1,
+            name: "进行"
+          },
+          {
+            id: 2,
+            name: "结束"
+          },
+          {
+            id: 3,
+            name: "延期"
+          }
+        ],
       };
     },
     created: function() {
-      console.log('test: !!!!!!!!!!!!!');
-      this.project = this.TableRow;
-      console.log('ssssssssL：    ' + this.project)
+      if (this.flag.isDisabled) {
+        this.project = this.TableRow;
+      }
       this.collegeId = this.collegeInfo;
-      console.log('collegeid:   ' + this.collegeId.name);
+      // console.log(this.collegeId);
       this.firstDiscipline = this.firstDisciplineProp;
       // console.log('firstDiscipline:   ' + this.firstDiscipline);
       this.level = this.levelProp;
@@ -249,7 +260,8 @@
       canMakesure() {
         //判断能否提交，必须全部填写
 
-        this.isSubmit = Global.methods.canMakesure(this.project);
+        this.isSubmit = Global.methods.canMakesure(this.project); //进行判断能否提交
+
         console.log(this.isSubmit);
         if (this.isSubmit) {
           console.log("it is ok!!!");

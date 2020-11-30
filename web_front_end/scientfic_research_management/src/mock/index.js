@@ -16,6 +16,15 @@ Mock.mock("/api/header", "post", () => {
 //   return TableDataTest
 // })
 
+import project from './home/project.js';
+Mock.mock("/api/project/college", "post", ()=> {
+  return project;
+});
+import findall from './home/findAll.js';
+Mock.mock("/api/project/all", "post", ()=> {
+  return findall;
+});
+
 import TableDataTest from "./TableDataTest";
 Mock.mock("/api/table_data", "get", () => {
   return  TableDataTest;
