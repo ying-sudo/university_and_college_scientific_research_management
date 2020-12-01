@@ -1,7 +1,7 @@
 let dataVal = {
   TableData: [
     {
-      id: "@id",
+      id: "@id1",
       name: 1,
       belongs_college: 23,
       quality: 3,

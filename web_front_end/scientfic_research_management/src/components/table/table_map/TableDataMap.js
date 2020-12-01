@@ -1,8 +1,10 @@
 export function getTableDataMap() {
     var table_data_map = new Map([
-        ["fundlists", "mangerSys/fund/fund/001"], 
+        ["fundlists", "mangerSys/fund/fund"], 
         ["authoritylists", "/api/table_data"], 
         ["projectlists", "mangerSys/project/projects"], 
+        ["papers", "mangerSys/paperAchievement/findOne"], 
+        ["logging", "mangerSys/operlog"], 
         
     ]);
 

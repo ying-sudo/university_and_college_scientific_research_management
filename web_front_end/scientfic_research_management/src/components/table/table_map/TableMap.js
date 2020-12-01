@@ -4,6 +4,20 @@ export function getTableMap() {
         ["/projectlists", "/project_table/ProjectTable.json"],
         ["/fundlists", "/funds_table/FundsTable.json"],
         ["/authoritylists", "/authority_table/AuthorityTable.json"], 
+        ["/papers", "/achievement_table/PaperAchievementTable.json"], 
+        ["/works", "/achievement_table/WorkAchievementTable.json"], 
+        ["/patents", "/achievement_table/PatentedProduct.json"], 
+        ["/scientifics", "/achievement_table/ScientificResearchAchievement.json"], 
+        ["/logging", "/log_table/LogTable.json"], 
+        ["/teams", "/team_table/TeamTable.json"], 
+        ["/batch", "/check_table/ProjectCheckBranchTable.json"], 
+        ["/project", "/check_table/ProjectCheckTable.json"], 
+        ["/achievement", "/check_table/AchievementCheckTable.json"], 
+        ["/personal", "/check_table/ResearcherCheckTable.json"], 
+        ["/college", "/check_table/CollegeCheckTable.json"], 
+        ["/roles", "/role_management_table/RoleManagementTable.json"], 
+        ["/batch", "/project_review_table/ProjectBranchReview.json"], 
+        
     ]);
 
     return table_map;

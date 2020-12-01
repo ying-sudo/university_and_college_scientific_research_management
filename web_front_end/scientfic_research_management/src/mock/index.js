@@ -29,3 +29,8 @@ import TableDataTest from "./TableDataTest";
 Mock.mock("/api/table_data", "get", () => {
   return  TableDataTest;
 });
+
+import TableDataTest1 from "./TableDataTest";
+Mock.mock("/api/table_data1", "delete", () => {
+  return  TableDataTest1;
+});

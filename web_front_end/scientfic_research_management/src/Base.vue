@@ -8,6 +8,8 @@
   const BASE_URL = 'http://192.168.43.229:9999';  //xiao bin zi
   // const BASE_URL = 'http://192.168.43.25:9999';  //liang jin rui
   // const BASE_URL = 'http://127.0.0.1:9999';
+  // const BASE_URL = 'http://192.168.1.100:9999';
+  
   export default {
     BASE_URL
   }

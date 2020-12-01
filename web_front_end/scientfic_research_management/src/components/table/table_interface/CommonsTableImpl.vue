@@ -68,7 +68,7 @@ export default {
 
     this.getTableItem(this.itemOptionsFileName);
     // this.getTableData("/ProjectTableData.json");
-    console.log("Impl执行了create");
+    // console.log("Impl执行了create");
   },
 
   /**
@@ -83,6 +83,7 @@ export default {
       this.getTableItem(this.itemOptionsFileName);
 
       console.log("tableimpl fileName: " + this.itemOptionsFileName);
+      console.log("itemOptions:"+this.itemOptions);
     },
   },
 };

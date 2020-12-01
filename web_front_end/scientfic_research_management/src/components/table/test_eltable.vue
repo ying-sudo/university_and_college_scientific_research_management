@@ -1,39 +1,25 @@
 <template>
-  <div class="">
-    <div class="top">
-      <!-- 筛选 -->
-      <div class="screen">
-        <div style="width: 30%">筛选：</div>
-        <el-input
-          type="search"
-          v-model="search"
-          style="width: 70%"
-          placeholder="请输入关键字"
-        ></el-input>
-      </div>
-    </div>
-    <!-- 表格 -->
-    <div class="table">
-      <el-table :data="tables" style="width: 100%" max-height="500">
-        <!-- 地址 -->
-        <el-table-column label="时间">
-          <template slot-scope="scope">
-            <span class="col-cont" v-html="showDate(scope.row.date)"></span>
-          </template>
-        </el-table-column>
-        <!-- 用户名 -->
-        <el-table-column label="用户名">
-          <template slot-scope="scope">
-            <span class="col-cont" v-html="showDate(scope.row.name)"></span>
-          </template>
-        </el-table-column>
-        <!-- 地址 -->
-        <el-table-column label="地址">
-          <template slot-scope="scope">
-            <span class="col-cont" v-html="showDate(scope.row.address)"></span>
-          </template>
-        </el-table-column>
-      </el-table>
+  <div>
+    <el-table
+      ref="multipleTable"
+      :data="tableData3"
+      tooltip-effect="dark"
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
+      <el-table-column type="selection" width="55"> </el-table-column>
+      <el-table-column label="日期" width="120">
+        <template slot-scope="scope">{{ scope.row.date }}</template>
+      </el-table-column>
+      <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
+      <el-table-column prop="address" label="地址" show-overflow-tooltip>
+      </el-table-column>
+    </el-table>
+    <div style="margin-top: 20px">
+      <el-button @click="toggleSelection([tableData3[1], tableData3[2]])"
+        >切换第二、第三行的选中状态</el-button
+      >
+      <el-button @click="toggleSelection()">取消选择</el-button>
     </div>
   </div>
 </template>
@@ -42,60 +28,59 @@
 export default {
   data() {
     return {
-      search: "",
-      tableData: [
+      tableData3: [
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄",
+        },
         {
           date: "2016-05-02",
-          name: "张三",
+          name: "王小虎",
           address: "上海市普陀区金沙江路 1518 弄",
         },
         {
           date: "2016-05-04",
-          name: "李四",
-          address: "上海市普陀区金沙江路 1517 弄",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄",
         },
         {
           date: "2016-05-01",
-          name: "王五",
-          address: "上海市普陀区金沙江路 1519 弄",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄",
         },
         {
-          date: "2016-05-03",
-          name: "赵六",
-          address: "上海市普陀区金沙江路 1516 弄",
+          date: "2016-05-08",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄",
+        },
+        {
+          date: "2016-05-06",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄",
+        },
+        {
+          date: "2016-05-07",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄",
         },
       ],
+      multipleSelection: [],
     };
   },
-  components: {},
-  computed: {
-    //实时监听表格
-    tables: function () {
-      const search = this.search;
-      if (search) {
-        return this.tableData.filter((dataNews) => {
-          return Object.keys(dataNews).some((key) => {
-            return String(dataNews[key]).toLowerCase().indexOf(search) > -1;
-          });
-        });
-      }
-      return this.tableData;
-    },
-  },
-  mounted() {},
+
   methods: {
-    //筛选变色
-    showDate(val) {
-      val = val + "";
-      // console.log("val:"+val);
-      if (val.indexOf(this.search) !== -1 && this.search !== "") {
-        return val.replace(
-          this.search,
-          '<font color="#409EFF">' + this.search + "</font>"
-        );
+    toggleSelection(rows) {
+      if (rows) {
+        rows.forEach((row) => {
+          this.$refs.multipleTable.toggleRowSelection(row);
+        });
       } else {
-        return val;
+        this.$refs.multipleTable.clearSelection();
       }
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
     },
   },
 };
