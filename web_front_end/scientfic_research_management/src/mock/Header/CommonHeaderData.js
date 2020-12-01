@@ -210,10 +210,17 @@ let dataVal = {
         {
           id: "30",
           index: "10-4",
-          title: "日志记录",
-          urlPath: "/table/logging",
+          title: "登录日志记录",
+          urlPath: "/table/loginlog",
           subMenu: null
-        }
+        },
+        {
+          id: "31",
+          index: "10-5",
+          title: "系统日志记录",
+          urlPath: "/table/systemlog",
+          subMenu: null
+        },
       ]
     }
   ]

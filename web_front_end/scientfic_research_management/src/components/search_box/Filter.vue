@@ -2,7 +2,7 @@
   <div class="filter_selector">
     <el-select v-model="value" placeholder="请选择筛选条件">
       <el-option
-        v-for="item in cities"
+        v-for="item in condition"
         :key="item.value"
         :label="item.label"
         :value="item.value"
@@ -20,31 +20,12 @@
 export default {
   data() {
     return {
-      cities: [
+      condition: [
         {
           value: "Beijing",
           label: "北京",
         },
-        {
-          value: "Shanghai",
-          label: "上海",
-        },
-        {
-          value: "Nanjing",
-          label: "南京",
-        },
-        {
-          value: "Chengdu",
-          label: "成都",
-        },
-        {
-          value: "Shenzhen",
-          label: "深圳",
-        },
-        {
-          value: "Guangzhou",
-          label: "广州",
-        },
+        
       ],
       value: "",
     };

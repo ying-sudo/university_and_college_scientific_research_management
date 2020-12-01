@@ -16,6 +16,7 @@
       size="middle"
     >
     <el-table-column
+      v-if="this.$route.params.tableKey === 'logging'"
       type="selection"
       width="55">
     </el-table-column>
@@ -143,10 +144,11 @@ export default {
 
     handleSelectionChange(val) {
       this.multipleSelection = val;
-      console.log("multipleSelection:"+this.multipleSelection);
+      console.log(this.multipleSelection[0].operLogId);
 
       // this.axios.delete()
-      this.axios.delete("/api/table_data1",{data:this.multipleSelection});
+      // let userId = localStorage.getItem("userid");
+      this.axios.delete(`${this.GLOBAL.BASE_URL}/mangerSys/operlog/${this.multipleSelection[0].operLogId}`,{data:this.multipleSelection[0].operLogId});
 
     },
   },

@@ -46,10 +46,10 @@ export default {
       // this.axios.get("/api/table_data").then((res) => {
       //${userId}  2011000416
       let userId = localStorage.getItem("userid");
-      // console.log(userId);
+      console.log(userId);
       this.axios.post(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`).then((res) => {
           this.tableData = res.data.data;
-          console.log("res.data.data:"+res.data.data);
+          // console.log("res.data.data:"+res.data.data);
           // this.tableData = res.data.data.TableData;
           // console.log(res.data.data.TableData);
         });
@@ -114,7 +114,7 @@ export default {
       console.log("Table Enity watch work");
       // this.InterfaceMap = getTableDataMap();
       this.getInterface(this.$route.params.tableKey);
-      console.log("watch    this.backEndInterface:"+this.backEndInterface);
+      // console.log("watch    this.backEndInterface:"+this.backEndInterface);
       this.getTableData(this.backEndInterface);
     },
   },
