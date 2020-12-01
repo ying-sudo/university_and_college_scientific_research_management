@@ -3,19 +3,19 @@
         "id": 1,
         "label": "论文编号",
         "type": "text",
-        "prop": "paper_id"
+        "prop": "id"
     },
     {
         "id": 2,
         "label": "论文名称",
         "type": "text",
-        "prop": "paper_name"
+        "prop": "name"
     },
     {
         "id": 3,
         "label": "作者",
         "type": "text",
-        "prop": "paper_author"
+        "prop": "author"
     },
     {
         "id": 4,
@@ -39,24 +39,18 @@
         "id": 7,
         "label": "撰写日期",
         "type": "text",
-        "prop": "write_date"
+        "prop": "beginDate"
     },
     {
         "id": 8,
         "label": "审核状态",
         "type": "text",
-        "prop": "paper_check_state"
+        "prop": "check_state"
     },
     {
         "id": 9,
         "label": "引用次数",
         "type": "text",
-        "prop": "paper_cites"
-    },
-    {
-        "id": 10,
-        "label": "操作",
-        "type": "text",
-        "prop": "operation"
+        "prop": "cites"
     }
 ]

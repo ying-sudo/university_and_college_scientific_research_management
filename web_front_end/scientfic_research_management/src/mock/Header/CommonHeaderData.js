@@ -39,28 +39,28 @@ let dataVal = {
           id: "6",
           index: "3-1",
           title: "论文成果",
-          urlPath: "/papers",
+          urlPath: "/table/papers",
           subMenu: null
         },
         {
           id: "7",
           index: "3-2",
           title: "著作成果",
-          urlPath: "/works",
+          urlPath: "/table/works",
           subMenu: null
         },
         {
           id: "8",
           index: "3-3",
           title: "科研成果",
-          urlPath: "/scientifics",
+          urlPath: "/table/scientifics",
           subMenu: null
         },
         {
           id: "9",
           index: "3-4",
           title: "专利产品",
-          urlPath: "/patents",
+          urlPath: "/table/patents",
           subMenu: null
         }
       ]
@@ -205,6 +205,13 @@ let dataVal = {
           index: "10-3",
           title: "权限设置",
           urlPath: "/table/authoritylists",
+          subMenu: null
+        },
+        {
+          id: "30",
+          index: "10-4",
+          title: "日志记录",
+          urlPath: "/table/logging",
           subMenu: null
         }
       ]

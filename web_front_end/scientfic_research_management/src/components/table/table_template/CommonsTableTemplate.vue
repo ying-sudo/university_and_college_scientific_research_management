@@ -9,8 +9,9 @@
       :data="tableDataList"
       fit
       highlight-current-row
-      style="width: 100%"
+      style="width: 90%"
       size="middle"
+      v-if="tableData!==null"
     >
       <!-- @item:表中的每一列  
          @:key: 当前第几列

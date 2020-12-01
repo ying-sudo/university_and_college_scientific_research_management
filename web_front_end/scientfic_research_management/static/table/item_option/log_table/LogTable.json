@@ -1,20 +1,44 @@
 [
     {
         "id": 1,
-        "label": "日志信息",
+        "label": "日志编号",
         "type": "text",
-        "prop": "logMessage"
+        "prop": "operLogId"
     },
     {
         "id": 2,
-        "label": "日志类型",
+        "label": "日志信息所在类",
         "type": "text",
-        "prop": "logType"
+        "prop": "className"
     },
     {
         "id": 3,
-        "label": "产生时间",
+        "label": "日志信息产生方法",
         "type": "text",
-        "prop": "logTime"
+        "prop": "methodName"
+    },
+    {
+        "id": 4,
+        "label": "日志产生时间",
+        "type": "text",
+        "prop": "createTime"
+    },
+    {
+        "id": 5,
+        "label": "日志级别",
+        "type": "text",
+        "prop": "logLevel"
+    },
+    {
+        "id": 6,
+        "label": "操作用户id",
+        "type": "text",
+        "prop": "userId"
+    },
+    {
+        "id": 7,
+        "label": "日志信息",
+        "type": "text",
+        "prop": "message"
     }
 ]

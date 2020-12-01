@@ -4,6 +4,12 @@ export function getTableMap() {
         ["/projectlists", "/project_table/ProjectTable.json"],
         ["/fundlists", "/funds_table/FundsTable.json"],
         ["/authoritylists", "/authority_table/AuthorityTable.json"], 
+        ["/papers", "/achievement_table/PaperAchievementTable.json"], 
+        ["/works", "/achievement_table/WorkAchievementTable.json"], 
+        ["/patents", "/achievement_table/PatentedProduct.json"], 
+        ["/scientifics", "/achievement_table/ScientificResearchAchievement.json"], 
+        ["/logging", "/log_table/LogTable.json"], 
+        
     ]);
 
     return table_map;

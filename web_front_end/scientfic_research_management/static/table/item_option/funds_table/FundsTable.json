@@ -3,42 +3,42 @@
         "id": 1,
         "label": "项目编号",
         "type": "text",
-        "prop": "project_id"
+        "prop": "projectId"
     },
     {
         "id": 2,
         "label": "项目名",
         "type": "text",
-        "prop": "project_name"
+        "prop": "projectName"
     },
     {
         "id": 3,
         "label": "项目分类",
         "type": "text",
-        "prop": "project_classcification"
+        "prop": "projectSort"
     },
     {
         "id": 4,
         "label": "负责人",
         "type": "text",
-        "prop": "charger"
+        "prop": "userName"
     },
     {
         "id": 5,
-        "label": "立项日期",
+        "label": "请求日期",
         "type": "text",
-        "prop": "project_begin_date"
+        "prop": "requestDate"
     },
     {
         "id": 6,
         "label": "到账金额",
         "type": "text",
-        "prop": "project_received_account"
+        "prop": "arrivalFund"
     },
     {
         "id": 7,
         "label": "到账时间",
         "type": "text",
-        "prop": "project_received_time"
+        "prop": "arrivalDate"
     }
 ]

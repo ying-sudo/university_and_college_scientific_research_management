@@ -2,7 +2,7 @@
   <div v-if="this.tableData !== null">
     <SearchBox :tableData="tableData" @changeTable="changeTable">
       <div slot="able_to_add">
-        <component :is="new_buttons" ></component>
+        <component :is="new_buttons"></component>
       </div>
     </SearchBox>
 
@@ -30,11 +30,11 @@ export default {
   },
   methods: {
     //子组件修改父组件的tableDataToChange
-    changeTable: function (Tables,search1) {
+    changeTable: function (Tables, search1) {
       console.log("changeTable work");
       this.tableDataToChange = Tables;
-      this.search=search1;
-      console.log("search:"+this.search);
+      this.search = search1;
+      console.log("search:" + this.search);
     },
 
     //从后端/mock获取接口表格数据
@@ -43,17 +43,18 @@ export default {
       console.log("this.backEndInterface:" + this.backEndInterface);
     },
     getTableData: function (newVal) {
-      this.axios.get("/api/table_data").then((res) => {
-        //${userId}  2011000416
-        // let userId = localStorage.getItem("userid");
-        // console.log(userId);
-        this.axios;
-        // .get(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`).then((res) => {
-        console.log(res.data.data);
-        this.tableData = res.data.data.TableData;
-        // this.tableData = res.data.data;
-        // console.log(res.data.data.TableData);
-      });
+      // this.axios.get("/api/table_data").then((res) => {
+      //${userId}  2011000416
+      let userId = localStorage.getItem("userid");
+      // console.log(userId);
+      this.axios
+        .post(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`)
+        .then((res) => {
+          console.log(res.data.data);
+          // this.tableData = res.data.data.TableData;
+          this.tableData = res.data.data;
+          // console.log(res.data.data.TableData);
+        });
     },
 
     //动态注册操作列按钮
@@ -111,6 +112,11 @@ export default {
 
       this.getButtonName(this.$route.params.tableKey);
       this.addButtons(this.buttons_name);
+
+      // this.InterfaceMap = getTableDataMap();
+      this.getInterface(this.$route.params.tableKey);
+      // console.log("this.InterfaceMap:"+this.InterfaceMap);
+      this.getTableData(this.backEndInterface);
     },
   },
 
@@ -134,7 +140,7 @@ export default {
       buttons_name: "",
       new_buttons: {},
 
-      search:"",
+      search: "",
     };
   },
 };
