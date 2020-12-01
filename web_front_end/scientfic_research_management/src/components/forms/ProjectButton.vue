@@ -61,13 +61,11 @@
         this.reload = new Date().getTime();
 
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
-        // console.log('asdfsdfsd');
       },
       getCollegeData() {
-        // this.click = true;
 
         // var url = this.GLOBAL.BASE_URL + "/mangerSys/college/findAll";
-        // Global.methods.getCollegeData(url, this.collegeInfo);
+        // Global.methods.getCollegeData(this, url, this.collegeInfo);
 
         console.log('requrest :   ');
 

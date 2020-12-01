@@ -1,24 +1,25 @@
 <template>
 
   <!-- 著作按钮 -->
-  <div style="padding: 40px;">
+  <div>
     <mu-container>
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
         <div v-if="!isDisabled">
-          <mu-button @click="openAlertWorkDialog" color="primary">
+          <mu-button @click="openAlertDialog" color="primary">
             著作申报表单&nbsp;&nbsp;
             <i right class="el-icon-document-add"></i>
           </mu-button>
         </div>
         <div v-if="isDisabled">
           <el-tooltip effect="light" content="论文详情" placement="bottom-end" :open-delay="500">
-            <el-button icon="el-icon-view" type="text" @click="openAlertWorkDialog"></el-button>
+            <el-button icon="el-icon-view" type="text" @click="openAlertDialog"></el-button>
           </el-tooltip>
         </div>
       </mu-flex>
 
-      <WorkForm :key="reload" v-model="flag"></WorkForm>
+      <WorkForm v-if="getAllData" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
+        :levelProp="level" :sortProp="sort" :TableRow="TableRow"></WorkForm>
     </mu-container>
   </div>
 
@@ -29,7 +30,7 @@
   import Global from './global.vue'
 
   export default {
-    props: ['isDisabled'],
+    props: ['isDisabled', "TableRow"],
     model: {
       prop: 'isDisabled',
       event: 'click'
@@ -40,19 +41,57 @@
           openAlertWork: false, //著作申报表单
           isDisabled: false
         },
-        reload: ''
+        reload: '',
+        collegeInfo: null,
+        firstDiscipline: null,
+        level: null,
+        sort: null,
       };
     },
     components: {
       WorkForm
     },
     methods: {
-      openAlertWorkDialog() {
+      openAlertDialog() {
+        this.getCollegeData();
+        this.getOtherData();
         this.reload = new Date().getTime();
-        
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
-      }
-    }
+      },
+      getCollegeData() {
+        this.axios.get(this.GLOBAL.BASE_URL + "/mangerSys/college/findAll").then(
+          (response) => {
+            this.collegeInfo = response.data.data;
+          },
+          (response) => {
+            console.log("getCollegeData request error");
+          }
+        );
+      },
+      getOtherData() {
+        this.axios
+          .get(this.GLOBAL.BASE_URL + "/mangerSys/sort/findAll")
+          .then((response) => {
+            this.firstDiscipline = response.data.data.firstDiscipline;
+            this.level = response.data.data.level;
+            this.sort = response.data.data.sort;
+          });
+      },
+    },
+    computed: {
+      getAllData() {
+        if (
+          this.collegeInfo !== null &&
+          this.firstDiscipline !== null &&
+          this.level !== null &&
+          this.sort !== null
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+    },
   }
 </script>
 

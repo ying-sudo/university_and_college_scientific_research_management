@@ -17,7 +17,8 @@
         </div>
       </mu-flex>
 
-      <PaperForm :key="reload" v-model="flag"></PaperForm>
+      <PaperForm v-if="getAllData" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
+        :levelProp="level" :sortProp="sort" :TableRow="TableRow"></PaperForm>
     </mu-container>
   </div>
 </template>
@@ -50,9 +51,33 @@
     },
     methods: {
       openAlertDialog() {
+        
+        this.getCollegeData();
+        this.getOtherData();
         this.reload = new Date().getTime();
-        //论文成果表单
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
+      },
+
+
+      getCollegeData() {
+        console.log('requrest :   ');
+        this.axios.get(this.GLOBAL.BASE_URL + "/mangerSys/college/findAll").then(
+          (response) => {
+            this.collegeInfo = response.data.data;
+          },
+          (response) => {
+            console.log("getCollegeData request error");
+          }
+        );
+      },
+      getOtherData() {
+        this.axios
+          .get(this.GLOBAL.BASE_URL + "/mangerSys/sort/findAll")
+          .then((response) => {
+            this.firstDiscipline = response.data.data.firstDiscipline;
+            this.level = response.data.data.level;
+            this.sort = response.data.data.sort;
+          });
       },
 
     },

@@ -3,7 +3,7 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <mu-dialog width="1250px" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="flag.openAlertPaper">
+      <mu-dialog width="1250px" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="flag.openAlert">
         <div class="mu-dialog-title">
           论文成果
           <mu-button fab small color="indigo" @click="closeAlertDialog">
@@ -52,7 +52,7 @@
 
                 <mu-form-item class="mu-demo-min-form float_left" prop="select" label="一级学科">
                   <mu-select v-model="paper_achievement.firstDiscipline" :disabled="flag.isDisabled">
-                    <mu-option v-for="option,index in firstDiscipline" :key="option" :label="option" :value="option"></mu-option>
+                    <mu-option v-for="option in firstDiscipline" :key="option" :label="option" :value="option"></mu-option>
                   </mu-select>
                 </mu-form-item>
 
@@ -63,12 +63,12 @@
 
                 <mu-form-item class="mu-demo-min-form" prop="select" label="成果归属">
                   <mu-select v-model="paper_achievement.collegeId" :disabled="flag.isDisabled">
-                    <mu-option v-for="option,index in collegeId.name" :key="collegeId.id[index]" :label="option" :value="collegeId.id[index]"></mu-option>
+                    <mu-option v-for="option in collegeId" :key="option.id" :label="option.name" :value="collegeId.id"></mu-option>
                   </mu-select>
                 </mu-form-item>
 
                 <!-- 表单底部表格 -->
-                <UserTable v-model='flag.isDisabled'></UserTable>
+                <UserTable v-model='users', :isDisabled="flag.isDisabled"></UserTable>
 
                 <!-- 表单备注 -->
                 <mu-form-item style="padding-top: 20px; margin: 10px;" prop="textarea" label="详细信息">
@@ -87,8 +87,8 @@
                 <b>收录情况</b>
               </div>
               <div style="overflow-y: scroll; height: 600px;">
-                <mu-flex class="select-control-row" :key="magazineSort.id[i-1]" v-for="i in magazineSort.id.length">
-                  <mu-checkbox :value="magazineSort.id[i-1]" v-model="achievement_magazine.magazineId" :label='magazineSort.name[i-1]'
+                <mu-flex class="select-control-row" :key="magazineSort[i-1].id" v-for="i in magazineSort.length">
+                  <mu-checkbox :value="magazineSort[i-1].id" v-model="magazineId" :label='magazineSort[i-1].name'
                     :disabled="flag.isDisabled"></mu-checkbox>
                 </mu-flex>
               </div>
@@ -121,9 +121,17 @@
 
 <script>
   import UserTable from './UserTable.vue'
+  import Global from './global.vue'
 
   export default {
-    props: ['flag'],
+    props: [
+      'flag',
+      "collegeInfo", //学院信息
+      "firstDisciplineProp", //第一学科
+      "levelProp", //项目级别
+      "sortProp", //项目分类
+      "TableRow",
+      ],
     model: {
       prop: 'flag',
       event: 'click'
@@ -147,36 +155,61 @@
           userId: '', //作者
           information: '' //详细信息
         },
-        firstDiscipline: [ //一级学科内容
-          '文科', '理科', '计算机科学', '物理', '生物'
+        users: [{
+          id: '2011000416',
+          name: 'asdf',
+          collegeName: '12342we',
+          contribution: 23
+        }],
+        firstDiscipline: [],
+        collegeId: [],
+        magazine: [{
+            magazineId: '001',
+            magazineName: 'aaaa',
+          },
+          {
+            magazineId: '002',
+            magazineName: 'bbbb',
+          }
         ],
-        collegeId: {
-          id: [
-            1, 2, 3, 4
-          ],
-          name: [ //成果归属
-            '计算机科学', '物电', '生物', '化学'
-          ]
-        },
-        achievement_magazine: { //收录编号表
-          achievementId: 'aaaa',
-          magazineId: [
-            '001', '003', '004'
-          ]
-        },
-        magazineSort: { //编号读取
-          id: [
-            '001', '002', '003', '004', '005'
-          ],
-          name: [
-            '1', '2', '3', '4', '5'
-          ]
-        }
+        magazineId: [
+          '001', '003', '004'
+        ],
+        magazineSort: [{
+            id: '001',
+            name: '1'
+          },
+          {
+            id: '002',
+            name: '2'
+          },
+          {
+            id: '003',
+            name: '3'
+          },
+          {
+            id: '004',
+            name: '4'
+          },
+          {
+            id: '005',
+            name: '5'
+          }
+        ],
       };
+    },
+    created: function() {
+      if (this.flag.isDisabled) {
+        this.project = this.TableRow;
+      }
+      this.collegeId = this.collegeInfo;
+      this.firstDiscipline = this.firstDisciplineProp;
+      this.level = this.levelProp;
+      this.sort = this.sortProp;
     },
     methods: {
       closeAlertDialog() {
-        this.flag.openAlertPaper = false;
+        Global.methods.closeAlertDialog(this.flag);
         this.$emit('click', this.flag);
       },
       makesure() {
@@ -192,25 +225,21 @@
       },
       editForm() {
         this.notDisabled = this.flag.isDisabled;
-        this.flag.isDisabled = false;
+        Global.methods.editForm(this.flag);
+      },
+      canMakesure() {
+
+        this.isSubmit = Global.methods.canMakesure(this.project); //进行判断能否提交
+
+        if (this.isSubmit) {
+          console.log('it is ok!!!');
+          this.makesure();
+        }
       }
     },
     components: {
       UserTable
     },
-    canMakesure() {
-      for (var key in this.paper_achievement) {
-        if (this.paper_achievement[key] == '') {
-          this.isSubmit = false;
-          alert(key + '  的数据没有填写！！！');
-          break;
-        }
-      }
-      if (this.isSubmit) {
-        console.log('it is ok!!!');
-        this.makesure();
-      }
-    }
   };
 </script>
 

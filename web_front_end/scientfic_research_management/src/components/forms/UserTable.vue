@@ -2,16 +2,16 @@
 
   <!-- 表单底部表格 -->
   <div style="padding: 10px;">
-    <div style=" padding-top: 70px;" v-if="!isDisabled">
+    <div style=" padding-top: 70px;" v-if="isDisabled">
       <mu-button style="float: right; margin: 10px;" @click="openAlertDialog" color="primary">
         添加用户&nbsp;&nbsp;
         <i class="el-icon-s-custom" style="float: right; "></i>
       </mu-button>
 
       <!-- 添加用户表格 -->
-      <div v-if="flag.openAlert">
+      <div>
         <mu-container>
-          <mu-dialog title="人员详细信息" width="570" :open.sync="flag.openAlert">
+          <mu-dialog title="成员信息" width="570" :open.sync="flag.openAlert">
             <!-- 团队成员信息 -->
             <div style="padding: 5px; border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1); text-align: center;">
               <el-form :inline="true" :model="user" class="demo-form-inline">
@@ -43,7 +43,7 @@
         <el-table-column fixed prop="name" label="姓名" width="120"></el-table-column>
         <el-table-column prop="collegeName" label="单位" width="300"></el-table-column>
         <el-table-column prop="contribution" label="贡献率" width="120"></el-table-column>
-        <div v-if="!isDisabled">
+        <div v-if="isDisabled">
           <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">
               <el-button @click.native.prevent="deleteRow(scope.$index, project_achievement_user)" type="text" size="small">
@@ -76,8 +76,7 @@
     },
     data() {
       return {
-        isSubmit: true,
-        isInit: true,
+        isSubmit: true, //用户数据是否填写完整
         user: {
           id: '',
           name: '',
@@ -88,8 +87,7 @@
           openAlert: false,
           isDisabled: false
         },
-        project_achievement_user: [{}],
-        reload: true
+        project_achievement_user: [{}]
       }
     },
     created: function() {
@@ -104,38 +102,31 @@
       editRow(index, rows) { //编辑
         this.flag.openAlert = true;
         this.user = this.users[index];
-        this.isInit = false;
-        this.openAlertDialog();
+        Global.methods.openAlertDialog(this.flag, this.isDisabled);
       },
       openAlertDialog() { //打开组件
-
+        Global.methods.emptyValue(this.user);
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
-
       },
       closeAlertDialog() { //关闭组件
         this.flag.openAlert = false;
-        console.log(this.user);
-
       },
       makesure() { //确定组件
         //赋值
-        if (this.isInit) {
-          this.project_achievement_user.push(this.user);
-        }
-
-        this.reload = new Date().getTime(); //重载改组件
+        // if (this.isInit) {
+        // 字符串转数字
+        var contribution = this.user.contribution * 1;
+        this.user.contribution = contribution;
+        // 创建一个空的json,放用户
+        var empty = {};
+        this.project_achievement_user.push(empty);
+        Global.methods.getValue(this.user, this.project_achievement_user); //一个一个赋值进行赋值
+        // }
         this.closeAlertDialog();
       },
       canMakesure() {
-
         this.isSubmit = Global.methods.canMakesure(this.user);
-
         if (this.isSubmit) {
-          this.reload = false;
-          // this.reload = true;
-
-          console.log(this.user);
-          console.log("it is ok!!!");
           this.makesure();
         }
       }

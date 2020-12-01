@@ -3,7 +3,7 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <mu-dialog width="800" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="flag.openAlertTeam">
+      <mu-dialog width="800" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="flag.openAlert">
         <div class="mu-dialog-title">
           团队
           <mu-button fab small color="indigo" @click="closeAlertDialog">
@@ -39,7 +39,7 @@
 
               <mu-form-item class="mu-demo-min-form" prop="select" label="一级学科">
                 <mu-select v-model="team.firstDiscipline" :disabled="flag.isDisabled || notDisabled">
-                  <mu-option v-for="option,index in firstDiscipline" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-option v-for="option in firstDiscipline" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
@@ -106,7 +106,7 @@
               </div>
 
               <!-- 表单底部表格 -->
-              <UserTable v-model="flag.isDisabled"></UserTable>
+              <UserTable v-model='users' :isDisabled="flag.isDisabled"></UserTable>
 
               <!-- 表单备注 -->
               <mu-form-item style="margin: 10px;" prop="textarea" label="备注">
@@ -146,9 +146,17 @@
 
 <script>
   import UserTable from './UserTable.vue'
+  import Global from './global.vue';
 
   export default {
-    props: ['flag'],
+    props: [
+      'flag',
+      "collegeInfo", //学院信息
+      "firstDisciplineProp", //第一学科
+      "levelProp", //项目级别
+      "sortProp", //项目分类
+      "TableRow",
+    ],
     model: {
       prop: 'flag',
       event: 'click'
@@ -169,8 +177,21 @@
           information: '', //团队信息
           userId: '', //负责人
         },
-        firstDiscipline: [
-          '一级学科1', '一级学科2'
+        firstDiscipline: [], //一级学科内容
+        level: [], //项目级别
+        sort: [], //项目分类
+        state: [{
+            id: 1,
+            name: "进行"
+          },
+          {
+            id: 2,
+            name: "结束"
+          },
+          {
+            id: 3,
+            name: "延期"
+          }
         ],
         user: {
           id: '',
@@ -216,32 +237,53 @@
 
       };
     },
+    created: function() {
+      if (this.flag.isDisabled) {
+        this.project = this.TableRow;
+      }
+      this.collegeId = this.collegeInfo;
+      this.firstDiscipline = this.firstDisciplineProp;
+      this.level = this.levelProp;
+      this.sort = this.sortProp;
+    },
     methods: {
       closeAlertDialog() {
-        this.flag.openAlertTeam = false;
+        Global.methods.closeAlertDialog(this.flag);
         this.$emit('click', this.flag);
       },
       makesure() {
-        console.log('团队表单data：   ' + JSON.stringify(this.team)); //form转json
-        // this.project.userId = localStorage.getItem("userid");
-        // this.project.userId = "2011000416";
-        var proJson = JSON.stringify(this.team);
-        proJson = JSON.parse(proJson);
-        // 将金额从string转为double  状态转换
-
-        console.log(proJson);
-        console.log("团队表单  request begin:  ");
-        this.axios
-          .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", proJson)
-          .then((response) => {
-            console.log('返回值:  ' + response.data.resultCode);
-            console.log("团队表单  request  over");
-          });
+        var proString = JSON.stringify(this.project);
+        var usersString = JSON.stringify(this.users);
+        if (this.notDisabled) {
+          console.log("项目表单修改  request begin:  ");
+          this.axios
+            .put(
+              this.GLOBAL.BASE_URL +
+              "/mangerSys/project/projects/" +
+              proString.id,
+              proString
+            )
+            .then((response) => {
+              console.log(response.data.resultCode);
+              console.log("项目表单  request  over");
+            });
+        } else {
+          console.log("项目表单申报  request begin:  ");
+          this.axios
+            .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", {
+              project: proString,
+              users: usersString,
+            })
+            .then((response) => {
+              console.log(response.data.resultCode);
+              console.log("项目表单  request  over");
+            });
+        }
         this.closeAlertDialog();
       },
       editForm() {
         this.notDisabled = this.flag.isDisabled;
-        this.flag.isDisabled = false;
+        Global.methods.editForm(this.flag);
       },
       findUser() {
         for (var i in this.users) {
@@ -259,19 +301,8 @@
         alert("错误！！该用户不存在！！");
       },
       canMakesure() {
-        for (var key in this.team) {
-          if (this.team[key] == '') {
-            this.isSubmit = false;
-            alert(key + '  的数据没有填写！！！');
-            break;
-          } else if (this.team[key] === this.team[length-1]) {
-            console.log('last');
-            this.isSubmit = true;
-          }
+        this.isSubmit = Global.methods.canMakesure(this.project); //进行判断能否提交
 
-        }
-        console.log('lenth:  ' + this.team.length);
-        console.log('is submit:  ' + this.isSubmit);
         if (this.isSubmit) {
           console.log('it is ok!!!');
           this.makesure();
@@ -281,7 +312,6 @@
     components: {
       UserTable
     }
-
   };
 </script>
 

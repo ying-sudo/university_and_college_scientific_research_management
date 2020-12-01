@@ -26,25 +26,25 @@
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="专利类型">
                 <mu-select v-model="patent_achievement.patentType" :disabled="flag.isDisabled || notDisabled">
-                  <mu-option v-for="option,index in patentType" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-option v-for="option in patentType" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="专利范围">
                 <mu-select v-model="patent_achievement.patentRange" :disabled="flag.isDisabled">
-                  <mu-option v-for="option,index in patentRange" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-option v-for="option in patentRange" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="成果归属">
                 <mu-select v-model="patent_achievement.collegeId" :disabled="flag.isDisabled">
-                  <mu-option v-for="option,index in collegeId" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-option v-for="option in collegeId" :key="option.id" :label="option.name" :value="option.id"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="专利状态">
                 <mu-select v-model="patent_achievement.state" :disabled="flag.isDisabled">
-                  <mu-option v-for="option,index in state" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-option v-for="option in state" :key="option.id" :label="option.name" :value="option.id"></mu-option>
                 </mu-select>
               </mu-form-item>
 
@@ -58,8 +58,8 @@
               </mu-form-item>
 
               <mu-col span="12" lg="4" sm="6" class="mu-demo-min-form float_left">
-                <mu-date-input prop="input" v-model="patent_achievement.publicDate" label="公开日期" label-float
-                  full-width landscape :disabled="flag.isDisabled" value-format="YYYY-MM-DD"></mu-date-input>
+                <mu-date-input prop="input" v-model="patent_achievement.publicDate" label="公开日期" label-float full-width
+                  landscape :disabled="flag.isDisabled" value-format="YYYY-MM-DD"></mu-date-input>
               </mu-col>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="input" label="公开编号">
@@ -76,7 +76,7 @@
               </mu-form-item>
 
               <!-- 表单底部表格 -->
-              <UserTable v-model='flag.isDisabled'></UserTable>
+              <UserTable v-model='users' :isDisabled="flag.isDisabled"></UserTable>
 
               <!-- 表单备注 -->
               <mu-form-item style="margin: 10px; padding-top: 20px;" prop="textarea" label="备注">
@@ -116,9 +116,14 @@
 
 <script>
   import UserTable from './UserTable.vue'
+  import Global from './global.vue';
 
   export default {
-    props: ['flag'],
+    props: [
+      'flag',
+      "collegeInfo", //学院信息
+      "TableRow",
+    ],
     model: {
       prop: 'flag',
       event: 'click'
@@ -150,49 +155,73 @@
         patentRange: [
           '范围1', '范围2'
         ],
-        collegeId: [
-          '学院1', '学院2'
-        ],
-        state: [
-          '状态1', '状态2'
+        collegeId: [],
+        state: [{
+            id: 1,
+            name: "进行"
+          },
+          {
+            id: 2,
+            name: "结束"
+          },
+          {
+            id: 3,
+            name: "延期"
+          }
         ]
       };
     },
+    created: function() {
+      if (this.flag.isDisabled) {
+        this.project = this.TableRow;
+      }
+      this.collegeId = this.collegeInfo;
+    },
     methods: {
       closeAlertDialog() {
-        this.flag.openAlert = false;
+        Global.methods.closeAlertDialog(this.flag);
         this.$emit('click', this.flag);
       },
       makesure() {
-        console.log('专利表单data：   ' + JSON.stringify(this.patent_achievement));   //form转json
-        // this.project.userId = localStorage.getItem("userid");
-        // this.project.userId = "2011000416";
-        var proJson = JSON.stringify(this.patent_achievement);
-        proJson = JSON.parse(proJson);
-        // 将金额从string转为double  状态转换
+        var proString = JSON.stringify(this.project);
+        var usersString = JSON.stringify(this.users);
+        console.log(proString);
+        if (this.notDisabled) {
+          console.log("专利表单修改  request begin:  ");
+          this.axios
+            .put(
+              this.GLOBAL.BASE_URL +
+              "/mangerSys/project/projects/" +
+              proString.id,
+              proString
+            )
+            .then((response) => {
+              console.log(response.data.resultCode);
+              console.log("专利表单  request  over");
+            });
+        } else {
+          console.log("专利表单申报  request begin:  ");
+          this.axios
+            .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", {
+              project: proString,
+              users: usersString,
+            })
+            .then((response) => {
+              console.log(response.data.resultCode);
+              console.log("专利表单  request  over");
+            });
+        }
 
-        console.log(proJson);
-        console.log("专利表单  request begin:  ");
-        this.axios
-          .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", proJson)
-          .then((response) => {
-            console.log(response.data.resultCode);
-            console.log("专利表单  request  over");
-          });
         this.closeAlertDialog();
       },
       editForm() {
         this.notDisabled = this.flag.isDisabled;
-        this.flag.isDisabled = false;
+        Global.methods.editForm(this.flag);
       },
       canMakesure() {
-        for (var key in this.patent_achievement) {
-          if (this.patent_achievement[key] == '') {
-            this.isSubmit = false;
-            alert(key + '  的数据没有填写！！！');
-            break;
-          }
-        }
+
+        this.isSubmit = Global.methods.canMakesure(this.project); //进行判断能否提交
+
         if (this.isSubmit) {
           console.log('it is ok!!!');
           this.makesure();

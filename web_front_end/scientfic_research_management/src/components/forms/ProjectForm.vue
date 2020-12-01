@@ -5,7 +5,7 @@
       <!-- 表单头部 -->
       <mu-dialog width="800" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="flag.openAlert">
         <div class="mu-dialog-title">
-          项目申报
+          项目表单
           <mu-button fab small color="indigo" @click="closeAlertDialog">
             <i class="el-icon-close" style="font-size: 32px;"></i>
           </mu-button>
@@ -90,12 +90,12 @@
               </mu-form-item>
 
               <!-- 表单底部表格 -->
-              <UserTable v-model='users' :isDisabled="flag.isDisabled"></UserTable>
+              <UserTable v-model='users' :isDisabled="!notDisabled"></UserTable>
 
               <!-- 表单备注 -->
               <mu-form-item style="padding-top: 20px; margin: 10px;" prop="textarea" label="备注">
                 <mu-text-field style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" multi-line
-                  :rows="3" :rows-max="6" v-model="project.textarea" :disabled="flag.isDisabled"></mu-text-field>
+                  :rows="3" :rows-max="6" v-model="project.information" :disabled="flag.isDisabled"></mu-text-field>
               </mu-form-item>
 
             </mu-form>
@@ -126,10 +126,9 @@
 
 </template>
 
-
 <script>
   import UserTable from "./UserTable.vue";
-  import Global from './global.vue'
+  import Global from './global.vue';
 
   export default {
     props: [
@@ -170,12 +169,6 @@
         collegeId: [], //学院信息
         users: [
           //参加人员
-          {
-            id: '2011000416',
-            name: 'asdf',
-            collegeName: '12342we',
-            contribution: 23
-          }
         ],
         firstDiscipline: [], //一级学科内容
         level: [], //项目级别
@@ -199,32 +192,26 @@
       if (this.flag.isDisabled) {
         this.project = this.TableRow;
       }
+      this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;
-      // console.log(this.collegeId);
       this.firstDiscipline = this.firstDisciplineProp;
-      // console.log('firstDiscipline:   ' + this.firstDiscipline);
       this.level = this.levelProp;
-      // console.log('level:    ' + this.level);
       this.sort = this.sortProp;
-      // console.log('sort:     ' + this.sort);
     },
     methods: {
       closeAlertDialog() {
         Global.methods.closeAlertDialog(this.flag);
-
+        //父子组件传值
         this.$emit("click", this.flag);
       },
       makesure() {
-
-        // this.project.userId = localStorage.getItem("userid");
-        // this.project.userId = "2011000416";
+        //改成string格式
         var proString = JSON.stringify(this.project);
+        // 用户成员
+        var sendUser = Global.methods.getUser(this.users, this.project);
+        var usersString = JSON.stringify(sendUser);
 
-        var usersString = JSON.stringify(this.users);
-
-        console.log(proString);
-
-        // this.notDisabled = true;
+        // 进行数据和后端交互
         if (this.notDisabled) {
           console.log("项目表单修改  request begin:  ");
           this.axios
@@ -254,17 +241,13 @@
         this.closeAlertDialog();
       },
       editForm() {
-        this.notDisabled = this.flag.isDisabled;
+        // this.notDisabled = this.flag.isDisabled;
         Global.methods.editForm(this.flag);
       },
       canMakesure() {
         //判断能否提交，必须全部填写
-
         this.isSubmit = Global.methods.canMakesure(this.project); //进行判断能否提交
-
-        console.log(this.isSubmit);
         if (this.isSubmit) {
-          console.log("it is ok!!!");
           this.makesure();
         }
       },

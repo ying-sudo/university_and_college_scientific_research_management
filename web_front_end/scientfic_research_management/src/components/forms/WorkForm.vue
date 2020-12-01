@@ -3,7 +3,7 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <mu-dialog width="800" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="flag.openAlertWork">
+      <mu-dialog width="800" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="flag.openAlert">
         <div class="mu-dialog-title">
           著作申报
           <mu-button fab small color="indigo" @click="closeAlertDialog">
@@ -29,19 +29,19 @@
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="出版社级别">
                 <mu-select v-model="work_achievement.publishLevel" :disabled="flag.isDisabled">
-                  <mu-option v-for="option,index in publishLevel" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-option v-for="option in publishLevel" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="著作类别">
                 <mu-select v-model="work_achievement.workType" :disabled="flag.isDisabled">
-                  <mu-option v-for="option,index in workType" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-option v-for="option in workType" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="出版地">
                 <mu-select v-model="work_achievement.publishLocation" :disabled="flag.isDisabled">
-                  <mu-option v-for="option,index in publishLocation" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-option v-for="option in publishLocation" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
@@ -57,7 +57,7 @@
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="翻译语种">
                 <mu-select v-model="work_achievement.translateLanguage" :disabled="flag.isDisabled">
-                  <mu-option v-for="option,index in translateLanguage" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-option v-for="option in translateLanguage" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
@@ -79,25 +79,25 @@
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="一级学科">
                 <mu-select v-model="work_achievement.firstDiscipline" :disabled="flag.isDisabled || notDisabled">
-                  <mu-option v-for="option,index in firstDiscipline" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-option v-for="option in firstDiscipline" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <mu-form-item class="mu-demo-min-form float_left" prop="select" label="成果归属">
                 <mu-select v-model="work_achievement.collegeId" :disabled="flag.isDisabled">
-                  <mu-option v-for="option,index in collegeId" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-option v-for="option in collegeId" :key="option.id" :label="option.name" :value="option.id"></mu-option>
                 </mu-select>
               </mu-form-item>
 
 
               <mu-form-item class="mu-demo-min-form" prop="select" label="项目来源">
                 <mu-select v-model="work_achievement.workSource" :disabled="flag.isDisabled || notDisabled">
-                  <mu-option v-for="option,index in workSource" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-option v-for="option in workSource" :key="option" :label="option" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
 
               <!-- 表单底部表格 -->
-              <UserTable v-model="flag.isDisabled"></UserTable>
+              <UserTable v-model='users' :isDisabled="flag.isDisabled"></UserTable>
 
               <!-- 表单备注 -->
               <mu-form-item style="margin: 10px;" prop="textarea" label="备注">
@@ -137,9 +137,17 @@
 
 <script>
   import UserTable from './UserTable.vue'
+  import Global from './global.vue';
 
   export default {
-    props: ['flag'],
+    props: [
+      'flag',
+      "collegeInfo", //学院信息
+      "firstDisciplineProp", //第一学科
+      "levelProp", //项目级别
+      "sortProp", //项目分类
+      "TableRow"
+    ],
     model: {
       prop: 'flag',
       event: 'click'
@@ -183,51 +191,74 @@
         firstDiscipline: [
           '一级学科1', '一级学科2'
         ],
-        collegeId: [
-          '成果归属1', '成果归属2'
+        users: [
+          //参加人员
+          {
+            id: '2011000416',
+            name: 'asdf',
+            collegeName: '12342we',
+            contribution: 23
+          }
         ],
+        collegeId: [],
+        firstDiscipline: [], //一级学科内容
+        level: [], //项目级别
+        sort: [], //项目分类
         workSource: [
           '项目来源1', '项目来源2'
         ]
       };
     },
+    created: function() {
+      if (this.flag.isDisabled) {
+        this.project = this.TableRow;
+      }
+      this.collegeId = this.collegeInfo;
+      this.firstDiscipline = this.firstDisciplineProp;
+      this.level = this.levelProp;
+      this.sort = this.sortProp;
+    },
     methods: {
       closeAlertDialog() {
-        this.flag.openAlertWork = false;
+        Global.methods.closeAlertDialog(this.flag);
         this.$emit('click', this.flag);
       },
       makesure() {
-
-        console.log('专利表单data：   ' + JSON.stringify(this.work_achievement)); //form转json
-        // this.project.userId = localStorage.getItem("userid");
-        // this.project.userId = "2011000416";
-        var proJson = JSON.stringify(this.work_achievement);
-        proJson = JSON.parse(proJson);
-        // 将金额从string转为double  状态转换
-
-        console.log(proJson);
-        console.log("专利表单  request begin:  ");
-        this.axios
-          .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", proJson)
-          .then((response) => {
-            console.log(response.data.resultCode);
-            console.log("专利表单  request  over");
-          });
+        var proString = JSON.stringify(this.project);
+        var usersString = JSON.stringify(this.users);
+        if (this.notDisabled) {
+          console.log("项目表单修改  request begin:  ");
+          this.axios
+            .put(
+              this.GLOBAL.BASE_URL +
+              "/mangerSys/project/projects/" +
+              proString.id,
+              proString
+            )
+            .then((response) => {
+              console.log(response.data.resultCode);
+              console.log("项目表单  request  over");
+            });
+        } else {
+          console.log("项目表单申报  request begin:  ");
+          this.axios
+            .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", {
+              project: proString,
+              users: usersString,
+            })
+            .then((response) => {
+              console.log(response.data.resultCode);
+              console.log("项目表单  request  over");
+            });
+        }
         this.closeAlertDialog();
-
       },
       editForm() {
         this.notDisabled = this.flag.isDisabled;
         this.flag.isDisabled = false;
       },
       canMakesure() {
-        for (var key in this.work_achievement) {
-          if (this.work_achievement[key] == '') {
-            this.isSubmit = false;
-            alert(key + '  的数据没有填写！！！');
-            break;
-          }
-        }
+        this.isSubmit = Global.methods.canMakesure(this.project); //进行判断能否提交
         if (this.isSubmit) {
           console.log('it is ok!!!');
           this.makesure();

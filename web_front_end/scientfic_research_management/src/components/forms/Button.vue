@@ -4,7 +4,7 @@
 
     <div>
       asdfasdfas
-      <PaperButton v-model="isDisabled"></PaperButton>
+      <PaperButton v-model="users" :isDisabled="isDisabled"></PaperButton>
     </div>
 
 
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import PaperButton from './ProjectButton.vue'
+  import PaperButton from './UserTable.vue'
 
   export default {
     data() {
@@ -37,7 +37,10 @@
           state: '', //审核状态
           approval_number: '', //批准文号
           information: '' //项目信息
-        }
+        },
+        users: [{
+          
+        }]
       };
     },
     components: {
