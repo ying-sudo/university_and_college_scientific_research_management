@@ -4,7 +4,7 @@
 
     <div>
       asdfasdfas
-      <PaperButton></PaperButton>
+      <PaperButton v-model="isDisabled"></PaperButton>
     </div>
 
 
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import PaperButton from './UserTable.vue'
+  import PaperButton from './ProjectButton.vue'
 
   export default {
     data() {

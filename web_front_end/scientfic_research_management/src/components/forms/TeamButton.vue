@@ -26,6 +26,7 @@
 
 <script>
   import TeamForm from './TeamForm.vue'
+  import Global from './global.vue'
 
   export default {
     props: ['isDisabled'],
@@ -49,8 +50,7 @@
       openAlertTeamDialog() { //论文成果表单
         this.reload = new Date().getTime();
 
-        this.flag.isDisabled = this.isDisabled;
-        this.flag.openAlertTeam = true;
+        Global.methods.openAlertDialog(this.flag, this.isDisabled);
       }
     }
   }

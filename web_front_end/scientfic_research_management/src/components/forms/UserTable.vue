@@ -1,7 +1,7 @@
 <template>
 
   <!-- 表单底部表格 -->
-  <div style="padding: 10px;" :key="reload">
+  <div style="padding: 10px;">
     <div style=" padding-top: 70px;" v-if="!isDisabled">
       <mu-button style="float: right; margin: 10px;" @click="openAlertDialog" color="primary">
         添加用户&nbsp;&nbsp;
@@ -9,7 +9,7 @@
       </mu-button>
 
       <!-- 添加用户表格 -->
-      <div>
+      <div v-if="flag.openAlert">
         <mu-container>
           <mu-dialog title="人员详细信息" width="570" :open.sync="flag.openAlert">
             <!-- 团队成员信息 -->
@@ -39,9 +39,9 @@
     <!-- 所有用户信息表格 -->
     <div style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);">
       <el-table :data="project_achievement_user" style="width: 100%" max-height="250">
+        <el-table-column fixed prop="id" label="学工号" width="120"></el-table-column>
         <el-table-column fixed prop="name" label="姓名" width="120"></el-table-column>
-        <el-table-column prop="college_name" label="单位" width="300"></el-table-column>
-        <el-table-column prop="arrange" label="排名" width="120"></el-table-column>
+        <el-table-column prop="collegeName" label="单位" width="300"></el-table-column>
         <el-table-column prop="contribution" label="贡献率" width="120"></el-table-column>
         <div v-if="!isDisabled">
           <el-table-column fixed="right" label="操作" width="120">
@@ -63,16 +63,21 @@
 
 <script>
   import UserInformation from './UserInformation.vue'
+  import Global from './global.vue'
 
   export default {
-    props: ['isDisabled'],
+    props: [
+      'users',
+      "isDisabled",
+    ],
     model: {
-      prop: 'isDisabled',
+      prop: ['users'],
       event: 'click'
     },
     data() {
       return {
         isSubmit: true,
+        isInit: true,
         user: {
           id: '',
           name: '',
@@ -83,27 +88,29 @@
           openAlert: false,
           isDisabled: false
         },
-        project_achievement_user: [{
-          id: 'asd',
-          contribution: '23'
-        }],
-        reload: ''
+        project_achievement_user: [{}],
+        reload: true
       }
+    },
+    created: function() {
+      this.project_achievement_user = this.users;
+      console.log(this.project_achievement_user);
     },
     methods: {
       deleteRow(index, rows) { //删除
-        console.log('删除的id： ' + this.project_achievement_user[index].id);
+        console.log('删除的id： ' + this.users[index].id);
         rows.splice(index, 1);
       },
       editRow(index, rows) { //编辑
-        this.flag.isDisabled = true;
-
+        this.flag.openAlert = true;
+        this.user = this.users[index];
+        this.isInit = false;
         this.openAlertDialog();
       },
       openAlertDialog() { //打开组件
 
-        // this.flag.isDisabled = this.isDisabled;
-        this.flag.openAlert = true;
+        Global.methods.openAlertDialog(this.flag, this.isDisabled);
+
       },
       closeAlertDialog() { //关闭组件
         this.flag.openAlert = false;
@@ -112,34 +119,24 @@
       },
       makesure() { //确定组件
         //赋值
-        var userJson = {};
-        userJson.id = this.user.id;
-        userJson.contribution = this.user.contribution;
-        this.project_achievement_user.push(userJson);
+        if (this.isInit) {
+          this.project_achievement_user.push(this.user);
+        }
 
-        console.log('project_achievement_user:       ' + this.project_achievement_user);
         this.reload = new Date().getTime(); //重载改组件
         this.closeAlertDialog();
       },
       canMakesure() {
-        console.log(this.user);
-        //判断能否提交，必须全部填写
-        for (var key in this.user) {
-          if (this.user[key] == '') {
-            console.log(this.user[key]);
-            this.isSubmit = false;
-            alert(key + '  的数据没有填写！！！');
-            break;
-          }
-        }
+
+        this.isSubmit = Global.methods.canMakesure(this.user);
+
         if (this.isSubmit) {
           this.reload = false;
-          this.reload = true;
+          // this.reload = true;
+
           console.log(this.user);
           console.log("it is ok!!!");
           this.makesure();
-        } else {
-          alert('错误，请重试');
         }
       }
     },

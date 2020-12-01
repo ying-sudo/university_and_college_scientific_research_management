@@ -26,6 +26,7 @@
 
 <script>
   import WorkForm from './WorkForm.vue'
+  import Global from './global.vue'
 
   export default {
     props: ['isDisabled'],
@@ -49,8 +50,7 @@
       openAlertWorkDialog() {
         this.reload = new Date().getTime();
         
-        this.flag.isDisabled = this.isDisabled;
-        this.flag.openAlertWork = true;
+        Global.methods.openAlertDialog(this.flag, this.isDisabled);
       }
     }
   }
