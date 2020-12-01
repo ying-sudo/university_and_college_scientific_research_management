@@ -34,6 +34,17 @@ public class PaperAchievementServiceImpl implements PaperAchievementService {
     }
 
     /**
+     * 通过UserID查询单条数据
+     *
+     * @param id 主键
+     * @return 实例对象
+     */
+    @Override
+    public List<PaperAchievement> queryByUserId(String id) {
+        return paperAchievementDao.queryByUserId(id);
+    }
+
+    /**
      * 查询多条数据
      *
      * @param offset 查询起始位置

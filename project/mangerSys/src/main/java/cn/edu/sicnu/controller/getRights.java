@@ -1,12 +1,12 @@
 package cn.edu.sicnu.controller;
 
 import cn.edu.sicnu.entity.CharactersRight;
-import cn.edu.sicnu.entity.Logtable;
+import cn.edu.sicnu.entity.Project;
+import cn.edu.sicnu.entity.ProjectAchievemUser;
 import cn.edu.sicnu.entity.RightsAndcharacters;
 import cn.edu.sicnu.service.CharactersRightService;
-import cn.edu.sicnu.service.LogcolumnService;
-import cn.edu.sicnu.service.LogoperationService;
-import cn.edu.sicnu.service.LogtableService;
+import cn.edu.sicnu.service.ProjectAchievemUserService;
+import cn.edu.sicnu.service.ProjectService;
 import cn.edu.sicnu.service.UserCharacterService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -39,11 +38,10 @@ public class getRights {
     private TransactionDefinition transactionDefinition;
 
     @Resource
-    private LogtableService logtableService;
+    private ProjectAchievemUserService projectAchievemUserService;
+
     @Resource
-    private LogcolumnService logcolumnService;
-    @Resource
-    private LogoperationService logoperationService;
+    private ProjectService projectService;
 
     private static ThreadLocal<Map<String,Integer>> t=new ThreadLocal<>();
 
@@ -148,5 +146,21 @@ public class getRights {
 //        logcolumnService.insert(new Logcolumn("1","1","All"));
 //        logoperationService.insert(new Logoperation("1","1","增加","123"));
         return "";
+    }
+    /**
+     * 添加项目成员
+     */
+    @Transactional
+    public String addProjectUsers(List<ProjectAchievemUser> list, Project project){
+        try{
+            projectService.insert(project);
+            for (ProjectAchievemUser user : list) {
+                user.setCategory(1);
+                projectAchievemUserService.insert(user);
+            }
+            return "成功";
+        }catch (Exception e){
+            return "失败";
+        }
     }
 }

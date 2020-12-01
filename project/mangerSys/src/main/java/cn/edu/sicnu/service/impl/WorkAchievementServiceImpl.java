@@ -34,6 +34,18 @@ public class WorkAchievementServiceImpl implements WorkAchievementService {
     }
 
     /**
+     * 通过UserID查询单条数据
+     *
+     * @param userId 主键
+     * @return 实例对象
+     */
+    @Override
+    @Transactional
+    public List<WorkAchievement> queryByUserId(String userId) {
+        return workAchievementDao.queryByUserId(userId);
+    }
+
+    /**
      * 查询多条数据
      *
      * @param offset 查询起始位置

@@ -3,39 +3,26 @@
   "resultMsg": "成功",
   "data": [
     {
-      "projectId": 1230194,
-      "requestFund": 0,
-      "arrivalFund": 0,
-      "requestDate": 0,
-      "arrivalDate": 0,
-      "projectName": "飞飞飞",
+      "id": "003",
+      "name": "著作成果三",
+      "publisher": "789出版社",
+      "publishLevel": "一级",
+      "workType": "文字作品",
+      "publishLocation": "四川成都",
+      "isbnId": "15151",
+      "isTranslate": true,
+      "translateLanguage": "英语，法语",
+      "discipline": "法学",
+      "beginDate": 1606147200000,
+      "characters": "描述性",
+      "firstDiscipline": "马克思主义理论",
+      "collegeId": "0003",
+      "workSource": "马院",
+      "userId": "2011000416",
+      "information": "无",
       "userName": "王五",
-      "projectId": 1230194,
-      "projectSort": "分类2"
-    },
-    {
-      "id": "001",
-      "projectId": "2020001",
-      "requestFund": 7000.0,
-      "arrivalFund": 7000.0,
-      "requestDate": 1577808000000,
-      "arrivalDate": 1578585600000,
-      "projectName": "起飞1111",
-      "userName": "王五",
-      "projectId": 2020001,
-      "projectSort": "分类1"
-    },
-    {
-      "id": "002",
-      "projectId": "2020002",
-      "requestFund": 8000.0,
-      "arrivalFund": 8000.0,
-      "requestDate": 1577894400000,
-      "arrivalDate": 1578585600000,
-      "projectName": "test",
-      "userName": "王五",
-      "projectId": 2020002,
-      "projectSort": ""
+      "collegeName": "马克思主义学院",
+      "phone": "15464972136"
     }
   ]
 }

@@ -76,7 +76,7 @@ public class FundController {
                 String string = objectMapper.writeValueAsString(fundByProjectId);
                 System.out.println("as = " + string);
                 if(string.equals("[]")){
-                    string="[{\"projectId\":"+projects.get(i).getId()+",\"requestFund\":0"+",\"arrivalFund\":0"+",\"requestDate\":0"+",\"arrivalDate\":0" +",\"projectName\":\""+projects.get(i).getName()+"\",\"userName\":\""+userService.queryById(projects.get(i).getUserId()).getName()+"\",\"projectId\":"+projects.get(i).getId()+",\"projectSort\":\""+projects.get(i).getSort()+"\"}";
+                    string="[{\"projectId\":"+projects.get(i).getId()+",\"requestFund\":0"+",\"arrivalFund\":0"+",\"requestDate\":0"+",\"arrivalDate\":0" +",\"projectName\":\""+projects.get(i).getName()+"\",\"userName\":\""+userService.queryById(projects.get(i).getUserId()).getName()+"\",\"projectId\":"+projects.get(i).getId()+"\"projectSort\":\""+projects.get(i).getSort()+"\"}";
                     re+=string;
                     if(projects.size()==1){
                         re+="";
