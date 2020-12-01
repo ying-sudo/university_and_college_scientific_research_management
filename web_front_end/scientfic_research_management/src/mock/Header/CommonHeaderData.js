@@ -69,7 +69,7 @@ let dataVal = {
       id: "10",
       index: "4",
       title: "团队",
-      urlPath: "/teams",
+      urlPath: "/table/teams",
       subMenu: null
     },
     {
@@ -96,7 +96,7 @@ let dataVal = {
           id: "14",
           index: "7-1",
           title: "项目批次",
-          urlPath: "/batch",
+          urlPath: "/table/batch",
           subMenu: null
         },
         {
@@ -118,35 +118,35 @@ let dataVal = {
           id: "17",
           index: "8-1",
           title: "考核批次",
-          urlPath: "/batch",
+          urlPath: "/table/batch",
           subMenu: null
         },
         {
           id: "18",
           index: "8-2",
           title: "项目考核",
-          urlPath: "/project",
+          urlPath: "/table/project",
           subMenu: null
         },
         {
           id: "19",
           index: "8-3",
           title: "成果考核",
-          urlPath: "/achievement",
+          urlPath: "/table/achievement",
           subMenu: null
         },
         {
           id: "20",
           index: "8-4",
           title: "个人考核",
-          urlPath: "/personal",
+          urlPath: "/table/personal",
           subMenu: null
         },
         {
           id: "21",
           index: "8-5",
           title: "学院考核",
-          urlPath: "/college",
+          urlPath: "/table/college",
           subMenu: null
         },
         {
@@ -168,14 +168,14 @@ let dataVal = {
           id: "24",
           index: "9-1",
           title: "院系机构",
-          urlPath: "/colleges",
+          urlPath: "/table/colleges",
           subMenu: null
         },
         {
           id: "25",
           index: "9-2",
           title: "科研人员",
-          urlPath: "/people",
+          urlPath: "/table/people",
           subMenu: null
         }
       ]
@@ -190,7 +190,7 @@ let dataVal = {
           id: "27",
           index: "10-1",
           title: "角色管理",
-          urlPath: "/roles",
+          urlPath: "/table/roles",
           subMenu: null
         },
         {

@@ -15,42 +15,30 @@
         "id": 3,
         "label": "作者",
         "type": "text",
-        "prop": "author"
+        "prop": "userName"
     },
     {
         "id": 4,
         "label": "联系方式",
         "type": "text",
-        "prop": "author_contact_information"
+        "prop": "phone"
     },
     {
         "id": 5,
         "label": "归属单位",
         "type": "text",
-        "prop": "author_belongs"
+        "prop": "collegeName"
     },
     {
         "id": 6,
         "label": "期刊名称",
         "type": "text",
-        "prop": "journal_name"
+        "prop": "paperSource"
     },
     {
         "id": 7,
         "label": "撰写日期",
         "type": "text",
         "prop": "beginDate"
-    },
-    {
-        "id": 8,
-        "label": "审核状态",
-        "type": "text",
-        "prop": "check_state"
-    },
-    {
-        "id": 9,
-        "label": "引用次数",
-        "type": "text",
-        "prop": "cites"
     }
 ]

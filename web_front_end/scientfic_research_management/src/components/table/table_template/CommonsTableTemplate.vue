@@ -6,13 +6,20 @@
      @width:table的宽度 
      @max-height:列的最大高度 -->
     <el-table
+      ref="multipleTable"
       :data="tableDataList"
+      @selection-change="handleSelectionChange"
       fit
       highlight-current-row
       style="width: 90%"
+      v-if="tableData !== null"
       size="middle"
-      v-if="tableData!==null"
     >
+    <el-table-column
+      type="selection"
+      width="55">
+    </el-table-column>
+
       <!-- @item:表中的每一列  
          @:key: 当前第几列
          @label:每一列的标签
@@ -87,6 +94,7 @@ export default {
       pageSize: 5,
       tableDataList: [],
       ShowPage: false,
+      multipleSelection:[],
     };
   },
 
@@ -131,6 +139,15 @@ export default {
       } else {
         return val;
       }
+    },
+
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+      console.log("multipleSelection:"+this.multipleSelection);
+
+      // this.axios.delete()
+      this.axios.delete("/api/table_data1",{data:this.multipleSelection});
+
     },
   },
 

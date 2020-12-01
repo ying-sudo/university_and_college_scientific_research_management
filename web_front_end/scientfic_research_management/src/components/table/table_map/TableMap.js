@@ -9,6 +9,14 @@ export function getTableMap() {
         ["/patents", "/achievement_table/PatentedProduct.json"], 
         ["/scientifics", "/achievement_table/ScientificResearchAchievement.json"], 
         ["/logging", "/log_table/LogTable.json"], 
+        ["/teams", "/team_table/TeamTable.json"], 
+        ["/batch", "/check_table/ProjectCheckBranchTable.json"], 
+        ["/project", "/check_table/ProjectCheckTable.json"], 
+        ["/achievement", "/check_table/AchievementCheckTable.json"], 
+        ["/personal", "/check_table/ResearcherCheckTable.json"], 
+        ["/college", "/check_table/CollegeCheckTable.json"], 
+        ["/roles", "/role_management_table/RoleManagementTable.json"], 
+        ["/batch", "/project_review_table/ProjectBranchReview.json"], 
         
     ]);
 

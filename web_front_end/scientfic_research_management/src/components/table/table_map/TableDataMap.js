@@ -3,6 +3,7 @@ export function getTableDataMap() {
         ["fundlists", "mangerSys/fund/fund"], 
         ["authoritylists", "/api/table_data"], 
         ["projectlists", "mangerSys/project/projects"], 
+        ["papers", "mangerSys/paperAchievement/findOne"], 
         ["logging", "mangerSys/operlog"], 
         
     ]);
