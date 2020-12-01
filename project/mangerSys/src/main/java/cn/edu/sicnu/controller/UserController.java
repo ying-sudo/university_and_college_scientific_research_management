@@ -2,6 +2,9 @@ package cn.edu.sicnu.controller;
 
 import cn.edu.sicnu.entity.User;
 import cn.edu.sicnu.service.UserService;
+import org.apache.log4j.Logger;
+import org.apache.log4j.MDC;
+import org.apache.log4j.NDC;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +33,8 @@ public class UserController {
     private UserService userService;
     @Resource
     private getRights get;
+
+    private final Logger logger = Logger.getLogger("operInfo");
 
     /**
      * 通过主键查询单条数据
@@ -62,14 +67,18 @@ public class UserController {
             System.out.println("id = " + map.get("id"));
             System.out.println("password = " + map.get("password"));
             User user = userService.findByIdAndPassword(map.get("id"), map.get("password"));
-            String getRightsByCharacters = get.getRightsByCharacters(map.get("id"));
+//            String getRightsByCharacters = get.getRightsByCharacters(user.getId());
+            MDC.put("userId", user.getId());
             if(user==null){
+                logger.info("登录失败");
                 return "{\"resultCode\": \"-1\",\"resultMsg\": \"登录失败\"}";
             }else {
-                return "{\"resultCode\": \"0\",\"resultMsg\": \"登录成功\","+getRightsByCharacters+"}";
+                logger.info("登录成功");
+                return "{\"resultCode\": \"0\",\"resultMsg\": \"登录成功\"}";
             }
         }catch (Exception e){
             System.out.println("e = " + e.toString());
+            logger.info("登录失败");
             return "{\"resultCode\": \"-1\",\"resultMsg\": \"登录失败\"}";
         }
     }
