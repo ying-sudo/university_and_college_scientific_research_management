@@ -51,11 +51,11 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into scientific_research.project_achievem_user (user_id, contribution, category)
-        values (#{userId}, #{contribution}, #{category})
+        insert into scientific_research.project_achievem_user (id,user_id, contribution, category)
+        values (#{id},#{userId}, #{contribution}, #{category})
     </insert>
 
-    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+    <insert id="insertBatch" >
         insert into scientific_research.project_achievem_user(user_id, contribution, category)
         values
         <foreach collection="entities" item="entity" separator=",">

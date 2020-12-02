@@ -32,6 +32,21 @@
         from scientific_research.paper_achievement
         where id = #{id}
     </select>
+    <select id="queryByUserId" resultMap="PaperAchievementMap">
+        select id,
+               name,
+               begin_date,
+               paper_type,
+               record_id,
+               descipline,
+               first_discipline,
+               college_id,
+               paper_source,
+               user_id,
+               information
+        from scientific_research.paper_achievement
+        where user_id = #{id}
+    </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="PaperAchievementMap">

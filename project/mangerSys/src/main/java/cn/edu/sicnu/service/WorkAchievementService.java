@@ -21,6 +21,14 @@ public interface WorkAchievementService {
     WorkAchievement queryById(String id);
 
     /**
+     * 通过UserID查询单条数据
+     *
+     * @param userId 主键
+     * @return 实例对象
+     */
+    List<WorkAchievement> queryByUserId(String userId);
+
+    /**
      * 查询多条数据
      *
      * @param offset 查询起始位置

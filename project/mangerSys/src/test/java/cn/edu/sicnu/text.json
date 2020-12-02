@@ -1,29 +1,28 @@
 {
   "resultCode": "0",
   "resultMsg": "成功",
-  "data": {
-    "firstDiscipline": [
-      "哲学",
-      "理论经济学",
-      "法学",
-      "数学",
-      "力学"
-    ],
-    "level": [
-      "国家级",
-      "省部级",
-      "厅局级",
-      "校级",
-      "院级"
-    ],
-    "sort": [
-      "一般项目",
-      "重大研究项目",
-      "标准项目",
-      "文本项目",
-      "数值项目",
-      "包装项目",
-      "物料无关项目"
-    ]
-  }
+  "data": [
+    {
+      "id": "003",
+      "name": "著作成果三",
+      "publisher": "789出版社",
+      "publishLevel": "一级",
+      "workType": "文字作品",
+      "publishLocation": "四川成都",
+      "isbnId": "15151",
+      "isTranslate": true,
+      "translateLanguage": "英语，法语",
+      "discipline": "法学",
+      "beginDate": 1606147200000,
+      "characters": "描述性",
+      "firstDiscipline": "马克思主义理论",
+      "collegeId": "0003",
+      "workSource": "马院",
+      "userId": "2011000416",
+      "information": "无",
+      "userName": "王五",
+      "collegeName": "马克思主义学院",
+      "phone": "15464972136"
+    }
+  ]
 }

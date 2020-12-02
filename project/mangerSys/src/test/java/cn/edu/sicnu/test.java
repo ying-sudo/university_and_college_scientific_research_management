@@ -1,6 +1,6 @@
 package cn.edu.sicnu;
 
-import cn.edu.sicnu.controller.getRights;
+
 import cn.edu.sicnu.service.impl.CollegeServiceImpl;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -15,17 +15,15 @@ import javax.annotation.Resource;
 public class test {
     @Resource
     private CollegeServiceImpl collegeService;
-    private Logger logger=Logger.getLogger(test.class);
+    private static final Logger logger=Logger.getLogger(test.class);
     @Test
     public void findAll(){
-        logger.debug("debug");
-        logger.info("info");
-        logger.warn("warn");
-        logger.error("error");
-        logger.fatal("fatal");
-        getRights get = new getRights();
-        get.insertLog();
-//        collegeService.findAll().forEach(user-> System.out.println("user = " + user));
-//        User user=new User("003","123456789","xhw","12345678912","2","521565000000322","2020-11-17","无");
+        for(int i=0;i<50;i++){
+            logger.debug(i);
+            logger.info(i);
+            logger.warn(i);
+            logger.error(i);
+            logger.fatal(i);
+        }
     }
 }

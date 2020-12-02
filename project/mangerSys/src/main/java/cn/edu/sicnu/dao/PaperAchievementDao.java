@@ -22,6 +22,14 @@ public interface PaperAchievementDao {
     PaperAchievement queryById(String id);
 
     /**
+     * 通过UserID查询单条数据
+     *
+     * @param id 主键
+     * @return 实例对象
+     */
+    List<PaperAchievement> queryByUserId(String id);
+
+    /**
      * 查询指定行数据
      *
      * @param offset 查询起始位置
