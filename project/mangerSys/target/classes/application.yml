@@ -18,17 +18,10 @@ spring:
     multipart:
       max-request-size: 20MB
       max-file-size: 20MB
-<<<<<<< HEAD
 #logging:
 #  level:
 #    root: INFO
 #    cn.edu.sicnu.dao: debug
-=======
-logging:
-  level:
-    root: INFO
-    cn.edu.sicnu.dao: debug
->>>>>>> 6980cb6e390bb94818c886b277b26f7a8c331372
 #  file: F:\software-contents\intellijIDEA\log\a.log
 mybatis:
   mapper-locations: cn/edu/sicnu/mapper/*.xml
