@@ -34,7 +34,7 @@ public class UserController {
     @Resource
     private getRights get;
 
-    private final Logger logger = Logger.getLogger("operInfo");
+    private final Logger logger = Logger.getLogger("loginInfo");
 
     /**
      * 通过主键查询单条数据
