@@ -22,8 +22,5 @@ public class LogDBPwdUtils extends JDBCAppender {
         config.setPassword("mysql");
         standardPBEStringEncryptor.setConfig(config);
         this.databasePassword = standardPBEStringEncryptor.decrypt(password);
-
-        //        password = standardPBEStringEncryptor.decrypt(password);
-//        this.databasePassword = standardPBEStringEncryptor.decrypt(password);
     }
 }

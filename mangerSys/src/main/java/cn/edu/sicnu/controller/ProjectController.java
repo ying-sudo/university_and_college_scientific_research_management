@@ -1,11 +1,9 @@
 package cn.edu.sicnu.controller;
 
 import cn.edu.sicnu.entity.Project;
-import cn.edu.sicnu.entity.ProjectAchievemUser;
 import cn.edu.sicnu.service.CollegeService;
 import cn.edu.sicnu.service.ProjectService;
 import cn.edu.sicnu.service.UserService;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,8 +41,12 @@ public class ProjectController {
     private CollegeService collegeService;
     @Resource
     private UserService userService;
-    @Resource
-    private getRights get;
+//    @Resource
+//    private LogtableService logtableService;
+//    @Resource
+//    private LogcolumnService logcolumnService;
+//    @Resource
+//    private LogoperationService logoperationService;
     /**
      * 通过主键查询单条数据
      *
@@ -109,7 +111,7 @@ public class ProjectController {
      * 通过用户id查询用户的所有项目
      * /project/{id}
      */
-    @PostMapping("/projects/{id}")
+    @GetMapping("/projects/{id}")
     public String findById(@PathVariable String id){
         try {
             System.out.println("id = " + id);
@@ -155,18 +157,32 @@ public class ProjectController {
         try{
 //            project.setBeginDate(new SimpleDateFormat("yyyy-yy-dd").parse("2020-12-12"));
             Project project = objectMapper.readValue(map.get("project").toString(), Project.class);
+//            System.out.println("project = " + project);
             project.setRequestFund((Double)project.getRequestFund());
             project.setArrivalFund((Double)project.getArrivalFund());
             project.setState((Integer)project.getState());
-            System.out.println("project = " + project);
-            List<ProjectAchievemUser> lst =  objectMapper.readValue(map.get("users").toString(),new TypeReference<List<ProjectAchievemUser>>(){});
-            for (ProjectAchievemUser projectAchievemUser : lst) {
-                System.out.println("projectAchievemUser = " + projectAchievemUser);
-            }
-                String s = get.addProjectUsers(lst,project);
-                if(s=="失败"){
-                int ex=10/0;
-            }
+//            System.out.println("project = " + project);
+//            List<Sort> lst =  objectMapper.readValue(map.get("users").toString(),new TypeReference<List<Sort>>(){});
+//            System.out.println("map = " +lst.get(0));
+//            projectService.insert(project);
+            /*Logtable logtable = new Logtable();
+            logtable.setTableName("project");
+            logtable.setBussinessName("新增项目");
+            logtable.setCreateTime(new Date());
+            int tableId = logtableService.insert(logtable);
+            System.out.println("tableId = " + tableId);
+            Logcolumn logcolumn = new Logcolumn();
+            logcolumn.setLogtableId(tableId);
+            logcolumn.setLogcolumn("All");
+            int columnId = logcolumnService.insert(logcolumn);
+            System.out.println("columnId = " + columnId);
+            Logoperation logoperation = new Logoperation();
+            logoperation.setLogtableId(tableId);
+            logoperation.setLogcolumnId(columnId);
+            logoperation.setOptionType("增加");
+            logoperation.setUserId("2011000416");
+            logoperationService.insert(logoperation);*/
+//            logtableService.deleteById(1);
             return "{\"resultCode\":\"0\",\"resultMsg\":\"请求成功\"}";
         }catch (Exception e){
             System.out.println("e = " + e.toString());
@@ -183,8 +199,7 @@ public class ProjectController {
         try{
             System.out.println("project = " + project.toString());
             System.out.println("id = " + id);
-            System.out.println("project = " + project);
-//            projectService.update(project);
+            projectService.update(project);
             return "{\"resultCode\":\"0\",\"resultMsg\":\"请求成功\"}";
         }catch (Exception e){
             System.out.println("e = " + e.toString());

@@ -1,6 +1,6 @@
 package cn.edu.sicnu.dao;
 
-import cn.edu.sicnu.entity.OperLog;
+import cn.edu.sicnu.entity.LoginLog;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,18 +12,18 @@ import java.util.List;
  * @date 2020/11/30 18:11
  */
 @Repository
-public interface OperLogDao {
+public interface LoginLogDao {
 
     /**
      * 查询所有记录
      * @return 对象列表
      */
-    List<OperLog> findAll();
+    List<LoginLog> findAll();
 
     /**
      * 删除对应id（主码）的记录
-     * @param operLogId oper_log表中的主码
-     * @return
+     * @param loginLogId oper_log表中的主码
+     * @return 删除的行数
      */
-    int deleteById(String operLogId);
+    int deleteById(String loginLogId);
 }

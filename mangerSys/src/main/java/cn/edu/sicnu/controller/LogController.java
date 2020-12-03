@@ -1,8 +1,10 @@
 package cn.edu.sicnu.controller;
 
-import cn.edu.sicnu.entity.OperLog;
-import cn.edu.sicnu.service.OperLogService;
+import cn.edu.sicnu.entity.LoginLog;
+import cn.edu.sicnu.service.LoginLogService;
+import cn.edu.sicnu.service.ManagerSystemLogService;
 import cn.edu.sicnu.utils.Message;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,37 +21,34 @@ import java.util.List;
 public class LogController {
 
     @Autowired
-    private OperLogService operLogService;
+    private LoginLogService loginLogService;
+
+    @Autowired
+    private ManagerSystemLogService systemLogService;
 
     @Autowired
     private Message message;
 
     @PostMapping("/operlog/{id}")
     public Message findAll(@PathVariable String id) {
-        List<OperLog> operLogs = operLogService.findAll();
+        List<LoginLog> loginLogs = loginLogService.findAll();
         message.setResultCode(0);
         message.setResultMsg("请求成功");
-        message.setData(operLogs);
+        message.setData(loginLogs);
         if (id.equals("1234")) {
 
         }
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        for (OperLog operLog : operLogs) {
-//            operLog.setCreateTime();
-//        }
-//        dateFormat.format()
-//        JavaType javaType = objectMapper.getTypeFactory().constructParametricType(ArrayList.class, OperLog.class);
-//        StringBuilder res = new StringBuilder();
-//        res.append("{\"resultCode\": \"0\", \"resultMsg\": \"请求成功\", \"data\":").append(operLogs).append("}");
         System.out.println(message);
-
         return message;
     }
 
     @DeleteMapping("/operlog/{id}")
     public Message deleteById(@PathVariable("id") String operLogId) {
-        int i = operLogService.deleteById(operLogId);
+        Logger logger = Logger.getLogger(this.getClass());
+        logger.error("connected");
+        int i = loginLogService.deleteById(operLogId);
         if (i == 1) {
+            logger.error("删除了");
             message.setResultCode(0);
             message.setResultMsg("请求成功");
             message.setData(null);
@@ -60,5 +59,14 @@ public class LogController {
         }
         return message;
 
+    }
+
+    @PostMapping("/syslog/{id}")
+    public Message findAllSysLog(@PathVariable String id) {
+        List<ManagerSystemLog> systemLogs = systemLogService.findAll();
+        message.setData(0);
+        message.setResultMsg("请求成功");
+        message.setData(systemLogs);
+        return message;
     }
 }
