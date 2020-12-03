@@ -1,12 +1,8 @@
 package cn.edu.sicnu.controller;
 
 import cn.edu.sicnu.entity.CharactersRight;
-import cn.edu.sicnu.entity.Project;
-import cn.edu.sicnu.entity.ProjectAchievemUser;
 import cn.edu.sicnu.entity.RightsAndcharacters;
 import cn.edu.sicnu.service.CharactersRightService;
-import cn.edu.sicnu.service.ProjectAchievemUserService;
-import cn.edu.sicnu.service.ProjectService;
 import cn.edu.sicnu.service.UserCharacterService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -15,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -37,12 +34,6 @@ public class getRights {
     @Resource
     private TransactionDefinition transactionDefinition;
 
-    @Resource
-    private ProjectAchievemUserService projectAchievemUserService;
-
-    @Resource
-    private ProjectService projectService;
-
     private static ThreadLocal<Map<String,Integer>> t=new ThreadLocal<>();
 
     /**
@@ -51,7 +42,7 @@ public class getRights {
      * @return
      */
     public String getRightsByCharacters(String id){
-//        Map<String,Integer> map = new HashMap<>();
+        Map<String,Integer> map = new HashMap<>();
 //        List<Logtable> logtables = logtableService.queryAllByLimit(0, 1);
 //        if(logtables.size()==0){
 //            map.put("count",0);
@@ -146,21 +137,5 @@ public class getRights {
 //        logcolumnService.insert(new Logcolumn("1","1","All"));
 //        logoperationService.insert(new Logoperation("1","1","增加","123"));
         return "";
-    }
-    /**
-     * 添加项目成员
-     */
-    @Transactional
-    public String addProjectUsers(List<ProjectAchievemUser> list, Project project){
-        try{
-            projectService.insert(project);
-            for (ProjectAchievemUser user : list) {
-                user.setCategory(1);
-                projectAchievemUserService.insert(user);
-            }
-            return "成功";
-        }catch (Exception e){
-            return "失败";
-        }
     }
 }

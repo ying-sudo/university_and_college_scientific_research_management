@@ -2,8 +2,6 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-    <!--继承springboot父项目-->
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.edu.sicnu</groupId>
@@ -26,17 +24,6 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.7.RELEASE</version>
     </parent>
-
-
-
-
-    <!--打包-->
-    <!--<plugin>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-parent</artifactId>
-      <version>1.5.7.RELEASE</version>
-  </parent>
-  -->
     <dependencies>
         <!--引入web控制器-->
         <dependency>
@@ -63,22 +50,22 @@
             <optional>true</optional>
         </dependency>
         <!--配置内嵌tomcat解析jsp-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-tomcat</artifactId>-->
-<!--            <scope>provided</scope> &lt;!&ndash;打包的时候不需要tomcat&ndash;&gt;-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.tomcat.embed</groupId>-->
-<!--            <artifactId>tomcat-embed-jasper</artifactId>-->
-<!--            <scope>provided</scope>&lt;!&ndash;打包的时候不需要jsp&ndash;&gt;-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope> <!--打包的时候不需要tomcat-->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>provided</scope><!--打包的时候不需要jsp-->
+        </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>jstl</groupId>-->
-<!--            <artifactId>jstl</artifactId>-->
-<!--            <version>1.2</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
 
         <!--引入springboot和mybatis的依赖-->
         <dependency>
@@ -94,13 +81,6 @@
             <version>1.1.12</version>
         </dependency>
 
-        <!--    &lt;!&ndash;mysql&ndash;&gt;-->
-        <!--    <dependency>-->
-        <!--      <groupId>mysql</groupId>-->
-        <!--      <artifactId>mysql-connector-java</artifactId>-->
-        <!--      <version>5.1.38</version>-->
-        <!--    </dependency>-->
-
         <!--mysql-->
         <dependency>
             <groupId>mysql</groupId>
@@ -115,13 +95,13 @@
         <!--      <version>12.1.0.1-atlassian-hosted</version>-->
         <!--    </dependency>-->
 
-<!--        &lt;!&ndash;lombok&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.projectlombok</groupId>-->
-<!--            <artifactId>lombok</artifactId>-->
-<!--            <version>1.18.8</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.8</version>
+            <scope>provided</scope>
+        </dependency>
 
         <!--引入热部署-->
         <dependency>
@@ -136,23 +116,44 @@
             <version>1.3</version>
         </dependency>
         <!--日志 start-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-            <!-- 排除依赖 -->
+            <artifactId>spring-boot-starter-web</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
+                    <artifactId>logback-classic</artifactId>
+                    <groupId>ch.qos.logback</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>log4j-over-slf4j</artifactId>
+                    <groupId>org.slf4j</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- 添加 spring log4j 支持 -->
+
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j</artifactId>
-            <version>1.3.8.RELEASE</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter</artifactId>-->
+<!--            &lt;!&ndash; 排除依赖 &ndash;&gt;-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework.boot</groupId>-->
+<!--                    <artifactId>spring-boot-starter-logging</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; 添加 spring log4j 支持 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-log4j</artifactId>-->
+<!--            <version>1.3.8.RELEASE</version>-->
+<!--        </dependency>-->
         <!--jackson工具类依赖-->
         <!-- <dependency>
            <groupId>com.fasterxml.jackson.core</groupId>
@@ -166,8 +167,14 @@
             <artifactId>jasypt-spring-boot-starter</artifactId>
             <version>1.8</version>
         </dependency>
-    </dependencies>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
+        </dependency>
+
+    </dependencies>
     <build>
         <finalName>springboot_day1</finalName>
         <plugins>
