@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.7.RELEASE</version>
+    <version>2.0.8.RELEASE</version>
   </parent>
   <dependencies>
     <!--引入web控制器-->
@@ -42,6 +42,11 @@
       <artifactId>spring-boot-starter-aop</artifactId>
     </dependency>
 
+    <!--引入springsecurity-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
 
     <!--自定义注入时构建元数据-->
     <dependency>
