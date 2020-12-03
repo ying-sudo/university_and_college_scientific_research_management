@@ -7,7 +7,7 @@
     <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
         <!-- 日志输出格式 -->
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="[%p][%d{yyyy-MM-dd HH:mm:ss SSS}][%c]-[%m]%n"/>
+            <param name="ConversionPattern" value="[%5p][%d{yyyy-MM-dd HH:mm:ss SSS}] class: %c%n%m%n"/>
         </layout>
 
         <!--过滤器设置输出的级别-->
@@ -44,7 +44,7 @@
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
                    value="insert into manager_system_log (class_name, method_name, create_time, log_level, message)
-                            VALUES ('%C', '%M', '%d{yyyy-MM-dd HH:mm:ss}', '%p', '%m')"/>
+                            VALUES ('%X{className}', '%X{methodName}', '%d{yyyy-MM-dd HH:mm:ss}', '%p', '%m')"/>
         </layout>
 
     </appender>
@@ -81,6 +81,7 @@
         <level value="INFO"/>
         <appender-ref ref="operationAppender"/>
     </logger>
+
     <!-- 根logger的设置，若代码中未找到指定的logger，则会根据继承机制，使用根logger-->
     <root>
         <appender-ref ref="stdout"/>

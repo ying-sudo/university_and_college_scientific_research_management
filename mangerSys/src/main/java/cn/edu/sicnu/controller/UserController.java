@@ -91,11 +91,11 @@ public class UserController {
     @PostMapping("login")
     public String login(@RequestBody Map<String, String> map, HttpServletRequest request) {
         String ip = getRemoteHost(request);
-        System.out.println(ip);
+//        System.out.println(ip);
         MDC.put("ipAddress", ip);
-        try {
-            System.out.println("id = " + map.get("id"));
-            System.out.println("password = " + map.get("password"));
+//        try {
+//            System.out.println("id = " + map.get("id"));
+//            System.out.println("password = " + map.get("password"));
             User user = userService.findByIdAndPassword(map.get("id"), map.get("password"));
 //            String getRightsByCharacters = get.getRightsByCharacters(user.getId());
             MDC.put("userId", user.getId());
@@ -106,12 +106,13 @@ public class UserController {
                 loggingLogger.info("登录成功");
                 return "{\"resultCode\": \"0\",\"resultMsg\": \"登录成功\"}";
             }
-        } catch (Exception e) {
-//            System.out.println("e = " + e.toString());
-            systemLogger.error(e.toString());
-            loggingLogger.info("登录失败");
-            return "{\"resultCode\": \"-1\",\"resultMsg\": \"登录失败\"}";
-        }
+//        } catch (Exception e) {
+////            System.out.println("e = " + e.toString());
+//
+//            systemLogger.error(e.toString());
+//            loggingLogger.info("登录失败");
+//            return "{\"resultCode\": \"-1\",\"resultMsg\": \"登录失败\"}";
+//        }
     }
 
     /**
