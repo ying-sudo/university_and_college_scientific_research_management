@@ -1,7 +1,7 @@
 package cn.edu.sicnu.service.impl;
 
 import cn.edu.sicnu.dao.UserDao;
-import cn.edu.sicnu.entity.User;
+import cn.edu.sicnu.entity.Users;
 import cn.edu.sicnu.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * (User)表服务实现类
+ * (Users)表服务实现类
  *
  * @author makejava
  * @since 2020-11-20 22:47:42
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    public User queryById(String id) {
+    public Users queryById(String id) {
         return this.userDao.queryById(id);
     }
 
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    public List<User> queryAllByLimit(int offset, int limit) {
+    public List<Users> queryAllByLimit(int offset, int limit) {
         return this.userDao.queryAllByLimit(offset, limit);
     }
 
@@ -53,34 +53,34 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    public List<User> findAll() {
+    public List<Users> findAll() {
         return this.userDao.findAll();
     }
 
     /**
      * 新增数据
      *
-     * @param user 实例对象
+     * @param users 实例对象
      * @return 实例对象
      */
     @Override
     @Transactional
-    public User insert(User user) {
-        this.userDao.insert(user);
-        return user;
+    public Users insert(Users users) {
+        this.userDao.insert(users);
+        return users;
     }
 
     /**
      * 修改数据
      *
-     * @param user 实例对象
+     * @param users 实例对象
      * @return 实例对象
      */
     @Override
     @Transactional
-    public User update(User user) {
-        this.userDao.update(user);
-        return this.queryById(user.getId());
+    public Users update(Users users) {
+        this.userDao.update(users);
+        return this.queryById(users.getId());
     }
 
     /**
@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    public User findByIdAndPassword(String id, String password) {
+    public Users findByIdAndPassword(String id, String password) {
         return userDao.findByIdAndPassword(id,password);
     }
 }

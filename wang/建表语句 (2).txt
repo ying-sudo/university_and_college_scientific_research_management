@@ -153,6 +153,7 @@ create table team(                      -- 团队表
 
 create table fund(                      -- 经费表                      
   id varchar(40) primary key,             -- 项目标号（主码）
+  project_id varchar(40),               -- 项目id
   request_fund double,                    -- 申请经费
   arrival_fund double,                    -- 到账经费
   request_date date,                      -- 申请时间

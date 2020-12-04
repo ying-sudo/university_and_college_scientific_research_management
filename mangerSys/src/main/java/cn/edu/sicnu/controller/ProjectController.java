@@ -157,32 +157,9 @@ public class ProjectController {
         try{
 //            project.setBeginDate(new SimpleDateFormat("yyyy-yy-dd").parse("2020-12-12"));
             Project project = objectMapper.readValue(map.get("project").toString(), Project.class);
-//            System.out.println("project = " + project);
             project.setRequestFund((Double)project.getRequestFund());
             project.setArrivalFund((Double)project.getArrivalFund());
             project.setState((Integer)project.getState());
-//            System.out.println("project = " + project);
-//            List<Sort> lst =  objectMapper.readValue(map.get("users").toString(),new TypeReference<List<Sort>>(){});
-//            System.out.println("map = " +lst.get(0));
-//            projectService.insert(project);
-            /*Logtable logtable = new Logtable();
-            logtable.setTableName("project");
-            logtable.setBussinessName("新增项目");
-            logtable.setCreateTime(new Date());
-            int tableId = logtableService.insert(logtable);
-            System.out.println("tableId = " + tableId);
-            Logcolumn logcolumn = new Logcolumn();
-            logcolumn.setLogtableId(tableId);
-            logcolumn.setLogcolumn("All");
-            int columnId = logcolumnService.insert(logcolumn);
-            System.out.println("columnId = " + columnId);
-            Logoperation logoperation = new Logoperation();
-            logoperation.setLogtableId(tableId);
-            logoperation.setLogcolumnId(columnId);
-            logoperation.setOptionType("增加");
-            logoperation.setUserId("2011000416");
-            logoperationService.insert(logoperation);*/
-//            logtableService.deleteById(1);
             return "{\"resultCode\":\"0\",\"resultMsg\":\"请求成功\"}";
         }catch (Exception e){
             System.out.println("e = " + e.toString());

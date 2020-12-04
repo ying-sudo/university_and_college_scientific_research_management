@@ -1,9 +1,8 @@
 package cn.edu.sicnu.controller;
 
-import cn.edu.sicnu.entity.User;
+import cn.edu.sicnu.entity.Users;
 import cn.edu.sicnu.service.UserService;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * (User)表控制层
+ * (Users)表控制层
  *
  * @author makejava
  * @since 2020-11-20 22:47:42
@@ -36,9 +35,10 @@ public class UserController {
     @Resource
     private getRights get;
 
-    //    private final Logger loggingLogger = Logger.getLogger("loginInfo");
+//    private final Logger loggingLogger = Logger.getLogger("loginInfo");
 //    private final Logger systemLogger = Logger.getLogger("systemInfo");
     private final org.slf4j.Logger loggingLogger = LoggerFactory.getLogger("loginInfo");
+    private final org.slf4j.Logger systemLogger = LoggerFactory.getLogger("systemInfo");
 
     /**
      * 通过主键查询单条数据
@@ -47,7 +47,7 @@ public class UserController {
      * @return 单条数据
      */
     @GetMapping("selectOne")
-    public User selectOne(String id) {
+    public Users selectOne(String id) {
         return this.userService.queryById(id);
     }
 
@@ -90,15 +90,27 @@ public class UserController {
     @PostMapping("login")
     public String login(@RequestBody Map<String, String> map, HttpServletRequest request) {
         String ip = getRemoteHost(request);
+        System.out.println(ip);
         MDC.put("ipAddress", ip);
-        User user = userService.findByIdAndPassword(map.get("id"), map.get("password"));
-        MDC.put("userId", user.getId());
-        if (user == null) {
+        try {
+            System.out.println("id = " + map.get("id"));
+            System.out.println("password = " + map.get("password"));
+            Users users = userService.findByIdAndPassword(map.get("id"), map.get("password"));
+            System.out.println("users = " + users.toString());
+//            String getRightsByCharacters = get.getRightsByCharacters(users.getId());
+            MDC.put("userId", users.getId());
+            if (users == null) {
+                loggingLogger.info("登录失败");
+                return "{\"resultCode\": \"-1\",\"resultMsg\": \"登录失败\"}";
+            } else {
+                loggingLogger.info("登录成功");
+                return "{\"resultCode\": \"0\",\"resultMsg\": \"登录成功\"}";
+            }
+        } catch (Exception e) {
+//            System.out.println("e = " + e.toString());
+            systemLogger.error(e.toString());
             loggingLogger.info("登录失败");
             return "{\"resultCode\": \"-1\",\"resultMsg\": \"登录失败\"}";
-        } else {
-            loggingLogger.info("登录成功");
-            return "{\"resultCode\": \"0\",\"resultMsg\": \"登录成功\"}";
         }
     }
 
@@ -125,9 +137,9 @@ public class UserController {
     @PostMapping("initPWD")
     public String initPWD(@RequestBody Map<String, String> map) {
         try {
-            User user = userService.queryById(map.get("id"));
-            user.setPassword(map.get("password"));
-            userService.update(user);
+            Users users = userService.queryById(map.get("id"));
+            users.setPassword(map.get("password"));
+            userService.update(users);
             return "{'resultCode': '0','resultMsg': '密码修改成功'}";
         } catch (Exception e) {
             System.out.println("e = " + e.toString());

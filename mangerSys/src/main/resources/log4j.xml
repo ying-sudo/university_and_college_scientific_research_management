@@ -7,24 +7,24 @@
     <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
         <!-- 日志输出格式 -->
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="[%5p][%d{yyyy-MM-dd HH:mm:ss SSS}] class: %c%n%m%n"/>
+            <param name="ConversionPattern" value="[%p][%d{yyyy-MM-dd HH:mm:ss SSS}][%c]-[%m]%n"/>
         </layout>
 
         <!--过滤器设置输出的级别-->
         <filter class="org.apache.log4j.varia.LevelRangeFilter">
             <!-- 设置日志输出的最小级别 -->
-            <param name="levelMin" value="WARN"/>
+            <param name="levelMin" value="info"/>
             <!-- 设置日志输出的最大级别 -->
-            <param name="levelMax" value="ERROR"/>
+            <param name="levelMax" value="all"/>
         </filter>
     </appender>
 
-    <appender name="loginAppender" class="org.apache.log4j.jdbc.JDBCAppender">
+    <appender name="loginAppender" class="cn.edu.sicnu.utils.LogDBPwdUtils">
         <param name="driver" value="com.mysql.cj.jdbc.Driver"/>
         <param name="URL"
                value="jdbc:mysql://127.0.0.1:3306/scientific_research?characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai"/>
         <param name="user" value="root"/>
-        <param name="password" value="mysql"/>
+        <param name="password" value="root"/>
 
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
@@ -34,27 +34,27 @@
 
     </appender>
 
-    <appender name="systemAppender" class="org.apache.log4j.jdbc.JDBCAppender">
+    <appender name="systemAppender" class="cn.edu.sicnu.utils.LogDBPwdUtils">
         <param name="driver" value="com.mysql.cj.jdbc.Driver"/>
         <param name="URL"
                value="jdbc:mysql://127.0.0.1:3306/scientific_research?characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai"/>
         <param name="user" value="root"/>
-        <param name="password" value="mysql"/>
+        <param name="password" value="root"/>
 
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
                    value="insert into manager_system_log (class_name, method_name, create_time, log_level, message)
-                            VALUES ('%X{className}', '%X{methodName}', '%d{yyyy-MM-dd HH:mm:ss}', '%p', '%m')"/>
+                            VALUES ('%C', '%M', '%d{yyyy-MM-dd HH:mm:ss}', '%p', '%m')"/>
         </layout>
 
     </appender>
 
-    <appender name="operationAppender" class="org.apache.log4j.jdbc.JDBCAppender">
+    <appender name="operationAppender" class="cn.edu.sicnu.utils.LogDBPwdUtils">
         <param name="driver" value="com.mysql.cj.jdbc.Driver"/>
         <param name="URL"
                value="jdbc:mysql://127.0.0.1:3306/scientific_research?characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai"/>
         <param name="user" value="root"/>
-        <param name="password" value="mysql"/>
+        <param name="password" value="root"/>
 
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
@@ -81,7 +81,6 @@
         <level value="INFO"/>
         <appender-ref ref="operationAppender"/>
     </logger>
-
     <!-- 根logger的设置，若代码中未找到指定的logger，则会根据继承机制，使用根logger-->
     <root>
         <appender-ref ref="stdout"/>
