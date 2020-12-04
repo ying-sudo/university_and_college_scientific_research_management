@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * (User)实体类
+ * (Users)实体类
  *
  * @author makejava
  * @since 2020-11-20 22:47:42
  */
-public class User implements Serializable {
+public class Users implements Serializable {
     private static final long serialVersionUID = -94969933867965484L;
 
     private String id;
@@ -36,10 +36,10 @@ public class User implements Serializable {
 
     private String post;
 
-    public User() {
+    public Users() {
     }
 
-    public User(String id, String password, String name, String phone, String email, String idNumber, String collegeId, Date register, String note, String sex, Date birthDate, String post) {
+    public Users(String id, String password, String name, String phone, String email, String idNumber, String collegeId, Date register, String note, String sex, Date birthDate, String post) {
         this.id = id;
         this.password = password;
         this.name = name;
@@ -152,7 +152,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Users{" +
                 "id='" + id + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +

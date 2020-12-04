@@ -1,6 +1,7 @@
 package cn.edu.sicnu.controller;
 
 import cn.edu.sicnu.entity.LoginLog;
+import cn.edu.sicnu.entity.ManagerSystemLog;
 import cn.edu.sicnu.service.LoginLogService;
 import cn.edu.sicnu.service.ManagerSystemLogService;
 import cn.edu.sicnu.utils.Message;

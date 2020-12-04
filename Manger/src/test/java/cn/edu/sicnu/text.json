@@ -1,0 +1,28 @@
+{
+  "resultCode": "0",
+  "resultMsg": "成功",
+  "data": [
+    {
+      "id": "003",
+      "name": "著作成果三",
+      "publisher": "789出版社",
+      "publishLevel": "一级",
+      "workType": "文字作品",
+      "publishLocation": "四川成都",
+      "isbnId": "15151",
+      "isTranslate": true,
+      "translateLanguage": "英语，法语",
+      "discipline": "法学",
+      "beginDate": 1606147200000,
+      "characters": "描述性",
+      "firstDiscipline": "马克思主义理论",
+      "collegeId": "0003",
+      "workSource": "马院",
+      "userId": "2011000416",
+      "information": "无",
+      "userName": "王五",
+      "collegeName": "马克思主义学院",
+      "phone": "15464972136"
+    }
+  ]
+}
