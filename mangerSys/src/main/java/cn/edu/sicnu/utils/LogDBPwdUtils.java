@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @package cn.edu.sicnu.utils
  * @date 2020/11/30 22:16
  */
-@Component
+//@Component
 public class LogDBPwdUtils extends JDBCAppender {
 
     StandardPBEStringEncryptor standardPBEStringEncryptor = new StandardPBEStringEncryptor();

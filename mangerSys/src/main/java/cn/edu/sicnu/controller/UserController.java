@@ -36,10 +36,9 @@ public class UserController {
     @Resource
     private getRights get;
 
-//    private final Logger loggingLogger = Logger.getLogger("loginInfo");
+    //    private final Logger loggingLogger = Logger.getLogger("loginInfo");
 //    private final Logger systemLogger = Logger.getLogger("systemInfo");
     private final org.slf4j.Logger loggingLogger = LoggerFactory.getLogger("loginInfo");
-    private final org.slf4j.Logger systemLogger = LoggerFactory.getLogger("systemInfo");
 
     /**
      * 通过主键查询单条数据
@@ -91,28 +90,16 @@ public class UserController {
     @PostMapping("login")
     public String login(@RequestBody Map<String, String> map, HttpServletRequest request) {
         String ip = getRemoteHost(request);
-//        System.out.println(ip);
         MDC.put("ipAddress", ip);
-//        try {
-//            System.out.println("id = " + map.get("id"));
-//            System.out.println("password = " + map.get("password"));
-            User user = userService.findByIdAndPassword(map.get("id"), map.get("password"));
-//            String getRightsByCharacters = get.getRightsByCharacters(user.getId());
-            MDC.put("userId", user.getId());
-            if (user == null) {
-                loggingLogger.info("登录失败");
-                return "{\"resultCode\": \"-1\",\"resultMsg\": \"登录失败\"}";
-            } else {
-                loggingLogger.info("登录成功");
-                return "{\"resultCode\": \"0\",\"resultMsg\": \"登录成功\"}";
-            }
-//        } catch (Exception e) {
-////            System.out.println("e = " + e.toString());
-//
-//            systemLogger.error(e.toString());
-//            loggingLogger.info("登录失败");
-//            return "{\"resultCode\": \"-1\",\"resultMsg\": \"登录失败\"}";
-//        }
+        User user = userService.findByIdAndPassword(map.get("id"), map.get("password"));
+        MDC.put("userId", user.getId());
+        if (user == null) {
+            loggingLogger.info("登录失败");
+            return "{\"resultCode\": \"-1\",\"resultMsg\": \"登录失败\"}";
+        } else {
+            loggingLogger.info("登录成功");
+            return "{\"resultCode\": \"0\",\"resultMsg\": \"登录成功\"}";
+        }
     }
 
     /**

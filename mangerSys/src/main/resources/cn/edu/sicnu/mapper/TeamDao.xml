@@ -9,7 +9,7 @@
         <result property="researchDiection" column="research_diection" jdbcType="VARCHAR"/>
         <result property="discipline" column="discipline" jdbcType="VARCHAR"/>
         <result property="firstDiscipline" column="first_discipline" jdbcType="VARCHAR"/>
-        <result property="foundingTime" column="founding_time" jdbcType="TIMESTAMP"/>
+        <result property="foundingTime" column="founding_time" jdbcType="VARCHAR"/>
         <result property="phone" column="phone" jdbcType="VARCHAR"/>
         <result property="information" column="information" jdbcType="VARCHAR"/>
     </resultMap>

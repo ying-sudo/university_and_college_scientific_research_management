@@ -42,7 +42,7 @@ public class LogController {
      *
      * @return message的data中放入查到的日志列表
      */
-    @PostMapping("/loginlog")
+    @PostMapping("/loginlog/{id}")
     public Message findAllLoginLog() {
         List<LoginLog> loginLogs = loginLogService.findAll();
         message.setResultCode(0);
@@ -78,7 +78,7 @@ public class LogController {
      *
      * @return message中data放入查到的数据
      */
-    @PostMapping("/syslog")
+    @PostMapping("/syslog/{id}")
     public Message findAllSysLog() {
         List<ManagerSystemLog> systemLogs = systemLogService.findAll();
         message.setData(0);
@@ -113,7 +113,7 @@ public class LogController {
      *
      * @return message中data放入查到的数据
      */
-    @PostMapping("/operlog")
+    @PostMapping("/operlog/{id}")
     public Message findAllOperLog() {
         List<OperationLog> all = operationLogService.findAll();
         message.setResultCode(0);

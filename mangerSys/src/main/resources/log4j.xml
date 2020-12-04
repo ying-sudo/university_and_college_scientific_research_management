@@ -19,12 +19,12 @@
         </filter>
     </appender>
 
-    <appender name="loginAppender" class="cn.edu.sicnu.utils.LogDBPwdUtils">
+    <appender name="loginAppender" class="org.apache.log4j.jdbc.JDBCAppender">
         <param name="driver" value="com.mysql.cj.jdbc.Driver"/>
         <param name="URL"
                value="jdbc:mysql://127.0.0.1:3306/scientific_research?characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai"/>
         <param name="user" value="root"/>
-        <param name="password" value="HLHQP1Lf+G34sBVnZ/W13A=="/>
+        <param name="password" value="mysql"/>
 
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
@@ -34,12 +34,12 @@
 
     </appender>
 
-    <appender name="systemAppender" class="cn.edu.sicnu.utils.LogDBPwdUtils">
+    <appender name="systemAppender" class="org.apache.log4j.jdbc.JDBCAppender">
         <param name="driver" value="com.mysql.cj.jdbc.Driver"/>
         <param name="URL"
                value="jdbc:mysql://127.0.0.1:3306/scientific_research?characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai"/>
         <param name="user" value="root"/>
-        <param name="password" value="HLHQP1Lf+G34sBVnZ/W13A=="/>
+        <param name="password" value="mysql"/>
 
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
@@ -49,12 +49,12 @@
 
     </appender>
 
-    <appender name="operationAppender" class="cn.edu.sicnu.utils.LogDBPwdUtils">
+    <appender name="operationAppender" class="org.apache.log4j.jdbc.JDBCAppender">
         <param name="driver" value="com.mysql.cj.jdbc.Driver"/>
         <param name="URL"
                value="jdbc:mysql://127.0.0.1:3306/scientific_research?characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai"/>
         <param name="user" value="root"/>
-        <param name="password" value="HLHQP1Lf+G34sBVnZ/W13A=="/>
+        <param name="password" value="mysql"/>
 
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"

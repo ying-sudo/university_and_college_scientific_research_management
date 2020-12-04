@@ -161,12 +161,12 @@
            <version>2.11.3</version>
          </dependency>-->
 
-        <!--用于加密-->
-        <dependency>
-            <groupId>com.github.ulisesbocchio</groupId>
-            <artifactId>jasypt-spring-boot-starter</artifactId>
-            <version>1.8</version>
-        </dependency>
+<!--        &lt;!&ndash;用于加密&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.github.ulisesbocchio</groupId>-->
+<!--            <artifactId>jasypt-spring-boot-starter</artifactId>-->
+<!--            <version>1.8</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.apache.commons</groupId>

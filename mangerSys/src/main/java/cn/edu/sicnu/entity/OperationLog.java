@@ -1,6 +1,8 @@
 package cn.edu.sicnu.entity;
 
 /**
+ * 操作日志实体类
+ *
  * @author liangjin
  * @version V1.0
  * @package cn.edu.sicnu.entity

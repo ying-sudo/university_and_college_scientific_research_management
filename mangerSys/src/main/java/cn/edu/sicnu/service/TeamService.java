@@ -36,6 +36,14 @@ public interface TeamService {
      */
     List<Team> findAll();
 
+    List<Team> findAllTeam(String userId);
+
+    /**
+     *
+     * @return
+     */
+    List<Team> queryAll(Team team);
+
     /**
      * 新增数据
      *

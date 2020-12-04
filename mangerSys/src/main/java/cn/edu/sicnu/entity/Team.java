@@ -1,7 +1,6 @@
 package cn.edu.sicnu.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * (Team)实体类
@@ -18,13 +17,16 @@ public class Team implements Serializable {
 
     private String userId;
 
+    //对应表中无该字段，只是为了方便发送给前端而添加
+    private String userName;
+
     private String researchDiection;
 
     private String discipline;
 
     private String firstDiscipline;
 
-    private Date foundingTime;
+    private String foundingTime;
 
     private String phone;
 
@@ -33,10 +35,14 @@ public class Team implements Serializable {
     public Team() {
     }
 
-    public Team(String id, String name, String userId, String researchDiection, String discipline, String firstDiscipline, Date foundingTime, String phone, String information) {
+    public Team(String id, String name, String userId,
+                String userName, String researchDiection, String discipline,
+                String firstDiscipline, String foundingTime,
+                String phone, String information) {
         this.id = id;
         this.name = name;
         this.userId = userId;
+        this.userName = userName;
         this.researchDiection = researchDiection;
         this.discipline = discipline;
         this.firstDiscipline = firstDiscipline;
@@ -93,11 +99,11 @@ public class Team implements Serializable {
         this.firstDiscipline = firstDiscipline;
     }
 
-    public Date getFoundingTime() {
+    public String getFoundingTime() {
         return foundingTime;
     }
 
-    public void setFoundingTime(Date foundingTime) {
+    public void setFoundingTime(String foundingTime) {
         this.foundingTime = foundingTime;
     }
 
@@ -117,16 +123,25 @@ public class Team implements Serializable {
         this.information = information;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public String toString() {
         return "Team{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
                 ", researchDiection='" + researchDiection + '\'' +
                 ", discipline='" + discipline + '\'' +
                 ", firstDiscipline='" + firstDiscipline + '\'' +
-                ", foundingTime=" + foundingTime +
+                ", foundingTime='" + foundingTime + '\'' +
                 ", phone='" + phone + '\'' +
                 ", information='" + information + '\'' +
                 '}';

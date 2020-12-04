@@ -37,6 +37,8 @@ public interface TeamDao {
      */
     List<Team> findAll();
 
+    List<Team> findAllTeam(@Param("userId") String userId);
+
     /**
      * 通过实体作为筛选条件查询
      *
