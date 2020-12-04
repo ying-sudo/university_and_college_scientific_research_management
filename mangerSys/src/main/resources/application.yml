@@ -1,8 +1,8 @@
-#server:
-#  context-path: /mangerSys
-#  jsp-servlet:
-#    init-parameters:
-#      development: true
+server:
+  context-path: /mangerSys
+  jsp-servlet:
+    init-parameters:
+      development: true
 #  address: 192.168.1.106
 jasypt:
   encryptor:
@@ -15,12 +15,10 @@ spring:
     view:
       prefix: /
       suffix: .jsp
-  session:
-    store-type: none
-#  http:
-#    multipart:
-#      max-request-size: 20MB
-#      max-file-size: 20MB
+  http:
+    multipart:
+      max-request-size: 20MB
+      max-file-size: 20MB
 #logging:
 #  level:
 #    root: INFO

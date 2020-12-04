@@ -24,7 +24,7 @@
         <param name="URL"
                value="jdbc:mysql://127.0.0.1:3306/scientific_research?characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai"/>
         <param name="user" value="root"/>
-        <param name="password" value="NYc/R+gFdCgxSREzkg2Hmw=="/>
+        <param name="password" value="root"/>
 
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
@@ -39,7 +39,7 @@
         <param name="URL"
                value="jdbc:mysql://127.0.0.1:3306/scientific_research?characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai"/>
         <param name="user" value="root"/>
-        <param name="password" value="NYc/R+gFdCgxSREzkg2Hmw=="/>
+        <param name="password" value="root"/>
 
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
@@ -54,7 +54,7 @@
         <param name="URL"
                value="jdbc:mysql://127.0.0.1:3306/scientific_research?characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai"/>
         <param name="user" value="root"/>
-        <param name="password" value="NYc/R+gFdCgxSREzkg2Hmw=="/>
+        <param name="password" value="root"/>
 
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"

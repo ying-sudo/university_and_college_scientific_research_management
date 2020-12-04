@@ -2,6 +2,8 @@ package cn.edu.sicnu.controller;
 
 import cn.edu.sicnu.entity.College;
 import cn.edu.sicnu.service.CollegeService;
+import cn.edu.sicnu.utils.Message;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,9 @@ public class CollegeController {
     @Resource
     private CollegeService collegeService;
 
+    @Autowired
+    private Message message;
+
     /**
      * 通过主键查询单条数据
      *
@@ -43,21 +48,26 @@ public class CollegeController {
      * @return 所有数据
      */
     @GetMapping("findAll")
-    public String findAll() {
+    public Message findAll() {
         List<College> all = collegeService.findAll();
-        String re="{\"resultCode\": \"0\",\"resultMsg\": \"请求成功\",\"data\":[";
-        for (int i=0;i<all.size();i++) {
-            if(all.get(i).getState()==1){
-                if(i==all.size()-1){
-                    re+="{\"id\":\""+all.get(i).getId()+"\",\"name\":\""+all.get(i).getName()+"\"}";
-                }else{
-                    re+="{\"id\":\""+all.get(i).getId()+"\",\"name\":\""+all.get(i).getName()+"\"},";
-                }
-            }
-        }
-        re+="]}";
-        System.out.println("re = " + re);
-        return re;
+//        System.out.println(all);
+//        String re="{\"resultCode\": \"0\",\"resultMsg\": \"请求成功\",\"data\":[";
+//        for (int i=0;i<all.size();i++) {
+//            if(all.get(i).getState()==1){
+//                if(i==all.size()-1){
+//                    re+="{\"id\":\""+all.get(i).getId()+"\",\"name\":\""+all.get(i).getName()+"\"}";
+//                }else{
+//                    re+="{\"id\":\""+all.get(i).getId()+"\",\"name\":\""+all.get(i).getName()+"\"},";
+//                }
+//            }
+//        }
+//        re+="]}";
+//        System.out.println("re = " + re);
+
+        message.setResultCode(0);
+        message.setResultMsg("请求成功");
+        message.setData(all);
+        return message;
     }
 
 }

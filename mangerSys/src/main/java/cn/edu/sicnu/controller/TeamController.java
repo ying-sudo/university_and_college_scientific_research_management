@@ -1,23 +1,28 @@
 package cn.edu.sicnu.controller;
 
 import cn.edu.sicnu.entity.Team;
+import cn.edu.sicnu.entity.User;
 import cn.edu.sicnu.service.TeamService;
+import cn.edu.sicnu.service.UserService;
+import cn.edu.sicnu.utils.Message;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * (Team)表控制层
  *
- * @author makejava
+ * @author makejava, liangjin
  * @since 2020-11-20 22:47:33
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("team")
 public class TeamController {
     /**
      * 服务对象
@@ -25,25 +30,36 @@ public class TeamController {
     @Resource
     private TeamService teamService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public Team selectOne(String id) {
-        return this.teamService.queryById(id);
-    }
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private Message message;
 
     /**
-     * 查询所有
+     * 通过用户id查找这个用户为负责人的团队
      *
-     * @return 所有数据
+     * @param userId 用户id
+     * @return 团队列表
      */
-    @RequestMapping("")
-    public String findAll() {
-        return "";
+    @PostMapping("/team/{userId}")
+    public Message selectOne(@PathVariable("userId") String userId) throws IOException {
+        message.setResultCode(0);
+        message.setResultMsg("请求成功");
+        Team team = new Team();
+        team.setUserId(userId);
+
+        List<Team> teamList = teamService.queryAll(team);
+
+        User user = userService.queryById(userId);
+        for (Team eachTeam : teamList) {
+            eachTeam.setUserName(user.getName());
+        }
+
+        message.setData(teamList);
+        return message;
     }
+
+
 
 }

@@ -1,11 +1,12 @@
 package cn.edu.sicnu.entity;
 
 /**
+ * 系统日志实体类
+ *
  * @author liangjin
  * @version V1.0
  * @package cn.edu.sicnu.entity
  * @date 2020/12/1 17:43
- *
  */
 public class ManagerSystemLog {
     private Integer managerSystemLogId;

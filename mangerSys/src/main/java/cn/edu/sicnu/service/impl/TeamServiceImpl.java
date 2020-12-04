@@ -57,6 +57,18 @@ public class TeamServiceImpl implements TeamService {
         return this.teamDao.findAll();
     }
 
+    @Override
+    public List<Team> findAllTeam(String userId) {
+        List<Team> teamList = teamDao.findAllTeam(userId);
+//        teamList
+        return teamList;
+    }
+
+    @Override
+    public List<Team> queryAll(Team team) {
+        return teamDao.queryAll(team);
+    }
+
     /**
      * 新增数据
      *
