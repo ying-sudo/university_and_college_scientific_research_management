@@ -220,6 +220,12 @@ let dataVal = {
           title: "系统日志记录",
           urlPath: "/table/systemlog",
           subMenu: null
+        },{
+          id: "32",
+          index: "10-6",
+          title: "操作日志记录",
+          urlPath: "/table/operationlog",
+          subMenu: null
         },
       ]
     }

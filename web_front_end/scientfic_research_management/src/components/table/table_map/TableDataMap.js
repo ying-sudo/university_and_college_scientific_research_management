@@ -5,8 +5,9 @@ export function getTableDataMap() {
         ["projectlists", "mangerSys/project/projects"], 
         ["papers", "mangerSys/paperAchievement/findOne"], 
         ["works", "mangerSys/workAchievement/findOne"], 
-        ["loginlog", "mangerSys/operlog"], 
+        ["loginlog", "mangerSys/loginlog"], 
         ["systemlog", "mangerSys/syslog"], 
+        ["operationlog", "mangerSys/operlog"], 
         
         
     ]);

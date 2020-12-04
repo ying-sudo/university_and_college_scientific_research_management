@@ -1,9 +1,9 @@
 let dataVal = {
   TableData: [
     {
-      id: "@id1",
+      id: "@id",
       name: 1,
-      belongs_college: 23,
+      collegeName: 23,
       quality: 3,
       level: 1,
       classification: 1,

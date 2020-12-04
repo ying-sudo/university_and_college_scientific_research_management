@@ -1,6 +1,10 @@
 <template>
   <div class="filter_selector">
-    <el-select v-model="value" placeholder="请选择筛选条件">
+    <el-select
+      v-model="value"
+      placeholder="请选择筛选条件"
+      @change="getFilterTag"
+    >
       <el-option
         v-for="item in condition"
         :key="item.value"
@@ -8,27 +12,40 @@
         :value="item.value"
       >
         <span style="float: left">{{ item.label }}</span>
-        <span style="float: right; color: #8492a6; font-size: 13px">{{
-          item.value
-        }}</span>
       </el-option>
     </el-select>
   </div>
 </template>
 
 <script>
+import { getfilterMap } from "@/components/search_box/TableFilter.js";
+
 export default {
   data() {
     return {
-      condition: [
-        {
-          value: "Beijing",
-          label: "北京",
-        },
-        
-      ],
+      condition: [],
+      filterMap: [],
       value: "",
+
+      filterTag: "",
     };
+  },
+
+  methods: {
+    getFilterTag: function (newVal) {
+      this.filtertag = newVal;
+      // console.log(this.filtertag);
+      this.$emit("changeFilterTag", this.filtertag);
+    },
+  },
+  created: function () {
+    this.filterMap = getfilterMap();
+    this.condition = this.filterMap.get(this.$route.params.tableKey);
+  },
+  watch: {
+    $route(to, from) {
+      this.condition = this.filterMap.get(this.$route.params.tableKey);
+    },
   },
 };
 </script>

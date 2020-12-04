@@ -43,14 +43,14 @@ export default {
       console.log("this.backEndInterface:" + this.backEndInterface);
     },
     getTableData: function (newVal) {
-      // this.axios.get("/api/table_data").then((res) => {
+      this.axios.get("/api/table_data").then((res) => {
       //${userId}  2011000416
       let userId = localStorage.getItem("userid");
       console.log(userId);
-      this.axios.post(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`).then((res) => {
-          this.tableData = res.data.data;
+      // this.axios.post(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`).then((res) => {
+          // this.tableData = res.data.data;
+          this.tableData = res.data.data.TableData;
           // console.log("res.data.data:"+res.data.data);
-          // this.tableData = res.data.data.TableData;
           // console.log(res.data.data.TableData);
         });
     },
@@ -130,7 +130,7 @@ export default {
       components_name: "",
       apps: {},
 
-      // backEndInterface:"mangerSys/project/projects",
+      //
       InterfaceMap: [],
       backEndInterface: "",
 

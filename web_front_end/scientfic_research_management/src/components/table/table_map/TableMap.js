@@ -10,6 +10,7 @@ export function getTableMap() {
         ["/scientifics", "/achievement_table/ScientificResearchAchievement.json"], 
         ["/loginlog", "/log_table/LoginLogTable.json"], 
         ["/systemlog", "/log_table/SystemLogTable.json"], 
+        ["/operationlog", "/log_table/OperationLogTable.json"], 
         ["/teams", "/team_table/TeamTable.json"], 
         ["/batch", "/check_table/ProjectCheckBranchTable.json"], 
         ["/project", "/check_table/ProjectCheckTable.json"], 
