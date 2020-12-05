@@ -9,12 +9,11 @@
       ></el-col>
       <!-- v-bind="$attrs" 跨组件传输父组件的值
            v-on="$listeners" 跨组件修改父组件的值 -->
-      <el-col :span="8"
+      <el-col :span="6"
         ><InputBox v-bind="$attrs" v-on="$listeners" :filterTag="filterTag"></InputBox
       ></el-col>
 
-      <el-col :span="6"><slot name="able_to_add"></slot></el-col>
-      <!-- :search="search" @SearchChange="SearchChange" -->
+      <el-col :span="12"><slot name="able_to_add"></slot></el-col>
     </el-row>
   </div>
 </template>

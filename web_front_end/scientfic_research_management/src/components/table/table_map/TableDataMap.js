@@ -8,6 +8,7 @@ export function getTableDataMap() {
         ["loginlog", "mangerSys/loginlog"], 
         ["systemlog", "mangerSys/syslog"], 
         ["operationlog", "mangerSys/operlog"], 
+        ["teams", "mangerSys/team"], 
         
         
     ]);

@@ -5,6 +5,8 @@
   <div>
     <!-- 调用抽象成CommonsTable标签的公共表格组件 -->
     <CommonsTableTemplate
+      v-bind="$attrs"
+      v-on="$listeners"
       v-if="this.tableMapKey !== null"
       :itemOptions="itemOptions"
       :tableData="tableData"
@@ -24,7 +26,7 @@ import { getTableMap } from "@/components/table/table_map/TableMap.js";
 
 export default {
   name: "CommonsTableImpl",
-  props: ["tableData","search"],
+  props: ["tableData", "search"],
   data() {
     return {
       //存储url参数以及对于表头文件名的map(key: url参数, value: 表头文件名)
@@ -66,6 +68,8 @@ export default {
     this.tableMapKey = "/" + this.$route.params.tableKey;
     this.itemOptionsFileName = this.getFileName(this.tableMapKey);
 
+    console.log("this.delId:" + this.delId);
+
     this.getTableItem(this.itemOptionsFileName);
     // this.getTableData("/ProjectTableData.json");
     // console.log("Impl执行了create");
@@ -82,8 +86,7 @@ export default {
       this.itemOptionsFileName = this.getFileName(this.tableMapKey);
       this.getTableItem(this.itemOptionsFileName);
 
-      console.log("tableimpl fileName: " + this.itemOptionsFileName);
-      console.log("itemOptions:"+this.itemOptions);
+      // console.log("tableimpl fileName: " + this.itemOptionsFileName);
     },
   },
 };
