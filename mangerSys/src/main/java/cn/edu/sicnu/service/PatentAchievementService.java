@@ -36,6 +36,8 @@ public interface PatentAchievementService {
      */
     List<PatentAchievement> findAll();
 
+    List<PatentAchievement> queryAll(PatentAchievement achievement);
+
     /**
      * 新增数据
      *

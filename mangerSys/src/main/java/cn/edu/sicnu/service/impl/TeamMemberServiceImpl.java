@@ -57,6 +57,11 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         return this.teamMemberDao.findAll();
     }
 
+    @Override
+    public List<TeamMember> queryAll(TeamMember teamMember) {
+        return this.teamMemberDao.queryAll(teamMember);
+    }
+
     /**
      * 新增数据
      *

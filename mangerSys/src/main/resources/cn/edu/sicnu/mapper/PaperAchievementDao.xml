@@ -62,7 +62,7 @@
                user_id,
                information
         from scientific_research.paper_achievement
-                     limit #{offset}, #{limit}
+        limit #{offset}, #{limit}
     </select>
     <!--查询表所有对象-->
     <select id="findAll" resultMap="PaperAchievementMap">
@@ -125,26 +125,11 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into scientific_research.paper_achievement (name,
-                                                           begin_date,
-                                                           paper_type,
-                                                           record_id,
-                                                           descipline,
-                                                           first_discipline,
-                                                           college_id,
-                                                           paper_source,
-                                                           user_id,
-                                                           information)
-        values (#{name},
-                #{beginDate},
-                #{paperType},
-                #{recordId},
-                #{descipline},
-                #{firstDiscipline},
-                #{collegeId},
-                #{paperSource},
-                #{userId},
-                #{information})
+        insert into scientific_research.paper_achievement
+            (id, name,begin_date, paper_type, record_id, descipline,
+             first_discipline, college_id, paper_source, user_id, information)
+        values (#{id},#{name},#{beginDate},#{paperType},#{recordId},#{descipline},
+                #{firstDiscipline},#{collegeId},#{paperSource},#{userId},#{information})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">

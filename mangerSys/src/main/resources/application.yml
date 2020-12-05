@@ -30,4 +30,8 @@ spring:
 mybatis-plus:
   mapper-locations: cn/edu/sicnu/mapper/*.xml
   type-aliases-package: cn.edu.sicnu.entity
-#  config: classpath:log4j.properties
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  config: classpath:log4j.xml

@@ -63,6 +63,8 @@ public class UserController {
     }
 
     /**
+     * 得到请求的ip地址
+     *
      * @param request 请求
      */
     private static String getRemoteHost(HttpServletRequest request) {
@@ -88,20 +90,20 @@ public class UserController {
      * /login
      * id password输入参数
      */
-    @GetMapping("login")
-    public String login(@RequestBody Map<String, String> map, HttpServletRequest request) {
+    @PostMapping("login")
+    public String login(@RequestBody Map<String, String> map, HttpServletRequest request) throws Exception {
         String ip = getRemoteHost(request);
         MDC.put("ipAddress", ip);
-        Users user = userService.findByIdAndPassword(map.get("id"), map.get("password"));
+        Users user = userService.queryById(map.get("id"));
 
-        MDC.put("userId", user.getId());
-        if (user == null) {
-            loggingLogger.info("登录失败");
-            return "{\"resultCode\": \"-1\",\"resultMsg\": \"登录失败\"}";
-        } else {
+        if (user.getPassword().equals(map.get("password"))) {
+            MDC.put("userId", user.getId());
             loggingLogger.info("登录成功");
             return "{\"resultCode\": \"0\",\"resultMsg\": \"登录成功\"}";
         }
+
+        loggingLogger.info("登录失败");
+        return "{\"resultCode\": \"-1\",\"resultMsg\": \"登录失败\"}";
     }
 
     /**
