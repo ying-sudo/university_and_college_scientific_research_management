@@ -4,24 +4,24 @@
     <div style="
         float: left;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
-        background-color: #76d1b6;
+        background-color: #E5E9F2;
         width: 100%;
       ">
       <img src="../../assets/images/LoginLogo.png" style="width: 296px; float: left; margin: 15px 100px" alt="" />
     </div>
 
     <!-- 图片 -->
-    <div style="
+    <!--    <div style="
         background-color: #000000;
         float: left;
         width: 300px;
         height: 300px;
         margin-top: 100px;
         margin-left: 500px;
-      "></div>
+      "></div> -->
 
     <!-- 登录界面 -->
-    <div style="
+    <div v-loading="loading" style="
         background-color: white;
         margin: 0px auto;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
@@ -31,7 +31,7 @@
         float: right;
         margin: 80px;
       ">
-      <div style="background-color: #0b7e05; border-radius: 15px">
+      <div style="border-radius: 15px">
         <!-- 图标 -->
         <div style="padding: 10px">
           <mu-row justify-content="center">
@@ -52,16 +52,16 @@
       <div style="text-align: center">
         <mu-container>
           <i class="el-icon-user" style="font-size: 35px; padding: 5px"></i>
-          <mu-text-field v-model="username" label="用户名" label-float help-text="用户名为学工号" :rules="usernameRules"></mu-text-field><br />
+          <mu-text-field v-model="username" label="用户名" label-float help-text="用户名为学工号"></mu-text-field><br />
           <i class="el-icon-lock" style="font-size: 35px; padding: 5px"></i>
           <mu-text-field v-model="password" label="密码" :action-icon="visibility ? 'visibility_off' : 'visibility'"
             :action-click="() => (visibility = !visibility)" :type="visibility ? 'text' : 'password'" label-float
-            help-text="请输入密码"></mu-text-field><br />
+            help-text="密码"></mu-text-field><br />
         </mu-container>
       </div>
 
       <!-- 错误警告 -->
-      <div style="width: 400px; margin: 0 auto">
+      <div style="width: 400px; margin: 0 auto; height: 42px;">
         <mu-alert color="red" @delete="alarm = false" delete v-if="alarm" transition="mu-scale-transition" style="height: 30px">
           <mu-icon left value="warning"></mu-icon> {{ error_text }}
         </mu-alert>
@@ -93,6 +93,7 @@
 
 <script>
   import Verify from '@/addModules/vue2-verify'
+  import Global from '../forms/global.vue'
 
   export default {
     components: {
@@ -100,24 +101,6 @@
     },
     data() {
       return {
-        project: {
-          id: "22222", //项目编号
-          name: "项目", //项目名称
-          userId: "2011000416", //负责人
-          collegeId: "0001", //所属学院
-          discipline: "", //学科门类
-          characters: "", //项目性质
-          firstDiscipline: "", //一级学科
-          level: "", //项目级别
-          sort: "", //项目分类
-          beginDate: "", //立项日期
-          endDate: "", //结项日期
-          requestFund: "234", //项目申请经费
-          arrivalFund: "123", //到账金额
-          state: "1", //审核状态
-          approvalNumber: "s20200202", //批准文号
-          information: "note", //项目信息
-        },
         username: "",
         password: "",
         verify_flag: true,
@@ -125,76 +108,129 @@
         alarm: false,
         error_text: "",
         reload: "",
-        usernameRules: {
-          validate: (val) => !!val,
-          message: "请输入学工号",
-        },
-        passwordRules: {
-          validate: (val) => !!val,
-          message: "请填写密码",
-        },
+        loading: false,
       };
     },
     methods: {
       login() {
-        if (this.verify_flag) {
-          // console.log('begin:  ');
-
-          // console.log('begin:  ');
-
-
-          var proString = JSON.stringify(this.project);
-          console.log(proString);
-
-          this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/login", {
-            id: this.username,
-            password: this.password
-          }).then(
-            (response) => {
-              console.log('登录code：  ' + response.data.resultCode);
-
-              var resultCode = -1; //返回值，进行登录判断
-              resultCode = response.data.resultCode;
-              if (resultCode == 0) {
-                //成功
-
-                // 存储  userid
-                localStorage.setItem("userid", this.username);
-                // 检索
-                // document.getElementById("result").innerHTML = localStorage.getItem("userid");
-                console.log('userid:   ' + localStorage.getItem('userid'));
-
-                this.login_success();
-              } else if (resultCode == -1) {
-                //失败
-                this.login_failing("用户名或密码错误");
-              } else {
-                this.login_failing("出现了不可避免的错误，请稍后再试");
-              }
-            });
+        this.alarm = false; //close 警告框
+        var canLogin = false; //判断是否能够login
+        var error_text = ''; //错误文字提示
+        if (this.username !== '' && this.password !== '') {
+          //输入了用户名密码
+          canLogin = true;
+        } else if (this.username !== '') {
+          //没有输入密码
+          canLogin = false;
+          error_text = '请输入密码！！';
         } else {
-          this.login_failing("请通过验证");
+          //没有输入用户名
+          canLogin = false;
+          error_text = '请输入用户名！！';
+        }
+        if (canLogin) {
+          //输入了用户名和密码，进行验证码确认
+          if (this.verify_flag) {
+            //验证码确认
+            this.loading = true; //打开加载组件
+
+            //请求表单选择数据
+            this.getCollegeData();
+            this.getOtherData();
+
+            //判断用户名，密码是否错误
+            this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/login", {
+                id: this.username,
+                password: this.password
+              }).then(
+                (response) => {
+                  var resultCode = -2; //返回值，进行登录判断
+                  resultCode = response.data.resultCode;
+
+                  //表单数据请求完成才进行下一步操作
+                  // while (!Global.methods.getAllData(this.GLOBAL.collegeInfo, this.GLOBAL.firstDiscipline,
+                  //     this.GLOBAL.level, this.GLOBAL.sort)) {
+
+                  // }
+
+                  //关闭组件
+                  this.loading = false;
+                  if (resultCode == 0) {
+                    //成功
+                    // 存储  userid
+                    localStorage.setItem("userid", this.username);
+                    // 检索
+                    // document.getElementById("result").innerHTML = localStorage.getItem("userid");
+                    //进入成功方法
+                    this.login_success();
+                  } else if (resultCode == -1) {
+                    //失败
+                    this.login_failing("用户名或密码错误");
+                  } else {
+                    //后端返回值不是0，-1 其他原因
+                    this.login_failing("服务器错误，请稍后再试");
+                  }
+                })
+              .catch((error) => {
+                //请求错误，关闭加载
+                this.loading = false;
+                this.login_failing("出现了不可避免的错误，请稍后再试");
+                console.log(error);
+              });
+          } else {
+            this.login_failing("请通过验证");
+          }
+        } else {
+          this.login_failing(error_text);
         }
       },
-      verify_success() { //验证码
+      //注册
+      init() {
+        this.$router.push('./initPWD');
+      },
+      //验证码
+      verify_success() {
         this.verify_flag = true;
         this.$refs.verifyFlag.showPopper = false;
       },
       verify_error() {
         this.verify_flag = false;
       },
+      //登录
       login_success() {
-        const loading = this.$loading();
-        setTimeout(() => {
-          loading.close();
-        }, 500);
+        // const loading = this.$loading();
+        // setTimeout(() => {
+        //   loading.close();
+        // }, 500);
         this.$router.push('./home');
       },
       login_failing(error_text) {
         this.error_text = error_text;
         this.alarm = true;
+      },
+      //获取表单选择数据
+      getCollegeData() {
+        this.axios.get(this.GLOBAL.BASE_URL + "/mangerSys/college/findAll").then(
+          (response) => {
+            this.GLOBAL.collegeInfo = response.data.data;
+          });
+      },
+      getOtherData() {
+        this.axios
+          .get(this.GLOBAL.BASE_URL + "/mangerSys/sort/findAll")
+          .then((response) => {
+            this.GLOBAL.firstDiscipline = response.data.data.firstDiscipline;
+            this.GLOBAL.level = response.data.data.level;
+            this.GLOBAL.sort = response.data.data.sort;
+          });
+      },
+    },
+    computed: {
+      // 判断数据
+      getAllData() {
+        return Global.methods.getAllData(this.GLOBAL.collegeInfo, this.GLOBAL.firstDiscipline,
+          this.GLOBAL.level, this.GLOBAL.sort);
       }
-
     },
     created() {
       //回车登录

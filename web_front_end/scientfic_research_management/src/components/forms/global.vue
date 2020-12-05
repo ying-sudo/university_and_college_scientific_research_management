@@ -1,11 +1,11 @@
 <script>
-
   export default {
     methods: {
       openAlertDialog(flag, isDisabled) { //打开组件
         if (isDisabled) {
           flag.isDisabled = isDisabled;
         }
+        console.log(flag);
         flag.openAlert = true;
       },
       closeAlertDialog(flag) { //关闭组件
@@ -14,49 +14,73 @@
       editForm(flag) {
         flag.isDisabled = false;
       },
-      canMakesure(project) { //判断数据是否已经编写完成
-        for (var key in project) {
-          if (project[key] == '') {
-            alert(key + '  的数据没有填写！！！');
+      canMakesure(that, formName, project) { //判断数据是否已经编写完成
+        var isSubmit = null;
+        that.$refs[formName].validate((valid) => {
+          if (valid) {
+            console.log('project submit');
+            isSubmit = true;
+            return true;
+          } else {
+            console.log('projtct error submit!!');
+            isSubmit = false;
+            return false;
+          }
+        });
+        console.log('is:    ' + isSubmit);
+        return isSubmit;
+      },
+      canMakesureUser(user) {
+        for (var key in user) {
+          if (user[key] == null) {
             return false;
           }
         }
         return true;
       },
-      emptyValue(project) {   //对数据进行清空
+      judgeDate(begin, end) {
+        var judge = true;
+        if (end) {
+          console.log('begin:  ' + new Date(begin).getTime());
+          console.log('end:  ' + new Date(end).getTime());
+          judge = new Date(end).getTime() > new Date(begin).getTime();
+          if (!judge) {
+            alert('结束日期要大于开始日期!!');
+          }
+        }
+        return judge;
+      },
+      emptyValue(project) { //对数据进行清空
         for (var key in project) {
           project[key] = null;
         }
       },
-      getValue(sour, dir) {
+      // judgeValue(key, data) {
+      //   if (data != '') {
+      //     var reg = /^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*))$/;
+      //     var r = reg.test(data);
+
+      //     if (r) {
+      //       console.log('success:   ' + data);
+      //     } else {
+      //       console.log('error:   ' + data);
+      //     }
+      //   }
+      // },
+      getGlobalValue() {
+
+      },
+      //sour，原来的值 sour赋值给dir
+      //dir 目标值
+      getValueOne(sour, dir) { //一维
         for (var key in sour) {
-          dir[dir.length-1][key] = sour[key];
+          dir[key] = sour[key];
         }
       },
-      getCollegeData(that, url, collegeInfo) { //获得学院数据
-        // that.click = true;
-        console.log('requrest :   ' + url);
-        that.axios.get(url).then(
-          (response) => {
-            collegeInfo = response.data.data;
-            console.log(collegeInfo);
-          },
-          (response) => {
-            console.log("getCollegeData request error");
-          }
-        );
-      },
-      getOtherData(firstDiscipline, level, sort) { //获得第一学科，等级，分类的数据
-        that.axios
-          .get(that.GLOBAL.BASE_URL + "/mangerSys/sort/findAll")
-          .then((response) => {
-            //console.log(response.data);
-            that.firstDiscipline = response.data.data.firstDiscipline;
-            // //console.log(response.data.data.firstDiscipline);
-            that.level = response.data.data.level;
-            // //console.log(response.data.data.level);
-            that.sort = response.data.data.sort;
-          });
+      getValue(sour, dir) { //二维
+        for (var key in sour) {
+          dir[dir.length - 1][key] = sour[key];
+        }
       },
       getUser(users, project) {
         // 用户
@@ -78,6 +102,17 @@
         }
 
         return sendUser;
+      },
+      getAllData() {
+        var len = arguments.length;
+        for (var i = 0; i < len; i++) {
+          if (!arguments[i]) {
+            console.log('false');
+            return false;
+          }
+        }
+        console.log('true');
+        return true;
       }
     },
   }

@@ -192,7 +192,6 @@
               
               //这里进行向后端传输，进行判断，是否有错误
               
-              
               this.activeStep++;
             } else {
               this.login_failing('不相等');

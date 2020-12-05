@@ -3,125 +3,124 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <mu-dialog width="800" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="flag.openAlert">
-        <div class="mu-dialog-title">
-          团队
-          <mu-button fab small color="indigo" @click="closeAlertDialog">
-            <i class="el-icon-close" style="font-size: 32px;"></i>
-          </mu-button>
-        </div>
+      <el-dialog title="团队表单" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
+        :overlay-close="false" :visible.sync="flag.openAlert">
+
 
         <!-- 表单内容 -->
-        <div style="height: 700px; overflow-y: scroll; padding: 10px;">
-          <mu-container>
-            <mu-form :model="team" :label-position="labelPosition" label-width="100">
-              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="团队名称">
-                <mu-text-field v-model="team.name" :disabled="flag.isDisabled"></mu-text-field>
-              </mu-form-item>
+        <div style="float: left; padding: 10px; width: 100%;">
+          <el-form :model="team" ref="team" :rules="rules" :label-position="labelPosition" label-width="1000">
+            <el-form-item class="mu-demo-min-form" prop="name" label="团队名称">
+              <el-input v-model="team.name" :disabled="flag.isDisabled"></el-input>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="团队编号">
-                <mu-text-field v-model="team.id" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="id" label="团队编号">
+              <el-input v-model="team.id" :disabled="flag.isDisabled || notDisabled"></el-input>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="研究方向">
-                <mu-text-field v-model="team.researchDiection" :disabled="flag.isDisabled"></mu-text-field>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="researchDiection" label="研究方向">
+              <el-input v-model="team.researchDiection" :disabled="flag.isDisabled"></el-input>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="学科门类">
-                <mu-radio v-model="team.discipline" value="science" label="理工类" :disabled="flag.isDisabled || notDisabled"></mu-radio>
-                <mu-radio v-model="team.discipline" value="social" label="社科类" :disabled="flag.isDisabled || notDisabled"></mu-radio>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="discipline" label="学科门类">
+              <el-radio-group v-model="team.discipline">
+                <el-radio label="science" :disabled="flag.isDisabled || notDisabled">理工类</el-radio>
+                <el-radio label="social" :disabled="flag.isDisabled || notDisabled">社科类</el-radio>
+              </el-radio-group>
+            </el-form-item>
 
-              <mu-col span="8" lg="4" sm="6" class="mu-demo-min-form float_left">
-                <mu-date-input prop="input" v-model="team.foundingTime" label="建设时间" label-float full-width landscape
-                  :disabled="flag.isDisabled || notDisabled"></mu-date-input>
-              </mu-col>
+            <el-form-item class="mu-demo-min-form" prop="foundingTime" label="建设时间">
+              <el-date-picker v-model="team.foundingTime" type="date" placeholder="选择日期" :disabled="flag.isDisabled || notDisabled"
+                value-format="yyyy-MM-dd">
+              </el-date-picker>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form" prop="select" label="一级学科">
-                <mu-select v-model="team.firstDiscipline" :disabled="flag.isDisabled || notDisabled">
-                  <mu-option v-for="option in firstDiscipline" :key="option" :label="option" :value="option"></mu-option>
-                </mu-select>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="firstDiscipline" label="一级学科">
+              <el-select v-model="team.firstDiscipline" :disabled="flag.isDisabled || notDisabled">
+                <el-option v-for="option in firstDiscipline" :key="option" :label="option" :value="option"></el-option>
+              </el-select>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form" prop="input" label="办公电话">
-                <mu-text-field v-model="team.phone" :disabled="flag.isDisabled"></mu-text-field>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="phone" label="办公电话">
+              <el-input v-model="team.phone" :disabled="flag.isDisabled"></el-input>
+            </el-form-item>
 
-              <!-- 团队负责人 -->
-              <div style="padding: 2px;">
-                <div style="font-size: 20px;"><b>团队负责人</b></div>
-                <br>
-                <div style="padding: 5px; border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);">
-
-                  <div>
-                    <div v-if="!flag.isDisabled" style="padding: 5px; margin-top: 5px; text-align: center;">
-                      <el-form :inline="true" :model="user" class="demo-form-inline">
-                        <el-form-item label="负责人学工号">
-                          <el-input v-model="user.id"></el-input>
-                        </el-form-item>
-                        <el-form-item label="姓名">
-                          <el-input v-model="user.name"></el-input>
-                        </el-form-item>
-                        <el-form-item>
-                          <el-button type="primary" @click="findUser">查询</el-button>
-                        </el-form-item>
-                      </el-form>
-                    </div>
-                    <div v-else>
-                      <mu-form-item class="mu-demo-min-form float_left" prop="input" label="负责人学工号">
-                        <mu-text-field v-model="user.id" disabled></mu-text-field>
-                      </mu-form-item>
-
-                      <mu-form-item class="mu-demo-min-form float_left" prop="input" label="姓名">
-                        <mu-text-field v-model="user.name" disabled></mu-text-field>
-                      </mu-form-item>
-                    </div>
+            <!-- 团队负责人 -->
+            <div style="padding: 2px; float: left; width: 100%;">
+              <div style="font-size: 20px;"><b>团队负责人</b></div>
+              <br>
+              <div style="width: 100%; float: left; padding: 5px; border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);">
+                <el-form :inline="true" ref="team" :rules="rules" :model="team" class="demo-form-inline">
+                  <div style="margin: 5px; text-align:">
+                    <el-form-item prop="user_id" label="负责人学工号:">
+                      <el-input v-model="user.id"></el-input>
+                    </el-form-item>
+                    <el-form-item prop="user_name" label="姓名:">
+                      <el-input v-model="user.name"></el-input>
+                    </el-form-item>
+                    <el-form-item v-if="!flag.isDisabled">
+                      <el-button type="primary" @click="findUser">查询</el-button>
+                    </el-form-item>
                   </div>
 
-                  <mu-form-item class="mu-demo-min-form float_left" prop="input" label="所在单位">
-                    <mu-text-field v-model="user.collegeId" disabled></mu-text-field>
-                  </mu-form-item>
+                  <!--                  <div v-else>
+                    <el-form-item class="mu-demo-min-form" prop="user_id" label="负责人学工号">
+                      <el-input v-model="user.id" disabled></el-input>
+                    </el-form-item>
 
-                  <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="性别">
-                    <mu-radio v-model="user.sex" value="male" label="男" disabled></mu-radio>
-                    <mu-radio v-model="user.sex" value="female" label="女" disabled></mu-radio>
-                  </mu-form-item>
+                    <el-form-item class="mu-demo-min-form" prop="user_name" label="姓名">
+                      <el-input v-model="user.name" disabled></el-input>
+                    </el-form-item>
+                  </div> -->
 
-                  <mu-form-item class="mu-demo-min-form float_left" prop="input" label="出生年月">
-                    <mu-text-field v-model="user.birthDate" disabled></mu-text-field>
-                  </mu-form-item>
+                  <div style="float: left; width: 100%;">
+                    <el-form-item class="mu-demo-min-form" prop="collegeId" label="所在单位">
+                      <el-input v-model="user.collegeId" disabled></el-input>
+                    </el-form-item>
 
-                  <mu-form-item class="mu-demo-min-form float_left" prop="input" label="职称">
-                    <mu-text-field v-model="user.post" disabled></mu-text-field>
-                  </mu-form-item>
+                    <el-form-item class="mu-demo-min-form" prop="user_sex" label="负责人性别">
+                      <el-radio-group v-model="user.sex">
+                        <el-radio label="male" disabled>男性</el-radio>
+                        <el-radio label="female" disabled>女性</el-radio>
+                      </el-radio-group>
+                    </el-form-item>
 
-                  <mu-form-item class="mu-demo-min-form float_left" prop="input" label="联系电话">
-                    <mu-text-field v-model="user.phone" disabled></mu-text-field>
-                  </mu-form-item>
+                    <el-form-item class="mu-demo-min-form" prop="user_birthDate" label="出生年月">
+                      <el-input v-model="user.birthDate" disabled></el-input>
+                    </el-form-item>
 
-                  <mu-form-item class="mu-demo-min-form" prop="input" label="电子邮箱">
-                    <mu-text-field v-model="user.email" disabled></mu-text-field>
-                  </mu-form-item>
-                </div>
+                    <el-form-item class="mu-demo-min-form" prop="user_post" label="负责人职称">
+                      <el-input v-model="user.post" disabled></el-input>
+                    </el-form-item>
+
+                    <el-form-item class="mu-demo-min-form" prop="user_phone" label="联系电话">
+                      <el-input v-model="user.phone" disabled></el-input>
+                    </el-form-item>
+
+                    <el-form-item class="mu-demo-min-form" prop="user_email" label="电子邮箱">
+                      <el-input v-model="user.email" disabled></el-input>
+                    </el-form-item>
+                  </div>
+                </el-form>
               </div>
+            </div>
 
-              <!-- 表单底部表格 -->
-              <UserTable v-model='users' :isDisabled="flag.isDisabled"></UserTable>
+            <!-- 表单底部表格 -->
+            <UserTable style="float: left; width: 100%;" v-model='users' :isDisabled="!notDisabled"></UserTable>
 
-              <!-- 表单备注 -->
-              <mu-form-item style="margin: 10px;" prop="textarea" label="备注">
-                <mu-text-field style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" multi-line
-                  :rows="3" :rows-max="6" v-model="team.information" :disabled="flag.isDisabled"></mu-text-field>
-              </mu-form-item>
+            <!-- 表单备注 -->
+            <el-form-item style="float: left; width: 100%;" prop="information" label="详细信息">
+              <el-input style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" type="textarea" :rows="5"
+                v-model="team.information" :disabled="flag.isDisabled"></el-input>
+            </el-form-item>
 
-            </mu-form>
-          </mu-container>
+          </el-form>
         </div>
 
         <!-- 确定按钮 -->
-        <div style="text-align: center;">
+        <div style="float: left; text-align: center; width: 100%; margin-bottom: 15px;">
           <div v-if="!flag.isDisabled">
-            <mu-button @click="canMakesure" color="primary">
+            <mu-button @click="canMakesure('team')" color="primary">
               确定&nbsp;&nbsp;
               <i right class="el-icon-upload"></i>
             </mu-button>
@@ -137,7 +136,7 @@
           </div>
         </div>
 
-      </mu-dialog>
+      </el-dialog>
     </mu-container>
   </div>
 
@@ -166,6 +165,7 @@
         labelPosition: 'top',
         notDisabled: false,
         isSubmit: false,
+        rules: this.GLOBAL.rules,
         team: {
           id: '', //编号
           name: '', //名字
@@ -241,6 +241,7 @@
       if (this.flag.isDisabled) {
         this.project = this.TableRow;
       }
+      this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;
       this.firstDiscipline = this.firstDisciplineProp;
       this.level = this.levelProp;
@@ -252,15 +253,19 @@
         this.$emit('click', this.flag);
       },
       makesure() {
-        var proString = JSON.stringify(this.project);
-        var usersString = JSON.stringify(this.users);
+        //改成string格式
+        var proString = JSON.stringify(this.team);
+        // 用户成员
+        var sendUser = Global.methods.getUser(this.users, this.team);
+        var usersString = JSON.stringify(sendUser);
+        // 进行数据和后端交互
         if (this.notDisabled) {
           console.log("项目表单修改  request begin:  ");
           this.axios
             .put(
               this.GLOBAL.BASE_URL +
-              "/mangerSys/project/projects/" +
-              proString.id,
+              "/mangerSys/team/teams/" +
+              this.project.id,
               proString
             )
             .then((response) => {
@@ -270,7 +275,7 @@
         } else {
           console.log("项目表单申报  request begin:  ");
           this.axios
-            .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", {
+            .post(this.GLOBAL.BASE_URL + "/mangerSys/team/teams", {
               project: proString,
               users: usersString,
             })
@@ -279,10 +284,10 @@
               console.log("项目表单  request  over");
             });
         }
+
         this.closeAlertDialog();
       },
       editForm() {
-        this.notDisabled = this.flag.isDisabled;
         Global.methods.editForm(this.flag);
       },
       findUser() {
@@ -300,36 +305,39 @@
         }
         alert("错误！！该用户不存在！！");
       },
-      canMakesure() {
-        this.isSubmit = Global.methods.canMakesure(this.project); //进行判断能否提交
-
+      canMakesure(formName) {
+        //判断能否提交，必须全部填写
+        this.isSubmit = Global.methods.canMakesure(this, formName, this.team);
         if (this.isSubmit) {
-          console.log('it is ok!!!');
           this.makesure();
         }
-      }
+      },
     },
     components: {
-      UserTable
+      UserTable,
     }
   };
 </script>
 
 
 <style>
-  .mu-demo-form {
-    width: 100%;
-    max-width: 800px;
-  }
-
   .mu-demo-min-form {
     width: 100%;
-    max-width: 340px;
+    max-width: 300px;
     padding-right: 40px;
     padding-left: 10px;
+    float: left;
   }
 
-  .float_left {
-    float: left;
+  .el-dialog__title {
+    font-size: 40px;
+  }
+
+  .el-form-item__label {
+    font-size: 20px;
+  }
+
+  .el-radio__label {
+    font-size: 20px;
   }
 </style>

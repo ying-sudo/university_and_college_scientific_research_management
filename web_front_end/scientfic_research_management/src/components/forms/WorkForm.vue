@@ -3,116 +3,114 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <mu-dialog width="800" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="flag.openAlert">
-        <div class="mu-dialog-title">
-          著作申报
-          <mu-button fab small color="indigo" @click="closeAlertDialog">
-            <i class="el-icon-close" style="font-size: 32px;"></i>
-          </mu-button>
-        </div>
+      <el-dialog title="著作申报" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
+        :overlay-close="false" :visible.sync="flag.openAlert">
 
         <!-- 表单内容 -->
-        <div style="height: 700px; overflow-y: scroll; padding: 10px;">
-          <mu-container>
-            <mu-form :model="work_achievement" :label-position="labelPosition" label-width="100">
-              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="著作题目">
-                <mu-text-field v-model="work_achievement.name" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
-              </mu-form-item>
+        <div style="padding: 10px; width: 100%;">
+          <el-form :model="work_achievement" ref="work_achievement" :rules="rules" :label-position="labelPosition"
+            label-width="1000">
+            <el-form-item class="mu-demo-min-form" prop="name" label="著作题目">
+              <el-input v-model="work_achievement.name" :disabled="flag.isDisabled || notDisabled"></el-input>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="著作编号">
-                <mu-text-field v-model="work_achievement.id" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="id" label="著作编号">
+              <el-input v-model="work_achievement.id" :disabled="flag.isDisabled || notDisabled"></el-input>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="出版单位">
-                <mu-text-field v-model="work_achievement.publisher" :disabled="flag.isDisabled"></mu-text-field>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="publisher" label="出版单位">
+              <el-input v-model="work_achievement.publisher" :disabled="flag.isDisabled"></el-input>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="出版社级别">
-                <mu-select v-model="work_achievement.publishLevel" :disabled="flag.isDisabled">
-                  <mu-option v-for="option in publishLevel" :key="option" :label="option" :value="option"></mu-option>
-                </mu-select>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="publishLevel" label="出版社级别">
+              <el-select v-model="work_achievement.publishLevel" :disabled="flag.isDisabled">
+                <el-option v-for="option in publishLevel" :key="option" :label="option" :value="option"></el-option>
+              </el-select>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="著作类别">
-                <mu-select v-model="work_achievement.workType" :disabled="flag.isDisabled">
-                  <mu-option v-for="option in workType" :key="option" :label="option" :value="option"></mu-option>
-                </mu-select>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="workType" label="著作类别">
+              <el-select v-model="work_achievement.workType" :disabled="flag.isDisabled">
+                <el-option v-for="option in workType" :key="option" :label="option" :value="option"></el-option>
+              </el-select>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="出版地">
-                <mu-select v-model="work_achievement.publishLocation" :disabled="flag.isDisabled">
-                  <mu-option v-for="option in publishLocation" :key="option" :label="option" :value="option"></mu-option>
-                </mu-select>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="publishLocation" label="出版地">
+              <el-select v-model="work_achievement.publishLocation" :disabled="flag.isDisabled">
+                <el-option v-for="option in publishLocation" :key="option" :label="option" :value="option"></el-option>
+              </el-select>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form" prop="input" label="ISBN号">
-                <mu-text-field v-model="work_achievement.isbnId" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="isbnId" label="ISBN号">
+              <el-input v-model="work_achievement.isbnId" :disabled="flag.isDisabled || notDisabled"></el-input>
+            </el-form-item>
 
+            <el-form-item class="mu-demo-min-form" prop="isTranslate" label="是否翻译">
+              <el-radio-group v-model="work_achievement.isTranslate">
+                <el-radio label="true" :disabled="flag.isDisabled">是</el-radio>
+                <el-radio label="false" :disabled="flag.isDisabled">否</el-radio>
+              </el-radio-group>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="是否翻译">
-                <mu-radio v-model="work_achievement.isTranslate" value="true" label="是" :disabled="flag.isDisabled"></mu-radio>
-                <mu-radio v-model="work_achievement.isTranslate" value="false" label="否" :disabled="flag.isDisabled"></mu-radio>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="translateLanguage" label="翻译语种">
+              <el-select v-model="work_achievement.translateLanguage" :disabled="flag.isDisabled || work_achievement.isTranslate!='true'">
+                <el-option v-for="option in translateLanguage" :key="option" :label="option" :value="option"></el-option>
+              </el-select>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="翻译语种">
-                <mu-select v-model="work_achievement.translateLanguage" :disabled="flag.isDisabled">
-                  <mu-option v-for="option in translateLanguage" :key="option" :label="option" :value="option"></mu-option>
-                </mu-select>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="discipline" label="学科门类">
+              <el-radio-group v-model="work_achievement.discipline">
+                <el-radio label="science" :disabled="flag.isDisabled">理工类</el-radio>
+                <el-radio label="social" :disabled="flag.isDisabled">社科类</el-radio>
+              </el-radio-group>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="学科门类">
-                <mu-radio v-model="work_achievement.discipline" value="science" label="理工类" :disabled="flag.isDisabled"></mu-radio>
-                <mu-radio v-model="work_achievement.discipline" value="social" label="社科类" :disabled="flag.isDisabled"></mu-radio>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="beginDate" label="建设时间">
+              <el-date-picker v-model="work_achievement.beginDate" type="date" placeholder="选择日期" :disabled="flag.isDisabled || notDisabled"
+                value-format="yyyy-MM-dd">
+              </el-date-picker>
+            </el-form-item>
 
+            <el-form-item class="mu-demo-min-form" prop="isDisabled" label="研究类别">
+              <el-radio-group v-model="work_achievement.characters">
+                <el-radio label="basics" :disabled="flag.isDisabled">基础研究</el-radio>
+                <el-radio label="apply" :disabled="flag.isDisabled">应用研究</el-radio>
+              </el-radio-group>
+            </el-form-item>
 
-              <mu-col span="8" lg="4" sm="6" class="mu-demo-min-form float_left">
-                <mu-date-input prop="input" v-model="work_achievement.beginDate" label="建设时间" label-float full-width
-                  landscape :disabled="flag.isDisabled"></mu-date-input>
-              </mu-col>
+            <el-form-item class="mu-demo-min-form" prop="firstDiscipline" label="一级学科">
+              <el-select v-model="work_achievement.firstDiscipline" :disabled="flag.isDisabled || notDisabled">
+                <el-option v-for="option in firstDiscipline" :key="option" :label="option" :value="option"></el-option>
+              </el-select>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="研究类别">
-                <mu-radio v-model="work_achievement.characters" value="basics" label="基础研究" :disabled="flag.isDisabled || notDisabled"></mu-radio>
-                <mu-radio v-model="work_achievement.characters" value="apply" label="应用研究" :disabled="flag.isDisabled || notDisabled"></mu-radio>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="collegeId" label="成果归属">
+              <el-select v-model="work_achievement.collegeId" :disabled="flag.isDisabled">
+                <el-option v-for="option in collegeId" :key="option.id" :label="option.name" :value="option.id"></el-option>
+              </el-select>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="一级学科">
-                <mu-select v-model="work_achievement.firstDiscipline" :disabled="flag.isDisabled || notDisabled">
-                  <mu-option v-for="option in firstDiscipline" :key="option" :label="option" :value="option"></mu-option>
-                </mu-select>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="workSource" label="项目来源">
+              <el-select v-model="work_achievement.workSource" :disabled="flag.isDisabled || notDisabled">
+                <el-option v-for="option in workSource" :key="option" :label="option" :value="option"></el-option>
+              </el-select>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="成果归属">
-                <mu-select v-model="work_achievement.collegeId" :disabled="flag.isDisabled">
-                  <mu-option v-for="option in collegeId" :key="option.id" :label="option.name" :value="option.id"></mu-option>
-                </mu-select>
-              </mu-form-item>
+            <!-- 表单底部表格 -->
+            <UserTable style="float: left; width: 100%;" v-model='users' :isDisabled="!notDisabled"></UserTable>
 
+            <!-- 表单备注 -->
+            <el-form-item style="margin: 10px; float: left; width: 100%;" prop="information" label="详细信息">
+              <el-input style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" type="textarea" :rows="5"
+                v-model="work_achievement.information" :disabled="flag.isDisabled"></el-input>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form" prop="select" label="项目来源">
-                <mu-select v-model="work_achievement.workSource" :disabled="flag.isDisabled || notDisabled">
-                  <mu-option v-for="option in workSource" :key="option" :label="option" :value="option"></mu-option>
-                </mu-select>
-              </mu-form-item>
-
-              <!-- 表单底部表格 -->
-              <UserTable v-model='users' :isDisabled="flag.isDisabled"></UserTable>
-
-              <!-- 表单备注 -->
-              <mu-form-item style="margin: 10px;" prop="textarea" label="备注">
-                <mu-text-field style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" multi-line
-                  :rows="3" :rows-max="6" v-model="work_achievement.information" :disabled="flag.isDisabled"></mu-text-field>
-              </mu-form-item>
-
-            </mu-form>
-          </mu-container>
+          </el-form>
         </div>
 
         <!-- 确定按钮 -->
-        <div style="text-align: center;">
+        <div style="text-align: center; float: left; text-align: center; width: 100%; margin-top: 20px;">
           <div v-if="!flag.isDisabled">
-            <mu-button @click="canMakesure" color="primary">
+            <mu-button @click="canMakesure('work_achievement')" color="primary">
               确定&nbsp;&nbsp;
               <i right class="el-icon-upload"></i>
             </mu-button>
@@ -128,7 +126,7 @@
           </div>
         </div>
 
-      </mu-dialog>
+      </el-dialog>
     </mu-container>
   </div>
 
@@ -157,24 +155,25 @@
         labelPosition: 'top',
         notDisabled: false,
         isSubmit: true,
+        rules: this.GLOBAL.rules,
         work_achievement: {
-          id: '', //著作编号
-          name: '', //著作题目
-          publisher: '', //出版单位
-          publishLevel: '', //出版社级别
-          workType: '', //著作类别
-          publishLocation: '', //出版地
-          isbnId: '', //ISBN号
-          isTranslate: '', //是否翻译
-          translateLanguage: '', //翻译语种
-          discipline: '', //学科门类
-          beginDate: '', //出版时间
-          characters: '', //研究类别
-          firstDiscipline: '', //一级学科
-          collegeId: '', //成果归属
-          workSource: '', //项目来源
-          userId: '', //作者
-          information: '' //详细信息
+          id: null, //著作编号
+          name: null, //著作题目
+          publisher: null, //出版单位
+          publishLevel: null, //出版社级别
+          workType: null, //著作类别
+          publishLocation: null, //出版地
+          isbnId: null, //ISBN号
+          isTranslate: null, //是否翻译
+          translateLanguage: null, //翻译语种
+          discipline: null, //学科门类
+          beginDate: null, //出版时间
+          characters: null, //研究类别
+          firstDiscipline: null, //一级学科
+          collegeId: null, //成果归属
+          workSource: null, //项目来源
+          userId: null, //作者
+          information: null //详细信息
         },
         publishLevel: [
           '级别1', '级别2'
@@ -213,6 +212,7 @@
       if (this.flag.isDisabled) {
         this.project = this.TableRow;
       }
+      this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;
       this.firstDiscipline = this.firstDisciplineProp;
       this.level = this.levelProp;
@@ -224,15 +224,19 @@
         this.$emit('click', this.flag);
       },
       makesure() {
-        var proString = JSON.stringify(this.project);
-        var usersString = JSON.stringify(this.users);
+        //改成string格式
+        var proString = JSON.stringify(this.work_achievement);
+        // 用户成员
+        var sendUser = Global.methods.getUser(this.users, this.work_achievement);
+        var usersString = JSON.stringify(sendUser);
+        // 进行数据和后端交互
         if (this.notDisabled) {
           console.log("项目表单修改  request begin:  ");
           this.axios
             .put(
               this.GLOBAL.BASE_URL +
-              "/mangerSys/project/projects/" +
-              proString.id,
+              "/mangerSys/work/works/" +
+              this.work_achievement.id,
               proString
             )
             .then((response) => {
@@ -242,7 +246,7 @@
         } else {
           console.log("项目表单申报  request begin:  ");
           this.axios
-            .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", {
+            .post(this.GLOBAL.BASE_URL + "/mangerSys/work/works", {
               project: proString,
               users: usersString,
             })
@@ -251,41 +255,54 @@
               console.log("项目表单  request  over");
             });
         }
+
         this.closeAlertDialog();
       },
       editForm() {
-        this.notDisabled = this.flag.isDisabled;
         this.flag.isDisabled = false;
       },
-      canMakesure() {
-        this.isSubmit = Global.methods.canMakesure(this.project); //进行判断能否提交
+      canMakesure(formName) {
+        //判断能否提交，必须全部填写
+        this.isSubmit = Global.methods.judgeDate(this.work_achievement.beginDate, this.work_achievement.endDate);
         if (this.isSubmit) {
-          console.log('it is ok!!!');
+          this.isSubmit = Global.methods.canMakesure(this, formName, this.work_achievement);
+        }
+        if (this.isSubmit) {
           this.makesure();
         }
-      }
+      },
     },
     components: {
-      UserTable
+      UserTable,
     }
   };
 </script>
 
 
 <style>
-  .mu-demo-form {
-    width: 100%;
-    max-width: 800px;
-  }
-
   .mu-demo-min-form {
     width: 100%;
-    max-width: 340px;
+    max-width: 300px;
     padding-right: 40px;
     padding-left: 10px;
-  }
-
-  .float_left {
     float: left;
   }
+
+  .el-dialog__title {
+    font-size: 40px;
+  }
+
+  .el-form-item__label {
+    font-size: 20px;
+  }
+
+  .el-radio__label {
+    font-size: 18px;
+  }
+
+  .el-dialog__headerbtn {
+    width: 30px;
+    height: 30px;
+  }
+
 </style>

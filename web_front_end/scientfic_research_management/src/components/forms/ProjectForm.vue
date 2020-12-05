@@ -3,109 +3,110 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <mu-dialog width="800" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="flag.openAlert">
-        <div class="mu-dialog-title">
-          项目表单
-          <mu-button fab small color="indigo" @click="closeAlertDialog">
-            <i class="el-icon-close" style="font-size: 32px;"></i>
-          </mu-button>
-        </div>
+      <el-dialog title="项目表单" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
+        :overlay-close="false" :visible.sync="flag.openAlert">
 
         <!-- 表单内容 -->
-        <div style="height: 700px; overflow-y: scroll; padding: 10px;">
-          <mu-container>
-            <mu-form :model="project" :label-position="labelPosition" label-width="100">
-              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="项目名称">
-                <mu-text-field v-model="project.name" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
-              </mu-form-item>
+        <div style="height: 850px; overflow-y: scroll; padding: 10px; width: 100%;">
+          <!-- <mu-container> -->
+          <el-form :model="project" ref="project" :rules="rules" :label-position="labelPosition" label-width="1000">
+            <el-form-item class="mu-demo-min-form" prop="name" label="项目名称">
+              <el-input v-model="project.name" :disabled="flag.isDisabled || notDisabled"></el-input>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="项目编号">
-                <mu-text-field v-model="project.id" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="id" label="项目编号">
+              <el-input v-model="project.id" :disabled="flag.isDisabled || notDisabled"></el-input>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form" prop="input" label="批准文号">
-                <mu-text-field v-model="project.approvalNumber" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="approvalNumber" label="批准文号">
+              <el-input v-model="project.approvalNumber" :disabled="flag.isDisabled || notDisabled"></el-input>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="负责人学工号">
-                <mu-text-field v-model="project.userId" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="userId" label="负责人学工号">
+              <el-input v-model="project.userId" :disabled="flag.isDisabled || notDisabled"></el-input>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="所在单位">
-                <mu-select v-model="project.collegeId" :disabled="flag.isDisabled">
-                  <mu-option v-for="option in collegeId" :key="option.id" :label="option.name" :value="option.id"></mu-option>
-                </mu-select>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="collegeId" label="所在单位">
+              <el-select v-model="project.collegeId" :disabled="flag.isDisabled">
+                <el-option v-for="option in collegeId" :key="option.id" :label="option.name" :value="option.id"></el-option>
+              </el-select>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="一级学科">
-                <mu-select v-model="project.firstDiscipline" :disabled="flag.isDisabled">
-                  <mu-option v-for="option in firstDiscipline" :key="option" :label="option" :value="option"></mu-option>
-                </mu-select>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="firstDiscipline" label="一级学科">
+              <el-select v-model="project.firstDiscipline" :disabled="flag.isDisabled">
+                <el-option v-for="option in firstDiscipline" :key="option" :label="option" :value="option"></el-option>
+              </el-select>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="项目级别">
-                <mu-select v-model="project.level" :disabled="flag.isDisabled">
-                  <mu-option v-for="option in level" :key="option" :label="option" :value="option"></mu-option>
-                </mu-select>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="level" label="项目级别">
+              <el-select v-model="project.level" :disabled="flag.isDisabled">
+                <el-option v-for="option in level" :key="option" :label="option" :value="option"></el-option>
+              </el-select>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="项目性质">
-                <mu-radio v-model="project.characters" value="crosswise" label="横向" :disabled="flag.isDisabled || notDisabled"></mu-radio>
-                <mu-radio v-model="project.characters" value="lengthways" label="纵向" :disabled="flag.isDisabled || notDisabled"></mu-radio>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="characters" label="项目性质">
+              <el-radio-group v-model="project.characters">
+                <el-radio label="crosswise" :disabled="flag.isDisabled || notDisabled">横向</el-radio>
+                <el-radio label="lengthways" :disabled="flag.isDisabled || notDisabled">纵向</el-radio>
+              </el-radio-group>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form" prop="select" label="项目状态">
-                <mu-select v-model="project.state" :disabled="flag.isDisabled">
-                  <mu-option v-for="option in state" :key="option.id" :label="option.name" :value="option.id"></mu-option>
-                </mu-select>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="state" label="项目状态">
+              <el-select v-model="project.state" :disabled="flag.isDisabled">
+                <el-option v-for="option in state" :key="option.id" :label="option.name" :value="option.id"></el-option>
+              </el-select>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="radio" label="学科门类">
-                <mu-radio v-model="project.discipline" value="science" label="理科类" :disabled="flag.isDisabled || notDisabled"></mu-radio>
-                <mu-radio v-model="project.discipline" value="social" label="社科类" :disabled="flag.isDisabled || notDisabled"></mu-radio>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="discipline" label="学科门类">
+              <el-radio-group v-model="project.discipline">
+                <el-radio label="science" :disabled="flag.isDisabled || notDisabled">理科类</el-radio>
+                <el-radio label="social" :disabled="flag.isDisabled || notDisabled">社科类</el-radio>
+              </el-radio-group>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="select" label="项目分类">
-                <mu-select v-model="project.sort" :disabled="flag.isDisabled">
-                  <mu-option v-for="option in sort" :key="option" :label="option" :value="option"></mu-option>
-                </mu-select>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="sort" label="项目分类">
+              <el-select v-model="project.sort" :disabled="flag.isDisabled">
+                <el-option v-for="option in sort" :key="option" :label="option" :value="option"></el-option>
+              </el-select>
+            </el-form-item>
 
-              <mu-col span="8" lg="4" sm="6" class="mu-demo-min-form float_left">
-                <mu-date-input prop="input" v-model="project.beginDate" label="立项日期" label-float full-width landscape
-                  :disabled="flag.isDisabled || notDisabled" value-format="YYYY-MM-DD"></mu-date-input>
-              </mu-col>
+            <el-form-item class="mu-demo-min-form" prop="beginDate" label="立项日期">
+              <el-date-picker v-model="project.beginDate" type="date" placeholder="选择日期" :disabled="flag.isDisabled || notDisabled"
+                value-format="yyyy-MM-dd">
+              </el-date-picker>
+            </el-form-item>
 
-              <mu-col span="8" lg="4" sm="6" class="mu-demo-min-form float_left">
-                <mu-date-input prop="input" v-model="project.endDate" label="结项日期" label-float full-width landscape
-                  :disabled="flag.isDisabled" value-format="YYYY-MM-DD"></mu-date-input>
-              </mu-col>
+            <el-form-item class="mu-demo-min-form" label="结项日期">
+              <el-date-picker prop="endDate" v-model="project.endDate" type="date" placeholder="选择日期" :disabled="flag.isDisabled"
+                value-format="yyyy-MM-dd">
+              </el-date-picker>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form float_left" prop="input" label="申请经费">
-                <mu-text-field v-model="project.requestFund" :disabled="flag.isDisabled || notDisabled"></mu-text-field>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="requestFund" label="申请经费">
+              <el-input v-model.float="project.requestFund" :disabled="flag.isDisabled || notDisabled"></el-input>
+            </el-form-item>
 
-              <mu-form-item class="mu-demo-min-form" prop="input" label="到账经费">
-                <mu-text-field v-model="project.arrivalFund" :disabled="flag.isDisabled"></mu-text-field>
-              </mu-form-item>
+            <el-form-item class="mu-demo-min-form" prop="arrivalFund" label="到账经费">
+              <el-input v-model.number="project.arrivalFund" :disabled="flag.isDisabled"></el-input>
+            </el-form-item>
 
-              <!-- 表单底部表格 -->
-              <UserTable v-model='users' :isDisabled="!notDisabled"></UserTable>
+            <!-- 表单底部表格 -->
+            <UserTable style="float: left; width: 100%;" v-model='users' :isDisabled="notDisabled"></UserTable>
 
-              <!-- 表单备注 -->
-              <mu-form-item style="padding-top: 20px; margin: 10px;" prop="textarea" label="备注">
-                <mu-text-field style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" multi-line
-                  :rows="3" :rows-max="6" v-model="project.information" :disabled="flag.isDisabled"></mu-text-field>
-              </mu-form-item>
+            <!-- 表单备注 -->
+           <el-form-item style="padding-top: 20px; margin-top: 10px; float: left; width: 100%;" prop="information"
+              label="详细信息">
+              <el-input style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" type="textarea" :rows="5"
+                v-model="project.information" :disabled="flag.isDisabled"></el-input>
+            </el-form-item>
 
-            </mu-form>
-          </mu-container>
+          </el-form>
         </div>
 
         <!-- 确定按钮 -->
         <div style="text-align: center;">
           <div v-if="!flag.isDisabled">
-            <mu-button @click="canMakesure" color="primary">
+            <mu-button @click="canMakesure('project')" color="primary">
               确定&nbsp;&nbsp;
               <i right class="el-icon-upload"></i>
             </mu-button>
@@ -120,8 +121,9 @@
             </mu-button>
           </div>
         </div>
-      </mu-dialog>
+      </el-dialog>
     </mu-container>
+
   </div>
 
 </template>
@@ -148,23 +150,24 @@
         labelPosition: "top",
         isSubmit: true,
         notDisabled: false,
+        rules: this.GLOBAL.rules,
         project: {
-          id: "", //项目编号
-          name: "", //项目名称
-          userId: "", //负责人
-          collegeId: "", //所属学院
-          discipline: "", //学科门类
-          characters: "", //项目性质
-          firstDiscipline: "", //一级学科
-          level: "", //项目级别
-          sort: "", //项目分类
-          beginDate: "", //立项日期
-          endDate: "", //结项日期
-          requestFund: "", //项目申请经费
-          arrivalFund: "", //到账金额
-          state: "", //审核状态
-          approvalNumber: "", //批准文号
-          information: "", //项目信息
+          id: null, //项目编号
+          name: null, //项目名称
+          userId: null, //负责人
+          collegeId: null, //所属学院
+          discipline: null, //学科门类
+          characters: null, //项目性质
+          firstDiscipline: null, //一级学科
+          level: null, //项目级别
+          sort: null, //项目分类
+          beginDate: null, //立项日期
+          endDate: null, //结项日期
+          requestFund: null, //项目申请经费
+          arrivalFund: null, //到账金额
+          state: null, //审核状态
+          approvalNumber: null, //批准文号
+          information: null, //项目信息
         },
         collegeId: [], //学院信息
         users: [
@@ -210,15 +213,19 @@
         // 用户成员
         var sendUser = Global.methods.getUser(this.users, this.project);
         var usersString = JSON.stringify(sendUser);
-
         // 进行数据和后端交互
         if (this.notDisabled) {
+
+          proString = JSON.parse(proString);
+          proString.arrivalFund = proString.arrivalFund * 1.00;
+          proString.requestFund = proString.requestFund * 1.00;
+
           console.log("项目表单修改  request begin:  ");
           this.axios
             .put(
               this.GLOBAL.BASE_URL +
               "/mangerSys/project/projects/" +
-              proString.id,
+              this.project.id,
               proString
             )
             .then((response) => {
@@ -244,9 +251,15 @@
         // this.notDisabled = this.flag.isDisabled;
         Global.methods.editForm(this.flag);
       },
-      canMakesure() {
+      canMakesure(formName) {
         //判断能否提交，必须全部填写
-        this.isSubmit = Global.methods.canMakesure(this.project); //进行判断能否提交
+        this.isSubmit = Global.methods.judgeDate(this.project.beginDate, this.project.endDate);
+        //this.issubmit为true，才能进行判断是否填写完整
+        console.log('asdf    ' + this.isSubmit);
+        if (this.isSubmit) {
+          this.isSubmit = Global.methods.canMakesure(this, formName, this.project);
+          console.log('asdfads    ' + this.isSubmit);
+        }
         if (this.isSubmit) {
           this.makesure();
         }
@@ -260,19 +273,23 @@
 
 
 <style>
-  .mu-demo-form {
-    width: 100%;
-    max-width: 800px;
-  }
-
   .mu-demo-min-form {
     width: 100%;
-    max-width: 340px;
+    max-width: 300px;
     padding-right: 40px;
     padding-left: 10px;
+    float: left;
   }
 
-  .float_left {
-    float: left;
+  .el-dialog__title {
+    font-size: 40px;
+  }
+
+  .el-form-item__label {
+    font-size: 20px;
+  }
+
+  .el-radio__label {
+    font-size: 18px;
   }
 </style>
