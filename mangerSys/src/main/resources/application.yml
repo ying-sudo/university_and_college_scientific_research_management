@@ -2,9 +2,9 @@ server:
   servlet:
     context-path: /mangerSys
 #  address: 192.168.1.106
-jasypt:
-  encryptor:
-    password: ljk
+#jasypt:
+#  encryptor:
+#    password: ljk
 
 spring:
   profiles:
