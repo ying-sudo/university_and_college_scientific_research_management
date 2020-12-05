@@ -6,19 +6,25 @@
      @width:table的宽度 
      @max-height:列的最大高度 -->
     <el-table
-      ref="multipleTable"
       :data="tableDataList"
+      ref="multipleTable"
       @selection-change="handleSelectionChange"
       fit
       highlight-current-row
-      style="width: 90%"
+      style="width: 100%"
       v-if="tableData !== null"
       size="middle"
     >
-    <el-table-column
-      type="selection"
-      width="55">
-    </el-table-column>
+      <el-table-column
+        v-if="
+          this.$route.params.tableKey === 'loginlog' ||
+          this.$route.params.tableKey === 'systemlog' ||
+          this.$route.params.tableKey === 'operationlog'
+        "
+        type="selection"
+        width="55"
+      >
+      </el-table-column>
 
       <!-- @item:表中的每一列  
          @:key: 当前第几列
@@ -69,8 +75,7 @@
       :pageSize="pageSize"
       @pageChange="pageChange"
     ></Pagination>
-    <!-- <p>{{ this.tableDataList }}</p>
-    <p>{{ this.tableData }}</p> -->
+
   </div>
 </template>
 
@@ -94,7 +99,7 @@ export default {
       pageSize: 5,
       tableDataList: [],
       ShowPage: false,
-      multipleSelection:[],
+      multipleSelection: [],
     };
   },
 
@@ -143,11 +148,11 @@ export default {
 
     handleSelectionChange(val) {
       this.multipleSelection = val;
-      console.log("multipleSelection:"+this.multipleSelection);
 
-      // this.axios.delete()
-      this.axios.delete("/api/table_data1",{data:this.multipleSelection});
-
+      this.axios.delete(
+        `${this.GLOBAL.BASE_URL}/mangerSys/operlog/${this.multipleSelection[0].operationLogId}`,
+        { data: this.multipleSelection[0].operLogId }
+      );
     },
   },
 
@@ -166,8 +171,7 @@ export default {
     // this.$forceUpdate();
     console.log("Template执行了mounted");
     this.getNewData();
-    // console.log(this.tableDataList.length);
-    // console.log(this.tableData.length);
+
   },
 };
 </script>

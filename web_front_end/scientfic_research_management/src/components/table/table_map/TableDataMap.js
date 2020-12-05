@@ -4,7 +4,11 @@ export function getTableDataMap() {
         ["authoritylists", "/api/table_data"], 
         ["projectlists", "mangerSys/project/projects"], 
         ["papers", "mangerSys/paperAchievement/findOne"], 
-        ["logging", "mangerSys/operlog"], 
+        ["works", "mangerSys/workAchievement/findOne"], 
+        ["loginlog", "mangerSys/loginlog"], 
+        ["systemlog", "mangerSys/syslog"], 
+        ["operationlog", "mangerSys/operlog"], 
+        
         
     ]);
 

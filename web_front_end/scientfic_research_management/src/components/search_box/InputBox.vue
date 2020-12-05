@@ -1,11 +1,5 @@
 <template>
   <div class="input_box">
-    <!-- slot 方式插入搜索框 -->
-
-    <!-- input事件 
-    1: 回车
-    2：按钮
-    3. 直接输入-->
     <!-- 
       @ @input 键盘输入事件 
       @ v-model 
@@ -32,9 +26,10 @@ export default {
     return {
       search: "",
       sub_tables: this.tableData,
+      subFilterTag: this.filterTag,
     };
   },
-  props: ["tableData"],
+  props: ["tableData", "filterTag"],
   inheritAttrs: false,
 
   /**
@@ -47,7 +42,7 @@ export default {
       // console.log(`new: ${newVal} `);
       console.log("tables:" + this.tables.length);
       // this.$emit("changeTable", this.tables);
-      this.$emit("changeTable", this.tables,this.search);
+      this.$emit("changeTable", this.tables, this.search);
     },
   },
 
@@ -58,6 +53,11 @@ export default {
     search: function (newVal, oldVal) {
       console.log("search new:" + newVal);
     },
+
+    filterTag: function (newVal, oldVal) {
+      console.log("filterTag new:" + newVal);
+      this.subFilterTag = newVal;
+    },
   },
   computed: {
     /**
@@ -65,16 +65,21 @@ export default {
      * @filter 过滤掉search中没选择的表格行数据
      */
     tables: function () {
+      console.log("input subFilterTag:" + this.subFilterTag);
+
       const search = this.search;
       if (search) {
         return this.tableData.filter((dataNews) => {
-          return Object.keys(dataNews).some((key) => {
-            return String(dataNews[key]).toLowerCase().indexOf(search) > -1;
-          });
+          // return Object.keys(dataNews).some((key) => {
+            return String(dataNews[this.subFilterTag]).toLowerCase().indexOf(search) > -1;
+            // return String(dataNews[key]).toLowerCase().indexOf(search) > -1;
+          // });
         });
       }
       return this.tableData;
+      
     },
+
   },
 };
 </script>

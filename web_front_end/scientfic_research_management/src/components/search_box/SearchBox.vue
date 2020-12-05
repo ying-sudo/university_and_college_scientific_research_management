@@ -4,13 +4,15 @@
       导入组件FilterBox 和 InputBox
      -->
     <el-row>
-      <el-col :span="6"><FilterBox></FilterBox></el-col>
+      <el-col :span="6"
+        ><FilterBox @changeFilterTag="changeFilterTag"></FilterBox
+      ></el-col>
       <!-- v-bind="$attrs" 跨组件传输父组件的值
            v-on="$listeners" 跨组件修改父组件的值 -->
       <el-col :span="8"
-        ><InputBox v-bind="$attrs" v-on="$listeners"></InputBox
+        ><InputBox v-bind="$attrs" v-on="$listeners" :filterTag="filterTag"></InputBox
       ></el-col>
-      
+
       <el-col :span="6"><slot name="able_to_add"></slot></el-col>
       <!-- :search="search" @SearchChange="SearchChange" -->
     </el-row>
@@ -22,14 +24,21 @@ import FilterBox from "@/components/search_box/Filter";
 import InputBox from "@/components/search_box/InputBox";
 export default {
   data() {
-    return {};
+    return {
+      filterTag:"",
+    };
   },
   inheritAttrs: true,
   components: {
     FilterBox,
     InputBox,
   },
-  methods: {},
+  methods: {
+    changeFilterTag:function(_filterTag){
+      this.filterTag=_filterTag;
+      console.log("this.filterTag:"+this.filterTag);
+    }
+  },
 };
 </script>
 

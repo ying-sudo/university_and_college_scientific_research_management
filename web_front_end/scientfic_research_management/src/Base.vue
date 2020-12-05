@@ -9,6 +9,7 @@
   const BASE_URL = 'http://127.0.0.1:9999';
   // const BASE_URL = 'http://192.168.1.100:9999';
   // const BASE_URL = 'http://192.168.1.104:9999'; //313
+  // const BASE_URL = 'http://172.20.10.6:9999';
 
   const sort = null;
   const firstDiscipline = null;
@@ -36,9 +37,10 @@
       message: '请输入学科门类'
     }], //学科门类
     characters: [{}, ], //项目性质
-    firstDiscipline: [
-      {required: true,
-      message: '请输入一级学科'}], //一级学科
+    firstDiscipline: [{
+      required: true,
+      message: '请输入一级学科'
+    }], //一级学科
     level: [{
       required: true,
       message: '请输入级别'
@@ -52,25 +54,31 @@
       required: true,
       message: '请选择日期',
     }],
-    applicationDate: [
-      {required: true, message: '请选择日期'}
-    ],
-    applicationId: [
-      {required: true, message: '请输入编号'}
-    ],
-    isbnId: [
-      {required: true, message: '请输入ISBN编号'}
-    ],
-    isTranslate: [
-      {required: true, message: '请选择是否翻译'}
-    ],
+    applicationDate: [{
+      required: true,
+      message: '请选择日期'
+    }],
+    applicationId: [{
+      required: true,
+      message: '请输入编号'
+    }],
+    isbnId: [{
+      required: true,
+      message: '请输入ISBN编号'
+    }],
+    isTranslate: [{
+      required: true,
+      message: '请选择是否翻译'
+    }],
     endDate: [{}], //结项日期
-    researchDiection: [
-      {required: true, message: '请填写研究方向'}
-    ],
-    phone: [
-      {required: true, message: '请填写电话'}
-    ],
+    researchDiection: [{
+      required: true,
+      message: '请填写研究方向'
+    }],
+    phone: [{
+      required: true,
+      message: '请填写电话'
+    }],
     requestFund: [{
         required: true,
         message: '请输入申请经费'
@@ -80,9 +88,14 @@
         message: '请输入数字'
       },
     ], //项目申请经费
-    contribution: [
-      {required: true, message: '请输入贡献'},
-      {pattern: /^[+-]?(0|([1-9]\d*))(\.\d+)?$/g, message: '请输入数字'}
+    contribution: [{
+        required: true,
+        message: '请输入贡献'
+      },
+      {
+        pattern: /^[+-]?(0|([1-9]\d*))(\.\d+)?$/g,
+        message: '请输入数字'
+      }
     ],
     arrivalFund: [{
       type: 'number',
@@ -101,13 +114,16 @@
       message: '请输入批准文号'
     }], //批准文号
     information: [{}], //项目信息
-    user_name: [
-      {required: true, message: '请输入名字'}
-    ],
-    user_id: [
-      {required: true, message: '请输入学号'}
-    ],
+    user_name: [{
+      required: true,
+      message: '请输入名字'
+    }],
+    user_id: [{
+      required: true,
+      message: '请输入学号'
+    }],
   };
+
 
   export default {
     BASE_URL,
