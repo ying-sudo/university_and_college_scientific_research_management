@@ -1,7 +1,7 @@
 package cn.edu.sicnu.controller;
 
 import cn.edu.sicnu.entity.Team;
-import cn.edu.sicnu.entity.User;
+import cn.edu.sicnu.entity.Users;
 import cn.edu.sicnu.service.TeamService;
 import cn.edu.sicnu.service.UserService;
 import cn.edu.sicnu.utils.Message;
@@ -51,7 +51,7 @@ public class TeamController {
 
         List<Team> teamList = teamService.queryAll(team);
 
-        User user = userService.queryById(userId);
+        Users user = userService.queryById(userId);
         for (Team eachTeam : teamList) {
             eachTeam.setUserName(user.getName());
         }

@@ -8,11 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("cn.edu.sicnu.dao")
 public class Application {
     public static void main(String[] args) {
-        try{
-            SpringApplication.run(Application.class,args);
-            System.out.println("success");
-        }catch (Exception e){
-            System.out.println("e = " + e);
-        }
+        SpringApplication.run(Application.class,args);
+        System.out.println("success");
     }
 }

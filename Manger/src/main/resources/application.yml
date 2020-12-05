@@ -25,9 +25,5 @@ spring:
 #mybatis:
 #  mapper-locations: cn/edu/sicnu/mapper/*.xml
 #  type-aliases-package: cn.edu.sicnu.entity
-
 #logging:
-mybatis-plus:
-  mapper-locations: cn/edu/sicnu/mapper/*.xml
-  type-aliases-package: cn.edu.sicnu.entity
 #  config: classpath:log4j.properties
