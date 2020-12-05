@@ -146,6 +146,14 @@ INSERT into characters VALUES ("014","admin14","");
 INSERT into characters VALUES ("015","admin15","");
 INSERT into characters VALUES ("016","admin16","");
 
+-- user_character
+INSERT INTO user_character(`character_id`, `user_id`, `note`) VALUES ('001', '2011000416', '角色一');
+INSERT INTO user_character(`character_id`, `user_id`, `note`) VALUES ('002', '2014000145', '角色二');
+INSERT INTO user_character(`character_id`, `user_id`, `note`) VALUES ('003', '2015000111', '角色三');
+INSERT INTO user_character(`character_id`, `user_id`, `note`) VALUES ('004', '2017000154', '角色四');
+INSERT INTO user_character(`character_id`, `user_id`, `note`) VALUES ('005', '2018000111', '角色五');
+
+
 -- rights
 insert into rights values ('1','首页',1,1,"/home",'无');
 insert into rights values('2','项目',2,1,"/projects",'无');
