@@ -57,6 +57,11 @@ public class ScientificAchievementServiceImpl implements ScientificAchievementSe
         return this.scientificAchievementDao.findAll();
     }
 
+    @Override
+    public List<ScientificAchievement> queryAll(ScientificAchievement scientificAchievement) {
+        return this.scientificAchievementDao.queryAll(scientificAchievement);
+    }
+
     /**
      * 新增数据
      *

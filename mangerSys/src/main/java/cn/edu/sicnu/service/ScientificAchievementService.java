@@ -37,6 +37,15 @@ public interface ScientificAchievementService {
     List<ScientificAchievement> findAll();
 
     /**
+     * 通过实体作为筛选条件查询
+     *
+     * @param scientificAchievement 实例对象
+     * @return 对象列表
+     */
+    List<ScientificAchievement> queryAll(ScientificAchievement scientificAchievement);
+
+
+    /**
      * 新增数据
      *
      * @param scientificAchievement 实例对象

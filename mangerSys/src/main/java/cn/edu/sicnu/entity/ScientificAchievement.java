@@ -18,9 +18,15 @@ public class ScientificAchievement implements Serializable {
 
     private String collegeId;
 
-    private Date beginDate;
+//    表中无此字段，只是为了向前端放回方便
+    private String collegeName;
+
+    private String beginDate;
 
     private String userId;
+
+    //    表中无此字段，只是为了向前端放回方便
+    private String userName;
 
     private Object isTranslate;
 
@@ -39,7 +45,8 @@ public class ScientificAchievement implements Serializable {
     public ScientificAchievement() {
     }
 
-    public ScientificAchievement(String id, String name, String collegeId, Date beginDate, String userId, Object isTranslate, String translateLanguage, String firstDiscipline, String discipline, String characters, String workSource, String information) {
+    public ScientificAchievement(String id, String name, String collegeId,
+                                 String beginDate, String userId, Object isTranslate, String translateLanguage, String firstDiscipline, String discipline, String characters, String workSource, String information) {
         this.id = id;
         this.name = name;
         this.collegeId = collegeId;
@@ -52,6 +59,22 @@ public class ScientificAchievement implements Serializable {
         this.characters = characters;
         this.workSource = workSource;
         this.information = information;
+    }
+
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getId() {
@@ -78,11 +101,11 @@ public class ScientificAchievement implements Serializable {
         this.collegeId = collegeId;
     }
 
-    public Date getBeginDate() {
+    public String getBeginDate() {
         return beginDate;
     }
 
-    public void setBeginDate(Date beginDate) {
+    public void setBeginDate(String beginDate) {
         this.beginDate = beginDate;
     }
 

@@ -6,7 +6,7 @@
         <result property="id" column="id" jdbcType="VARCHAR"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="collegeId" column="college_id" jdbcType="VARCHAR"/>
-        <result property="beginDate" column="begin_date" jdbcType="TIMESTAMP"/>
+        <result property="beginDate" column="begin_date" jdbcType="VARCHAR"/>
         <result property="userId" column="user_id" jdbcType="VARCHAR"/>
         <result property="isTranslate" column="is_translate" jdbcType="OTHER"/>
         <result property="translateLanguage" column="translate_language" jdbcType="VARCHAR"/>
