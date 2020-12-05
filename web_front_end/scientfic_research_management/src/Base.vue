@@ -5,16 +5,17 @@
   // const BASE_URL = 'http://192.168.1.102:9999';
   // const BASE_URL = 'http://172.20.10.4:9999';  //yang zi xing
   // const BASE_URL = 'http://192.168.43.229:9999'; //xiao bin zi
-  // const BASE_URL = 'http://192.168.43.25:9999';  //liang jin rui
-  const BASE_URL = 'http://127.0.0.1:9999';
+  const BASE_URL = 'http://192.168.43.25:9999';  //liang jin rui
+  // const BASE_URL = 'http://127.0.0.1:9999/';
   // const BASE_URL = 'http://192.168.1.100:9999';
   // const BASE_URL = 'http://192.168.1.104:9999'; //313
   // const BASE_URL = 'http://172.20.10.6:9999';
+  // const BASE_URL = 'http://192.168.1.106:9999';
 
-  const sort = null;
-  const firstDiscipline = null;
-  const level = null;
-  const collegeInfo = null;
+  const sort = ['null'];
+  const firstDiscipline = ['null'];
+  const level = ['null'];
+  const collegeInfo = [{id:'0001', name:'test'}];
   const rules = {
     name: [{
       required: true,
@@ -28,10 +29,10 @@
       required: true,
       message: '请输入负责人学号'
     }], //负责人
-    collegeId: [{
-      required: true,
-      message: '请输入所在单位'
-    }], //所属学院
+    // collegeId: [{
+    //   required: true,
+    //   message: '请输入所在单位'
+    // }], //所属学院
     discipline: [{
       required: true,
       message: '请输入学科门类'

@@ -4,10 +4,10 @@
     <mu-container>
       <!-- 表单头部 -->
       <el-dialog title="专利产品" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
-        :overlay-close="false" :visible.sync="flag.openAlert">
+        :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
         <!-- 表单内容 -->
-        <div style="height: 750px; overflow-y: scroll; padding: 10px; width: 100%;">
+        <div style="height: 750px; padding: 10px; width: 100%;">
           <el-form :model="patent_achievement" ref="patent_achievement" :rules="rules" :label-position="labelPosition"
             label-width="1000">
             <el-form-item class="mu-demo-min-form" prop="name" label="专利名称">
@@ -73,7 +73,7 @@
             </el-form-item>
 
             <!-- 表单底部表格 -->
-            <UserTable style="float: left; width: 100%;" v-model='users' :isDisabled="!notDisabled"></UserTable>
+            <UserTable style="float: left; width: 100%;" v-model='users' :isDisabled="notDisabled"></UserTable>
 
             <!-- 表单备注 -->
             <el-form-item style="padding-top: 20px; margin-top: 10px; float: left; width: 100%;" prop="information"
