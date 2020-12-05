@@ -1,6 +1,11 @@
 export function getButtonMap() {
     var button_map = new Map([
-        ["projectlists", "ProjectButton"], 
+        ["projectlists", "ProjectTablebutton"], 
+        ["loginlog", "LoginLogTableButton"], 
+        ["operationlog", "OperationLogTablebutton"], 
+        ["systemlog", "SystemTableButton"], 
+        
+        
     ]);
 
     return button_map;

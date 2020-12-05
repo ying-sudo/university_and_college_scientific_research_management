@@ -15,16 +15,7 @@
       v-if="tableData !== null"
       size="middle"
     >
-      <el-table-column
-        v-if="
-          this.$route.params.tableKey === 'loginlog' ||
-          this.$route.params.tableKey === 'systemlog' ||
-          this.$route.params.tableKey === 'operationlog'
-        "
-        type="selection"
-        width="55"
-      >
-      </el-table-column>
+      <el-table-column type="selection" width="55"> </el-table-column>
 
       <!-- @item:表中的每一列  
          @:key: 当前第几列
@@ -75,7 +66,6 @@
       :pageSize="pageSize"
       @pageChange="pageChange"
     ></Pagination>
-
   </div>
 </template>
 
@@ -84,6 +74,8 @@
  * @Pagination 导入底部页码组件
  */
 import Pagination from "@/components/pagination/pagination";
+import { getDelIdMap } from "@/components/table/table_map/delIdMap.js";
+
 export default {
   name: "CommonsTable",
 
@@ -99,7 +91,11 @@ export default {
       pageSize: 5,
       tableDataList: [],
       ShowPage: false,
+
       multipleSelection: [],
+      delIds: [], //批量删除的ID
+      DelIdMap:[],
+      _delId:"",
     };
   },
 
@@ -111,6 +107,11 @@ export default {
 
   components: {
     Pagination,
+  },
+
+  created(){
+    this.DelIdMap=getDelIdMap();
+    console.log(this.DelIdMap);
   },
 
   /**
@@ -147,12 +148,16 @@ export default {
     },
 
     handleSelectionChange(val) {
-      this.multipleSelection = val;
+      
+      this._delId=this.DelIdMap.get(this.$route.params.tableKey);
+      console.log("this._delId:"+this._delId);
+      // console.log("this.delId:"+this.delId);
 
-      this.axios.delete(
-        `${this.GLOBAL.BASE_URL}/mangerSys/operlog/${this.multipleSelection[0].operationLogId}`,
-        { data: this.multipleSelection[0].operLogId }
-      );
+      this.multipleSelection = val;
+      this.delIds = val.map((item) => item[this._delId]).join(); //获取的是 1,2,3 这种格式
+      console.log(this.delIds);
+
+      this.$emit("deleteSelected", this.delIds);
     },
   },
 
@@ -168,10 +173,8 @@ export default {
   },
 
   mounted() {
-    // this.$forceUpdate();
     console.log("Template执行了mounted");
     this.getNewData();
-
   },
 };
 </script>

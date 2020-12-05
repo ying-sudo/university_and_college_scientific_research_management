@@ -2,15 +2,18 @@
   <div v-if="this.tableData !== null">
     <SearchBox :tableData="tableData" @changeTable="changeTable">
       <div slot="able_to_add">
-        <component :is="new_buttons"></component>
+        <component :is="new_buttons" :multiSelect="multiSelect"></component>
       </div>
     </SearchBox>
 
-    <CommonsTableImpl :tableData="tableDataToChange" :search="search">
+    <CommonsTableImpl
+      :tableData="tableDataToChange"
+      :search="search"
+      @deleteSelected="deleteSelected"
+    >
       <!--TableTemplate slot标签挂载点的内容为操作列  -->
       <template slot="table_template_slot" slot-scope="{ row }">
         <component :is="apps" :TableRow="row"></component>
-        <!-- <p>{{ row }}</p> -->
       </template>
     </CommonsTableImpl>
   </div>
@@ -24,6 +27,30 @@ import { getTableDataMap } from "@/components/table/table_map/TableDataMap.js";
 import { getButtonMap } from "@/components/table/table_map/NewButtonsMap.js";
 
 export default {
+  data() {
+    return {
+      //返回到表格中的数据
+      tableData: [],
+      tableDataToChange: [],
+
+      //第一次加载页面会出现操作列为空的情况
+      icontableMap: [],
+      components_name: "",
+      apps: {},
+
+      //
+      InterfaceMap: [],
+      backEndInterface: "",
+
+      //
+      ButtonsMap: [],
+      buttons_name: "",
+      new_buttons: {},
+
+      search: "",
+      multiSelect: [],
+    };
+  },
   components: {
     CommonsTableImpl,
     SearchBox,
@@ -31,10 +58,15 @@ export default {
   methods: {
     //子组件修改父组件的tableDataToChange
     changeTable: function (Tables, search1) {
-      console.log("changeTable work");
+      // console.log("changeTable work");
       this.tableDataToChange = Tables;
       this.search = search1;
       console.log("search:" + this.search);
+    },
+
+    deleteSelected: function (newVal) {
+      this.multiSelect = newVal;
+      console.log("father select:" + this.multiSelect);
     },
 
     //从后端/mock获取接口表格数据
@@ -43,15 +75,12 @@ export default {
       console.log("this.backEndInterface:" + this.backEndInterface);
     },
     getTableData: function (newVal) {
-      this.axios.get("/api/table_data").then((res) => {
-      //${userId}  2011000416
+      // this.axios.get("/api/table_data").then((res) => {
       let userId = localStorage.getItem("userid");
       console.log(userId);
-      // this.axios.post(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`).then((res) => {
-          // this.tableData = res.data.data;
-          this.tableData = res.data.data.TableData;
-          // console.log("res.data.data:"+res.data.data);
-          // console.log(res.data.data.TableData);
+      this.axios.post(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`).then((res) => {
+          this.tableData = res.data.data;
+          console.log(res.data.data);
         });
     },
 
@@ -75,7 +104,7 @@ export default {
     },
     addButtons: function (buttons_name) {
       this.new_buttons = () =>
-        import("@/components/forms/" + buttons_name + ".vue");
+        import("@/components/table/table_button/" + buttons_name + ".vue");
     },
   },
 
@@ -117,30 +146,6 @@ export default {
       // console.log("watch    this.backEndInterface:"+this.backEndInterface);
       this.getTableData(this.backEndInterface);
     },
-  },
-
-  data() {
-    return {
-      //返回到表格中的数据
-      tableData: [],
-      tableDataToChange: [],
-
-      //第一次加载页面会出现操作列为空的情况
-      icontableMap: [],
-      components_name: "",
-      apps: {},
-
-      //
-      InterfaceMap: [],
-      backEndInterface: "",
-
-      //
-      ButtonsMap: [],
-      buttons_name: "",
-      new_buttons: {},
-
-      search: "",
-    };
   },
 };
 </script>

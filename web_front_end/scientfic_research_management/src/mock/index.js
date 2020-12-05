@@ -25,12 +25,11 @@ Mock.mock("/api/project/all", "post", ()=> {
   return findall;
 });
 
-import TableDataTest from "./TableDataTest";
-Mock.mock("/api/table_data", "get", () => {
-  return  TableDataTest;
-});
-
-import TableDataTest1 from "./TableDataTest";
+import TableDataTest1 from "./ProjectTableData";
 Mock.mock("/api/table_data1", "delete", () => {
   return  TableDataTest1;
 });
+
+import ProjectData from "./ProjectTableData";
+Mock.mock("/api/table_data", "get", ProjectData);
+
