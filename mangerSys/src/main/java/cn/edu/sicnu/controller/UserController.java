@@ -1,19 +1,11 @@
 package cn.edu.sicnu.controller;
 
-import cn.edu.sicnu.controller.getRights;
 import cn.edu.sicnu.entity.Users;
 import cn.edu.sicnu.service.UserService;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +20,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("user")
-public class UserController {
+public class UserController extends SysExceptionHandler {
     /**
      * 服务对象
      */
@@ -91,12 +83,14 @@ public class UserController {
      * id password输入参数
      */
     @PostMapping("login")
-    public String login(@RequestBody Map<String, String> map, HttpServletRequest request) throws Exception {
+    public String login(@RequestBody Map<String, String> map, HttpServletRequest request) {
+        String userId = map.get("id");
+        String password = map.get("password");
         String ip = getRemoteHost(request);
         MDC.put("ipAddress", ip);
-        Users user = userService.queryById(map.get("id"));
+        Users user = userService.queryById(userId);
 
-        if (user.getPassword().equals(map.get("password"))) {
+        if (password.equals(user.getPassword())) {
             MDC.put("userId", user.getId());
             loggingLogger.info("登录成功");
             return "{\"resultCode\": \"0\",\"resultMsg\": \"登录成功\"}";
