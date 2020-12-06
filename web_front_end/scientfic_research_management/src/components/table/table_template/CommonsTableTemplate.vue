@@ -14,8 +14,9 @@
       style="width: 100%"
       v-if="tableData !== null"
       size="middle"
+      
     >
-      <el-table-column type="selection" width="55"> </el-table-column>
+      <el-table-column type="selection" width="30" > </el-table-column>
 
       <!-- @item:表中的每一列  
          @:key: 当前第几列
@@ -25,7 +26,7 @@
          @width:每一列的宽度-->
       <el-table-column
         v-for="item in itemOptions"
-        width="150"
+        :width="item.width"
         :key="item.id"
         :label="item.label"
         :prop="item.prop"
@@ -46,9 +47,8 @@
       <el-table-column
         fixed="right"
         label="操作"
-        width="300"
+        width="170"
         align="center"
-        v-if="this.$route.params.tableKey === 'projectlists'"
       >
         <!-- <p>{{scope.$index}}</p> -->
         <template slot-scope="scope">
@@ -185,6 +185,10 @@ export default {
   color: #333;
   /* text-align: center; */
   line-height: 30px !important;
+}
+
+.el-table{
+  font-size: 15px
 }
 </style>
 

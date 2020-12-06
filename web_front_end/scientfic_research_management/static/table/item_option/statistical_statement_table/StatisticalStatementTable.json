@@ -3,30 +3,28 @@
         "id": 1,
         "label": "报表文件名",
         "type": "text",
-        "prop": "statement_file_name"
+        "prop": "statement_file_name",
+        "width":"90"
     },
     {
         "id": 2,
         "label": "所属学院",
         "type": "text",
-        "prop": "statement_belongs_college"
+        "prop": "statement_belongs_college",
+        "width":"90"
     },
     {
         "id": 3,
         "label": "报表类型",
         "type": "text",
-        "prop": "statement_type"
+        "prop": "statement_type",
+        "width":"90"
     },
     {
         "id": 4,
         "label": "发布日期",
         "type": "text",
-        "prop": "statement_release_date"
-    },
-    {
-        "id": 5,
-        "label": "操作",
-        "type": "text",
-        "prop": "statements_operation"
+        "prop": "statement_release_date",
+        "width":"90"
     }
 ]

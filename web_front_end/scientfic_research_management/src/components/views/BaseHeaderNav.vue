@@ -86,7 +86,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #logoutbtn {
   float: right;
   /* margin-right: 10px; */

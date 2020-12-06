@@ -3,54 +3,56 @@
         "id": 1,
         "label": "编号",
         "type": "text",
-        "prop": "id"
+        "prop": "id",
+        "width":"90"
     },
     {
         "id": 2,
         "label": "学院名称",
         "type": "text",
-        "prop": "college_name"
+        "prop": "college_name",
+        "width":"90"
     },
     {
         "id": 3,
         "label": "部门名称",
         "type": "text",
-        "prop": "department_name"
+        "prop": "department_name",
+        "width":"90"
     },
     {
         "id": 4,
         "label": "负责人",
         "type": "text",
-        "prop": "college_charger"
+        "prop": "college_charger",
+        "width":"90"
     },
     {
         "id": 5,
         "label": "联系方式",
         "type": "text",
-        "prop": "college_contact_information"
+        "prop": "college_contact_information",
+        "width":"90"
     },
     {
         "id": 6,
         "label": "考核状态",
         "type": "text",
-        "prop": "college_check_state"
+        "prop": "college_check_state",
+        "width":"90"
     },
     {
         "id": 7,
         "label": "考核结果",
         "type": "text",
-        "prop": "college_check_result"
+        "prop": "college_check_result",
+        "width":"90"
     },
     {
         "id": 8,
         "label": "科研人数",
         "type": "text",
-        "prop": "researcher_number"
-    },
-    {
-        "id": 9,
-        "label": "操作",
-        "type": "text",
-        "prop": "operation"
+        "prop": "researcher_number",
+        "width":"90"
     }
 ]

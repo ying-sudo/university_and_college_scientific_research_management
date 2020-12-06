@@ -106,6 +106,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  font-size: xx-large !important;
   color: #2c3e50;
   height: 100%;
 }
@@ -164,6 +165,8 @@ export default {
   /* height: 100%; */
   color: #333;
   text-align: center;
+  font-size: xx-large;
+
   /* position: relative; */
   /* line-height: 160px; */
 }

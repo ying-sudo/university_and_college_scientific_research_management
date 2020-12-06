@@ -3,42 +3,42 @@
         "id": 1,
         "label": "编号",
         "type": "text",
-        "prop": "id"
+        "prop": "id",
+        "width":"90"
     },
     {
         "id": 2,
         "label": "批次名称",
         "type": "text",
-        "prop": "branch_name"
+        "prop": "branch_name",
+        "width":"90"
     },
     {
         "id": 3,
         "label": "开始时间",
         "type": "text",
-        "prop": "branch_begin_date"
+        "prop": "branch_begin_date",
+        "width":"90"
     },
     {
         "id": 4,
         "label": "结束时间",
         "type": "text",
-        "prop": "branch_end_date"
+        "prop": "branch_end_date",
+        "width":"90"
     },
     {
         "id": 5,
         "label": "状态",
         "type": "text",
-        "prop": "branch_state"
+        "prop": "branch_state",
+        "width":"90"
     },
     {
         "id": 6,
         "label": "单位",
         "type": "text",
-        "prop": "branch_organization"
-    },
-    {
-        "id": 7,
-        "label": "操作",
-        "type": "text",
-        "prop": "operation"
+        "prop": "branch_organization",
+        "width":"90"
     }
 ]

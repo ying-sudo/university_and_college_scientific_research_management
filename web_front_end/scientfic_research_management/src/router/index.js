@@ -12,6 +12,7 @@ import InitPassword from '@/components/login/InitPassword.vue'
 import TestTable from '@/components/table/test_eltable'
 
 
+
 Vue.use(Router)
 
 export default new Router({
@@ -61,6 +62,11 @@ export default new Router({
       name: 'Table',
       // component: Table
       component: resolve => require(['@/components/table/table_impl/AuthorityTableEnity'], resolve)
-    }
+    }, {
+      path: '/teams/member',
+      name: 'Member',
+      // component: Table
+      component: resolve => require(['@/components/table/table_impl/TeamMemberTable'], resolve)
+    },
   ]
 })

@@ -3,6 +3,12 @@ export function getTableIconMap() {
         ["authoritylists", "AuthorityTableIcon"], 
         ["projectlists", "ProjectTableIcon"], 
         ["fundlists","FundsTableIcon"],
+        ["teams","TeamTableIcon"],
+        ["papers","PaperTableIcon"],
+        ["works","WorkTableIcon"],
+        ["patents","PatentTableIcon"],
+        
+        
     ]);
 
     return icon_map;

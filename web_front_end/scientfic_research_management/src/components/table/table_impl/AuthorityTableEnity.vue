@@ -71,14 +71,14 @@ export default {
 
     //从后端/mock获取接口表格数据
     getInterface: function (key) {
-      this.backEndInterface = this.InterfaceMap.get(key);
+      this.backEndInterface = this.InterfaceMap.get(key);   
       console.log("this.backEndInterface:" + this.backEndInterface);
     },
     getTableData: function (newVal) {
-      // this.axios.get("/api/table_data").then((res) => {
+      this.axios.get("/api/table_data").then((res) => {
       let userId = localStorage.getItem("userid");
       console.log(userId);
-      this.axios.post(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`).then((res) => {
+      // this.axios.post(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`).then((res) => {
           this.tableData = res.data.data;
           console.log(res.data.data);
         });
