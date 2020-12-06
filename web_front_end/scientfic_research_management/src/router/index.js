@@ -10,6 +10,7 @@ import InitPassword from '@/components/login/InitPassword.vue'
 // import Table from '@/components/table/table_impl/AuthorityTableEnity'
 // import Icon from '@/components/table/table_impl/AuthorityTableEnity'
 import TestTable from '@/components/table/test_eltable'
+import FormFrame from '@/components/forms/FormFrame.vue'
 
 
 
@@ -68,5 +69,10 @@ export default new Router({
       // component: Table
       component: resolve => require(['@/components/table/table_impl/TeamMemberTable'], resolve)
     },
+    {
+      path: '/form/:formKey',
+      name: 'Form',
+      component: FormFrame
+    }
   ]
 })

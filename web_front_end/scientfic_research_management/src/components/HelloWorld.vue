@@ -15,7 +15,7 @@
       </el-date-picker>
     </div>
 
-
+    <button type="default" @click="test1">aaaa</button>
 
   </div>
 
@@ -47,6 +47,9 @@
             console.log(error);
             console.log(error.response);
           });
+      },
+      test1() {
+        this.$router.push({name: 'Form', params: { formKey: 123 }});
       }
     }
   };

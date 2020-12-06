@@ -225,13 +225,13 @@
           });
       },
     },
-    computed: {
-      // 判断数据
-      getAllData() {
-        return Global.methods.getAllData(this.GLOBAL.collegeInfo, this.GLOBAL.firstDiscipline,
-          this.GLOBAL.level, this.GLOBAL.sort);
-      }
-    },
+    // computed: {
+    //   // 判断数据
+    //   getAllData() {
+    //     return Global.methods.getAllData(this.GLOBAL.collegeInfo, this.GLOBAL.firstDiscipline,
+    //       this.GLOBAL.level, this.GLOBAL.sort);
+    //   }
+    // },
     created() {
       //回车登录
       let that = this;

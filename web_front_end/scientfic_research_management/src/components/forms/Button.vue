@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import PaperButton from './ProjectButton.vue'
+  import PaperButton from './PaperButton.vue'
 
   export default {
     data() {

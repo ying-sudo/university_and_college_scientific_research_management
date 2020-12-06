@@ -4,7 +4,7 @@
     <mu-container>
       <!-- 表单头部 -->
       <el-dialog title="著作申报" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
-        :overlay-close="false" :visible.sync="flag.openAlert">
+        :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
         <!-- 表单内容 -->
         <div style="padding: 10px; width: 100%;">
@@ -96,7 +96,7 @@
             </el-form-item>
 
             <!-- 表单底部表格 -->
-            <UserTable style="float: left; width: 100%;" v-model='users' :isDisabled="!notDisabled"></UserTable>
+            <UserTable style="float: left; width: 100%;" v-model='users' :isDisabled="notDisabled"></UserTable>
 
             <!-- 表单备注 -->
             <el-form-item style="margin: 10px; float: left; width: 100%;" prop="information" label="详细信息">
@@ -210,7 +210,7 @@
     },
     created: function() {
       if (this.flag.isDisabled) {
-        this.project = this.TableRow;
+        this.work_achievement = this.TableRow;
       }
       this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;

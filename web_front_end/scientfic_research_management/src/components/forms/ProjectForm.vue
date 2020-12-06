@@ -1,110 +1,112 @@
 <template>
 
-  <div>
+  <div v-loading="loading">
     <mu-container>
       <!-- 表单头部 -->
       <el-dialog title="项目表单" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
-        :overlay-close="false" :visible.sync="flag.openAlert">
+        :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
         <!-- 表单内容 -->
-        <div style="height: 850px; overflow-y: scroll; padding: 10px; width: 100%;">
+        <div style="padding: 10px; width: 100%; position: relative; float: left;">
           <!-- <mu-container> -->
-          <el-form :model="project" ref="project" :rules="rules" :label-position="labelPosition" label-width="1000">
-            <el-form-item class="mu-demo-min-form" prop="name" label="项目名称">
-              <el-input v-model="project.name" :disabled="flag.isDisabled || notDisabled"></el-input>
-            </el-form-item>
+            <div style="float: left; width: auto;">
+              <el-form :model="project" ref="project" :rules="rules" :label-position="labelPosition" label-width="1000">
+                <el-form-item class="mu-demo-min-form" prop="name" label="项目名称">
+                  <el-input v-model="project.name" :disabled="flag.isDisabled || notDisabled"></el-input>
+                </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="id" label="项目编号">
-              <el-input v-model="project.id" :disabled="flag.isDisabled || notDisabled"></el-input>
-            </el-form-item>
+                <el-form-item class="mu-demo-min-form" prop="id" label="项目编号">
+                  <el-input v-model="project.id" :disabled="flag.isDisabled || notDisabled"></el-input>
+                </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="approvalNumber" label="批准文号">
-              <el-input v-model="project.approvalNumber" :disabled="flag.isDisabled || notDisabled"></el-input>
-            </el-form-item>
+                <el-form-item class="mu-demo-min-form" prop="approvalNumber" label="批准文号">
+                  <el-input v-model="project.approvalNumber" :disabled="flag.isDisabled || notDisabled"></el-input>
+                </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="userId" label="负责人学工号">
-              <el-input v-model="project.userId" :disabled="flag.isDisabled || notDisabled"></el-input>
-            </el-form-item>
+                <el-form-item class="mu-demo-min-form" prop="userId" label="负责人学工号">
+                  <el-input v-model="project.userId" :disabled="flag.isDisabled || notDisabled"></el-input>
+                </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="collegeId" label="所在单位">
-              <el-select v-model="project.collegeId" :disabled="flag.isDisabled">
-                <el-option v-for="option in collegeId" :key="option.id" :label="option.name" :value="option.id"></el-option>
-              </el-select>
-            </el-form-item>
+                <el-form-item class="mu-demo-min-form" prop="collegeId" label="所在单位">
+                  <el-select v-model="project.collegeId" :disabled="flag.isDisabled">
+                    <el-option v-for="option in collegeId" :key="option.id" :label="option.name" :value="option.id"></el-option>
+                  </el-select>
+                </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="firstDiscipline" label="一级学科">
-              <el-select v-model="project.firstDiscipline" :disabled="flag.isDisabled">
-                <el-option v-for="option in firstDiscipline" :key="option" :label="option" :value="option"></el-option>
-              </el-select>
-            </el-form-item>
+                <el-form-item class="mu-demo-min-form" prop="firstDiscipline" label="一级学科">
+                  <el-select v-model="project.firstDiscipline" :disabled="flag.isDisabled">
+                    <el-option v-for="option in firstDiscipline" :key="option" :label="option" :value="option"></el-option>
+                  </el-select>
+                </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="level" label="项目级别">
-              <el-select v-model="project.level" :disabled="flag.isDisabled">
-                <el-option v-for="option in level" :key="option" :label="option" :value="option"></el-option>
-              </el-select>
-            </el-form-item>
+                <el-form-item class="mu-demo-min-form" prop="level" label="项目级别">
+                  <el-select v-model="project.level" :disabled="flag.isDisabled">
+                    <el-option v-for="option in level" :key="option" :label="option" :value="option"></el-option>
+                  </el-select>
+                </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="characters" label="项目性质">
-              <el-radio-group v-model="project.characters">
-                <el-radio label="crosswise" :disabled="flag.isDisabled || notDisabled">横向</el-radio>
-                <el-radio label="lengthways" :disabled="flag.isDisabled || notDisabled">纵向</el-radio>
-              </el-radio-group>
-            </el-form-item>
+                <el-form-item class="mu-demo-min-form" prop="characters" label="项目性质">
+                  <el-radio-group v-model="project.characters">
+                    <el-radio label="crosswise" :disabled="flag.isDisabled || notDisabled">横向</el-radio>
+                    <el-radio label="lengthways" :disabled="flag.isDisabled || notDisabled">纵向</el-radio>
+                  </el-radio-group>
+                </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="state" label="项目状态">
-              <el-select v-model="project.state" :disabled="flag.isDisabled">
-                <el-option v-for="option in state" :key="option.id" :label="option.name" :value="option.id"></el-option>
-              </el-select>
-            </el-form-item>
+                <el-form-item class="mu-demo-min-form" prop="state" label="项目状态">
+                  <el-select v-model="project.state" :disabled="flag.isDisabled">
+                    <el-option v-for="option in state" :key="option.id" :label="option.name" :value="option.id"></el-option>
+                  </el-select>
+                </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="discipline" label="学科门类">
-              <el-radio-group v-model="project.discipline">
-                <el-radio label="science" :disabled="flag.isDisabled || notDisabled">理科类</el-radio>
-                <el-radio label="social" :disabled="flag.isDisabled || notDisabled">社科类</el-radio>
-              </el-radio-group>
-            </el-form-item>
+                <el-form-item class="mu-demo-min-form" prop="discipline" label="学科门类">
+                  <el-radio-group v-model="project.discipline">
+                    <el-radio label="science" :disabled="flag.isDisabled || notDisabled">理科类</el-radio>
+                    <el-radio label="social" :disabled="flag.isDisabled || notDisabled">社科类</el-radio>
+                  </el-radio-group>
+                </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="sort" label="项目分类">
-              <el-select v-model="project.sort" :disabled="flag.isDisabled">
-                <el-option v-for="option in sort" :key="option" :label="option" :value="option"></el-option>
-              </el-select>
-            </el-form-item>
+                <el-form-item class="mu-demo-min-form" prop="sort" label="项目分类">
+                  <el-select v-model="project.sort" :disabled="flag.isDisabled">
+                    <el-option v-for="option in sort" :key="option" :label="option" :value="option"></el-option>
+                  </el-select>
+                </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="beginDate" label="立项日期">
-              <el-date-picker v-model="project.beginDate" type="date" placeholder="选择日期" :disabled="flag.isDisabled || notDisabled"
-                value-format="yyyy-MM-dd">
-              </el-date-picker>
-            </el-form-item>
+                <el-form-item class="mu-demo-min-form" prop="beginDate" label="立项日期">
+                  <el-date-picker v-model="project.beginDate" type="date" placeholder="选择日期" :disabled="flag.isDisabled || notDisabled"
+                    value-format="yyyy-MM-dd">
+                  </el-date-picker>
+                </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" label="结项日期">
-              <el-date-picker prop="endDate" v-model="project.endDate" type="date" placeholder="选择日期" :disabled="flag.isDisabled"
-                value-format="yyyy-MM-dd">
-              </el-date-picker>
-            </el-form-item>
+                <el-form-item class="mu-demo-min-form" label="结项日期">
+                  <el-date-picker prop="endDate" v-model="project.endDate" type="date" placeholder="选择日期" :disabled="flag.isDisabled"
+                    value-format="yyyy-MM-dd">
+                  </el-date-picker>
+                </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="requestFund" label="申请经费">
-              <el-input v-model.float="project.requestFund" :disabled="flag.isDisabled || notDisabled"></el-input>
-            </el-form-item>
+                <el-form-item class="mu-demo-min-form" prop="requestFund" label="申请经费">
+                  <el-input v-model.float="project.requestFund" :disabled="flag.isDisabled || notDisabled"></el-input>
+                </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="arrivalFund" label="到账经费">
-              <el-input v-model.number="project.arrivalFund" :disabled="flag.isDisabled"></el-input>
-            </el-form-item>
+                <el-form-item class="mu-demo-min-form" prop="arrivalFund" label="到账经费">
+                  <el-input v-model.number="project.arrivalFund" :disabled="flag.isDisabled"></el-input>
+                </el-form-item>
 
-            <!-- 表单底部表格 -->
-            <UserTable style="float: left; width: 100%;" v-model='users' :isDisabled="notDisabled"></UserTable>
+                <!-- 表单底部表格 -->
+                <UserTable style="float: left; width: 90%;" v-model='users' :isDisabled="notDisabled"></UserTable>
 
-            <!-- 表单备注 -->
-           <el-form-item style="padding-top: 20px; margin-top: 10px; float: left; width: 100%;" prop="information"
-              label="详细信息">
-              <el-input style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" type="textarea" :rows="5"
-                v-model="project.information" :disabled="flag.isDisabled"></el-input>
-            </el-form-item>
+                <!-- 表单备注 -->
+               <el-form-item style="padding-top: 20px; margin-top: 10px; float: left; width: 90%;" prop="information"
+                  label="详细信息">
+                  <el-input style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" type="textarea" :rows="5"
+                    v-model="project.information" :disabled="flag.isDisabled"></el-input>
+                </el-form-item>
 
-          </el-form>
+              </el-form>
+            </div>
         </div>
 
         <!-- 确定按钮 -->
-        <div style="text-align: center;">
+        <div style="text-align: center; float: left; width: 100%;">
           <div v-if="!flag.isDisabled">
             <mu-button @click="canMakesure('project')" color="primary">
               确定&nbsp;&nbsp;
@@ -151,6 +153,7 @@
         isSubmit: true,
         notDisabled: false,
         rules: this.GLOBAL.rules,
+        loading: false,
         project: {
           id: null, //项目编号
           name: null, //项目名称
@@ -208,6 +211,7 @@
         this.$emit("click", this.flag);
       },
       makesure() {
+        this.loading = true;
         //改成string格式
         var proString = JSON.stringify(this.project);
         // 用户成员
@@ -231,6 +235,7 @@
             .then((response) => {
               console.log(response.data.resultCode);
               console.log("项目表单  request  over");
+              this.loading = false;
             });
         } else {
           console.log("项目表单申报  request begin:  ");
@@ -242,10 +247,11 @@
             .then((response) => {
               console.log(response.data.resultCode);
               console.log("项目表单  request  over");
+              this.loading = false;
             });
         }
 
-        this.closeAlertDialog();
+        // this.closeAlertDialog();
       },
       editForm() {
         // this.notDisabled = this.flag.isDisabled;

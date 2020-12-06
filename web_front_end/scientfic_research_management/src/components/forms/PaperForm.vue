@@ -4,13 +4,13 @@
     <mu-container>
       <!-- 表单头部 -->
       <el-dialog title="论文成果" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
-        :overlay-close="false" :visible.sync="flag.openAlert">
+        :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
         <!-- 表单内容 -->
         <div style="padding: 10px;">
 
           <!-- 左侧框 -->
-          <div style="overflow-y: scroll; width: 80%; float: left; height: 810px;">
+          <div style="width: 80%; float: left; height: 810px;">
             <el-form :model="paper_achievement" ref="paper_achievement" :rules="rules" :label-position="labelPosition"
               label-width="1000">
 
@@ -67,7 +67,7 @@
               </el-form-item>
 
               <!-- 表单底部表格 -->
-              <UserTable style="float: left; width: 100%;" v-model='users' :isDisabled="!notDisabled"></UserTable>
+              <UserTable style="float: left; width: 100%;" v-model='users' :isDisabled="notDisabled"></UserTable>
 
               <!-- 表单备注 -->
               <el-form-item style="padding-top: 20px; margin-top: 10px; float: left; width: 98%;" prop="information" label="详细信息">
@@ -153,6 +153,7 @@
           paperSource: null, //项目来源
           userId: null, //作者
           information: null //详细信息
+
         },
         users: [],
         firstDiscipline: [],
@@ -194,7 +195,7 @@
     },
     created: function() {
       if (this.flag.isDisabled) {
-        this.project = this.TableRow;
+        this.paper_achievement = this.TableRow;
       }
       this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;
@@ -218,7 +219,7 @@
           this.axios
             .put(
               this.GLOBAL.BASE_URL +
-              "/mangerSys/paper/papers/" +
+              "/mangerSys/paperAchievement" +
               this.paper_achievement.id,
               proString
             )
@@ -228,9 +229,10 @@
             });
         } else {
           console.log("论文表单申报  request begin:  ");
+          console.log(this.paper_achievement);
           this.axios
-            .post(this.GLOBAL.BASE_URL + "/mangerSys/paper/papers", {
-              project: proString,
+            .put(this.GLOBAL.BASE_URL + "/mangerSys/paperAchievement", {
+              paperAchievement: proString,
               users: usersString,
             })
             .then((response) => {
