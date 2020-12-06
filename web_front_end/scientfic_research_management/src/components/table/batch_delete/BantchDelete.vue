@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="8"
-        ><el-button type="primary" icon="el-icon-delete" @click="delSelected"
+      <el-col 
+        ><el-button type="primary" icon="el-icon-delete" @click="delSelected" size="medium"
           >批量删除</el-button
         ></el-col
       >
@@ -82,4 +82,5 @@ export default {
 </script>
 
 <style>
+
 </style>

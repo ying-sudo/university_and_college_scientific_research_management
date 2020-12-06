@@ -18,14 +18,24 @@
 
 <script>
 export default {
-  props:["TableRow"],
+  props: ["TableRow"],
   methods: {
     toMember: function () {
-      this.$router.push({ path: "/teams/member",query:{TableRow:this.TableRow} });
+      this.$router.push({
+        path: "/teams/member",
+        query: { TableRow: this.TableRow },
+      });
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
+.el-button {
+  width: 10px;
+  color: #545c64;
+  height: 40px;
+  padding: 0;
+  font-size: 18px;
+}
 </style>

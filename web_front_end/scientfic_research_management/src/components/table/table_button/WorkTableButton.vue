@@ -1,20 +1,20 @@
 <template>
   <div>
-    <el-row
-      ><el-col :span="8"><ProjectButton></ProjectButton> </el-col>
-      <el-col :span="4"><BantchDelete :multiSelect="multiSelect"></BantchDelete></el-col>
+    <el-row>
+        <el-col :span="8"><WorkButton></WorkButton> </el-col>
+      <el-col :span="8"><BantchDelete :multiSelect="multiSelect"></BantchDelete></el-col>
     </el-row>
     <!-- <p>{{this.multiSelect}}</p> -->
   </div>
 </template>
 
 <script>
-import ProjectButton from "@/components/forms/ProjectButton";
+import WorkButton from "@/components/forms/WorkButton";
 import BantchDelete from "@/components/table/batch_delete/BantchDelete";
 
 export default {
   components: {
-    ProjectButton,
+    WorkButton,
     BantchDelete,
   },
 
