@@ -12,7 +12,7 @@
         </div>
         <div v-if="isDisabled">
           <el-tooltip effect="light" content="论文详情" placement="bottom-end" :open-delay="500">
-            <el-button icon="el-icon-view" type="text" @click="openAlertDialog"></el-button>
+            <el-button icon="el-icon-view" type="text" @click="openAlertDialog" style="color: #545C64; font-size: 18px;"></el-button>
           </el-tooltip>
         </div>
       </mu-flex>

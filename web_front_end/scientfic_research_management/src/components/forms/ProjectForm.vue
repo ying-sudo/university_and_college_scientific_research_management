@@ -1,6 +1,6 @@
 <template>
 
-  <div>
+  <div v-loading="loading">
     <mu-container>
       <!-- 表单头部 -->
       <el-dialog title="项目表单" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
@@ -153,6 +153,7 @@
         isSubmit: true,
         notDisabled: false,
         rules: this.GLOBAL.rules,
+        loading: false,
         project: {
           id: null, //项目编号
           name: null, //项目名称
@@ -210,6 +211,7 @@
         this.$emit("click", this.flag);
       },
       makesure() {
+        this.loading = true;
         //改成string格式
         var proString = JSON.stringify(this.project);
         // 用户成员
@@ -233,6 +235,7 @@
             .then((response) => {
               console.log(response.data.resultCode);
               console.log("项目表单  request  over");
+              this.loading = false;
             });
         } else {
           console.log("项目表单申报  request begin:  ");
@@ -244,10 +247,11 @@
             .then((response) => {
               console.log(response.data.resultCode);
               console.log("项目表单  request  over");
+              this.loading = false;
             });
         }
 
-        this.closeAlertDialog();
+        // this.closeAlertDialog();
       },
       editForm() {
         // this.notDisabled = this.flag.isDisabled;

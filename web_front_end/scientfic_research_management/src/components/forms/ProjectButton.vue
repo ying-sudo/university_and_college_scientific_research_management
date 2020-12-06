@@ -12,7 +12,7 @@
         </div>
         <div v-if="isDisabled">
           <el-tooltip effect="light" content="项目详情" placement="bottom-end" :open-delay="500">
-            <el-button icon="el-icon-view" type="text" @click="openAlertDialog"></el-button>
+            <el-button icon="el-icon-view" type="text" @click="openAlertDialog" style="color: #545C64; font-size: 18px;"></el-button>
           </el-tooltip>
         </div>
         <!-- <p>{{this.TableRow}}</p> -->
@@ -53,6 +53,8 @@
     },
     methods: {
       openAlertDialog() {
+        console.log(this.GLOBAL.collegeInfo);
+        console.log(this.GLOBAL.firstDiscipline);
         //项目申报表单
         this.reload = new Date().getTime();
         Global.methods.openAlertDialog(this.flag, this.isDisabled);

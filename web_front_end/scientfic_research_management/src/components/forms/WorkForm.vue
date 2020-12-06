@@ -210,7 +210,7 @@
     },
     created: function() {
       if (this.flag.isDisabled) {
-        this.project = this.TableRow;
+        this.work_achievement = this.TableRow;
       }
       this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;

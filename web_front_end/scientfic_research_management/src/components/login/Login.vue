@@ -136,7 +136,7 @@
 
             //请求表单选择数据
             this.getCollegeData();
-            // this.getOtherData();
+            this.getOtherData();
 
             //判断用户名，密码是否错误
             this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/login", {
@@ -225,13 +225,13 @@
           });
       },
     },
-    computed: {
-      // 判断数据
-      getAllData() {
-        return Global.methods.getAllData(this.GLOBAL.collegeInfo, this.GLOBAL.firstDiscipline,
-          this.GLOBAL.level, this.GLOBAL.sort);
-      }
-    },
+    // computed: {
+    //   // 判断数据
+    //   getAllData() {
+    //     return Global.methods.getAllData(this.GLOBAL.collegeInfo, this.GLOBAL.firstDiscipline,
+    //       this.GLOBAL.level, this.GLOBAL.sort);
+    //   }
+    // },
     created() {
       //回车登录
       let that = this;

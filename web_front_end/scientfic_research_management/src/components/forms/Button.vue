@@ -26,12 +26,12 @@
 </template>
 
 <script>
-  import PaperButton from './PatentButton.vue'
+  import PaperButton from './PaperButton.vue'
 
   export default {
     data() {
       return {
-        isDisabled: false,
+        isDisabled: true,
         project: {
           id: 'ccc', //项目编号
           name: 'saaa', //项目名称
