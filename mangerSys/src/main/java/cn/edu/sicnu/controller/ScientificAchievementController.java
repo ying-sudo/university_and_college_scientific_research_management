@@ -58,4 +58,11 @@ public class ScientificAchievementController {
         return message;
     }
 
+    @PutMapping("/scientAchieve")
+    public Message update(@RequestBody ScientificAchievement achievement) {
+        System.out.println(achievement);
+        scientificAchievementService.insert(achievement);
+        return Message.success(null);
+    }
+
 }

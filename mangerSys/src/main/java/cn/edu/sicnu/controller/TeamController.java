@@ -6,10 +6,7 @@ import cn.edu.sicnu.service.TeamService;
 import cn.edu.sicnu.service.UserService;
 import cn.edu.sicnu.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -60,6 +57,11 @@ public class TeamController {
         return message;
     }
 
-
+    @PutMapping("/team")
+    public Message update(@RequestBody Team team) {
+        System.out.println(team);
+        teamService.insert(team);
+        return Message.success(null);
+    }
 
 }

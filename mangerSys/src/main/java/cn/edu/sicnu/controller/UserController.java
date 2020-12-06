@@ -2,6 +2,7 @@ package cn.edu.sicnu.controller;
 
 import cn.edu.sicnu.entity.Users;
 import cn.edu.sicnu.service.UserService;
+import cn.edu.sicnu.utils.Message;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.MDC;
 import org.slf4j.LoggerFactory;
@@ -19,8 +20,7 @@ import java.util.Map;
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("user")
-public class UserController extends SysExceptionHandler {
+public class UserController {
     /**
      * 服务对象
      */
@@ -39,9 +39,17 @@ public class UserController extends SysExceptionHandler {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("selectOne")
-    public Users selectOne(String id) {
-        return this.userService.queryById(id);
+    @PostMapping("/user/selectOne")
+    public Message selectOne(@RequestBody String id) {
+        System.out.println(id);
+//        id = id.substring(0, id.length() - 1);
+        String[] split = id.split(":");
+        for (String s : split) {
+            System.out.println(s);
+        }
+        id = split[1].substring(1, split[1].length() - 2);
+        System.out.println(id);
+        return Message.success(userService.queryById(id));
     }
 
     /**
@@ -82,7 +90,7 @@ public class UserController extends SysExceptionHandler {
      * /login
      * id password输入参数
      */
-    @PostMapping("login")
+    @PostMapping("/user/login")
     public String login(@RequestBody Map<String, String> map, HttpServletRequest request) {
         String userId = map.get("id");
         String password = map.get("password");
@@ -101,26 +109,12 @@ public class UserController extends SysExceptionHandler {
     }
 
     /**
-     * 测试
-     */
-    @PostMapping("test")
-    public String test(@RequestBody Map<String, Object> map) {
-        System.out.println("接受");
-        for (String s : map.keySet()) {
-            System.out.println("s = " + s);
-            System.out.println("value = " + map.get(s));
-        }
-//        String getRightsByCharacters = get.getRightsByCharacters("1");
-        return "";
-    }
-
-    /**
      * 忘记密码
      * /initPWD
      * id password 输入参数
      */
     @ResponseBody
-    @PostMapping("initPWD")
+    @PostMapping("/user/initPWD")
     public String initPWD(@RequestBody Map<String, String> map) {
         try {
             Users user = userService.queryById(map.get("id"));

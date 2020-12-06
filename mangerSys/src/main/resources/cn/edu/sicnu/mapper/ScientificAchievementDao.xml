@@ -8,7 +8,7 @@
         <result property="collegeId" column="college_id" jdbcType="VARCHAR"/>
         <result property="beginDate" column="begin_date" jdbcType="VARCHAR"/>
         <result property="userId" column="user_id" jdbcType="VARCHAR"/>
-        <result property="isTranslate" column="is_translate" jdbcType="OTHER"/>
+        <result property="isTranslate" column="is_translate" jdbcType="VARCHAR"/>
         <result property="translateLanguage" column="translate_language" jdbcType="VARCHAR"/>
         <result property="firstDiscipline" column="first_discipline" jdbcType="VARCHAR"/>
         <result property="discipline" column="discipline" jdbcType="VARCHAR"/>
@@ -117,7 +117,7 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into scientific_research.scientific_achievement (name,
+        insert into scientific_research.scientific_achievement (id,name,
                                                                 college_id,
                                                                 begin_date,
                                                                 user_id,
@@ -128,7 +128,7 @@
                                                                 characters,
                                                                 work_source,
                                                                 information)
-        values (#{name},
+        values (#{id},#{name},
                 #{collegeId},
                 #{beginDate},
                 #{userId},

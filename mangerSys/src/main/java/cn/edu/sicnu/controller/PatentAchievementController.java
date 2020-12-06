@@ -59,4 +59,11 @@ public class PatentAchievementController {
         return message;
     }
 
+    @PutMapping("/patentAchievement")
+    public Message update(@RequestBody PatentAchievement patentAchievement) {
+        System.out.println(patentAchievement);
+        patentAchievementService.insert(patentAchievement);
+        return Message.success(null);
+    }
+
 }

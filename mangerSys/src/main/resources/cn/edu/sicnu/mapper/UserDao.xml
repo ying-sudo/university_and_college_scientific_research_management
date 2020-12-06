@@ -20,7 +20,6 @@
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
         select id,
-               password,
                name,
                phone,
                email,

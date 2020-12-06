@@ -1,19 +1,16 @@
 package cn.edu.sicnu.controller;
 
 import cn.edu.sicnu.entity.PaperAchievement;
-import cn.edu.sicnu.entity.Project;
 import cn.edu.sicnu.service.CollegeService;
 import cn.edu.sicnu.service.PaperAchievementService;
 import cn.edu.sicnu.service.UserService;
 import cn.edu.sicnu.utils.Message;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 论文成果(PaperAchievement)表控制层
@@ -37,27 +34,6 @@ public class PaperAchievementController {
     private CollegeService collegeService;
     @Autowired
     private Message message;
-
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public PaperAchievement selectOne(String id) {
-        return this.paperAchievementService.queryById(id);
-    }
-
-    /**
-     * 查询所有
-     *
-     * @return 所有数据
-     */
-    @RequestMapping("")
-    public String findAll() {
-        return "";
-    }
 
     /**
      * 通过用户id查询论文成果
@@ -97,11 +73,8 @@ public class PaperAchievementController {
     }
 
     @PutMapping("/paperAchievement")
-    public Message add(@RequestBody Map<String, Object> map) throws JsonProcessingException {
-        System.out.println(map.get("paperAchievement"));
-        PaperAchievement paperAchievement = objectMapper.readValue(map.get("paperAchievement").toString(), PaperAchievement.class);
-
-        System.out.println(paperAchievement);
+    public Message add(@RequestBody PaperAchievement paperAchievement){
+//        System.out.println(paperAchievement);
         paperAchievementService.insert(paperAchievement);
         message.setResultCode(0);
         message.setResultMsg("请求成功");

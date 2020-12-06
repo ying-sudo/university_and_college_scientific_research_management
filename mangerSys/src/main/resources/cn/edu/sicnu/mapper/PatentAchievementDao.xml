@@ -131,7 +131,7 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into scientific_research.patent_achievement (name,
+        insert into scientific_research.patent_achievement (id,name,
                                                             patent_type,
                                                             patent_range,
                                                             college_id,
