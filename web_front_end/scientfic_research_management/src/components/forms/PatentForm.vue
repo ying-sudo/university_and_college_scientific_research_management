@@ -3,11 +3,11 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <el-dialog title="专利产品" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
+      <el-dialog v-loading="loading" title="专利产品" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
         :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
         <!-- 表单内容 -->
-        <div style="height: 750px; padding: 10px; width: 100%;">
+        <div style="padding: 10px; width: 1520px; float: left; margin: 0 150px;">
           <el-form :model="patent_achievement" ref="patent_achievement" :rules="rules" :label-position="labelPosition"
             label-width="1000">
             <el-form-item class="mu-demo-min-form" prop="name" label="专利名称">
@@ -73,10 +73,10 @@
             </el-form-item>
 
             <!-- 表单底部表格 -->
-            <UserTable style="float: left; width: 100%;" v-model='users' :isDisabled="notDisabled"></UserTable>
+            <UserTable style="float: left;" v-model='users' :isDisabled="notDisabled"></UserTable>
 
             <!-- 表单备注 -->
-            <el-form-item style="padding-top: 20px; margin-top: 10px; float: left; width: 100%;" prop="information"
+            <el-form-item style="padding-top: 20px; margin-top: 10px; float: left; width: 1500px;" prop="information"
               label="详细信息">
               <el-input style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" type="textarea" :rows="3"
                 v-model="patent_achievement.information" :disabled="flag.isDisabled"></el-input>
@@ -86,7 +86,7 @@
         </div>
 
         <!-- 确定按钮 -->
-        <div style="text-align: center;">
+        <div style="text-align: center; float: left; width: 1820px;">
           <div v-if="!flag.isDisabled">
             <mu-button @click="canMakesure('patent_achievement')" color="primary">
               确定&nbsp;&nbsp;
@@ -131,6 +131,8 @@
         notDisabled: false,
         isSubmit: true,
         rules: this.GLOBAL.rules,
+        loading: false,
+        users: [],
         patent_achievement: {
           id: null, //专利编号
           name: null, //名称
@@ -144,7 +146,7 @@
           publicDate: null, //公开日期
           impowerId: null, //授权编号
           impowerDate: null, //授权日期
-          userId: null, //作者
+          userId: '1234', //作者
           information: null //详细信息
         },
         patentType: [
@@ -182,14 +184,16 @@
         this.$emit('click', this.flag);
       },
       makesure() {
+        this.loading = true;
         //改成string格式
         var proString = JSON.stringify(this.patent_achievement);
+        proString = JSON.parse(proString);
         // 用户成员
         var sendUser = Global.methods.getUser(this.users, this.patent_achievement);
         var usersString = JSON.stringify(sendUser);
         // 进行数据和后端交互
         if (this.notDisabled) {
-          console.log("项目表单修改  request begin:  ");
+          console.log("专利表单修改  request begin:  ");
           this.axios
             .put(
               this.GLOBAL.BASE_URL +
@@ -199,21 +203,39 @@
             )
             .then((response) => {
               console.log(response.data.resultCode);
-              console.log("项目表单  request  over");
+              console.log("专利表单  request  over");
+              this.loading = false;
+              if (response.data.resultCode == 0) {
+                Global.methods.message_success(this, '申报成功');
+                this.closeAlertDialog();
+              } else {
+                Global.methods.message_warning(this, '请检查信息是否填写完整正确');
+              }
+            })
+            .catch((error) => {
+              this.loading = false;
+              Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         } else {
-          console.log("项目表单申报  request begin:  ");
+          console.log("专利表单申报  request begin:  ");
           this.axios
-            .post(this.GLOBAL.BASE_URL + "/mangerSys/patent/patents", {
-              project: proString,
-              users: usersString,
-            })
+            .put(this.GLOBAL.BASE_URL + "/mangerSys/patentAchievement", proString)
             .then((response) => {
               console.log(response.data.resultCode);
-              console.log("项目表单  request  over");
+              console.log("专利表单  request  over");
+              this.loading = false;
+              if (response.data.resultCode == 0) {
+                Global.methods.message_success(this, '申报成功');
+                this.closeAlertDialog();
+              } else {
+                Global.methods.message_warning(this, '请检查信息是否填写完整正确');
+              }
+            })
+            .catch((error) => {
+              this.loading = false;
+              Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         }
-        this.closeAlertDialog();
       },
       editForm() {
         Global.methods.editForm(this.flag);

@@ -3,94 +3,71 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <el-dialog v-loading="loading" title="著作申报" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
+      <el-dialog v-loading="loading" title="科研申报" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
         :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
         <!-- 表单内容 -->
         <div style="padding: 10px; width: 1520px; margin: 0 140px;">
-          <el-form :model="work_achievement" ref="work_achievement" :rules="rules" :label-position="labelPosition"
+          <el-form :model="scientific_achievement" ref="scientific_achievement" :rules="rules" :label-position="labelPosition"
             label-width="1000">
-            <el-form-item class="mu-demo-min-form" prop="name" label="著作题目">
-              <el-input v-model="work_achievement.name" :disabled="flag.isDisabled || notDisabled"></el-input>
+            <el-form-item class="mu-demo-min-form" prop="name" label="科研名称">
+              <el-input v-model="scientific_achievement.name" :disabled="flag.isDisabled || notDisabled"></el-input>
             </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="id" label="著作编号">
-              <el-input v-model="work_achievement.id" :disabled="flag.isDisabled || notDisabled"></el-input>
+            <el-form-item class="mu-demo-min-form" prop="id" label="科研编号">
+              <el-input v-model="scientific_achievement.id" :disabled="flag.isDisabled || notDisabled"></el-input>
             </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="publisher" label="出版单位">
-              <el-input v-model="work_achievement.publisher" :disabled="flag.isDisabled"></el-input>
-            </el-form-item>
-
-            <el-form-item class="mu-demo-min-form" prop="publishLevel" label="出版社级别">
-              <el-select v-model="work_achievement.publishLevel" :disabled="flag.isDisabled">
-                <el-option v-for="option in publishLevel" :key="option" :label="option" :value="option"></el-option>
+            <el-form-item class="mu-demo-min-form" prop="collegeId" label="成果归属">
+              <el-select v-model="scientific_achievement.collegeId" :disabled="flag.isDisabled">
+                <el-option v-for="option in collegeId" :key="option.id" :label="option.name" :value="option.id"></el-option>
               </el-select>
             </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="workType" label="著作类别">
-              <el-select v-model="work_achievement.workType" :disabled="flag.isDisabled">
-                <el-option v-for="option in workType" :key="option" :label="option" :value="option"></el-option>
-              </el-select>
+            <el-form-item class="mu-demo-min-form" prop="beginDate" label="发布时间">
+              <el-date-picker v-model="scientific_achievement.beginDate" type="date" placeholder="选择日期" :disabled="flag.isDisabled || notDisabled"
+                value-format="yyyy-MM-dd">
+              </el-date-picker>
             </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="publishLocation" label="出版地">
-              <el-select v-model="work_achievement.publishLocation" :disabled="flag.isDisabled">
-                <el-option v-for="option in publishLocation" :key="option" :label="option" :value="option"></el-option>
-              </el-select>
-            </el-form-item>
-
-            <el-form-item class="mu-demo-min-form" prop="isbnId" label="ISBN号">
-              <el-input v-model="work_achievement.isbnId" :disabled="flag.isDisabled || notDisabled"></el-input>
+            <el-form-item class="mu-demo-min-form" prop="userId" label="作者">
+              <el-input v-model="scientific_achievement.userId" :disabled="flag.isDisabled || notDisabled"></el-input>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="isTranslate" label="是否翻译">
-              <el-radio-group v-model="work_achievement.isTranslate">
+              <el-radio-group v-model="scientific_achievement.isTranslate">
                 <el-radio label="true" :disabled="flag.isDisabled">是</el-radio>
                 <el-radio label="false" :disabled="flag.isDisabled">否</el-radio>
               </el-radio-group>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="translateLanguage" label="翻译语种">
-              <el-select v-model="work_achievement.translateLanguage" :disabled="flag.isDisabled || work_achievement.isTranslate!='true'">
+              <el-select v-model="scientific_achievement.translateLanguage" :disabled="flag.isDisabled || scientific_achievement.isTranslate!='true'">
                 <el-option v-for="option in translateLanguage" :key="option" :label="option" :value="option"></el-option>
               </el-select>
             </el-form-item>
 
+            <el-form-item class="mu-demo-min-form" prop="firstDiscipline" label="一级学科">
+              <el-select v-model="scientific_achievement.firstDiscipline" :disabled="flag.isDisabled || notDisabled">
+                <el-option v-for="option in firstDiscipline" :key="option" :label="option" :value="option"></el-option>
+              </el-select>
+            </el-form-item>
+
             <el-form-item class="mu-demo-min-form" prop="discipline" label="学科门类">
-              <el-radio-group v-model="work_achievement.discipline">
+              <el-radio-group v-model="scientific_achievement.discipline">
                 <el-radio label="science" :disabled="flag.isDisabled">理工类</el-radio>
                 <el-radio label="social" :disabled="flag.isDisabled">社科类</el-radio>
               </el-radio-group>
             </el-form-item>
 
-            <el-form-item class="mu-demo-min-form" prop="beginDate" label="建设时间">
-              <el-date-picker v-model="work_achievement.beginDate" type="date" placeholder="选择日期" :disabled="flag.isDisabled || notDisabled"
-                value-format="yyyy-MM-dd">
-              </el-date-picker>
-            </el-form-item>
-
-            <el-form-item class="mu-demo-min-form" prop="isDisabled" label="研究类别">
-              <el-radio-group v-model="work_achievement.characters">
-                <el-radio label="basics" :disabled="flag.isDisabled">基础研究</el-radio>
-                <el-radio label="apply" :disabled="flag.isDisabled">应用研究</el-radio>
-              </el-radio-group>
-            </el-form-item>
-
-            <el-form-item class="mu-demo-min-form" prop="firstDiscipline" label="一级学科">
-              <el-select v-model="work_achievement.firstDiscipline" :disabled="flag.isDisabled || notDisabled">
-                <el-option v-for="option in firstDiscipline" :key="option" :label="option" :value="option"></el-option>
-              </el-select>
-            </el-form-item>
-
-            <el-form-item class="mu-demo-min-form" prop="collegeId" label="成果归属">
-              <el-select v-model="work_achievement.collegeId" :disabled="flag.isDisabled">
-                <el-option v-for="option in collegeId" :key="option.id" :label="option.name" :value="option.id"></el-option>
+            <el-form-item class="mu-demo-min-form" prop="workType" label="研究类别">
+              <el-select v-model="scientific_achievement.workType" :disabled="flag.isDisabled">
+                <el-option v-for="option in workType" :key="option" :label="option" :value="option"></el-option>
               </el-select>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="workSource" label="项目来源">
-              <el-select v-model="work_achievement.workSource" :disabled="flag.isDisabled || notDisabled">
+              <el-select v-model="scientific_achievement.workSource" :disabled="flag.isDisabled || notDisabled">
                 <el-option v-for="option in workSource" :key="option" :label="option" :value="option"></el-option>
               </el-select>
             </el-form-item>
@@ -101,7 +78,7 @@
             <!-- 表单备注 -->
             <el-form-item style="margin: 10px; float: left; width: 1480px;" prop="information" label="详细信息">
               <el-input style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" type="textarea" :rows="5"
-                v-model="work_achievement.information" :disabled="flag.isDisabled"></el-input>
+                v-model="scientific_achievement.information" :disabled="flag.isDisabled"></el-input>
             </el-form-item>
 
           </el-form>
@@ -110,7 +87,7 @@
         <!-- 确定按钮 -->
         <div style="text-align: center; float: left; text-align: center; width: 1820px; margin-top: 20px;">
           <div v-if="!flag.isDisabled">
-            <mu-button @click="canMakesure('work_achievement')" color="primary">
+            <mu-button @click="canMakesure('scientific_achievement')" color="primary">
               确定&nbsp;&nbsp;
               <i right class="el-icon-upload"></i>
             </mu-button>
@@ -142,8 +119,8 @@
       'flag',
       "collegeInfo", //学院信息
       "firstDisciplineProp", //第一学科
-      "levelProp", //项目级别
-      "sortProp", //项目分类
+      "levelProp", //科研级别
+      "sortProp", //科研分类
       "TableRow"
     ],
     model: {
@@ -157,23 +134,19 @@
         isSubmit: true,
         rules: this.GLOBAL.rules,
         loading: false,
-        work_achievement: {
-          id: null, //著作编号
-          name: null, //著作题目
-          publisher: null, //出版单位
-          publishLevel: null, //出版社级别
-          workType: null, //著作类别
-          publishLocation: null, //出版地
-          isbnId: null, //ISBN号
+        scientific_achievement: {
+          id: null, //科研编号
+          name: null, //科研题目
+          collegeId: '0001', //成果归属
+          scientificId: null,
+          userId: '1234', //作者
           isTranslate: 'false', //是否翻译
           translateLanguage: null, //翻译语种
-          discipline: null, //学科门类
-          beginDate: null, //出版时间
-          characters: null, //研究类别
+          beginDate: null,
           firstDiscipline: null, //一级学科
-          collegeId: '0001', //成果归属
-          workSource: null, //项目来源
-          userId: '1234', //作者
+          discipline: null, //学科门类
+          characters: null, //研究类别
+          workSource: null, //科研来源
           information: null //详细信息
         },
         publishLevel: [
@@ -196,8 +169,8 @@
         ],
         collegeId: [],
         firstDiscipline: [], //一级学科内容
-        level: [], //项目级别
-        sort: [], //项目分类
+        level: [], //科研级别
+        sort: [], //科研分类
         workSource: [
           '项目来源1', '项目来源2'
         ]
@@ -205,7 +178,7 @@
     },
     created: function() {
       if (this.flag.isDisabled) {
-        this.work_achievement = this.TableRow;
+        this.scientific_achievement = this.TableRow;
       }
       this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;
@@ -221,27 +194,25 @@
       makesure() {
         this.loading = true;
         //改成string格式
-        var proString = JSON.stringify(this.work_achievement);
-        this.work_achievement.isTranslate = this.work_achievement.isTranslate==='true';
+        var proString = JSON.stringify(this.scientific_achievement);
+        this.scientific_achievement.isTranslate = this.scientific_achievement.isTranslate==='true';
         proString = JSON.parse(proString);
         // 用户成员
-        var sendUser = Global.methods.getUser(this.users, this.work_achievement);
+        var sendUser = Global.methods.getUser(this.users, this.scientific_achievement);
         var usersString = JSON.stringify(sendUser);
-        console.log(this.work_achievement);
-        console.log(typeof(this.work_achievement));
         // 进行数据和后端交互
         if (this.notDisabled) {
-          console.log("项目表单修改  request begin:  ");
+          console.log("科研表单修改  request begin:  ");
           this.axios
             .put(
               this.GLOBAL.BASE_URL +
               "/mangerSys/work/works/" +
-              this.work_achievement.id,
+              this.scientific_achievement.id,
               proString
             )
             .then((response) => {
               console.log(response.data.resultCode);
-              console.log("项目表单  request  over");
+              console.log("科研表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
                 Global.methods.message_success(this, '申报成功');
@@ -255,12 +226,12 @@
               Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         } else {
-          console.log("项目表单申报  request begin:  ");
+          console.log("科研表单申报  request begin:  ");
           this.axios
-            .put(this.GLOBAL.BASE_URL + "/mangerSys/workAchievement", proString)
+            .put(this.GLOBAL.BASE_URL + "/mangerSys/scientAchieve", proString)
             .then((response) => {
               console.log(response.data.resultCode);
-              console.log("项目表单  request  over");
+              console.log("科研表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
                 Global.methods.message_success(this, '申报成功');
@@ -280,9 +251,8 @@
       },
       canMakesure(formName) {
         //判断能否提交，必须全部填写
-        this.isSubmit = Global.methods.judgeDate(this.work_achievement.beginDate, this.work_achievement.endDate);
         if (this.isSubmit) {
-          this.isSubmit = Global.methods.canMakesure(this, formName, this.work_achievement);
+          this.isSubmit = Global.methods.canMakesure(this, formName, this.scientific_achievement);
         }
         if (this.isSubmit) {
           this.makesure();

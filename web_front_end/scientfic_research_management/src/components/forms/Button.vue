@@ -4,6 +4,53 @@
 
   <div>
     <PaperButton :isDisabled="isDisabled"></PaperButton>
+
+<div style="margin: 20px;"></div>
+
+    <ProjectButton :isDisabled="isDisabled"></ProjectButton>
+
+<div style="margin: 20px;"></div>
+
+<PatentButton :isDisabled="isDisabled"></PatentButton>
+
+<div style="margin: 20px;"></div>
+
+<TeamButton :isDisabled="isDisabled"></TeamButton>
+
+<div style="margin: 20px;"></div>
+
+<WorkButton :isDisabled="isDisabled"></WorkButton>
+
+<div style="margin: 20px;"></div>
+
+<ScientificButton :isDisabled="isDisabled"></ScientificButton>
+
+<div style="margin: 20px;"></div>
+
+<ProjectAssessButton :isDisabled="isDisabled"></ProjectAssessButton>
+
+<div style="margin: 20px;"></div>
+
+
+<div style="margin: 20px;"></div>
+
+
+
+<div style="margin: 20px;"></div>
+
+
+
+<div style="margin: 20px;"></div>
+
+
+
+<div style="margin: 20px;"></div>
+
+
+
+
+<div style="margin: 20px;"></div>
+
   </div>
 
 
@@ -26,12 +73,18 @@
 </template>
 
 <script>
-  import PaperButton from './PaperButton.vue'
+  import PaperButton from './ProjectButton.vue'
+  import ProjectButton from './PaperButton.vue'
+  import PatentButton from './PatentButton.vue'
+  import TeamButton from './TeamButton.vue'
+  import WorkButton from './WorkButton.vue'
+  import ScientificButton from './ScientificButton.vue'
+  import ProjectAssessButton from './ProjectAssessButton.vue'
 
   export default {
     data() {
       return {
-        isDisabled: true,
+        isDisabled: false,
         project: {
           id: 'ccc', //项目编号
           name: 'saaa', //项目名称
@@ -56,7 +109,15 @@
       };
     },
     components: {
-      PaperButton
+      PaperButton,
+      ProjectButton,
+      PatentButton,
+      TeamButton,
+      WorkButton,
+      ScientificButton,
+      ProjectAssessButton,
+
+
     }
   };
 

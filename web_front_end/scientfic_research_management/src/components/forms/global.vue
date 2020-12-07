@@ -113,7 +113,38 @@
         }
         console.log('true');
         return true;
-      }
+      },
+      // 消息提示
+      message_control(value, that, msg) { //消息提示控制
+        if (value == 0) {
+          this.message_success(that, msg);
+        } else if (value == -1) {
+          this.message_warning(that, msg);
+        } else {
+          this.message_error(that, msg);
+        }
+      },
+      message_success(that, msg) {
+        that.$message({
+          showClose: true,
+          message: msg,
+          type: 'success'
+        });
+      },
+      message_warning(that, msg) {
+        that.$message({
+          showClose: true,
+          message: msg,
+          type: 'warning'
+        });
+      },
+      message_error(that, msg) {
+        that.$message({
+          showClose: true,
+          message: msg,
+          type: 'error'
+        });
+      },
     },
   }
 </script>

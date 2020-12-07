@@ -49,7 +49,8 @@
           });
       },
       test1() {
-        this.$router.push({name: 'Form', params: { formKey: 123 }});
+        alert('asdfsdf');
+        // this.$router.push({name: 'Form', params: { formKey: 123 }});
       }
     }
   };

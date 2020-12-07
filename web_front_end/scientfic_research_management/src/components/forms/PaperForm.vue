@@ -3,14 +3,13 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <el-dialog title="论文成果" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
+      <el-dialog v-loading="loading" title="论文成果" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
         :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
         <!-- 表单内容 -->
-        <div style="padding: 10px;">
-
+        <div style="padding: 10px; margin: 0 140px; float: left; width: 1550px;">
           <!-- 左侧框 -->
-          <div style="width: 80%; float: left; height: 810px;">
+          <div style="width: 1200px; float: left;">
             <el-form :model="paper_achievement" ref="paper_achievement" :rules="rules" :label-position="labelPosition"
               label-width="1000">
 
@@ -67,10 +66,10 @@
               </el-form-item>
 
               <!-- 表单底部表格 -->
-              <UserTable style="float: left; width: 100%;" v-model='users' :isDisabled="notDisabled"></UserTable>
+              <UserTable style="float: left; width: 1200px;" v-model='users' :isDisabled="notDisabled"></UserTable>
 
               <!-- 表单备注 -->
-              <el-form-item style="padding-top: 20px; margin-top: 10px; float: left; width: 98%;" prop="information" label="详细信息">
+              <el-form-item style="padding-top: 20px; margin-top: 10px; float: left; width: 1200px;" prop="information" label="详细信息">
                 <el-input style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" type="textarea"
                   :rows="5" v-model="paper_achievement.information" :disabled="flag.isDisabled"></el-input>
               </el-form-item>
@@ -79,12 +78,12 @@
           </div>
 
           <!-- 右侧选择框 -->
-          <div style="float: right; width: 20%; height: 810px; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); border-radius: 4px;">
+          <div style="float: left; margin-left: 30px; width: 300px; height: 753px; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); border-radius: 4px;">
             <div class="select-control-group">
               <div style="font-size: 20px; padding: 2px; text-align: center; ">
                 <b>收录情况</b>
               </div>
-              <div style="overflow-y: scroll; height: 760px;">
+              <div style="overflow-y: scroll; height: 725px;">
                 <mu-flex class="select-control-row" :key="magazineSort[i-1].id" v-for="i in magazineSort.length">
                   <mu-checkbox style="margin: 5px;" :value="magazineSort[i-1].id" v-model="magazineId" :label='magazineSort[i-1].name'
                     :disabled="flag.isDisabled"></mu-checkbox>
@@ -140,6 +139,7 @@
         notDisabled: false, //部分不能更改的标志
         isSubmit: true, //是否可以提交，需要把值全部填完才能进行提交
         rules: this.GLOBAL.rules,
+        loading: false,
         paper_achievement: { //申报的内容
           id: null, //论文编号
           name: null, //论文题目
@@ -149,9 +149,9 @@
           recordId: null, //收录号
           discipline: null, //学科门类
           firstDiscipline: null, //一级学科
-          collegeId: null, //成果归属
+          collegeId: '0001', //成果归属
           paperSource: null, //项目来源
-          userId: null, //作者
+          userId: '1234', //作者
           information: null //详细信息
 
         },
@@ -209,10 +209,16 @@
         this.$emit('click', this.flag);
       },
       makesure() {
+        this.loading = true;
         var proString = JSON.stringify(this.paper_achievement);
 
         var sendUser = Global.methods.getUser(this.users, this.paper_achievement);
         var usersString = JSON.stringify(sendUser);
+        console.log(proString);
+        console.log(typeof(proString));
+        proString = JSON.parse(proString);
+        console.log(proString);
+        console.log(typeof(proString));
         // 进行数据和后端交互
         if (this.notDisabled) {
           console.log("论文表单修改  request begin:  ");
@@ -226,22 +232,39 @@
             .then((response) => {
               console.log(response.data.resultCode);
               console.log("论文表单  request  over");
+              this.loading = false;
+              if (response.data.resultCode == 0) {
+                Global.methods.message_success(this, '申报成功');
+                this.closeAlertDialog();
+              } else {
+                Global.methods.message_warning(this, '请检查信息是否填写完整正确');
+              }
+            })
+            .catch((error) => {
+              this.loading = false;
+              Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         } else {
           console.log("论文表单申报  request begin:  ");
-          console.log(this.paper_achievement);
+          console.log(proString);
           this.axios
-            .put(this.GLOBAL.BASE_URL + "/mangerSys/paperAchievement", {
-              paperAchievement: proString,
-              users: usersString,
-            })
+            .put(this.GLOBAL.BASE_URL + "/mangerSys/paperAchievement", proString)
             .then((response) => {
               console.log(response.data.resultCode);
               console.log("论文表单  request  over");
+              this.loading = false;
+              if (response.data.resultCode == 0) {
+                Global.methods.message_success(this, '申报成功');
+                this.closeAlertDialog();
+              } else {
+                Global.methods.message_warning(this, '请检查信息是否填写完整正确');
+              }
+            })
+            .catch((error) => {
+              this.loading = false;
+              Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         }
-
-        this.closeAlertDialog();
       },
       editForm() {
         Global.methods.editForm(this.flag);

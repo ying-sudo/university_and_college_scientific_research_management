@@ -3,12 +3,12 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <el-dialog title="团队表单" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
+      <el-dialog v-loading="loading" title="团队表单" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
         :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
 
         <!-- 表单内容 -->
-        <div style="float: left; padding: 10px; width: 100%;">
+        <div style="float: left; padding: 10px; width: 1520px; margin: 0 140px;">
           <el-form :model="team" ref="team" :rules="rules" :label-position="labelPosition" label-width="1000">
             <el-form-item class="mu-demo-min-form" prop="name" label="团队名称">
               <el-input v-model="team.name" :disabled="flag.isDisabled"></el-input>
@@ -46,16 +46,16 @@
             </el-form-item>
 
             <!-- 团队负责人 -->
-            <div style="padding: 2px; float: left; width: 100%;">
-              <div style="font-size: 20px;"><b>团队负责人</b></div>
+            <div style="padding: 2px; float: left; width: 1500px;">
+              <div style="font-size: 28px;"><b>团队负责人</b></div>
               <br>
-              <div style="width: 100%; float: left; padding: 5px; border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);">
-                <el-form :inline="true" ref="team" :rules="rules" :model="team" class="demo-form-inline">
+              <div style="width: 1470px; float: left; padding: 5px; border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);">
+                <el-form :inline="true" :model="team" class="demo-form-inline">
                   <div style="margin: 5px; text-align:">
-                    <el-form-item prop="user_id" label="负责人学工号:">
+                    <el-form-item prop="" label="负责人学工号:">
                       <el-input v-model="user.id"></el-input>
                     </el-form-item>
-                    <el-form-item prop="user_name" label="姓名:">
+                    <el-form-item prop="" label="姓名:">
                       <el-input v-model="user.name"></el-input>
                     </el-form-item>
                     <el-form-item v-if="!flag.isDisabled">
@@ -63,17 +63,7 @@
                     </el-form-item>
                   </div>
 
-                  <!--                  <div v-else>
-                    <el-form-item class="mu-demo-min-form" prop="user_id" label="负责人学工号">
-                      <el-input v-model="user.id" disabled></el-input>
-                    </el-form-item>
-
-                    <el-form-item class="mu-demo-min-form" prop="user_name" label="姓名">
-                      <el-input v-model="user.name" disabled></el-input>
-                    </el-form-item>
-                  </div> -->
-
-                  <div style="float: left; width: 100%;">
+                  <div style="float: left; width: 1470px;">
                     <el-form-item class="mu-demo-min-form" prop="collegeId" label="所在单位">
                       <el-input v-model="user.collegeId" disabled></el-input>
                     </el-form-item>
@@ -106,10 +96,10 @@
             </div>
 
             <!-- 表单底部表格 -->
-            <UserTable style="float: left; width: 100%;" v-model='users' :isDisabled="notDisabled"></UserTable>
+            <UserTable style="float: left; width: 1470px;" v-model='users' :isDisabled="notDisabled"></UserTable>
 
             <!-- 表单备注 -->
-            <el-form-item style="float: left; width: 100%;" prop="information" label="详细信息">
+            <el-form-item style="float: left; width: 1470px;" prop="information" label="详细信息">
               <el-input style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" type="textarea" :rows="5"
                 v-model="team.information" :disabled="flag.isDisabled"></el-input>
             </el-form-item>
@@ -166,6 +156,7 @@
         notDisabled: false,
         isSubmit: false,
         rules: this.GLOBAL.rules,
+        loading: false,
         team: {
           id: '', //编号
           name: '', //名字
@@ -253,8 +244,10 @@
         this.$emit('click', this.flag);
       },
       makesure() {
+        this.loading = true;
         //改成string格式
         var proString = JSON.stringify(this.team);
+        proString = JSON.parse(proString);
         // 用户成员
         var sendUser = Global.methods.getUser(this.users, this.team);
         var usersString = JSON.stringify(sendUser);
@@ -271,39 +264,41 @@
             .then((response) => {
               console.log(response.data.resultCode);
               console.log("项目表单  request  over");
+              this.loading = false;
+              if (response.data.resultCode == 0) {
+                Global.methods.message_success(this, '申报成功');
+                this.closeAlertDialog();
+              } else {
+                Global.methods.message_warning(this, '请检查信息是否填写完整正确');
+              }
+            })
+            .catch((error) => {
+              this.loading = false;
+              Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         } else {
           console.log("项目表单申报  request begin:  ");
           this.axios
-            .post(this.GLOBAL.BASE_URL + "/mangerSys/team/teams", {
-              project: proString,
-              users: usersString,
-            })
+            .put(this.GLOBAL.BASE_URL + "/mangerSys/team", proString)
             .then((response) => {
               console.log(response.data.resultCode);
               console.log("项目表单  request  over");
+              this.loading = false;
+              if (response.data.resultCode == 0) {
+                Global.methods.message_success(this, '申报成功');
+                this.closeAlertDialog();
+              } else {
+                Global.methods.message_warning(this, '请检查信息是否填写完整正确');
+              }
+            })
+            .catch((error) => {
+              this.loading = false;
+              Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         }
-
-        this.closeAlertDialog();
       },
       editForm() {
         Global.methods.editForm(this.flag);
-      },
-      findUser() {
-        for (var i in this.users) {
-          if (this.user.id === this.users[i].id) {
-            if (this.user.name === this.users[i].name) {
-              //找到用户，赋值
-              this.team.userId = this.user.id;
-              for (var item in this.users[i]) {
-                this.user[item] = this.users[i][item];
-              }
-              return;
-            }
-          }
-        }
-        alert("错误！！该用户不存在！！");
       },
       canMakesure(formName) {
         //判断能否提交，必须全部填写
@@ -311,6 +306,26 @@
         if (this.isSubmit) {
           this.makesure();
         }
+      },
+      findUser() {
+        this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/selectOne", {data:this.user.id}, {headers: {'Content-Type' : "application/json"}})
+        .then((response) => {
+          console.log(this.user.id);
+          console.log('test');
+          console.log(response.data);
+          if (response.data.resultCode == 0) {
+            Global.methods.getValueOne(response.data.data, this.user);
+            this.team.userId = this.user.id;
+          } else {
+            Global.methods.message_error(this, '服务器错误，请稍后再试！');
+          }
+
+          console.log('用户请求 over  ');
+
+        })
+        .catch((error) => {
+          Global.methods.message_error(this, '服务器错误，请稍后再试！');
+        });
       },
     },
     components: {

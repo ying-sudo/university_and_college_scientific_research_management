@@ -1,8 +1,8 @@
 <template>
 
   <!-- 表单底部表格 -->
-  <div style="padding: 10px;">
-    <div style=" padding-top: 70px;" v-if="!isDisabled">
+  <div style="padding: 10px 0px;">
+    <div style=" padding-top: 20px;" v-if="!isDisabled">
       <mu-button style="float: right; margin: 10px; font-size: 20px;" @click="openAlertDialog" color="primary">
         添加用户&nbsp;&nbsp;
         <i class="el-icon-s-custom" style="float: right; "></i>
@@ -43,8 +43,8 @@
         <el-table-column fixed prop="name" label="姓名" width="300"></el-table-column>
         <el-table-column prop="collegeName" label="单位" width="500"></el-table-column>
         <el-table-column prop="contribution" label="贡献率" width="100"></el-table-column>
-        <div v-if="!isDisabled">
-          <el-table-column fixed="right" label="操作" width="300">
+        <el-table-column fixed="right" label="操作" width="300">
+          <div v-if="!isDisabled">
             <template slot-scope="scope">
               <el-button style="font-size: 20px;" @click.native.prevent="deleteRow(scope.$index)" type="text" size="small">
                 移除
@@ -53,8 +53,8 @@
                 编辑
               </el-button>
             </template>
-          </el-table-column>
-        </div>
+          </div>
+        </el-table-column>
       </el-table>
     </div>
   </div>

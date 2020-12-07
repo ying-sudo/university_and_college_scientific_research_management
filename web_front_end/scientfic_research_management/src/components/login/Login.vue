@@ -48,9 +48,44 @@
         </div>
       </div>
 
-      <!-- 输入框 -->
+      <!--      输入框
       <div style="text-align: center">
         <mu-container>
+
+<form method="post">
+  username:<input type="text" value="" v-model="username" name="username"/>
+  password:<input type="text" value="" v-model="password" name="password" />
+  <input type="submit" value="submit" @click="submit" />
+</form>
+
+
+  <mu-form action="http://192.168.1.102:9999/mangerSys/login" method="post" ref="form" class="mu-demo-form">
+    <mu-form-item label="用户名" help-text="帮助文字" prop="username">
+      <mu-text-field type="text" name="username"></mu-text-field>
+    </mu-form-item>
+    <mu-form-item label="密码" prop="password">
+        <mu-text-field type="text" v-model="password" name="password"></mu-text-field>
+    </mu-form-item>
+    <mu-form-item>
+      <mu-button color="primary" type="submit">提交</mu-button>
+    </mu-form-item>
+  </mu-form>
+
+          <mu-form :inline="true" action="this.GLOBAL.BASE_URL + '/mangerSys/login'" ref="form" :model="user" class="mu-demo-form" style="margin: 0 90px;">
+
+            <mu-form-item label="用户名" label-float>
+              <mu-text-field prop="username" type="text" v-model="username" help-text="用户名为学工号"></mu-text-field>
+            </mu-form-item>
+
+            <mu-form-item label="密码" label-float>
+              <mu-text-field type="text" v-model="password" prop="password" :action-icon="visibility ? 'visibility_off' : 'visibility'"
+            :action-click="() => (visibility = !visibility)" :type="visibility ? 'text' : 'password'"></mu-text-field>
+            </mu-form-item>
+            <mu-form-item style="margin: 0 80px;">
+              <mu-button color="primary" @click="submit">登录</mu-button>
+            </mu-form-item>
+          </mu-form>
+
           <i class="el-icon-user" style="font-size: 35px; padding: 5px"></i>
           <mu-text-field v-model="username" label="用户名" label-float help-text="用户名为学工号"></mu-text-field><br />
           <i class="el-icon-lock" style="font-size: 35px; padding: 5px"></i>
@@ -58,7 +93,21 @@
             :action-click="() => (visibility = !visibility)" :type="visibility ? 'text' : 'password'" label-float
             help-text="密码"></mu-text-field><br />
         </mu-container>
+      </div> -->
+
+
+      <!-- 输入框 -->
+      <div style="text-align: center">
+        <mu-container>
+          <i class="el-icon-user" style="font-size: 35px; padding: 5px"></i>
+          <mu-text-field v-model="user.username" label="用户名" label-float help-text="用户名为学工号"></mu-text-field><br />
+          <i class="el-icon-lock" style="font-size: 35px; padding: 5px"></i>
+          <mu-text-field v-model="user.password" label="密码" :action-icon="visibility ? 'visibility_off' : 'visibility'"
+            :action-click="() => (visibility = !visibility)" :type="visibility ? 'text' : 'password'" label-float
+            help-text="密码"></mu-text-field><br />
+        </mu-container>
       </div>
+
 
       <!-- 错误警告 -->
       <div style="width: 400px; margin: 0 auto; height: 42px;">
@@ -101,6 +150,11 @@
     },
     data() {
       return {
+        // url: this.Global.BASE_URL+'/mangerSys/login',
+        user: {
+          username: null,
+          password: null,
+        },
         username: "",
         password: "",
         verify_flag: true,
@@ -112,38 +166,61 @@
       };
     },
     methods: {
+      submit() {
+        this.login();
+      },
       login() {
         this.alarm = false; //close 警告框
         var canLogin = false; //判断是否能够login
         var error_text = ''; //错误文字提示
-        if (this.username !== '' && this.password !== '') {
-          //输入了用户名密码
-          canLogin = true;
-        } else if (this.username !== '') {
-          //没有输入密码
-          canLogin = false;
-          error_text = '请输入密码！！';
-        } else {
-          //没有输入用户名
-          canLogin = false;
-          error_text = '请输入用户名！！';
-        }
+        // if (this.username !== '' && this.password !== '') {
+        //   //输入了用户名密码
+        //   canLogin = true;
+        // } else if (this.username !== '') {
+        //   //没有输入密码
+        //   canLogin = false;
+        //   error_text = '请输入密码！！';
+        // } else {
+        //   //没有输入用户名
+        //   canLogin = false;
+        //   error_text = '请输入用户名！！';
+        // }
+        canLogin = true;
         if (canLogin) {
           //输入了用户名和密码，进行验证码确认
           if (this.verify_flag) {
+            //开始登录的后端请求
+            let formData = new FormData();
+            for (var key in this.user) {
+              formData.append(key, this.user[key]);
+            };
+
+            console.log(typeof(formData));
+            console.log(formData);
             //验证码确认
             this.loading = true; //打开加载组件
 
             //请求表单选择数据
-            this.getCollegeData();
-            this.getOtherData();
+            // this.getCollegeData();
+            // this.getOtherData();
 
             //判断用户名，密码是否错误
-            this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/login", {
-                id: this.username,
-                password: this.password
+            this.axios({
+                method: "post",
+                url: this.GLOBAL.BASE_URL + "/mangerSys/login",
+                headers: {
+                  "Content-Type": "multipart/form-data"
+                },
+                withCredentials: true,
+                data: formData
               }).then(
                 (response) => {
+                  console.log(response.data.data[0].authority);
+                  console.log('begin:   ');
+                  var homeJson = JSON.stringify(response.data.data[0].authority);
+                  var homeJson = JSON.parse(homeJson);
+                  console.log(homeJson);
+                  console.log('over:   ');
                   var resultCode = -2; //返回值，进行登录判断
                   resultCode = response.data.resultCode;
 
@@ -158,7 +235,7 @@
                   if (resultCode == 0) {
                     //成功
                     // 存储  userid
-                    localStorage.setItem("userid", this.username);
+                    localStorage.setItem("userid", this.user.username);
                     // 检索
                     // document.getElementById("result").innerHTML = localStorage.getItem("userid");
                     //进入成功方法
