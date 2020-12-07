@@ -134,8 +134,8 @@
 
 
 <script>
-  import UserTable from './UserTable.vue'
-  import Global from './global.vue';
+  import UserTable from '@/components/forms/global/UserTable.vue'
+  import Global from '@/components/forms/global/global.vue'
 
   export default {
     props: [
@@ -194,37 +194,7 @@
           post: '',
           email: ''
         },
-        users: [{
-            id: '1',
-            name: '1',
-            phone: '2q3',
-            collegeId: '3q2',
-            sex: 'male',
-            birthDate: '4qwqwerqwrqrwerqwrqwerqwrqwerqwrqwrer2',
-            post: '1sa2',
-            email: '123a4'
-          },
-          {
-            id: '2',
-            name: '2',
-            phone: '23qwe',
-            collegeId: '32',
-            sex: 'male',
-            birthDate: '4qwe2',
-            post: '1qwe2',
-            email: '12qweqwerqwerqwrqwrqwrqwrqwer34'
-          },
-          {
-            id: '3',
-            name: '3',
-            phone: '23rq',
-            collegeId: '32',
-            sex: 'female',
-            birthDate: '42',
-            post: '1qwerqwererqerqwrqwerqwr2',
-            email: '123qwer4'
-          },
-        ]
+        users: []
 
       };
     },

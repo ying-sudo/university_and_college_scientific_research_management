@@ -95,7 +95,6 @@
         </mu-container>
       </div> -->
 
-
       <!-- 输入框 -->
       <div style="text-align: center">
         <mu-container>
@@ -107,7 +106,6 @@
             help-text="密码"></mu-text-field><br />
         </mu-container>
       </div>
-
 
       <!-- 错误警告 -->
       <div style="width: 400px; margin: 0 auto; height: 42px;">
@@ -142,7 +140,7 @@
 
 <script>
   import Verify from '@/addModules/vue2-verify'
-  import Global from '../forms/global.vue'
+  import Global from '@/components/forms/global/global.vue'
 
   export default {
     components: {
@@ -215,12 +213,10 @@
                 data: formData
               }).then(
                 (response) => {
-                  console.log(response.data.data[0].authority);
-                  console.log('begin:   ');
+                  console.log('begin login:   ');
+                  console.log(response);
                   var homeJson = JSON.stringify(response.data.data[0].authority);
                   var homeJson = JSON.parse(homeJson);
-                  console.log(homeJson);
-                  console.log('over:   ');
                   var resultCode = -2; //返回值，进行登录判断
                   resultCode = response.data.resultCode;
 

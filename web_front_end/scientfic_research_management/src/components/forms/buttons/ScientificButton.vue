@@ -1,44 +1,47 @@
 <template>
-  <!-- 论文成果按钮 -->
+
+  <!-- 著作按钮 -->
   <div>
     <mu-container>
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
         <div v-if="!isDisabled">
           <mu-button @click="openAlertDialog" color="primary">
-            论文成果申报&nbsp;&nbsp;
+            科研申报表单&nbsp;&nbsp;
             <i right class="el-icon-document-add"></i>
           </mu-button>
         </div>
         <div v-if="isDisabled">
-          <el-tooltip effect="light" content="论文详情" placement="bottom-end" :open-delay="500">
+          <el-tooltip effect="light" content="科研详情" placement="bottom-end" :open-delay="500">
             <el-button icon="el-icon-view" type="text" @click="openAlertDialog" style="color: #545C64; font-size: 18px;"></el-button>
           </el-tooltip>
         </div>
       </mu-flex>
 
-      <PaperForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
-        :levelProp="level" :sortProp="sort" :TableRow="TableRow"></PaperForm>
+      <ScientificForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
+        :levelProp="level" :sortProp="sort" :TableRow="TableRow"></ScientificForm>
+
     </mu-container>
   </div>
+
 </template>
 
 <script>
-  import PaperForm from "./PaperForm.vue";
-  import Global from './global.vue'
+  import ScientificForm from '@/components/forms/forms/ScientificForm.vue'
+  import Global from '@/components/forms/global/global.vue'
 
   export default {
-    props: ["isDisabled", "TableRow"],
+    props: ['isDisabled', "TableRow"],
     model: {
-      prop: "isDisabled",
-      event: "click",
+      prop: 'isDisabled',
+      event: 'click'
     },
     data() {
       return {
         flag: {
-          openAlert: false,
-          isDisabled: false,
-        }, //论文成果表单
+          openAlert: false, //著作申报表单
+          isDisabled: false
+        },
         reload: '',
         collegeInfo: this.GLOBAL.collegeInfo,
         firstDiscipline: this.GLOBAL.firstDiscipline,
@@ -47,7 +50,7 @@
       };
     },
     components: {
-      PaperForm,
+      ScientificForm
     },
     methods: {
       openAlertDialog() {
@@ -55,7 +58,7 @@
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
       },
     },
-  };
+  }
 </script>
 
 <style>

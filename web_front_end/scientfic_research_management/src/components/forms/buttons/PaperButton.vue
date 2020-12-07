@@ -1,13 +1,12 @@
 <template>
-
-  <!-- 团队按钮 -->
+  <!-- 论文成果按钮 -->
   <div>
     <mu-container>
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
         <div v-if="!isDisabled">
           <mu-button @click="openAlertDialog" color="primary">
-            团队申报表单&nbsp;&nbsp;
+            论文成果申报&nbsp;&nbsp;
             <i right class="el-icon-document-add"></i>
           </mu-button>
         </div>
@@ -18,28 +17,27 @@
         </div>
       </mu-flex>
 
-      <TeamForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
-        :levelProp="level" :sortProp="sort" :TableRow="TableRow"></TeamForm>
+      <PaperForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
+        :levelProp="level" :sortProp="sort" :TableRow="TableRow"></PaperForm>
     </mu-container>
   </div>
-
 </template>
 
 <script>
-  import TeamForm from './TeamForm.vue'
-  import Global from './global.vue'
+  import PaperForm from "@/components/forms/forms/PaperForm";
+  import Global from '@/components/forms/global/global.vue'
 
   export default {
-    props: ['isDisabled', 'TableRow'],
+    props: ["isDisabled", "TableRow"],
     model: {
-      prop: 'isDisabled',
-      event: 'click'
+      prop: "isDisabled",
+      event: "click",
     },
     data() {
       return {
         flag: {
-          openAlert: false, //团队申报表单
-          isDisabled: false
+          openAlert: false,
+          isDisabled: false,
         }, //论文成果表单
         reload: '',
         collegeInfo: this.GLOBAL.collegeInfo,
@@ -49,15 +47,15 @@
       };
     },
     components: {
-      TeamForm
+      PaperForm,
     },
     methods: {
-      openAlertDialog() { //论文成果表单
+      openAlertDialog() {
         this.reload = new Date().getTime();
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
       },
     },
-  }
+  };
 </script>
 
 <style>

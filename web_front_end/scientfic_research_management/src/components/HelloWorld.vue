@@ -23,13 +23,11 @@
 
 
 <script>
-  import MButton from './forms/Button.vue'
-  import Right from './right/RightTable.vue'
+  import MButton from './forms/global/Button.vue'
 
   export default {
     components: {
       MButton,
-      Right
     },
     data() {
       return {
@@ -49,8 +47,9 @@
           });
       },
       test1() {
-        alert('asdfsdf');
-        // this.$router.push({name: 'Form', params: { formKey: 123 }});
+        console.log('asdfwqer');
+        this.$router.push({name: 'Form', params: { formKey: 'test' , test: 'asdfsf'}});
+        // this.$router.push({path: 'Form', query: { formKey: 'test' }});
       }
     }
   };

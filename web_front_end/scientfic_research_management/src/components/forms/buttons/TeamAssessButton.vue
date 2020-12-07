@@ -6,21 +6,21 @@
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
         <div>
-          <el-tooltip effect="light" content="个人考核详情" placement="bottom-end" :open-delay="500">
+          <el-tooltip effect="light" content="团队考核详情" placement="bottom-end" :open-delay="500">
             <el-button icon="el-icon-view" type="text" @click="openAlertDialog" style="color: #545C64; font-size: 18px;"></el-button>
           </el-tooltip>
         </div>
       </mu-flex>
 
-      <PersonalAssessForm v-if="flag.openAlert" :key="reload" v-model="flag" :TableRow="TableRow"></PersonalAssessForm>
+      <TeamAssessForm v-if="flag.openAlert" :key="reload" v-model="flag" :TableRow="TableRow"></TeamAssessForm>
     </mu-container>
   </div>
 
 </template>
 
 <script>
-  import PersonalAssessForm from './PersonalAssessForm.vue'
-  import Global from './global.vue'
+  import TeamAssessForm from '@/components/forms/forms/TeamAssessForm.vue'
+  import Global from '@/components/forms/global/global.vue'
 
   export default {
     props: ['isDisabled', 'TableRow'],
@@ -32,13 +32,13 @@
       return {
         flag: {
           openAlert: false, //专利申请表单
-          isDisabled: true
+          isDisabled: false
         },
         reload: '',
       };
     },
     components: {
-      PersonalAssessForm,
+      TeamAssessForm,
 
     },
     methods: {

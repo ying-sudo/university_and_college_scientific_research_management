@@ -1,14 +1,14 @@
 <template>
   <el-tooltip
     effect="light"
-    content="论文详情"
+    content="test"
     placement="bottom-end"
     :open-delay="500"
   >
     <el-button
       icon="el-icon-view"
       type="text"
-      @click="openAlertProjectDialog"
+      @click="openAlertDialog"
     ></el-button>
   </el-tooltip>
 </template>
@@ -20,7 +20,7 @@ export default {
     console.log(this.testData01);
   },
   methods: {
-    openAlertProjectDialog: function () {
+    openAlertDialog: function () {
       console.log(this.testData01);
     },
   },

@@ -6,7 +6,17 @@
       <el-dialog title="项目表单" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
         :overlay-close="false" :visible.sync="flag.openAlert">
  -->
- 
+
+ <div>
+   <!-- afadsfsafsdafds -->
+   {{this.$route.params.formKey}}
+   {{this.$route.params.test}}
+ </div>
+
+ <div v-if="FormKey == 'test'">
+   asdfasdfads
+ </div>
+
         <div v-if="FormKey == 'PaperForm'">
           <PaperForm></PaperForm>
         </div>

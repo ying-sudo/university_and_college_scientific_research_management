@@ -19,8 +19,8 @@
 </template>
 
 <script>
-  import CollegeAssessForm from './CollegeAssessForm.vue'
-  import Global from './global.vue'
+  import CollegeAssessForm from '@/components/forms/forms/CollegeAssessForm.vue'
+  import Global from '@/components/forms/global/global.vue'
 
   export default {
     props: ['isDisabled', 'TableRow'],

@@ -26,8 +26,8 @@
 </template>
 
 <script>
-  import WorkForm from './WorkForm.vue'
-  import Global from './global.vue'
+  import WorkForm from '@/components/forms/forms/WorkForm.vue'
+  import Global from '@/components/forms/global/global.vue'
 
   export default {
     props: ['isDisabled', "TableRow"],

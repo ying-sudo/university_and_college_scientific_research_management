@@ -117,8 +117,8 @@
 </template>
 
 <script>
-  import UserTable from './UserTable.vue'
-  import Global from './global.vue'
+  import UserTable from '@/components/forms/global/UserTable.vue'
+  import Global from '@/components/forms/global/global.vue'
 
   export default {
     props: [
