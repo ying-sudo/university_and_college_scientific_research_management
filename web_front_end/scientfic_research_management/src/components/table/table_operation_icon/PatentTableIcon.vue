@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import PatentButton from "@/components/forms/PatentButton";
+import PatentButton from "@/components/forms/buttons/PatentButton";
 
 export default {
   components: {

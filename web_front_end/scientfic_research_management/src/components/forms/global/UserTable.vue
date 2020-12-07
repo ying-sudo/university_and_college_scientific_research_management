@@ -62,8 +62,8 @@
 </template>
 
 <script>
-  import UserInformation from './UserInformation.vue'
-  import Global from './global.vue'
+  // import UserInformation from './UserInformation.vue'
+  import Global from '@/components/forms/global/global'
 
   export default {
     props: [

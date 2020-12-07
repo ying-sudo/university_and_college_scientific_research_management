@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import PatentButton from "@/components/forms/PatentButton";
+import PatentButton from "@/components/forms/buttons/PatentButton";
 import BantchDelete from "@/components/table/batch_delete/BantchDelete";
 
 export default {

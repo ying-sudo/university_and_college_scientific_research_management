@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import TeamButton from "@/components/forms/TeamButton";
+import TeamButton from "@/components/forms/buttons/TeamButton";
 import BantchDelete from "@/components/table/batch_delete/BantchDelete";
 
 export default {

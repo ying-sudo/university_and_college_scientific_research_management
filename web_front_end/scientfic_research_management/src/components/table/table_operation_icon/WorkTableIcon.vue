@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import WorkButton from "@/components/forms/WorkButton";
+import WorkButton from "@/components/forms/buttons/WorkButton";
 
 export default {
   components: {

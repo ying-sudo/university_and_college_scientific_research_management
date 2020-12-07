@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import PaperButton from "@/components/forms/PaperButton";
+import PaperButton from "@/components/forms/buttons/PaperButton";
 import BantchDelete from "@/components/table/batch_delete/BantchDelete";
 
 export default {
