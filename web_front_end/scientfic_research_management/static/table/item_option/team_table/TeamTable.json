@@ -3,36 +3,42 @@
         "id": 1,
         "label": "团队编号",
         "type": "text",
-        "prop": "id"
+        "prop": "id",
+        "width":"120"
     },
     {
         "id": 2,
         "label": "团队名称",
         "type": "text",
-        "prop": "name"
+        "prop": "name",
+        "width":"170"
     },
     {
         "id": 3,
         "label": "学科分类",
         "type": "text",
-        "prop": "discipline"
+        "prop": "discipline",
+        "width":"120"
     },
     {
         "id": 4,
         "label": "一级学科",
         "type": "text",
-        "prop": "firstDiscipline"
+        "prop": "firstDiscipline",
+        "width":"120"
     },
     {
         "id": 5,
         "label": "成立时间",
         "type": "text",
-        "prop": "foundingTime"
+        "prop": "foundingTime",
+        "width":"150"
     },
     {
         "id": 6,
         "label": "负责人",
         "type": "text",
-        "prop": "userName"
+        "prop": "userName",
+        "width":"120"
     }
 ]

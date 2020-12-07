@@ -3,60 +3,70 @@
         "id": 1,
         "label": "著作编号",
         "type": "text",
-        "prop": "id"
+        "prop": "id",
+        "width":"90"
     },
     {
         "id": 2,
         "label": "著作名称",
         "type": "text",
-        "prop": "name"
+        "prop": "name",
+        "width":"170"
     },
     {
         "id": 3,
         "label": "作者",
         "type": "text",
-        "prop": "userName"
+        "prop": "userName",
+        "width":"120"
     },
     {
         "id": 4,
         "label": "联系方式",
         "type": "text",
-        "prop": "phone"
+        "prop": "phone",
+        "width":"120"
     },
     {
         "id": 5,
         "label": "归属单位",
         "type": "text",
-        "prop": "collegeName"
+        "prop": "collegeName",
+        "width":"150"
     },
     {
         "id": 6,
         "label": "出版社",
         "type": "text",
-        "prop": "publisher"
+        "prop": "publisher",
+        "width":"120"
     },
     {
         "id": 7,
         "label": "出版社所在地",
         "type": "text",
-        "prop": "publishLocation"
+        "prop": "publishLocation",
+        "width":"120"
     },
     {
         "id": 8,
         "label": "撰写日期",
         "type": "text",
-        "prop": "beginDate"
+        "prop": "beginDate",
+        "width":"120"
     },
     {
         "id": 9,
         "label": "学科",
         "type": "text",
-        "prop": "discipline"
+        "prop": "discipline",
+        "width":"120"
     },
     {
         "id": 10,
         "label": "第一学科",
         "type": "text",
-        "prop": "firstDiscipline"
+        "prop": "firstDiscipline",
+        "width":"120"
     }
 ]

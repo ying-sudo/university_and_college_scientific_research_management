@@ -3,48 +3,56 @@
         "id": 1,
         "label": "序号",
         "type": "text",
-        "prop": "order_number"
+        "prop": "order_number",
+        "width":"90"
     },
     {
         "id": 2,
         "label": "姓名",
         "type": "text",
-        "prop": "researcher_name"
+        "prop": "researcher_name",
+        "width":"90"
     },
     {
         "id": 3,
         "label": "单位",
         "type": "text",
-        "prop": "researcher_orgnazation"
+        "prop": "researcher_orgnazation",
+        "width":"90"
     },
     {
         "id": 4,
         "label": "职称",
         "type": "text",
-        "prop": "researcher_work_rank"
+        "prop": "researcher_work_rank",
+        "width":"90"
     },
     {
         "id": 5,
         "label": "联系方式",
         "type": "text",
-        "prop": "college_contact_information"
+        "prop": "college_contact_information",
+        "width":"90"
     },
     {
         "id": 6,
         "label": "考核状态",
         "type": "text",
-        "prop": "college_check_state"
+        "prop": "college_check_state",
+        "width":"90"
     },
     {
         "id": 7,
         "label": "考核结果",
         "type": "text",
-        "prop": "college_check_result"
+        "prop": "college_check_result",
+        "width":"90"
     },
     {
         "id": 8,
         "label": "详细信息",
         "type": "text",
-        "prop": "detailed——information"
+        "prop": "detailed——information",
+        "width":"90"
     }
 ]

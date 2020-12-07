@@ -3,61 +3,68 @@
         "id": 1,
         "label": "科研成果编号",
         "type": "text",
-        "prop": "scientific_research_id"
+        "prop": "id",
+        "width":"120"
     },
     {
         "id": 2,
         "label": "科研成果名称",
         "type": "text",
-        "prop": "scientific_research_name",
-        "width":500
+        "prop": "name",
+        "width":"170"
     },
     {
         "id": 3,
         "label": "作者",
         "type": "text",
-        "prop": "scientific_research_researcher"
+        "prop": "userName",
+        "width":"120"
     },
     {
         "id": 4,
         "label": "联系方式",
         "type": "text",
-        "prop": "author_contact_information"
+        "prop": "author_contact_information",
+        "width":"120"
     },
     {
         "id": 5,
         "label": "归属单位",
         "type": "text",
-        "prop": "author_belongs"
+        "prop": "collegeName",
+        "width":"120"
     },
     {
         "id": 6,
-        "label": "期刊名称",
+        "label": "学科分类",
         "type": "text",
-        "prop": "journal_name"
-    },
-    {
+        "prop": "discipline",
+        "width":"120"
+    },{
         "id": 7,
-        "label": "撰写日期",
+        "label": "第一学科",
         "type": "text",
-        "prop": "write_date"
+        "prop": "firstDiscipline",
+        "width":"120"
     },
     {
         "id": 8,
-        "label": "审核状态",
+        "label": "撰写日期",
         "type": "text",
-        "prop": "scientific_research_check_state"
-    },
-    {
+        "prop": "beginDate",
+        "width":"120"
+    },{
         "id": 9,
-        "label": "引用次数",
+        "label": "研究类别",
         "type": "text",
-        "prop": "scientific_research_cites"
-    },
-    {
+        "prop": "characters",
+        "width":"120"
+    },{
         "id": 10,
-        "label": "操作",
+        "label": "项目来源",
         "type": "text",
-        "prop": "operation"
+        "prop": "workSource",
+        "width":"120"
     }
+    
 ]

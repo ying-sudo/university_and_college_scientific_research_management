@@ -3,60 +3,71 @@
         "id": 1,
         "label": "项目编号",
         "type": "text",
-        "prop": "id"
+        "prop": "id",
+        "width":"90"
     },
     {
         "id": 2,
         "label": "项目名",
         "type": "text",
-        "prop": "name"
+        "prop": "name",
+        "width":"170"
+
     },
     {
         "id": 3,
         "label": "所属学院",
         "type": "text",
-        "prop": "collegeName"
+        "prop": "collegeName",
+        "width":"170"
     },
     {
         "id": 4,
         "label": "项目性质",
         "type": "text",
-        "prop": "characters"
+        "prop": "characters",
+        "width":"120"
     },
     {
         "id": 5,
         "label": "项目级别",
         "type": "text",
-        "prop": "level"
+        "prop": "level",
+        "width":"120"
     },
     {
         "id": 6,
         "label": "项目分类",
         "type": "text",
-        "prop": "sort"
+        "prop": "sort",
+        "width":"120"
     },
     {
         "id": 7,
         "label": "负责人",
         "type": "text",
-        "prop": "userName"
+        "prop": "userName",
+        "width":"120"
     },
     {
         "id": 8,
         "label": "审核状态",
         "type": "text",
-        "prop": "states"
+        "prop": "states",
+        "width":"120"
     },
     {
         "id": 9,
         "label": "项目经费",
         "type": "text",
-        "prop": "requestFund"
+        "prop": "requestFund",
+        "width":"120"
     },
     {
         "id": 10,
         "label": "到账金额",
         "type": "text",
-        "prop": "arrivalFund"
+        "prop": "arrivalFund",
+        "width":"120"
     }
 ]

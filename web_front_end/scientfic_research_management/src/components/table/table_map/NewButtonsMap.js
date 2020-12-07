@@ -4,7 +4,10 @@ export function getButtonMap() {
         ["loginlog", "LoginLogTableButton"], 
         ["operationlog", "OperationLogTablebutton"], 
         ["systemlog", "SystemTableButton"], 
-        
+        ["papers", "PaperTableButton"],         
+        ["works", "WorkTableButton"],         
+        ["patents", "PatentTableButton"],         
+        ["teams", "TeamTableButton"],         
         
     ]);
 
