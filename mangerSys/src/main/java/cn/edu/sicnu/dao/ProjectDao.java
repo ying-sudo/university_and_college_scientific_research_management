@@ -83,7 +83,7 @@ public interface ProjectDao {
      * @param project 实例对象
      * @return 影响行数
      */
-    void update(Project project);
+    int update(Project project);
 
     /**
      * 通过主键删除数据

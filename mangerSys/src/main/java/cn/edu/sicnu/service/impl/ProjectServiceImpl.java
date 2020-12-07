@@ -10,9 +10,9 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * (Project)表服务实现类
+ * (Project)项目表服务实现类
  *
- * @author makejava
+ * @author makejava, liangjin
  * @since 2020-11-20 22:47:30
  */
 @Service("projectService")
@@ -32,6 +32,7 @@ public class ProjectServiceImpl implements ProjectService {
     public Project queryById(String id) {
         return this.projectDao.queryById(id);
     }
+
     /**
      * 通过USERID查询单条数据
      *
@@ -69,29 +70,39 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     /**
-     * 新增数据
+     * 新增数据,判断开始日期必须早于结束日期
      *
      * @param project 实例对象
-     * @return 实例对象
+     * @return 如果插入成功返回实例对象，失败返回null
      */
     @Override
     @Transactional
     public Project insert(Project project) {
-        this.projectDao.insert(project);
-        return project;
+        if (project.getBeginDate().before(project.getEndDate())) {
+            int i = this.projectDao.insert(project);
+            if (i == 1) {
+                return project;
+            }
+        }
+        return null;
     }
 
     /**
-     * 修改数据
+     * 修改数据,判断开始日期必须早于结束日期
      *
      * @param project 实例对象
-     * @return 实例对象
+     * @return 如果修改成功返回实例对象，失败返回null
      */
     @Override
     @Transactional
     public Project update(Project project) {
-        this.projectDao.update(project);
-        return this.queryById(project.getId());
+        if (project.getBeginDate().before(project.getEndDate())) {
+            int i = this.projectDao.update(project);
+            if (i == 1) {
+                return project;
+            }
+        }
+        return null;
     }
 
     /**

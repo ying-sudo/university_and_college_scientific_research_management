@@ -1,5 +1,7 @@
 package cn.edu.sicnu.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -30,8 +32,10 @@ public class Project implements Serializable {
 
     private String sort;
 
+    @JsonFormat(pattern = "yyyy-MM-dd" ,timezone="GMT+8")
     private Date beginDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd" ,timezone="GMT+8")
     private Date endDate;
 
     private Double requestFund;
@@ -138,18 +142,22 @@ public class Project implements Serializable {
         this.sort = sort;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd" ,timezone="GMT+8")
     public Date getBeginDate() {
         return beginDate;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd" ,timezone="GMT+8")
     public void setBeginDate(Date beginDate) {
         this.beginDate = beginDate;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd" ,timezone="GMT+8")
     public Date getEndDate() {
         return endDate;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd" ,timezone="GMT+8")
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
