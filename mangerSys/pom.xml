@@ -55,10 +55,10 @@
             <!--<optional>true</optional>-->
         <!--</dependency>-->
         <!--security-->
-        <!--<dependency>
+        <dependency>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>-->
+        </dependency>
         <!--引入test支持-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -197,6 +197,19 @@
           <artifactId>commons-lang3</artifactId>
           <version>3.9</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch -->
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>7.10.0</version>
+        </dependency>
+
         <!--lambda -->
         <!--<dependency>
           <groupId>software.amazon.awscdk</groupId>

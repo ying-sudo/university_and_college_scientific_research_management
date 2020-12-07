@@ -5,6 +5,7 @@ import cn.edu.sicnu.entity.RightsAndcharacters;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * (CharactersRight)表数据库访问层
@@ -21,6 +22,14 @@ public interface CharactersRightDao {
      * @return 实例对象
      */
     CharactersRight queryById(String characterId);
+
+    /**
+     * 通过CharacterID查询单条数据
+     *
+     * @param characterId
+     * @return 实例对象
+     */
+    List<CharactersRight> queryByCharacterId(String characterId);
 
     /**
      * 查询指定行数据

@@ -7,8 +7,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.slf4j.LoggerFactory;
+//import org.springframework.security.access.annotation.Secured;
+//import org.springframework.security.access.prepost.PostAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,7 +93,7 @@ public class UserController {
      * /login
      * id password输入参数
      */
-    @GetMapping("login")
+//    @PostMapping("login")
     public String login(@RequestBody Map<String, String> map, HttpServletRequest request) {
         String ip = getRemoteHost(request);
         MDC.put("ipAddress", ip);
@@ -107,7 +112,11 @@ public class UserController {
     /**
      * 测试
      */
+//    @Secured({"ROLE_sale","ROLE_manger"})
+//    @PreAuthorize("hasAnyAuthority('')")//方法执行前面判断
+//    @PostAuthorize("hasAnyAuthority()")//方法执行后判断
     @PostMapping("test")
+//    @PreAuthorize("hasAuthority('/reports')")
     public String test(@RequestBody Map<String, Object> map) {
         System.out.println("接受");
         for (String s : map.keySet()) {

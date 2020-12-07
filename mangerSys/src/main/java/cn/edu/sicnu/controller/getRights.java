@@ -38,7 +38,7 @@ public class getRights {
 
     /**
      * 请求用户的所有权限
-     * @param id
+     * @param id 用户id
      * @return
      */
     public String getRightsByCharacters(String id){
@@ -57,13 +57,14 @@ public class getRights {
         RightsAndcharacters r1;
         RightsAndcharacters r2;
         String Sumt="{\"headerLists\": [";
+        System.out.println("进入");
         List<RightsAndcharacters> rights = charactersRightService.getRights(userCharacterService.queryByuserId(id).getCharacterId());
         temp=rights.get(0).getAbscissa();
         rights.forEach(i-> System.out.println("i = " + i.toString()));
         for (int s=0;s<rights.size();s++) {
             if(s==rights.size()-1){
                 if(rights.get(s).getOrdinate()==1){
-                    Sumt+="{\"id\":"+rights.get(s).getId()+",\"index\":"+"\""+columnPosition.toString()+"\""+",\"title\":"+"\""+rights.get(s).getName()+"\""+",\"urlPath\":"+"\""+rights.get(s).getUrlPath()+"\""+",\"subMenu\":\"null\"}";
+                    Sumt+="\"{id:\""+rights.get(s).getId()+"\",index:\""+"\""+columnPosition.toString()+"\""+",\"title\":"+"\""+rights.get(s).getName()+"\""+",\"urlPath\":"+"\""+rights.get(s).getUrlPath()+"\""+",\"subMenu\":\"null\"}";
                 }else{
                     Sumt+="{\"id\":"+rights.get(s).getId()+",\"index\":"+"\""+columnPosition.toString()+"-"+rowPosition.toString()+"\""+",\"title\":"+"\""+rights.get(s).getName()+"\""+",\"urlPath\":"+"\""+rights.get(s).getUrlPath()+"\""+",\"subMenu\":\"null\"}]}";
                 }
@@ -89,7 +90,8 @@ public class getRights {
             }
         }
         Sumt+="]}";
-        return "\"data\":"+Sumt;
+        System.out.println("Sumt = " + Sumt);
+        return Sumt;
 //        System.out.println("Sumt = " + Sumt);
 //        return Sumt;
     }
