@@ -4,27 +4,27 @@
         "label": "角色编号",
         "type": "text",
         "prop": "role_order_number",
-        "width":"90"
+        "width":"160"
     },
     {
         "id": 2,
         "label": "角色名称",
         "type": "text",
         "prop": "role_name",
-        "width":"90"
+        "width":"160"
     },
     {
         "id": 3,
         "label": "角色人员数量",
         "type": "text",
         "prop": "role_number",
-        "width":"90"
+        "width":"160"
     },
     {
         "id": 4,
         "label": "备注",
         "type": "text",
         "prop": "role_note",
-        "width":"90"
+        "width":"160"
     }
 ]

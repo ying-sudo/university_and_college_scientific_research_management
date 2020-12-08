@@ -7,6 +7,7 @@ export function getTableIconMap() {
         ["papers","PaperTableIcon"],
         ["works","WorkTableIcon"],
         ["patents","PatentTableIcon"],
+        ["roles","RoleManageTableIcon"],
         
         
     ]);
