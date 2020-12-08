@@ -5,7 +5,6 @@
         if (isDisabled) {
           flag.isDisabled = isDisabled;
         }
-        console.log(flag);
         flag.openAlert = true;
       },
       closeAlertDialog(flag) { //关闭组件

@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import PaperForm from "@/components/forms/forms/PaperForm";
+  import PaperForm from "@/components/forms/forms/PaperForm"
   import Global from '@/components/forms/global/global.vue'
 
   export default {
