@@ -11,7 +11,7 @@
         "label": "论文名称",
         "type": "text",
         "prop": "name",
-        "width":"170"
+        "width":"200"
     },
     {
         "id": 3,

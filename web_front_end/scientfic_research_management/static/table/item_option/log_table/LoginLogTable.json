@@ -4,41 +4,41 @@
         "label": "日志编号",
         "type": "text",
         "prop": "loginLogId",
-        "width":"90"
+        "width":"120"
     },
     {
         "id": 2,
         "label": "ip地址",
         "type": "text",
         "prop": "ipAddress",
-        "width":"90"
+        "width":"150"
     },
     {
         "id": 3,
         "label": "日志产生时间",
         "type": "text",
         "prop": "loginTime",
-        "width":"90"
+        "width":"150"
     },
     {
         "id": 4,
         "label": "日志级别",
         "type": "text",
         "prop": "logLevel",
-        "width":"90"
+        "width":"120"
     },
     {
         "id": 5,
         "label": "操作用户id",
         "type": "text",
         "prop": "userId",
-        "width":"90"
+        "width":"120"
     },
     {
         "id": 6,
         "label": "日志信息",
         "type": "text",
         "prop": "message",
-        "width":"90"
+        "width":"120"
     }
 ]

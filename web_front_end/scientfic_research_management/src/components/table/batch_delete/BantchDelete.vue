@@ -1,8 +1,12 @@
 <template>
   <div>
     <el-row>
-      <el-col 
-        ><el-button type="primary" icon="el-icon-delete" @click="delSelected" size="medium"
+      <el-col
+        ><el-button
+          type="primary"
+          icon="el-icon-delete"
+          @click="delSelected"
+          size="medium"
           >批量删除</el-button
         ></el-col
       >
@@ -16,8 +20,9 @@ import { getDeleteMap } from "@/components/table/table_map/DeleteInterfaceMap.js
 export default {
   data() {
     return {
-        DeleteMap:[],
-        DeleteInter:""
+      DeleteMap: [],
+      DeleteInter: "",
+      reNewURL:this.$route.params.tableKey,
     };
   },
   props: ["multiSelect"],
@@ -40,17 +45,17 @@ export default {
         type: "warning",
       })
         .then(() => {
-          this.axios.delete(
-            `${this.GLOBAL.BASE_URL}/${this.DeleteInter}`,
-            { data: this.multiSelect }
-          )
+          this.axios
+            .delete(`${this.GLOBAL.BASE_URL}/${this.DeleteInter}`, {
+              data: this.multiSelect,
+            })
 
-        //   this.axios.delete("/api/pageList/batchDelete", { data: this.multiSelect })
-        .then((res) => {
+            //   this.axios.delete("/api/pageList/batchDelete", { data: this.multiSelect })
+            .then((res) => {
               // console.log("res.data.code:" + res.data.code);
               console.log("res.data.code:");
               console.log(res.data);
-            //   if (res.data.code === "0") {
+              //   if (res.data.code === "0") {
               if (res.data.resultCode === 0) {
                 this.$message.success("批量删除成功！");
                 // this.getList();
@@ -69,18 +74,18 @@ export default {
           });
         });
 
-      // this.reload(); //页面刷新功能
+      //页面刷新功能
+      this.route.go(0);
     },
   },
 
   created() {
-      this.DeleteMap=getDeleteMap();
-      this.DeleteInter=this.DeleteMap.get(this.$route.params.tableKey)
-      console.log("this.DeleteInter:"+this.DeleteInter);
+    this.DeleteMap = getDeleteMap();
+    this.DeleteInter = this.DeleteMap.get(this.$route.params.tableKey);
+    console.log("this.DeleteInter:" + this.DeleteInter);
   },
 };
 </script>
 
 <style>
-
 </style>

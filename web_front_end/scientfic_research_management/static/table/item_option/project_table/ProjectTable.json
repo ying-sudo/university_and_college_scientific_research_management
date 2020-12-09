@@ -11,7 +11,7 @@
         "label": "项目名",
         "type": "text",
         "prop": "name",
-        "width":"170"
+        "width":"200"
 
     },
     {
