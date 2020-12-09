@@ -1,6 +1,7 @@
 <script>
   export default {
     methods: {
+
       openAlertDialog(flag, isDisabled) { //打开组件
         if (isDisabled) {
           flag.isDisabled = isDisabled;
@@ -13,7 +14,9 @@
       editForm(flag) {
         flag.isDisabled = false;
       },
-      canMakesure(that, formName, project) { //判断数据是否已经编写完成
+
+      canMakesure(that, formName, project) {
+        //判断数据是否已经编写完成
         var isSubmit = null;
         that.$refs[formName].validate((valid) => {
           if (valid) {
@@ -37,7 +40,9 @@
         }
         return true;
       },
+
       judgeDate(begin, end) {
+        //判断end日期要大于begin日期
         var judge = true;
         if (end) {
           console.log('begin:  ' + new Date(begin).getTime());
@@ -49,7 +54,9 @@
         }
         return judge;
       },
-      emptyValue(project) { //对数据进行清空
+
+      emptyValue(project) {
+        //对数据进行清空
         for (var key in project) {
           project[key] = null;
         }
@@ -66,9 +73,8 @@
       //     }
       //   }
       // },
-      getGlobalValue() {
 
-      },
+
       //sour，原来的值 sour赋值给dir
       //dir 目标值
       getValueOne(sour, dir) { //一维
@@ -81,6 +87,7 @@
           dir[dir.length - 1][key] = sour[key];
         }
       },
+
       getUser(users, project) {
         // 用户
         var i = 0;
@@ -113,8 +120,10 @@
         console.log('true');
         return true;
       },
+
       // 消息提示
-      message_control(value, that, msg) { //消息提示控制
+      message_control(value, that, msg) {
+        //消息提示控制，使用value来判断为什么消息类型
         if (value == 0) {
           this.message_success(that, msg);
         } else if (value == -1) {
@@ -124,6 +133,7 @@
         }
       },
       message_success(that, msg) {
+        //成功消息
         that.$message({
           showClose: true,
           message: msg,
@@ -131,6 +141,7 @@
         });
       },
       message_warning(that, msg) {
+        //警告消息
         that.$message({
           showClose: true,
           message: msg,
@@ -138,12 +149,32 @@
         });
       },
       message_error(that, msg) {
+        //错误消息
         that.$message({
           showClose: true,
           message: msg,
           type: 'error'
         });
       },
+
+      getCollegeData(that) {
+        //从后端获取表单需要的所有学院的信息，并返回
+        that.axios.get(that.GLOBAL.BASE_URL + "/mangerSys/college/findAll").then(
+          (response) => {
+            that.GLOBAL.collegeInfo = response.data.data;
+            console.log('college begin:   ');
+            console.log(response.data);
+            return response.data.data;
+          });
+      },
+      getOtherData(that) {
+        //从后端获取表单需要的所有其他选择的信息，并返回
+        that.axios.get(that.GLOBAL.BASE_URL + "/mangerSys/sort/findAll").then(
+          (response) => {
+            console.log(response.data);
+            return response.data;
+          })
+      }
     },
   }
 </script>

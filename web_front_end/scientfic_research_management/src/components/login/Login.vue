@@ -148,7 +148,6 @@
     },
     data() {
       return {
-        // url: this.Global.BASE_URL+'/mangerSys/login',
         user: {
           username: null,
           password: null,
@@ -171,60 +170,50 @@
         this.alarm = false; //close 警告框
         var canLogin = false; //判断是否能够login
         var error_text = ''; //错误文字提示
-        // if (this.username !== '' && this.password !== '') {
-        //   //输入了用户名密码
-        //   canLogin = true;
-        // } else if (this.username !== '') {
-        //   //没有输入密码
-        //   canLogin = false;
-        //   error_text = '请输入密码！！';
-        // } else {
-        //   //没有输入用户名
-        //   canLogin = false;
-        //   error_text = '请输入用户名！！';
-        // }
+        if (this.user.username !== '' && this.user.password !== '') {
+          //输入了用户名密码
+          canLogin = true;
+        } else if (this.user.username !== '') {
+          //没有输入密码
+          canLogin = false;
+          error_text = '请输入密码！！';
+        } else {
+          //没有输入用户名
+          canLogin = false;
+          error_text = '请输入用户名！！';
+        }
         canLogin = true;
         if (canLogin) {
           //输入了用户名和密码，进行验证码确认
           if (this.verify_flag) {
             //开始登录的后端请求
-            let formData = new FormData();
-            for (var key in this.user) {
-              formData.append(key, this.user[key]);
-            };
 
-            console.log(typeof(formData));
-            console.log(formData);
-            //验证码确认
+            //进行表单格式
+            // let formData = new FormData();
+            // for (var key in this.user) {
+            //   formData.append(key, this.user[key]);
+            // };
+
             this.loading = true; //打开加载组件
-
+            // var college = Global.methods.getCollegeData(this);
+            // console.log(college);
+            // console.log('college end:   ');
             //请求表单选择数据
             // this.getCollegeData();
             // this.getOtherData();
-
+            console.log(this.user);
             //判断用户名，密码是否错误
             this.axios({
                 method: "post",
                 url: this.GLOBAL.BASE_URL + "/mangerSys/login",
-                headers: {
-                  "Content-Type": "multipart/form-data"
-                },
-                withCredentials: true,
-                data: formData
+                data: this.user
               }).then(
                 (response) => {
-                  console.log('begin login:   ');
-                  console.log(response);
-                  var homeJson = JSON.stringify(response.data.data[0].authority);
-                  var homeJson = JSON.parse(homeJson);
+                  // var homeJson = JSON.stringify(response.data.data[0].authority);
+                  // var homeJson = JSON.parse(homeJson);
                   var resultCode = -2; //返回值，进行登录判断
                   resultCode = response.data.resultCode;
-
-                  //表单数据请求完成才进行下一步操作
-                  // while (!Global.methods.getAllData(this.GLOBAL.collegeInfo, this.GLOBAL.firstDiscipline,
-                  //     this.GLOBAL.level, this.GLOBAL.sort)) {
-
-                  // }
+                  console.log(response.data.resultMsg);
 
                   //关闭组件
                   this.loading = false;
@@ -232,6 +221,8 @@
                     //成功
                     // 存储  userid
                     localStorage.setItem("userid", this.user.username);
+                    //存放token
+                    localStorage.setItem("token", response.data.resultMsg);
                     // 检索
                     // document.getElementById("result").innerHTML = localStorage.getItem("userid");
                     //进入成功方法
@@ -271,10 +262,6 @@
       },
       //登录
       login_success() {
-        // const loading = this.$loading();
-        // setTimeout(() => {
-        //   loading.close();
-        // }, 500);
         this.$router.push('./home');
       },
       login_failing(error_text) {
@@ -298,13 +285,6 @@
           });
       },
     },
-    // computed: {
-    //   // 判断数据
-    //   getAllData() {
-    //     return Global.methods.getAllData(this.GLOBAL.collegeInfo, this.GLOBAL.firstDiscipline,
-    //       this.GLOBAL.level, this.GLOBAL.sort);
-    //   }
-    // },
     created() {
       //回车登录
       let that = this;

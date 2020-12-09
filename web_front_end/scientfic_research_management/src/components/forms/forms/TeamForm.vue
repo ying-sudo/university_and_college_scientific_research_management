@@ -278,6 +278,9 @@
         }
       },
       findUser() {
+        var token = localStorage.getItem('token');
+        console.log('begin:    ' + token);
+        this.axios.defaults.headers.common["Authorization"] = token;
         this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/selectOne", {data:this.user.id}, {headers: {'Content-Type' : "application/json"}})
         .then((response) => {
           console.log(this.user.id);

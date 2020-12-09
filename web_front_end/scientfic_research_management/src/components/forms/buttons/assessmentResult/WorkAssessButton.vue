@@ -6,20 +6,20 @@
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
         <div>
-          <el-tooltip effect="light" content="项目考核详情" placement="bottom-end" :open-delay="500">
+          <el-tooltip effect="light" content="著作考核详情" placement="bottom-end" :open-delay="500">
             <el-button icon="el-icon-view" type="text" @click="openAlertDialog" style="color: #545C64; font-size: 18px;"></el-button>
           </el-tooltip>
         </div>
       </mu-flex>
 
-      <ProjectAssessmentResultForm v-if="flag.openAlert" :key="reload" v-model="flag" :TableRow="TableRow"></ProjectAssessmentResultForm>
+      <WorkAssessmentResultForm v-if="flag.openAlert" :key="reload" v-model="flag" :TableRow="TableRow"></WorkAssessmentResultForm>
     </mu-container>
   </div>
 
 </template>
 
 <script>
-  import ProjectAssessmentResultForm from '@/components/forms/forms/assessmentResult/ProjectAssessmentResultForm.vue'
+  import WorkAssessmentResultForm from '@/components/forms/forms/assessmentResult/WorkAssessmentResultForm.vue'
   import Global from '@/components/forms/global/global.vue'
 
   export default {
@@ -38,8 +38,7 @@
       };
     },
     components: {
-      ProjectAssessmentResultForm,
-
+      WorkAssessmentResultForm,
     },
     methods: {
       openAlertDialog() { //专利申请表单
