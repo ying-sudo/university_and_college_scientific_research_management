@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
- * (User)表控制层
+ * (User)用户表控制层
  *
  * @author makejava
  * @since 2020-11-20 22:47:42
@@ -96,11 +97,13 @@ public class UserController {
         String password = map.get("password");
         String ip = getRemoteHost(request);
         MDC.put("ipAddress", ip);
-        Users user = userService.queryById(userId);
+        Users user = userService.findByIdAndPassword(userId, password);
 
-        if (password.equals(user.getPassword())) {
+        if (user.getId() != null && user.getPassword() != null) {
             MDC.put("userId", user.getId());
             loggingLogger.info("登录成功");
+            HttpSession session = request.getSession();
+            session.setAttribute("userId", user.getId());
             return "{\"resultCode\": \"0\",\"resultMsg\": \"登录成功\"}";
         }
 

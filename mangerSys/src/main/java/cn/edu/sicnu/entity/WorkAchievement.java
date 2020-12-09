@@ -26,12 +26,13 @@ public class WorkAchievement implements Serializable {
 
     private String isbnId;
 
-    private Object isTranslate;
+    private String isTranslate;
 
     private String translateLanguage;
 
     private String discipline;
 
+//    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date beginDate;
 
     private String characters;
@@ -49,7 +50,8 @@ public class WorkAchievement implements Serializable {
     public WorkAchievement() {
     }
 
-    public WorkAchievement(String id, String name, String publisher, String publishLevel, String workType, String publishLocation, String isbnId, Object isTranslate, String translateLanguage, String discipline, Date beginDate, String characters, String firstDiscipline, String collegeId, String workSource, String userId, String information) {
+    public WorkAchievement(String id, String name, String publisher, String publishLevel, String workType, String publishLocation, String isbnId, String isTranslate, String translateLanguage, String discipline, Date beginDate, String characters, String firstDiscipline,
+                           String collegeId, String workSource, String userId, String information) {
         this.id = id;
         this.name = name;
         this.publisher = publisher;
@@ -125,11 +127,11 @@ public class WorkAchievement implements Serializable {
         this.isbnId = isbnId;
     }
 
-    public Object getIsTranslate() {
+    public String getIsTranslate() {
         return isTranslate;
     }
 
-    public void setIsTranslate(Object isTranslate) {
+    public void setIsTranslate(String isTranslate) {
         this.isTranslate = isTranslate;
     }
 
@@ -215,7 +217,7 @@ public class WorkAchievement implements Serializable {
                 ", workType='" + workType + '\'' +
                 ", publishLocation='" + publishLocation + '\'' +
                 ", isbnId='" + isbnId + '\'' +
-                ", isTranslate=" + isTranslate +
+                ", isTranslate='" + isTranslate + '\'' +
                 ", translateLanguage='" + translateLanguage + '\'' +
                 ", discipline='" + discipline + '\'' +
                 ", beginDate=" + beginDate +

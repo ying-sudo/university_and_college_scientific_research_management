@@ -10,13 +10,12 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * (Project)表服务实现类
+ * (Project)项目表服务实现类
  *
- * @author makejava
+ * @author makejava, liangjin
  * @since 2020-11-20 22:47:30
  */
 @Service("projectService")
-@Transactional
 public class ProjectServiceImpl implements ProjectService {
     @Resource
     private ProjectDao projectDao;
@@ -28,10 +27,10 @@ public class ProjectServiceImpl implements ProjectService {
      * @return 实例对象
      */
     @Override
-    @Transactional
     public Project queryById(String id) {
         return this.projectDao.queryById(id);
     }
+
     /**
      * 通过USERID查询单条数据
      *
@@ -39,7 +38,6 @@ public class ProjectServiceImpl implements ProjectService {
      * @return 实例对象
      */
     @Override
-    @Transactional
     public List<Project> queryByUserId(String userId) {
         return this.projectDao.queryByUserId(userId);
     }
@@ -52,7 +50,6 @@ public class ProjectServiceImpl implements ProjectService {
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<Project> queryAllByLimit(int offset, int limit) {
         return this.projectDao.queryAllByLimit(offset, limit);
     }
@@ -63,46 +60,61 @@ public class ProjectServiceImpl implements ProjectService {
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<Project> findAll() {
         return this.projectDao.findAll();
     }
 
     /**
-     * 新增数据
+     * 新增数据,判断开始日期必须早于结束日期,
+     * 只要出现异常就回滚
      *
      * @param project 实例对象
-     * @return 实例对象
+     * @return 如果插入成功返回实例对象，失败返回null
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Project insert(Project project) {
-        this.projectDao.insert(project);
-        return project;
+        if (project.getBeginDate().before(project.getEndDate())) {
+            int i = this.projectDao.insert(project);
+            if (i == 1) {
+                return project;
+            }
+        }
+        return null;
     }
 
     /**
-     * 修改数据
+     * 修改数据,判断开始日期必须早于结束日期
+     * 只要出现异常就回滚
      *
      * @param project 实例对象
-     * @return 实例对象
+     * @return 如果修改成功返回实例对象，失败返回null
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Project update(Project project) {
-        this.projectDao.update(project);
-        return this.queryById(project.getId());
+        if (project.getBeginDate().before(project.getEndDate())) {
+            int i = this.projectDao.update(project);
+            if (i == 1) {
+                return project;
+            }
+        }
+        return null;
     }
 
     /**
-     * 通过主键删除数据
+     * 通过主键删除数据,先判断是否存在这个id的记录，不存在直接返回
+     * 只要出现异常就回滚
      *
      * @param id 主键
      * @return 是否成功
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean deleteById(String id) {
+        if (this.projectDao.queryById(id).getId() == null) {
+            return false;
+        }
         return this.projectDao.deleteById(id) > 0;
     }
 }

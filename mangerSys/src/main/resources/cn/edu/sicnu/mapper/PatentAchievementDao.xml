@@ -144,7 +144,7 @@
                                                             impower_date,
                                                             user_id,
                                                             information)
-        values (#{name},
+        values (#{id},#{name},
                 #{patentType},
                 #{patentRange},
                 #{collegeId},

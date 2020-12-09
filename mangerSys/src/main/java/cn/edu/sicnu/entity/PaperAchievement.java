@@ -28,9 +28,13 @@ public class PaperAchievement implements Serializable {
 
     private String collegeId;
 
+    private String collegeName;
+
     private String paperSource;
 
     private String userId;
+
+    private String userName;
 
     private String information;
 
@@ -139,6 +143,22 @@ public class PaperAchievement implements Serializable {
         this.information = information;
     }
 
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public String toString() {
         return "PaperAchievement{" +
@@ -150,8 +170,10 @@ public class PaperAchievement implements Serializable {
                 ", descipline='" + descipline + '\'' +
                 ", firstDiscipline='" + firstDiscipline + '\'' +
                 ", collegeId='" + collegeId + '\'' +
+                ", collegeName='" + collegeName + '\'' +
                 ", paperSource='" + paperSource + '\'' +
                 ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
                 ", information='" + information + '\'' +
                 '}';
     }

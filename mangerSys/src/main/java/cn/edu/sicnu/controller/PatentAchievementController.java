@@ -5,6 +5,8 @@ import cn.edu.sicnu.service.CollegeService;
 import cn.edu.sicnu.service.PatentAchievementService;
 import cn.edu.sicnu.service.UserService;
 import cn.edu.sicnu.utils.Message;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +34,7 @@ public class PatentAchievementController {
     @Autowired
     private CollegeService collegeService;
 
-    @Autowired
-    private Message message;
+    private final Logger operLogger = LoggerFactory.getLogger("operationInfo");
 
     /**
      * 通过用户id查询该用户的所有专利
@@ -41,8 +42,8 @@ public class PatentAchievementController {
      * @param userId 用户id
      * @return data中有该用户所有专利的list
      */
-    @PostMapping("/patentAchievement/{id}")
-    public Message findAll(@PathVariable("id") String userId) {
+    @GetMapping("/achievements/patent/users/{userId}")
+    public Message getByUserId(@PathVariable("userId") String userId) {
         PatentAchievement achievement = new PatentAchievement();
         achievement.setUserId(userId);
         List<PatentAchievement> achievementList = patentAchievementService.queryAll(achievement);
@@ -53,17 +54,73 @@ public class PatentAchievementController {
             i.setUserName(userName);
             i.setCollegeName(collegeService.queryById(i.getCollegeId()).getName());
         }
-        message.setResultCode(0);
-        message.setResultMsg("请求成功");
-        message.setData(achievementList);
-        return message;
+        return Message.success(achievementList);
     }
 
-    @PutMapping("/patentAchievement")
+    /**
+     * 通过成果id得到成果
+     *
+     * @param achievementId 成果id
+     * @return 请求成功data中放入成果实体类
+     */
+    @GetMapping("/achievements/patent/{achievementId}")
+    public Message getByAchievementId(@PathVariable("achievementId") String achievementId) {
+        PatentAchievement patentAchievement = patentAchievementService.queryById(achievementId);
+        return Message.success(patentAchievement);
+    }
+
+    /**
+     * 查询所有专利产品
+     *
+     * @return 所有专利产品的list
+     */
+    @GetMapping("/achievements/patent")
+    public Message getAll() {
+        List<PatentAchievement> achievementList = patentAchievementService.findAll();
+        String userName;
+        String collegeName;
+        for (PatentAchievement achievement : achievementList) {
+            userName = userService.queryById(achievement.getUserId()).getName();
+            achievement.setUserName(userName);
+            collegeName = collegeService.queryById(achievement.getCollegeId()).getName();
+            achievement.setCollegeName(collegeName);
+        }
+        return Message.success(achievementList);
+    }
+
+    /**
+     * 增加专利产品
+     *
+     * @param patentAchievement 专利产品实体类
+     * @return 增加成功返回状态码0，失败返回其他状态码
+     */
+    @PostMapping("/achievements/patent")
+    public Message add(@RequestBody PatentAchievement patentAchievement) {
+        boolean insert = patentAchievementService.insert(patentAchievement);
+        if (insert) {
+            operLogger.info("新增专利产品成功");
+            return Message.success();
+        } else {
+            operLogger.info("新增专利产品失败");
+            return Message.fail();
+        }
+    }
+
+    /**
+     * 修改专利产品
+     *
+     * @param patentAchievement 专利产品实体类
+     * @return 增加成功返回状态码0，失败返回其他状态码
+     */
+    @PutMapping("/achievements/patent")
     public Message update(@RequestBody PatentAchievement patentAchievement) {
-        System.out.println(patentAchievement);
-        patentAchievementService.insert(patentAchievement);
-        return Message.success(null);
+        boolean update = patentAchievementService.update(patentAchievement);
+        if (update) {
+            operLogger.info("修改专利产品成功");
+            return Message.success();
+        } else {
+            operLogger.info("修改专利产品失败");
+            return Message.fail();
+        }
     }
-
 }

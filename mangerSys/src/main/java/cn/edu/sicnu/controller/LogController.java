@@ -17,7 +17,7 @@ import java.util.List;
  * 包括登录日志，操作日志，系统日志的查看和修改
  *
  * @author liangjin
- * @version V1.0
+ * @version V2.0
  * @package cn.edu.sicnu.controller
  * @date 2020/11/30 18:24
  */
@@ -42,13 +42,10 @@ public class LogController {
      *
      * @return message的data中放入查到的日志列表
      */
-    @PostMapping("/loginlog/{id}")
+    @GetMapping("/loginlog")
     public Message findAllLoginLog() {
         List<LoginLog> loginLogs = loginLogService.findAll();
-        message.setResultCode(0);
-        message.setResultMsg("请求成功");
-        message.setData(loginLogs);
-        return message;
+        return Message.success(loginLogs);
     }
 
     /**
@@ -59,7 +56,6 @@ public class LogController {
      */
     @DeleteMapping("/loginlog")
     public Message deleteLoginLogByBatch(@RequestBody String deleteLogId) {
-//        System.out.println(deleteLogId);
         String[] loginLogIdArr = deleteLogId.split(",");
 
         int i = 0;
@@ -68,14 +64,10 @@ public class LogController {
         }
 
         if (i == loginLogIdArr.length) {
-            message.setResultCode(0);
-            message.setResultMsg("请求成功");
+            return Message.success();
         } else {
-            message.setResultCode(-1);
-            message.setResultMsg("删除失败");
+            return Message.fail();
         }
-        message.setData(null);
-        return message;
     }
 
     /**
@@ -83,13 +75,10 @@ public class LogController {
      *
      * @return message中data放入查到的数据
      */
-    @PostMapping("/syslog/{id}")
+    @GetMapping("/syslog")
     public Message findAllSysLog() {
         List<ManagerSystemLog> systemLogs = systemLogService.findAll();
-        message.setData(0);
-        message.setResultMsg("请求成功");
-        message.setData(systemLogs);
-        return message;
+        return Message.success(systemLogs);
     }
 
     /**
@@ -108,14 +97,11 @@ public class LogController {
         }
 
         if (i == sysLogIdArr.length) {
-            message.setResultCode(0);
-            message.setResultMsg("请求成功");
+            return Message.success();
         } else {
-            message.setResultCode(-1);
-            message.setResultMsg("删除失败");
+            return Message.fail();
+
         }
-        message.setData(null);
-        return message;
     }
 
     /**
@@ -123,13 +109,10 @@ public class LogController {
      *
      * @return message中data放入查到的数据
      */
-    @PostMapping("/operlog/{id}")
-    public Message findAllOperLog(@PathVariable("id") String userId) {
-        List<OperationLog> all = operationLogService.findAll();
-        message.setResultCode(0);
-        message.setResultMsg("请求成功");
-        message.setData(all);
-        return message;
+    @GetMapping("/operlog")
+    public Message findAllOperLog() {
+        List<OperationLog> operLogs = operationLogService.findAll();
+        return Message.success(operLogs);
     }
 
     /**
@@ -148,14 +131,10 @@ public class LogController {
         }
 
         if (i == operLogIdArr.length) {
-            message.setResultCode(0);
-            message.setResultMsg("请求成功");
+            return Message.success();
         } else {
-            message.setResultCode(-1);
-            message.setResultMsg("删除失败");
+            return Message.fail();
         }
-        message.setData(null);
-        return message;
     }
 
 }

@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Component
 public class Message implements Serializable {
 
-    //返回状态码，成功为0，失败为-1
+    //返回状态码，成功为0，失败为-1,数据格式错误为-2,系统异常为-3
     private int resultCode = -1;
 
     //返回消息
@@ -25,7 +25,7 @@ public class Message implements Serializable {
     private Object data = null;
 
     /**
-     * 数据格式错误时，返回的信息
+     * 数据格式错误时，返回的信息,状态码为-2
      *
      * @return
      */
@@ -34,7 +34,7 @@ public class Message implements Serializable {
     }
 
     /**
-     * 系统异常时返回的消息
+     * 系统异常时返回的消息,状态码为-3
      *
      * @return
      */
@@ -43,7 +43,7 @@ public class Message implements Serializable {
     }
 
     /**
-     * 请求成功时返回的消息
+     * 请求成功时返回的消息,状态码为0
      *
      * @param data
      * @return
@@ -51,6 +51,30 @@ public class Message implements Serializable {
     public static Message success(Object data) {
         return new Message(0, "请求成功", data);
     }
+
+    public static Message success() {
+        return success(null);
+    }
+
+    /**
+     * 请求失败时返回的消息,状态码为-1
+     *
+     * @return
+     */
+    public static Message fail() {
+        return new Message(-1, "请求失败", null);
+    }
+
+    /**
+     * 请求失败时返回的消息，可以携带数据返回,状态码为-1
+     *
+     * @param data
+     * @return
+     */
+    public static Message fail(Object data) {
+        return new Message(-1, "请求失败", data);
+    }
+
 
     public Message() {
     }
