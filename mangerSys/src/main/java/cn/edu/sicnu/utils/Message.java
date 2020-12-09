@@ -52,6 +52,10 @@ public class Message implements Serializable {
         return new Message(0, "请求成功", data);
     }
 
+    public static Message success() {
+        return success(null);
+    }
+
     /**
      * 请求失败时返回的消息,状态码为-1
      *

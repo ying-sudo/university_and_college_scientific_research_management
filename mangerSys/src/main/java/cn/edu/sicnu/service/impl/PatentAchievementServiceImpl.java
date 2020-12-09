@@ -16,7 +16,6 @@ import java.util.List;
  * @since 2020-11-20 22:47:29
  */
 @Service("patentAchievementService")
-@Transactional
 public class PatentAchievementServiceImpl implements PatentAchievementService {
     @Resource
     private PatentAchievementDao patentAchievementDao;
@@ -28,7 +27,6 @@ public class PatentAchievementServiceImpl implements PatentAchievementService {
      * @return 实例对象
      */
     @Override
-    @Transactional
     public PatentAchievement queryById(String id) {
         return this.patentAchievementDao.queryById(id);
     }
@@ -41,7 +39,6 @@ public class PatentAchievementServiceImpl implements PatentAchievementService {
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<PatentAchievement> queryAllByLimit(int offset, int limit) {
         return this.patentAchievementDao.queryAllByLimit(offset, limit);
     }
@@ -52,40 +49,51 @@ public class PatentAchievementServiceImpl implements PatentAchievementService {
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<PatentAchievement> findAll() {
         return this.patentAchievementDao.findAll();
     }
 
+    /**
+     * 根据传入实体类模糊查询
+     *
+     * @param achievement 成果实体类
+     * @return 和传入实体类相近的所有专利成果列表
+     */
     @Override
     public List<PatentAchievement> queryAll(PatentAchievement achievement) {
         return this.patentAchievementDao.queryAll(achievement);
     }
 
     /**
-     * 新增数据
+     * 新增数据,先判断这个id是否已经使用，如果id已存在直接返回false
+     * 只要有异常就回滚
      *
      * @param patentAchievement 实例对象
-     * @return 实例对象
+     * @return 新增成功返回true，失败返回false
      */
     @Override
-    @Transactional
-    public PatentAchievement insert(PatentAchievement patentAchievement) {
-        this.patentAchievementDao.insert(patentAchievement);
-        return patentAchievement;
+    @Transactional(rollbackFor = Exception.class)
+    public boolean insert(PatentAchievement patentAchievement) {
+        PatentAchievement achievement = patentAchievementDao.queryById(patentAchievement.getId());
+        if (achievement == null) {
+            int i = this.patentAchievementDao.insert(patentAchievement);
+            return i == 1;
+        }
+        return false;
     }
 
     /**
      * 修改数据
+     * 只要有异常就回滚
      *
      * @param patentAchievement 实例对象
-     * @return 实例对象
+     * @return 修改成功返回true，失败返回false
      */
     @Override
-    @Transactional
-    public PatentAchievement update(PatentAchievement patentAchievement) {
-        this.patentAchievementDao.update(patentAchievement);
-        return this.queryById(patentAchievement.getId());
+    @Transactional(rollbackFor = Exception.class)
+    public boolean update(PatentAchievement patentAchievement) {
+        int i = this.patentAchievementDao.update(patentAchievement);
+        return i == 1;
     }
 
     /**

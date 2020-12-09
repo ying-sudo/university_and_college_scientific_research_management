@@ -16,7 +16,6 @@ import java.util.List;
  * @since 2020-11-27 10:05:14
  */
 @Service("fundService")
-@Transactional
 public class FundServiceImpl implements FundService {
     @Resource
     private FundDao fundDao;
@@ -28,7 +27,6 @@ public class FundServiceImpl implements FundService {
      * @return 实例对象
      */
     @Override
-    @Transactional
     public Fund queryById(String id) {
         return this.fundDao.queryById(id);
     }
@@ -38,7 +36,6 @@ public class FundServiceImpl implements FundService {
      * 项目id 参数
      */
     @Override
-    @Transactional
     public List<Fund> getFundByProjectId(String id) {
         return fundDao.getFundByProjectId(id);
     }
@@ -51,7 +48,6 @@ public class FundServiceImpl implements FundService {
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<Fund> queryAllByLimit(int offset, int limit) {
         return this.fundDao.queryAllByLimit(offset, limit);
     }
@@ -62,7 +58,6 @@ public class FundServiceImpl implements FundService {
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<Fund> findAll() {
         return this.fundDao.findAll();
     }

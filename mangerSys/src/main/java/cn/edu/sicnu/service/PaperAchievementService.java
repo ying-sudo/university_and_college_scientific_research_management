@@ -27,6 +27,7 @@ public interface PaperAchievementService {
      * @return 实例对象
      */
     List<PaperAchievement> queryByUserId(String id);
+
     /**
      * 查询多条数据
      *
@@ -47,17 +48,17 @@ public interface PaperAchievementService {
      * 新增数据
      *
      * @param paperAchievement 实例对象
-     * @return 实例对象
+     * @return 新增是否成功，成功为true，失败为false
      */
-    PaperAchievement insert(PaperAchievement paperAchievement);
+    boolean insert(PaperAchievement paperAchievement);
 
     /**
      * 修改数据
      *
      * @param paperAchievement 实例对象
-     * @return 实例对象
+     * @return 修改是否成功，成功为true，失败为false
      */
-    PaperAchievement update(PaperAchievement paperAchievement);
+    boolean update(PaperAchievement paperAchievement);
 
     /**
      * 通过主键删除数据

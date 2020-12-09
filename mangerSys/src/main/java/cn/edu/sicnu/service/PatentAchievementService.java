@@ -5,9 +5,9 @@ import cn.edu.sicnu.entity.PatentAchievement;
 import java.util.List;
 
 /**
- * (PatentAchievement)表服务接口
+ * (PatentAchievement)专利成果表服务接口
  *
- * @author makejava
+ * @author makejava, liangjin
  * @since 2020-11-20 22:47:29
  */
 public interface PatentAchievementService {
@@ -36,23 +36,29 @@ public interface PatentAchievementService {
      */
     List<PatentAchievement> findAll();
 
+    /**
+     * 根据传入的专利成果实体类模糊查询，
+     *
+     * @param achievement 成果实体类
+     * @return 所有匹配的专利成果记录
+     */
     List<PatentAchievement> queryAll(PatentAchievement achievement);
 
     /**
      * 新增数据
      *
      * @param patentAchievement 实例对象
-     * @return 实例对象
+     * @return 新增成功返回true，失败返回false
      */
-    PatentAchievement insert(PatentAchievement patentAchievement);
+    boolean insert(PatentAchievement patentAchievement);
 
     /**
      * 修改数据
      *
      * @param patentAchievement 实例对象
-     * @return 实例对象
+     * @return 修改成功返回true，失败返回false
      */
-    PatentAchievement update(PatentAchievement patentAchievement);
+    boolean update(PatentAchievement patentAchievement);
 
     /**
      * 通过主键删除数据

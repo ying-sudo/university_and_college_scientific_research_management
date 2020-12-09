@@ -5,6 +5,8 @@ import cn.edu.sicnu.entity.LoginLog;
 import java.util.List;
 
 /**
+ * 登录日志
+ *
  * @author liangjin
  * @version V1.0
  * @package cn.edu.sicnu.service

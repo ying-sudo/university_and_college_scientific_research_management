@@ -16,7 +16,6 @@ import java.util.List;
  * @since 2020-11-20 22:47:30
  */
 @Service("projectService")
-@Transactional
 public class ProjectServiceImpl implements ProjectService {
     @Resource
     private ProjectDao projectDao;
@@ -28,7 +27,6 @@ public class ProjectServiceImpl implements ProjectService {
      * @return 实例对象
      */
     @Override
-    @Transactional
     public Project queryById(String id) {
         return this.projectDao.queryById(id);
     }
@@ -40,7 +38,6 @@ public class ProjectServiceImpl implements ProjectService {
      * @return 实例对象
      */
     @Override
-    @Transactional
     public List<Project> queryByUserId(String userId) {
         return this.projectDao.queryByUserId(userId);
     }
@@ -53,7 +50,6 @@ public class ProjectServiceImpl implements ProjectService {
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<Project> queryAllByLimit(int offset, int limit) {
         return this.projectDao.queryAllByLimit(offset, limit);
     }
@@ -64,19 +60,19 @@ public class ProjectServiceImpl implements ProjectService {
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<Project> findAll() {
         return this.projectDao.findAll();
     }
 
     /**
-     * 新增数据,判断开始日期必须早于结束日期
+     * 新增数据,判断开始日期必须早于结束日期,
+     * 只要出现异常就回滚
      *
      * @param project 实例对象
      * @return 如果插入成功返回实例对象，失败返回null
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Project insert(Project project) {
         if (project.getBeginDate().before(project.getEndDate())) {
             int i = this.projectDao.insert(project);
@@ -89,12 +85,13 @@ public class ProjectServiceImpl implements ProjectService {
 
     /**
      * 修改数据,判断开始日期必须早于结束日期
+     * 只要出现异常就回滚
      *
      * @param project 实例对象
      * @return 如果修改成功返回实例对象，失败返回null
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Project update(Project project) {
         if (project.getBeginDate().before(project.getEndDate())) {
             int i = this.projectDao.update(project);
@@ -106,14 +103,18 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     /**
-     * 通过主键删除数据
+     * 通过主键删除数据,先判断是否存在这个id的记录，不存在直接返回
+     * 只要出现异常就回滚
      *
      * @param id 主键
      * @return 是否成功
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean deleteById(String id) {
+        if (this.projectDao.queryById(id).getId() == null) {
+            return false;
+        }
         return this.projectDao.deleteById(id) > 0;
     }
 }

@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * (Project)项目表控制层
  *
- * @author makejava
+ * @author makejava, liangjin
  * @since 2020-11-20 22:47:30
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -37,32 +37,16 @@ public class ProjectController {
     private CollegeService collegeService;
     @Resource
     private UserService userService;
-//    @Resource
-//    private LogtableService logtableService;
-//    @Resource
-//    private LogcolumnService logcolumnService;
-//    @Resource
-//    private LogoperationService logoperationService;
 
     private final Logger operLogger = LoggerFactory.getLogger("operationInfo");
 
     /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("/project/selectOne")
-    public Project selectOne(String id) {
-        return this.projectService.queryById(id);
-    }
-
-    /**
      * 查询所有项目
-     * /projrct
+     *
+     * @return
      */
-    @GetMapping("/project/projects")
-    public String projects() {
+    @GetMapping("/projects")
+    public String findAll() {
         try {
             List<Project> projects = projectService.findAll();
             List<String> list = new ArrayList<>();
@@ -99,13 +83,15 @@ public class ProjectController {
 
     /**
      * 通过用户id查询用户的所有项目
-     * /project/{id}
+     *
+     * @param userId 用户id
+     * @return 以该用户id为项目负责人的所有项目
      */
-    @PostMapping("/projects/{id}")
-    public String findById(@PathVariable String id) {
+    @GetMapping("/projects/users/{userId}")
+    public String findById(@PathVariable("userId") String userId) {
         try {
-            System.out.println("id = " + id);
-            List<Project> projects = projectService.queryByUserId(id);
+            System.out.println("userId = " + userId);
+            List<Project> projects = projectService.queryByUserId(userId);
             List<String> list = new ArrayList<>();
             String re = "";
             for (Project project : projects) {
@@ -139,6 +125,18 @@ public class ProjectController {
     }
 
     /**
+     * 根据项目id得到一个项目的详细信息
+     *
+     * @param projectId 项目id
+     * @return 如果存在，返回message中data为项目的实体类信息；如果不存在，返回的message中data为null
+     */
+    @GetMapping("/projects/{projectId}")
+    public Message findByProjectId(@PathVariable("projectId") String projectId) {
+        Project project = projectService.queryById(projectId);
+        return Message.success(project);
+    }
+
+    /**
      * 新建项目
      *
      * @param project 传入的项目对象
@@ -146,24 +144,16 @@ public class ProjectController {
      * @return message成功时返回中状态码为0，
      * 其余都为操作失败，包括出现异常
      */
-    @PostMapping("/project/projects")
-    public Message insertProject(@RequestBody Project project, HttpSession session) {
+    @PostMapping("/projects")
+    public Message insert(@RequestBody Project project, HttpSession session) {
         MDC.clear();
         MDC.put("userId", String.valueOf(session.getAttribute("userId")));
         MDC.clear();
-        System.out.println(project);
-//            project.setBeginDate(new SimpleDateFormat("yyyy-yy-dd").parse("2020-12-12"));
-//            Project project = objectMapper.readValue(project.get("project").toString(), Project.class);
-//            project.setRequestFund((Double)project.getRequestFund());
-//            project.setArrivalFund((Double)project.getArrivalFund());
-//            project.setState((Integer)project.getState());
-//            System.out.println(project);
         project = projectService.insert(project);
         if (project != null) {
             operLogger.info("新建项目成功");
             return Message.success(null);
         }
-//            System.out.println("sfawe");
         operLogger.warn("新建项目失败");
         return Message.fail();
     }
@@ -172,18 +162,18 @@ public class ProjectController {
      * 修改项目信息
      *
      * @param project 修改的项目对象
-     * @param id      项目id
      * @param session
      * @return message成功时返回中状态码为0，
      * 其余都为操作失败，包括出现异常
      */
-    @PutMapping("/projects/{id}")
-    public Message updataProject(@RequestBody Project project, @PathVariable String id, HttpSession session) {
+    @PutMapping("/projects")
+    public Message update(@RequestBody Project project, HttpSession session) {
         MDC.clear();
         MDC.put("userId", String.valueOf(session.getAttribute("userId")));
         MDC.clear();
-        System.out.println("project = " + project.toString());
-        System.out.println("id = " + id);
+//        System.out.println(project);
+//        System.out.println("project = " + project.toString());
+//        System.out.println("id = " + id);
         project = projectService.update(project);
         if (project != null) {
             operLogger.info("修改项目成功");
@@ -191,5 +181,17 @@ public class ProjectController {
         }
         operLogger.warn("修改项目失败");
         return Message.fail();
+    }
+
+    /**
+     * 根据项目id删除项目
+     *
+     * @param projectId 项目id
+     * @return 删除成功状态码为0，失败为其他
+     */
+    @DeleteMapping("/projects/{projectId}")
+    public Message delete(@PathVariable("projectId") String projectId) {
+        boolean delete = projectService.deleteById(projectId);
+        return delete ? Message.success(null) : Message.fail();
     }
 }
