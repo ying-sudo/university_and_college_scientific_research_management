@@ -1,6 +1,9 @@
 <template>
   <!-- 论文成果按钮 -->
   <div>
+
+    <div v-if="getAllData"></div>
+
     <mu-container>
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
@@ -40,10 +43,10 @@
           isDisabled: false,
         }, //论文成果表单
         reload: '',
-        collegeInfo: this.GLOBAL.collegeInfo,
-        firstDiscipline: this.GLOBAL.firstDiscipline,
-        level: this.GLOBAL.level,
-        sort: this.GLOBAL.sort,
+        collegeInfo: null,
+        firstDiscipline: null,
+        level: null,
+        sort: null,
       };
     },
     components: {
@@ -51,10 +54,13 @@
     },
     methods: {
       openAlertDialog() {
+        this.collegeInfo = Global.methods.getCollegeData(this);
+        console.log(this.collegeInfo);
         this.reload = new Date().getTime();
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
       },
     },
+    
   };
 </script>
 

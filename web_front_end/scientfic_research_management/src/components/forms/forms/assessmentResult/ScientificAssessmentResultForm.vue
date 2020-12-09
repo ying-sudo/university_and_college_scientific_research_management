@@ -137,7 +137,7 @@
       };
     },
     created: function() {
-      // this.scientific_achievement = this.TableRow;
+      this.scientific_achievement = this.TableRow;
       this.notDisabled = true;
     },
     methods: {

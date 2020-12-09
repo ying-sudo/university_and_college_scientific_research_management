@@ -163,7 +163,7 @@
       };
     },
     created: function() {
-      // this.work_achievement = this.TableRow;
+      this.work_achievement = this.TableRow;
       this.notDisabled = true;
     },
     methods: {

@@ -181,7 +181,7 @@
       };
     },
     created: function() {
-      // this.paper_achievement = this.TableRow;
+      this.paper_achievement = this.TableRow;
       this.notDisabled = true;
     },
     methods: {

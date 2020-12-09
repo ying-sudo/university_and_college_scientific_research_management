@@ -167,7 +167,7 @@
       };
     },
     created: function() {
-      // this.team = this.TableRow;
+      this.team = this.TableRow;
       this.notDisabled = true;
     },
     methods: {

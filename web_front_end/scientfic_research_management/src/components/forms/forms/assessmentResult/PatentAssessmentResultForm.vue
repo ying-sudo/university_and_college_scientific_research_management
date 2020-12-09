@@ -141,7 +141,7 @@
       };
     },
     created: function() {
-      // this.patent_achievement = this.TableRow;
+      this.patent_achievement = this.TableRow;
       this.notDisabled = true;
     },
     methods: {

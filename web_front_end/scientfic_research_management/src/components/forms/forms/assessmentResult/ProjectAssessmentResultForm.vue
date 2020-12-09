@@ -159,7 +159,7 @@
       };
     },
     created: function() {
-      // this.project = this.TableRow;
+      this.project = this.TableRow;
       this.notDisabled = true;
     },
     methods: {

@@ -10,16 +10,6 @@
       <img src="../../assets/images/LoginLogo.png" style="width: 296px; float: left; margin: 15px 100px" alt="" />
     </div>
 
-    <!-- 图片 -->
-    <!--    <div style="
-        background-color: #000000;
-        float: left;
-        width: 300px;
-        height: 300px;
-        margin-top: 100px;
-        margin-left: 500px;
-      "></div> -->
-
     <!-- 登录界面 -->
     <div v-loading="loading" style="
         background-color: white;
@@ -47,53 +37,6 @@
           <el-divider></el-divider>
         </div>
       </div>
-
-      <!--      输入框
-      <div style="text-align: center">
-        <mu-container>
-
-<form method="post">
-  username:<input type="text" value="" v-model="username" name="username"/>
-  password:<input type="text" value="" v-model="password" name="password" />
-  <input type="submit" value="submit" @click="submit" />
-</form>
-
-
-  <mu-form action="http://192.168.1.102:9999/mangerSys/login" method="post" ref="form" class="mu-demo-form">
-    <mu-form-item label="用户名" help-text="帮助文字" prop="username">
-      <mu-text-field type="text" name="username"></mu-text-field>
-    </mu-form-item>
-    <mu-form-item label="密码" prop="password">
-        <mu-text-field type="text" v-model="password" name="password"></mu-text-field>
-    </mu-form-item>
-    <mu-form-item>
-      <mu-button color="primary" type="submit">提交</mu-button>
-    </mu-form-item>
-  </mu-form>
-
-          <mu-form :inline="true" action="this.GLOBAL.BASE_URL + '/mangerSys/login'" ref="form" :model="user" class="mu-demo-form" style="margin: 0 90px;">
-
-            <mu-form-item label="用户名" label-float>
-              <mu-text-field prop="username" type="text" v-model="username" help-text="用户名为学工号"></mu-text-field>
-            </mu-form-item>
-
-            <mu-form-item label="密码" label-float>
-              <mu-text-field type="text" v-model="password" prop="password" :action-icon="visibility ? 'visibility_off' : 'visibility'"
-            :action-click="() => (visibility = !visibility)" :type="visibility ? 'text' : 'password'"></mu-text-field>
-            </mu-form-item>
-            <mu-form-item style="margin: 0 80px;">
-              <mu-button color="primary" @click="submit">登录</mu-button>
-            </mu-form-item>
-          </mu-form>
-
-          <i class="el-icon-user" style="font-size: 35px; padding: 5px"></i>
-          <mu-text-field v-model="username" label="用户名" label-float help-text="用户名为学工号"></mu-text-field><br />
-          <i class="el-icon-lock" style="font-size: 35px; padding: 5px"></i>
-          <mu-text-field v-model="password" label="密码" :action-icon="visibility ? 'visibility_off' : 'visibility'"
-            :action-click="() => (visibility = !visibility)" :type="visibility ? 'text' : 'password'" label-float
-            help-text="密码"></mu-text-field><br />
-        </mu-container>
-      </div> -->
 
       <!-- 输入框 -->
       <div style="text-align: center">
