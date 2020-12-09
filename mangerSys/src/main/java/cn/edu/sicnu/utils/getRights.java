@@ -1,10 +1,11 @@
-package cn.edu.sicnu.controller;
+package cn.edu.sicnu.utils;
 
 import cn.edu.sicnu.entity.CharactersRight;
 import cn.edu.sicnu.entity.RightsAndcharacters;
 import cn.edu.sicnu.service.CharactersRightService;
 import cn.edu.sicnu.service.RightsService;
 import cn.edu.sicnu.service.UserCharacterService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -17,8 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-@Component
+@Controller
 public class getRights {
 
     @Resource
@@ -36,28 +36,14 @@ public class getRights {
      * @return
      */
     public String getRightsByCharacters(String id){
-        System.out.println("进入");
         Map<String,Integer> map = new HashMap<>();
-//        List<Logtable> logtables = logtableService.queryAllByLimit(0, 1);
-//        if(logtables.size()==0){
-//            map.put("count",0);
-//        }else{
-//            map.replace("count",logtables.get(0).getId()+1);
-//            System.out.println("map = " + map.get("count"));
-//        }
-//        t.set();
         Integer rowPosition=0; //横向递增
         Integer columnPosition=1; //纵向递增
         Integer temp; //暂存
         RightsAndcharacters r1;
         RightsAndcharacters r2;
         String Sumt="{\"headerLists\": [";
-//        System.out.println("进入");
-        System.out.println("jinru");
-        System.out.println(id);
-        System.out.println(userCharacterService.queryByuserId(id));
         List<RightsAndcharacters> rights = charactersRightService.getRights(userCharacterService.queryByuserId(id).getCharacterId());
-        System.out.println("zaijinru");
         temp=rights.get(0).getAbscissa();
         for (int s=0;s<rights.size();s++) {
             if(s==rights.size()-1){

@@ -1,80 +1,58 @@
-package cn.edu.sicnu.sercurity.filter;
+package cn.edu.sicnu.sercurity.config;
 
 
-import cn.edu.sicnu.sercurity.handler.MyAccessDeniedHandler;
-import cn.edu.sicnu.sercurity.handler.MyAuthenticationEntryPoint;
-import cn.edu.sicnu.sercurity.handler.MyAuthenticationFailureHandler;
-import cn.edu.sicnu.sercurity.handler.MyAuthenticationSuccessHandler;
-import cn.edu.sicnu.sercurity.handler.MyLogoutHandler;
-import cn.edu.sicnu.sercurity.service.UserDetailsServiceImpl;
+import cn.edu.sicnu.sercurity.filter.TokenAuthFilter;
+import cn.edu.sicnu.sercurity.filter.TokenLoginFilter;
+import cn.edu.sicnu.sercurity.service.UnauthEntryPoint;
+import cn.edu.sicnu.sercurity.service.MyLogoutHandler;
+import cn.edu.sicnu.sercurity.utils.DefaultPasswordEncoder;
+import cn.edu.sicnu.sercurity.utils.TokenManger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-@Configuration //相当于把该类作为spring的xml配置文件中的<beans>
-@EnableWebSecurity
+/**
+ * 主配置类，一切关于security的配置
+ */
+@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //未登陆时返回 JSON 格式的数据给前端（否则为 html）
-    @Resource
-    private MyAuthenticationEntryPoint myAuthenticationEntryPoint;
-
-    //登录成功处理逻辑
-    @Resource
-    private MyAuthenticationSuccessHandler authenticationSuccessHandler;
-
-    //处理登录失败逻辑
-    @Resource
-    private MyAuthenticationFailureHandler authenticationFailureHandler;
-
-
-    //退出登录成功处理逻辑
-    @Resource
-    private MyLogoutHandler myLogoutSuccessHandler;
-
-    //权限拒绝处理逻辑
-    @Resource
-    private MyAccessDeniedHandler accessDeniedHandler;
-
-    @Resource
-    private UserDetailsServiceImpl userDetailsService;
+    private TokenManger tokenManger;
+    private RedisTemplate redisTemplate;
+    private DefaultPasswordEncoder defaultPasswordEncoder;
+    private UserDetailsService userDetailsService;
 
     @Resource
     private DataSource dataSource;
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository(){
-        JdbcTokenRepositoryImpl jdbcTokenRepository=new JdbcTokenRepositoryImpl();
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
         jdbcTokenRepository.setDataSource(dataSource);
-        jdbcTokenRepository.setCreateTableOnStartup(true);
         return jdbcTokenRepository;
     }
 
-    //重写密码方法
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public WebSecurityConfig(TokenManger tokenManger,RedisTemplate redisTemplate,
+                             DefaultPasswordEncoder defaultPasswordEncoder,UserDetailsService userDetailsService){
+        this.userDetailsService=userDetailsService;
+        this.defaultPasswordEncoder=defaultPasswordEncoder;
+        this.tokenManger=tokenManger;
+        this.redisTemplate=redisTemplate;
     }
 
-    //重写验证方法
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-    }
     private CorsConfigurationSource CorsConfigurationSource() {
         CorsConfigurationSource source =   new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfiguration = new CorsConfiguration();
@@ -89,58 +67,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.cors().configurationSource(CorsConfigurationSource());
 
-        // 新加入(cors) CSRF  取消跨站请求伪造防护 //由于使用的是JWT，我们这里不需要csrf
-        http.cors().configurationSource(CorsConfigurationSource());//允许跨域访问
-        http.cors().and().csrf().disable();
-//        http.addFilterBefore(usernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-        http.authorizeRequests()
-
-                /** 解决跨域 **/
-                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-
-                /** 任何尚未匹配的URL都只需要对用户进行身份验证  每个请求的url必须通过这个规则  RBAC 动态 url 认证 **/
-                //.anyRequest().access("@rbacauthorityservice.hasPermission(request,authentication)")
-                //登录
-                .and()
-                .formLogin()//开启登录, 定义当需要用户登录时候，转到的登录页面，默认post方法
-//                .loginPage("http://localhost:8080/#/login")
-//                .loginProcessingUrl("/login")
-//                .defaultSuccessUrl("")
-                .successHandler(authenticationSuccessHandler)// 登录成功
-                .failureHandler(authenticationFailureHandler)// 登录失败
-                .and().authorizeRequests()
-                    .antMatchers("/","/login").permitAll()
+        http.exceptionHandling()
+                .authenticationEntryPoint(new UnauthEntryPoint())
+                .and().csrf().disable()
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .and().logout().logoutUrl("user/logout")
+                .addLogoutHandler(new MyLogoutHandler(tokenManger,redisTemplate)).and()
+                .addFilter(new TokenLoginFilter(authenticationManager(),tokenManger,redisTemplate))
+                .addFilter(new TokenAuthFilter(authenticationManager(),tokenManger,redisTemplate)).httpBasic()
                 .and().rememberMe().tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(60)
-                .userDetailsService(userDetailsService)
-                //退出
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessHandler(myLogoutSuccessHandler)
+                .userDetailsService(userDetailsService);
 
-                // 不需要session
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
-                //异常处理(权限拒绝、登录失效等)
-                .and().exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler)//权限拒绝处理逻辑
-                .authenticationEntryPoint(myAuthenticationEntryPoint)//匿名用户访问无权限资源时的异常处理
-
-                //验证token
-                .and()
-                .addFilter(new AuthenticationTokenFilter(authenticationManager()));
-        ;
-//        http.addFilterAt(usernamePassword(), MyUsernamePasswordAuthenticationFilter.class);
-        //用户未登录
-//        http.httpBasic().authenticationEntryPoint(myAuthenticationEntryPoint);
-//        UsernamePasswordAuthenticationFilter authenticationFilter=
-//                new MyUsernamePasswordAuthenticationFilter();
-//        authenticationFilter.setAuthenticationManager(authenticationManagerBean());
-//        http.addFilterAt(authenticationFilter,UsernamePasswordAuthenticationFilter.class);
     }
-
+    //调用userDetailsService和密码处理
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(defaultPasswordEncoder);
+    }
+    //不用认证就可以访问的接口
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/userCharacter/**");
+        web.ignoring().antMatchers("/charactersRight/**");
+    }
 }

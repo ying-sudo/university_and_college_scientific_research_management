@@ -19,7 +19,7 @@ public interface UserCharacterDao {
      * @param characterId 主键
      * @return 实例对象
      */
-    UserCharacter queryBycharacterId(String characterId);
+    List<UserCharacter> queryBycharacterId(String characterId);
     /**
      * 通过ID查询单条数据
      *

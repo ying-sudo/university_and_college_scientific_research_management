@@ -2,6 +2,7 @@ package cn.edu.sicnu.service;
 
 import cn.edu.sicnu.entity.CharactersRight;
 import cn.edu.sicnu.entity.RightsAndcharacters;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 import java.util.Set;
