@@ -1,13 +1,11 @@
 package cn.edu.sicnu.sercurity.filter;
 
 
-import cn.edu.sicnu.sercurity.filter.AuthenticationTokenFilter;
 import cn.edu.sicnu.sercurity.handler.MyAccessDeniedHandler;
 import cn.edu.sicnu.sercurity.handler.MyAuthenticationEntryPoint;
 import cn.edu.sicnu.sercurity.handler.MyAuthenticationFailureHandler;
 import cn.edu.sicnu.sercurity.handler.MyAuthenticationSuccessHandler;
-import cn.edu.sicnu.sercurity.handler.MyLogoutSuccessHandler;
-import cn.edu.sicnu.sercurity.service.MyUsernamePasswordAuthenticationFilter;
+import cn.edu.sicnu.sercurity.handler.MyLogoutHandler;
 import cn.edu.sicnu.sercurity.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,13 +15,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 @Configuration //相当于把该类作为spring的xml配置文件中的<beans>
 @EnableWebSecurity
@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     //退出登录成功处理逻辑
     @Resource
-    private MyLogoutSuccessHandler myLogoutSuccessHandler;
+    private MyLogoutHandler myLogoutSuccessHandler;
 
     //权限拒绝处理逻辑
     @Resource
@@ -53,11 +53,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private UserDetailsServiceImpl userDetailsService;
 
-    //重写登录加载类
-//    @Bean
-//    public UserDetailsService myUserDetailsService() {
-//        return new UserDetailsServiceImpl();
-//    }
+    @Resource
+    private DataSource dataSource;
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository(){
+        JdbcTokenRepositoryImpl jdbcTokenRepository=new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        jdbcTokenRepository.setCreateTableOnStartup(true);
+        return jdbcTokenRepository;
+    }
 
     //重写密码方法
     @Bean
@@ -106,6 +111,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(authenticationFailureHandler)// 登录失败
                 .and().authorizeRequests()
                     .antMatchers("/","/login").permitAll()
+                .and().rememberMe().tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(60)
+                .userDetailsService(userDetailsService)
                 //退出
                 .and()
                 .logout()

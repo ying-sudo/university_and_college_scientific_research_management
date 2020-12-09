@@ -10,11 +10,11 @@
         <result property="collegeId" column="college_id" jdbcType="VARCHAR"/>
         <result property="state" column="state" jdbcType="INTEGER"/>
         <result property="applicationId" column="application_id" jdbcType="VARCHAR"/>
-        <result property="applicationDate" column="application_date" jdbcType="TIMESTAMP"/>
+        <result property="applicationDate" column="application_date" jdbcType="VARCHAR"/>
         <result property="publicId" column="public_id" jdbcType="VARCHAR"/>
-        <result property="publicDate" column="public_date" jdbcType="TIMESTAMP"/>
+        <result property="publicDate" column="public_date" jdbcType="VARCHAR"/>
         <result property="impowerId" column="impower_id" jdbcType="VARCHAR"/>
-        <result property="impowerDate" column="impower_date" jdbcType="TIMESTAMP"/>
+        <result property="impowerDate" column="impower_date" jdbcType="VARCHAR"/>
         <result property="userId" column="user_id" jdbcType="VARCHAR"/>
         <result property="information" column="information" jdbcType="VARCHAR"/>
     </resultMap>
@@ -131,7 +131,7 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into scientific_research.patent_achievement (name,
+        insert into scientific_research.patent_achievement (id,name,
                                                             patent_type,
                                                             patent_range,
                                                             college_id,

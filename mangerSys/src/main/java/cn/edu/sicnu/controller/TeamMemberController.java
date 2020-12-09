@@ -2,22 +2,22 @@ package cn.edu.sicnu.controller;
 
 import cn.edu.sicnu.entity.TeamMember;
 import cn.edu.sicnu.service.TeamMemberService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import cn.edu.sicnu.service.UserService;
+import cn.edu.sicnu.utils.Message;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
- * (TeamMember)表控制层
+ * 团队成员(TeamMember)表控制层
  *
  * @author makejava
  * @since 2020-11-20 22:47:41
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("teamMember")
 public class TeamMemberController {
     /**
      * 服务对象
@@ -25,25 +25,30 @@ public class TeamMemberController {
     @Resource
     private TeamMemberService teamMemberService;
 
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public TeamMember selectOne(String id) {
-        return this.teamMemberService.queryById(id);
-    }
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private Message message;
 
     /**
-     * 查询所有
+     * 查询对应团队id下的团队的所有成员
      *
-     * @return 所有数据
+     * @return data中放入团队成员列表
      */
-    @RequestMapping("")
-    public String findAll() {
-        return "";
+    @PostMapping("/teamMember/{teamId}")
+    public Message findAll(@PathVariable("teamId") String teamId) {
+        TeamMember teamMember = new TeamMember();
+        teamMember.setTeamId(teamId);
+        List<TeamMember> teamMemberList = this.teamMemberService.queryAll(teamMember);
+        for (TeamMember member : teamMemberList) {
+            member.setUserName(userService.queryById(member.getUserId()).getName());
+        }
+        message.setResultCode(0);
+        message.setResultMsg("请求成功");
+        message.setData(teamMemberList);
+
+        return message;
     }
 
 }

@@ -36,6 +36,9 @@ public interface TeamMemberService {
      */
     List<TeamMember> findAll();
 
+    List<TeamMember> queryAll(TeamMember teamMember);
+
+
     /**
      * 新增数据
      *

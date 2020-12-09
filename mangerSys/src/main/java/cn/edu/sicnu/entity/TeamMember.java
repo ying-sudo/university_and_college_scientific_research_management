@@ -15,6 +15,16 @@ public class TeamMember implements Serializable {
 
     private String userId;
 
+    private String userName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     private String post;
 
     public TeamMember() {

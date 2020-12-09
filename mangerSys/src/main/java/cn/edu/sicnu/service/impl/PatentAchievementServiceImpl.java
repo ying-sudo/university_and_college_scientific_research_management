@@ -57,6 +57,11 @@ public class PatentAchievementServiceImpl implements PatentAchievementService {
         return this.patentAchievementDao.findAll();
     }
 
+    @Override
+    public List<PatentAchievement> queryAll(PatentAchievement achievement) {
+        return this.patentAchievementDao.queryAll(achievement);
+    }
+
     /**
      * 新增数据
      *

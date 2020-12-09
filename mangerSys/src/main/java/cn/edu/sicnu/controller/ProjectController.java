@@ -111,7 +111,7 @@ public class ProjectController {
      * 通过用户id查询用户的所有项目
      * /project/{id}
      */
-    @GetMapping("/projects/{id}")
+    @PostMapping("/projects/{id}")
     public String findById(@PathVariable String id){
         try {
             System.out.println("id = " + id);
@@ -155,11 +155,15 @@ public class ProjectController {
     @PostMapping("projects")
     public String insertProject(@RequestBody Map<String,Object> map){
         try{
+            System.out.println("进来1111111");
 //            project.setBeginDate(new SimpleDateFormat("yyyy-yy-dd").parse("2020-12-12"));
             Project project = objectMapper.readValue(map.get("project").toString(), Project.class);
             project.setRequestFund((Double)project.getRequestFund());
             project.setArrivalFund((Double)project.getArrivalFund());
             project.setState((Integer)project.getState());
+            System.out.println(project);
+            projectService.insert(project);
+            System.out.println("sfawe");
             return "{\"resultCode\":\"0\",\"resultMsg\":\"请求成功\"}";
         }catch (Exception e){
             System.out.println("e = " + e.toString());

@@ -3,7 +3,9 @@ package cn.edu.sicnu.controller;
 import cn.edu.sicnu.entity.CharactersRight;
 import cn.edu.sicnu.entity.RightsAndcharacters;
 import cn.edu.sicnu.service.CharactersRightService;
+import cn.edu.sicnu.service.RightsService;
 import cn.edu.sicnu.service.UserCharacterService;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -16,11 +18,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-@Controller
+@Component
 public class getRights {
-
-    public getRights() {
-    }
 
     @Resource
     private UserCharacterService userCharacterService;
@@ -28,11 +27,6 @@ public class getRights {
     @Resource
     private CharactersRightService charactersRightService;
 
-    @Resource
-    private PlatformTransactionManager platformTransactionManager;
-
-    @Resource
-    private TransactionDefinition transactionDefinition;
 
     private static ThreadLocal<Map<String,Integer>> t=new ThreadLocal<>();
 
@@ -42,6 +36,7 @@ public class getRights {
      * @return
      */
     public String getRightsByCharacters(String id){
+        System.out.println("进入");
         Map<String,Integer> map = new HashMap<>();
 //        List<Logtable> logtables = logtableService.queryAllByLimit(0, 1);
 //        if(logtables.size()==0){
@@ -57,10 +52,13 @@ public class getRights {
         RightsAndcharacters r1;
         RightsAndcharacters r2;
         String Sumt="{\"headerLists\": [";
-        System.out.println("进入");
+//        System.out.println("进入");
+        System.out.println("jinru");
+        System.out.println(id);
+        System.out.println(userCharacterService.queryByuserId(id));
         List<RightsAndcharacters> rights = charactersRightService.getRights(userCharacterService.queryByuserId(id).getCharacterId());
+        System.out.println("zaijinru");
         temp=rights.get(0).getAbscissa();
-        rights.forEach(i-> System.out.println("i = " + i.toString()));
         for (int s=0;s<rights.size();s++) {
             if(s==rights.size()-1){
                 if(rights.get(s).getOrdinate()==1){
@@ -90,10 +88,7 @@ public class getRights {
             }
         }
         Sumt+="]}";
-        System.out.println("Sumt = " + Sumt);
         return Sumt;
-//        System.out.println("Sumt = " + Sumt);
-//        return Sumt;
     }
 
     /**

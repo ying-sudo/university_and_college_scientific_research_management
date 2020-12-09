@@ -1,6 +1,7 @@
 package cn.edu.sicnu.sercurity.filter;
 
-import cn.edu.sicnu.sercurity.utils.TokenUtil;
+import cn.edu.sicnu.redis.utils.RedisService;
+import cn.edu.sicnu.sercurity.utils.TokenManger;
 import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,6 +13,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
+import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +34,12 @@ public class AuthenticationTokenFilter extends BasicAuthenticationFilter {
 //    private UserDetailsServiceImpl userDetailsService;
 //
 //
+//    @Autowired
+//    RedisTemplate<String, String> redisTemplate;
+//    String tokenHead = "Bearer ";
+//    String tokenHeader = "Authorization";
+    @Resource
+    private RedisService redisService;
     public AuthenticationTokenFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
@@ -41,21 +50,24 @@ public class AuthenticationTokenFilter extends BasicAuthenticationFilter {
         String url = request.getRequestURI();
         //System.out.println("=========="+url);
         //String AUTHORIZATION = "Authorization";//表头授权
-        String header = request.getHeader(TokenUtil.AUTHORIZATION);
-        //System.out.println(header);
+//        String header = request.getHeader(TokenUtil.AUTHORIZATION);
+        String header = request.getHeader("userId");
+        System.out.println(header);
+        Object o = redisService.get(header);
+        System.out.println("o = " + o);
 
-        if (header == null || !header.startsWith(TokenUtil.TOKEN_PREFIX)) {
+        if (header == null || !header.startsWith(TokenManger.TOKEN_PREFIX)) {
             getResponse(response, "token不合法！");
             //chain.doFilter(request,response);//执行下一个过滤器
             return;
         }
-        final String authToken = header.substring(TokenUtil.TOKEN_PREFIX.length());//真正的token
+        final String authToken = header.substring(TokenManger.TOKEN_PREFIX.length());//真正的token
         //System.out.println("token" + authToken);
-        if (TokenUtil.isTokenExpired(authToken)) {
+        if (TokenManger.isTokenExpired(authToken)) {
             getResponse(response, "token过期！");
             return;
         }
-        String username = TokenUtil.getUsernameFromToken(authToken);
+        String username = TokenManger.getUsernameFromToken(authToken);
         //System.out.println("name:" + username);
         if (username == null || username == "") {
             getResponse(response, "token错误！");
@@ -71,11 +83,11 @@ public class AuthenticationTokenFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(String tokenHeader) {
 
         //获取到名字
-        String token = tokenHeader.replace(TokenUtil.TOKEN_PREFIX, "");
-        String username = TokenUtil.getUsernameFromToken(token);
+        String token = tokenHeader.replace(TokenManger.TOKEN_PREFIX, "");
+        String username = TokenManger.getUsernameFromToken(token);
 
         //获取到权限字符串，然后切分
-        String authoritys = TokenUtil.getUseAythoritys(token);
+        String authoritys = TokenManger.getUseAythoritys(token);
         String[] authorityList = StringUtils.strip(authoritys, "[]").split(", ");
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();

@@ -28,7 +28,7 @@ public class ScientificAchievement implements Serializable {
     //    表中无此字段，只是为了向前端放回方便
     private String userName;
 
-    private Object isTranslate;
+    private String isTranslate;
 
     private String translateLanguage;
 
@@ -46,7 +46,8 @@ public class ScientificAchievement implements Serializable {
     }
 
     public ScientificAchievement(String id, String name, String collegeId,
-                                 String beginDate, String userId, Object isTranslate, String translateLanguage, String firstDiscipline, String discipline, String characters, String workSource, String information) {
+                                 String beginDate, String userId, String isTranslate,
+                                 String translateLanguage, String firstDiscipline, String discipline, String characters, String workSource, String information) {
         this.id = id;
         this.name = name;
         this.collegeId = collegeId;
@@ -117,11 +118,11 @@ public class ScientificAchievement implements Serializable {
         this.userId = userId;
     }
 
-    public Object getIsTranslate() {
+    public String getIsTranslate() {
         return isTranslate;
     }
 
-    public void setIsTranslate(Object isTranslate) {
+    public void setIsTranslate(String isTranslate) {
         this.isTranslate = isTranslate;
     }
 

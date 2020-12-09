@@ -52,24 +52,29 @@ public class LogController {
     }
 
     /**
-     * 删除一条登录日志
+     * 批量删除登录日志记录
      *
-     * @param loginLogId 待删除的登录日志记录的id号
-     * @return message中resultMsg返回删除成功与否
+     * @param deleteLogId 多个登录日志记录id，中间以逗号分隔
+     * @return 通过resultCode分辨删除成功与否
      */
-    @DeleteMapping("/loginlog/{id}")
-    public Message deleteLoginLogById(@PathVariable("id") String loginLogId) {
-        int i = loginLogService.deleteById(loginLogId);
-        if (i == 1) {
-            message.setResultCode(0);
-            message.setResultMsg("删除成功");
-            message.setData(null);
+    @DeleteMapping("/loginlog")
+    public Message deleteLoginLogByBatch(@RequestBody String deleteLogId) {
+//        System.out.println(deleteLogId);
+        String[] loginLogIdArr = deleteLogId.split(",");
 
+        int i = 0;
+        for (String eachId : loginLogIdArr) {
+            i += loginLogService.deleteById(eachId);
+        }
+
+        if (i == loginLogIdArr.length) {
+            message.setResultCode(0);
+            message.setResultMsg("请求成功");
         } else {
             message.setResultCode(-1);
             message.setResultMsg("删除失败");
-            message.setData(null);
         }
+        message.setData(null);
         return message;
     }
 
@@ -88,23 +93,28 @@ public class LogController {
     }
 
     /**
-     * 删除一条系统日志
+     * 批量删除系统日志记录
      *
-     * @param sysLogId 待删除系统日志表中的id
-     * @return message中resultMsg返回删除成功与否
+     * @param deleteLogId 多个登录日志记录id，中间以逗号分隔
+     * @return 通过resultCode分辨删除成功与否
      */
-    @DeleteMapping("/syslog/{id}")
-    public Message deleteSysLogById(@PathVariable("id") String sysLogId) {
-        int i = systemLogService.deleteById(sysLogId);
-        if (i == 1) {
+    @DeleteMapping("/syslog")
+    public Message deleteSysLogByBatch(@RequestBody String deleteLogId) {
+        String[] sysLogIdArr = deleteLogId.split(",");
+
+        int i = 0;
+        for (String eachId : sysLogIdArr) {
+            i += systemLogService.deleteById(eachId);
+        }
+
+        if (i == sysLogIdArr.length) {
             message.setResultCode(0);
-            message.setResultMsg("删除成功");
-            message.setData(null);
+            message.setResultMsg("请求成功");
         } else {
             message.setResultCode(-1);
             message.setResultMsg("删除失败");
-            message.setData(null);
         }
+        message.setData(null);
         return message;
     }
 
@@ -114,7 +124,7 @@ public class LogController {
      * @return message中data放入查到的数据
      */
     @PostMapping("/operlog/{id}")
-    public Message findAllOperLog() {
+    public Message findAllOperLog(@PathVariable("id") String userId) {
         List<OperationLog> all = operationLogService.findAll();
         message.setResultCode(0);
         message.setResultMsg("请求成功");
@@ -123,23 +133,29 @@ public class LogController {
     }
 
     /**
-     * 删除一条操作日志
+     * 批量删除系统日志
      *
-     * @param operLogId 待删除操作日志表中的id
+     * @param deleteLogId 待删除系统日志表中的id
      * @return message中resultMsg返回删除成功与否
      */
-    @DeleteMapping("/operlog/{id}")
-    public Message deleteOperLogById(@PathVariable("id") String operLogId) {
-        int i = operationLogService.deleteById(operLogId);
-        if (i == 1) {
+    @DeleteMapping("/operlog")
+    public Message deleteOperLogByBatch(@RequestBody String deleteLogId) {
+        String[] operLogIdArr = deleteLogId.split(",");
+
+        int i = 0;
+        for (String eachId : operLogIdArr) {
+            i += operationLogService.deleteById(eachId);
+        }
+
+        if (i == operLogIdArr.length) {
             message.setResultCode(0);
-            message.setResultMsg("删除成功");
-            message.setData(null);
+            message.setResultMsg("请求成功");
         } else {
             message.setResultCode(-1);
             message.setResultMsg("删除失败");
-            message.setData(null);
         }
+        message.setData(null);
         return message;
     }
+
 }

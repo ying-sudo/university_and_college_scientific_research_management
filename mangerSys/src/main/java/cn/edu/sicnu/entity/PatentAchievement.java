@@ -22,28 +22,49 @@ public class PatentAchievement implements Serializable {
 
     private String collegeId;
 
+    private String collegeName;
+
     private Integer state;
 
     private String applicationId;
 
-    private Date applicationDate;
+    private String applicationDate;
 
     private String publicId;
 
-    private Date publicDate;
+    private String publicDate;
 
     private String impowerId;
 
-    private Date impowerDate;
+    private String impowerDate;
 
     private String userId;
 
+    private String userName;
+
     private String information;
+
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
 
     public PatentAchievement() {
     }
 
-    public PatentAchievement(String id, String name, String patentType, String patentRange, String collegeId, Integer state, String applicationId, Date applicationDate, String publicId, Date publicDate, String impowerId, Date impowerDate, String userId, String information) {
+    public PatentAchievement(String id, String name, String patentType, String patentRange, String collegeId, Integer state, String applicationId, String applicationDate, String publicId, String publicDate, String impowerId, String impowerDate, String userId, String information) {
         this.id = id;
         this.name = name;
         this.patentType = patentType;
@@ -116,11 +137,11 @@ public class PatentAchievement implements Serializable {
         this.applicationId = applicationId;
     }
 
-    public Date getApplicationDate() {
+    public String getApplicationDate() {
         return applicationDate;
     }
 
-    public void setApplicationDate(Date applicationDate) {
+    public void setApplicationDate(String applicationDate) {
         this.applicationDate = applicationDate;
     }
 
@@ -132,11 +153,11 @@ public class PatentAchievement implements Serializable {
         this.publicId = publicId;
     }
 
-    public Date getPublicDate() {
+    public String getPublicDate() {
         return publicDate;
     }
 
-    public void setPublicDate(Date publicDate) {
+    public void setPublicDate(String publicDate) {
         this.publicDate = publicDate;
     }
 
@@ -148,11 +169,11 @@ public class PatentAchievement implements Serializable {
         this.impowerId = impowerId;
     }
 
-    public Date getImpowerDate() {
+    public String getImpowerDate() {
         return impowerDate;
     }
 
-    public void setImpowerDate(Date impowerDate) {
+    public void setImpowerDate(String impowerDate) {
         this.impowerDate = impowerDate;
     }
 

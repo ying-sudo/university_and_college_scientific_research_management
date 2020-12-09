@@ -10,7 +10,7 @@
         <result property="workType" column="work_type" jdbcType="VARCHAR"/>
         <result property="publishLocation" column="publish_location" jdbcType="VARCHAR"/>
         <result property="isbnId" column="isbn_id" jdbcType="VARCHAR"/>
-        <result property="isTranslate" column="is_translate" jdbcType="OTHER"/>
+        <result property="isTranslate" column="is_translate" jdbcType="VARCHAR"/>
         <result property="translateLanguage" column="translate_language" jdbcType="VARCHAR"/>
         <result property="discipline" column="discipline" jdbcType="VARCHAR"/>
         <result property="beginDate" column="begin_date" jdbcType="TIMESTAMP"/>
@@ -172,7 +172,7 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into scientific_research.work_achievement (name,
+        insert into scientific_research.work_achievement (id,name,
                                                           publisher,
                                                           publish_level,
                                                           work_type,
@@ -188,7 +188,8 @@
                                                           work_source,
                                                           user_id,
                                                           information)
-        values (#{name},
+        values (#{id},
+        #{name},
                 #{publisher},
                 #{publishLevel},
                 #{workType},

@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * (ScientificAchievement)表控制层
+ * 科研成果(ScientificAchievement)表控制层
  *
  * @author makejava, liangjin
  * @since 2020-11-20 22:47:32
@@ -36,17 +36,6 @@ public class ScientificAchievementController {
     private Message message;
 
     /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public ScientificAchievement selectOne(String id) {
-        return this.scientificAchievementService.queryById(id);
-    }
-
-    /**
      * 通过该用户id，查询该用户的所有科研成果
      *
      * @return 所有数据
@@ -67,6 +56,13 @@ public class ScientificAchievementController {
         message.setResultMsg("请求成功");
         message.setData(achievementList);
         return message;
+    }
+
+    @PutMapping("/scientAchieve")
+    public Message update(@RequestBody ScientificAchievement achievement) {
+        System.out.println(achievement);
+        scientificAchievementService.insert(achievement);
+        return Message.success(null);
     }
 
 }

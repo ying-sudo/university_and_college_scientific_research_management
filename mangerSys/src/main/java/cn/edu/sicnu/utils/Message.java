@@ -22,7 +22,35 @@ public class Message implements Serializable {
     private String resultMsg = "待处理";
 
     //返回的数据
-    private Object data = new Object();
+    private Object data = null;
+
+    /**
+     * 数据格式错误时，返回的信息
+     *
+     * @return
+     */
+    public static Message missParam() {
+        return new Message(-2, "数据格式错误");
+    }
+
+    /**
+     * 系统异常时返回的消息
+     *
+     * @return
+     */
+    public static Message error() {
+        return new Message(-3, "系统内部异常");
+    }
+
+    /**
+     * 请求成功时返回的消息
+     *
+     * @param data
+     * @return
+     */
+    public static Message success(Object data) {
+        return new Message(0, "请求成功", data);
+    }
 
     public Message() {
     }

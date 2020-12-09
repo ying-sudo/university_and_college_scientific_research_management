@@ -4,26 +4,22 @@ import cn.edu.sicnu.entity.PaperAchievement;
 import cn.edu.sicnu.service.CollegeService;
 import cn.edu.sicnu.service.PaperAchievementService;
 import cn.edu.sicnu.service.UserService;
+import cn.edu.sicnu.utils.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * (PaperAchievement)表控制层
+ * 论文成果(PaperAchievement)表控制层
  *
- * @author makejava
+ * @author makejava, liangjin
  * @since 2020-11-20 22:47:28
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("paperAchievement")
 public class PaperAchievementController {
     /**
      * 服务对象
@@ -36,33 +32,14 @@ public class PaperAchievementController {
     private UserService userService;
     @Resource
     private CollegeService collegeService;
-
-    /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public PaperAchievement selectOne(String id) {
-        return this.paperAchievementService.queryById(id);
-    }
-
-    /**
-     * 查询所有
-     *
-     * @return 所有数据
-     */
-    @RequestMapping("")
-    public String findAll() {
-        return "";
-    }
+    @Autowired
+    private Message message;
 
     /**
      * 通过用户id查询论文成果
      * @return 相关数据
      */
-    @PostMapping("findOne/{id}")
+    @PostMapping("/paperAchievement/findOne/{id}")
     public String findOne(@PathVariable String id){
         try{
             String string="";
@@ -93,6 +70,16 @@ public class PaperAchievementController {
             e.toString();
             return "{\"resultCode\":\"-1\",\"resultMsg\":\"请求失败\"}";
         }
+    }
+
+    @PutMapping("/paperAchievement")
+    public Message add(@RequestBody PaperAchievement paperAchievement){
+//        System.out.println(paperAchievement);
+        paperAchievementService.insert(paperAchievement);
+        message.setResultCode(0);
+        message.setResultMsg("请求成功");
+        message.setData(null);
+        return message;
     }
 
 }
