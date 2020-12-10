@@ -1,6 +1,7 @@
 package cn.edu.sicnu.service;
 
 import cn.edu.sicnu.entity.UserCharacter;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -18,7 +19,13 @@ public interface UserCharacterService {
      * @param characterId 主键
      * @return 实例对象
      */
-    UserCharacter queryBycharacterId(String characterId);
+    List<UserCharacter> queryBycharacterId(String characterId);
+    /**
+     * 通过ID查询单条数据
+     *
+     * @param userId 主键
+     * @return 实例对象
+     */
     UserCharacter queryByuserId(String userId);
 
     /**

@@ -1,9 +1,12 @@
-package cn.edu.sicnu.controller;
+package cn.edu.sicnu.utils;
 
 import cn.edu.sicnu.entity.CharactersRight;
 import cn.edu.sicnu.entity.RightsAndcharacters;
 import cn.edu.sicnu.service.CharactersRightService;
+import cn.edu.sicnu.service.RightsService;
 import cn.edu.sicnu.service.UserCharacterService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -15,12 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 @Controller
 public class getRights {
-
-    public getRights() {
-    }
 
     @Resource
     private UserCharacterService userCharacterService;
@@ -28,29 +27,16 @@ public class getRights {
     @Resource
     private CharactersRightService charactersRightService;
 
-    @Resource
-    private PlatformTransactionManager platformTransactionManager;
-
-    @Resource
-    private TransactionDefinition transactionDefinition;
 
     private static ThreadLocal<Map<String,Integer>> t=new ThreadLocal<>();
 
     /**
      * 请求用户的所有权限
-     * @param id
+     * @param id 用户id
      * @return
      */
     public String getRightsByCharacters(String id){
         Map<String,Integer> map = new HashMap<>();
-//        List<Logtable> logtables = logtableService.queryAllByLimit(0, 1);
-//        if(logtables.size()==0){
-//            map.put("count",0);
-//        }else{
-//            map.replace("count",logtables.get(0).getId()+1);
-//            System.out.println("map = " + map.get("count"));
-//        }
-//        t.set();
         Integer rowPosition=0; //横向递增
         Integer columnPosition=1; //纵向递增
         Integer temp; //暂存
@@ -59,11 +45,10 @@ public class getRights {
         String Sumt="{\"headerLists\": [";
         List<RightsAndcharacters> rights = charactersRightService.getRights(userCharacterService.queryByuserId(id).getCharacterId());
         temp=rights.get(0).getAbscissa();
-        rights.forEach(i-> System.out.println("i = " + i.toString()));
         for (int s=0;s<rights.size();s++) {
             if(s==rights.size()-1){
                 if(rights.get(s).getOrdinate()==1){
-                    Sumt+="{\"id\":"+rights.get(s).getId()+",\"index\":"+"\""+columnPosition.toString()+"\""+",\"title\":"+"\""+rights.get(s).getName()+"\""+",\"urlPath\":"+"\""+rights.get(s).getUrlPath()+"\""+",\"subMenu\":\"null\"}";
+                    Sumt+="\"{id:\""+rights.get(s).getId()+"\",index:\""+"\""+columnPosition.toString()+"\""+",\"title\":"+"\""+rights.get(s).getName()+"\""+",\"urlPath\":"+"\""+rights.get(s).getUrlPath()+"\""+",\"subMenu\":\"null\"}";
                 }else{
                     Sumt+="{\"id\":"+rights.get(s).getId()+",\"index\":"+"\""+columnPosition.toString()+"-"+rowPosition.toString()+"\""+",\"title\":"+"\""+rights.get(s).getName()+"\""+",\"urlPath\":"+"\""+rights.get(s).getUrlPath()+"\""+",\"subMenu\":\"null\"}]}";
                 }
@@ -89,9 +74,7 @@ public class getRights {
             }
         }
         Sumt+="]}";
-        return "\"data\":"+Sumt;
-//        System.out.println("Sumt = " + Sumt);
-//        return Sumt;
+        return Sumt;
     }
 
     /**

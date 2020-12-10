@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 
 /**
  * (CharactersRight)表服务实现类
@@ -32,6 +33,17 @@ public class CharactersRightServiceImpl implements CharactersRightService {
     @Transactional
     public CharactersRight queryById(String characterId) {
         return this.charactersRightDao.queryById(characterId);
+    }
+
+    /**
+     * 通过CharacterID查询单条数据
+     *
+     * @param characterId
+     * @return 实例对象
+     */
+    @Override
+    public List<CharactersRight> queryByCharacterId(String characterId) {
+        return charactersRightDao.queryByCharacterId(characterId);
     }
 
     /**

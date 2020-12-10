@@ -2,8 +2,10 @@ package cn.edu.sicnu.service;
 
 import cn.edu.sicnu.entity.CharactersRight;
 import cn.edu.sicnu.entity.RightsAndcharacters;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * (CharactersRight)表服务接口
@@ -20,6 +22,15 @@ public interface CharactersRightService {
      * @return 实例对象
      */
     CharactersRight queryById(String characterId);
+
+
+    /**
+     * 通过CharacterID查询单条数据
+     *
+     * @param characterId
+     * @return 实例对象
+     */
+    List<CharactersRight> queryByCharacterId(String characterId);
 
     /**
      * 查询多条数据

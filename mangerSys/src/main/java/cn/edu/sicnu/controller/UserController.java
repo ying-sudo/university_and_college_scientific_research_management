@@ -6,15 +6,15 @@ import cn.edu.sicnu.utils.Message;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.MDC;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
- * (User)用户表控制层
+ * (User)表控制层
  *
  * @author makejava
  * @since 2020-11-20 22:47:42
@@ -27,8 +27,7 @@ public class UserController {
      */
     @Resource
     private UserService userService;
-    @Resource
-    private getRights get;
+
 
     //    private final Logger loggingLogger = Logger.getLogger("loginInfo");
 //    private final Logger systemLogger = Logger.getLogger("systemInfo");
@@ -40,6 +39,7 @@ public class UserController {
      * @param id 主键
      * @return 单条数据
      */
+    @PreAuthorize("hasRole('admin1')")
     @PostMapping("/user/selectOne")
     public Message selectOne(@RequestBody String id) {
         System.out.println(id);
@@ -63,53 +63,7 @@ public class UserController {
         return "";
     }
 
-    /**
-     * 得到请求的ip地址
-     *
-     * @param request 请求
-     */
-    private static String getRemoteHost(HttpServletRequest request) {
-        // 反向代理后：转发请求的HTTP头信息中，增加了X-Real-IP信息
-        String ip = request.getHeader("X-Real-IP");
-        if (StringUtils.isBlank(ip)) {
-            ip = request.getHeader("x-Forwarded-For");
-        }
-        if (StringUtils.isBlank(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (StringUtils.isBlank(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (StringUtils.isBlank(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
-    }
 
-    /**
-     * 用户登录
-     * /login
-     * id password输入参数
-     */
-    @PostMapping("/user/login")
-    public String login(@RequestBody Map<String, String> map, HttpServletRequest request) {
-        String userId = map.get("id");
-        String password = map.get("password");
-        String ip = getRemoteHost(request);
-        MDC.put("ipAddress", ip);
-        Users user = userService.findByIdAndPassword(userId, password);
-
-        if (user.getId() != null && user.getPassword() != null) {
-            MDC.put("userId", user.getId());
-            loggingLogger.info("登录成功");
-            HttpSession session = request.getSession();
-            session.setAttribute("userId", user.getId());
-            return "{\"resultCode\": \"0\",\"resultMsg\": \"登录成功\"}";
-        }
-
-        loggingLogger.info("登录失败");
-        return "{\"resultCode\": \"-1\",\"resultMsg\": \"登录失败\"}";
-    }
 
     /**
      * 忘记密码

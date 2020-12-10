@@ -25,6 +25,11 @@
         from scientific_research.characters_right
         where character_id = #{characterId}
     </select>
+    <select id="queryByCharacterId" resultMap="CharactersRightMap">
+        select character_id, right_id, note
+        from scientific_research.characters_right
+        where character_id = #{characterId}
+    </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="CharactersRightMap">

@@ -2,6 +2,7 @@ package cn.edu.sicnu.controller;
 
 import cn.edu.sicnu.entity.CharactersRight;
 import cn.edu.sicnu.service.CharactersRightService;
+import cn.edu.sicnu.utils.getRights;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +28,7 @@ public class CharactersRightController {
      */
     @Resource
     private CharactersRightService charactersRightService;
-    @Resource
-    private getRights get;
+
 
     /**
      * 通过主键查询单条数据
@@ -57,6 +57,7 @@ public class CharactersRightController {
      */
     @PostMapping("updataRights")
     public String updateRights(@RequestBody Map<String,Object> map){
+        getRights get = new getRights();
         System.out.println("map = " + map);
         String s = get.updataByMap(map);
         System.out.println("s = " + s);

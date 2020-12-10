@@ -29,7 +29,7 @@ public class UserCharacterServiceImpl implements UserCharacterService {
      */
     @Override
     @Transactional
-    public UserCharacter queryBycharacterId(String characterId) {
+    public List<UserCharacter> queryBycharacterId(String characterId) {
         return userCharacterDao.queryBycharacterId(characterId);
     }
     @Override
@@ -85,7 +85,7 @@ public class UserCharacterServiceImpl implements UserCharacterService {
     @Transactional
     public UserCharacter update(UserCharacter userCharacter) {
         this.userCharacterDao.update(userCharacter);
-        return this.queryBycharacterId(userCharacter.getCharacterId());
+        return userCharacter;
     }
 
     /**
