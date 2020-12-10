@@ -1,5 +1,7 @@
 package cn.edu.sicnu.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -32,7 +34,7 @@ public class WorkAchievement implements Serializable {
 
     private String discipline;
 
-//    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date beginDate;
 
     private String characters;
@@ -41,9 +43,13 @@ public class WorkAchievement implements Serializable {
 
     private String collegeId;
 
+    private String collegeName;
+
     private String workSource;
 
     private String userId;
+
+    private String userName;
 
     private String information;
 
@@ -207,6 +213,22 @@ public class WorkAchievement implements Serializable {
         this.information = information;
     }
 
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public String toString() {
         return "WorkAchievement{" +
@@ -224,8 +246,10 @@ public class WorkAchievement implements Serializable {
                 ", characters='" + characters + '\'' +
                 ", firstDiscipline='" + firstDiscipline + '\'' +
                 ", collegeId='" + collegeId + '\'' +
+                ", collegeName='" + collegeName + '\'' +
                 ", workSource='" + workSource + '\'' +
                 ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
                 ", information='" + information + '\'' +
                 '}';
     }

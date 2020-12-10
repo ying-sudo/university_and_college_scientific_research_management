@@ -34,9 +34,6 @@ public class LogController {
     @Autowired
     private OperationLogService operationLogService;    //操作日志service
 
-    @Autowired
-    private Message message;
-
     /**
      * 查看登录日志列表
      *

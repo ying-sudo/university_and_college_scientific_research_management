@@ -5,7 +5,7 @@ import cn.edu.sicnu.entity.WorkAchievement;
 import java.util.List;
 
 /**
- * (WorkAchievement)表服务接口
+ * (WorkAchievement)著作成果表服务接口
  *
  * @author makejava
  * @since 2020-11-20 22:47:43
@@ -48,17 +48,17 @@ public interface WorkAchievementService {
      * 新增数据
      *
      * @param workAchievement 实例对象
-     * @return 实例对象
+     * @return 新增成功返回true，失败返回false
      */
-    WorkAchievement insert(WorkAchievement workAchievement);
+    boolean insert(WorkAchievement workAchievement);
 
     /**
      * 修改数据
      *
      * @param workAchievement 实例对象
-     * @return 实例对象
+     * @return 修改成功返回true，失败返回false
      */
-    WorkAchievement update(WorkAchievement workAchievement);
+    boolean update(WorkAchievement workAchievement);
 
     /**
      * 通过主键删除数据

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * (ScientificAchievement)表服务接口
  *
- * @author makejava
+ * @author makejava, liangjin
  * @since 2020-11-20 22:47:32
  */
 public interface ScientificAchievementService {
@@ -49,17 +49,17 @@ public interface ScientificAchievementService {
      * 新增数据
      *
      * @param scientificAchievement 实例对象
-     * @return 实例对象
+     * @return 新增成功返回true，失败返回false
      */
-    ScientificAchievement insert(ScientificAchievement scientificAchievement);
+    boolean insert(ScientificAchievement scientificAchievement);
 
     /**
      * 修改数据
      *
      * @param scientificAchievement 实例对象
-     * @return 实例对象
+     * @return 新增成功返回true，失败返回false
      */
-    ScientificAchievement update(ScientificAchievement scientificAchievement);
+    boolean update(ScientificAchievement scientificAchievement);
 
     /**
      * 通过主键删除数据

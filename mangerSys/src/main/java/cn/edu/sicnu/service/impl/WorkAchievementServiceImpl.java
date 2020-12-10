@@ -16,7 +16,6 @@ import java.util.List;
  * @since 2020-11-20 22:47:43
  */
 @Service("workAchievementService")
-@Transactional
 public class WorkAchievementServiceImpl implements WorkAchievementService {
     @Resource
     private WorkAchievementDao workAchievementDao;
@@ -28,7 +27,6 @@ public class WorkAchievementServiceImpl implements WorkAchievementService {
      * @return 实例对象
      */
     @Override
-    @Transactional
     public WorkAchievement queryById(String id) {
         return this.workAchievementDao.queryById(id);
     }
@@ -40,7 +38,6 @@ public class WorkAchievementServiceImpl implements WorkAchievementService {
      * @return 实例对象
      */
     @Override
-    @Transactional
     public List<WorkAchievement> queryByUserId(String userId) {
         return workAchievementDao.queryByUserId(userId);
     }
@@ -53,7 +50,6 @@ public class WorkAchievementServiceImpl implements WorkAchievementService {
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<WorkAchievement> queryAllByLimit(int offset, int limit) {
         return this.workAchievementDao.queryAllByLimit(offset, limit);
     }
@@ -64,35 +60,42 @@ public class WorkAchievementServiceImpl implements WorkAchievementService {
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<WorkAchievement> findAll() {
         return this.workAchievementDao.findAll();
     }
 
     /**
-     * 新增数据
+     * 先查询这个id的记录是否存在，如果不存在则新增数据，如果存在则返回false
      *
      * @param workAchievement 实例对象
-     * @return 实例对象
+     * @return 新增成功返回true，失败返回false
      */
     @Override
-    @Transactional
-    public WorkAchievement insert(WorkAchievement workAchievement) {
-        this.workAchievementDao.insert(workAchievement);
-        return workAchievement;
+    @Transactional(rollbackFor = Exception.class)
+    public boolean insert(WorkAchievement workAchievement) {
+        WorkAchievement achievement = workAchievementDao.queryById(workAchievement.getId());
+        if (achievement == null) {
+            int insert = this.workAchievementDao.insert(workAchievement);
+            return insert == 1;
+        }
+        return false;
     }
 
     /**
-     * 修改数据
+     * 新查询这个id的记录是否存在，存在才能修改数据，否则直接返回false
      *
      * @param workAchievement 实例对象
-     * @return 实例对象
+     * @return 修改成功返回true，失败返回false
      */
     @Override
-    @Transactional
-    public WorkAchievement update(WorkAchievement workAchievement) {
-        this.workAchievementDao.update(workAchievement);
-        return this.queryById(workAchievement.getId());
+    @Transactional(rollbackFor = Exception.class)
+    public boolean update(WorkAchievement workAchievement) {
+        WorkAchievement achievement = workAchievementDao.queryById(workAchievement.getId());
+        if (achievement != null) {
+            int update = this.workAchievementDao.update(workAchievement);
+            return update == 1;
+        }
+        return false;
     }
 
     /**
@@ -102,7 +105,7 @@ public class WorkAchievementServiceImpl implements WorkAchievementService {
      * @return 是否成功
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean deleteById(String id) {
         return this.workAchievementDao.deleteById(id) > 0;
     }

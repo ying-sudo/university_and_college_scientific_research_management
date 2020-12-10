@@ -1,5 +1,7 @@
 package cn.edu.sicnu.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -32,6 +34,7 @@ public class PatentAchievement implements Serializable {
 
     private String publicId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private String publicDate;
 
     private String impowerId;

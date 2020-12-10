@@ -10,13 +10,12 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * (ScientificAchievement)表服务实现类
+ * (ScientificAchievement)科研成果表服务实现类
  *
- * @author makejava
+ * @author makejava, liangjin
  * @since 2020-11-20 22:47:32
  */
 @Service("scientificAchievementService")
-@Transactional
 public class ScientificAchievementServiceImpl implements ScientificAchievementService {
     @Resource
     private ScientificAchievementDao scientificAchievementDao;
@@ -28,7 +27,6 @@ public class ScientificAchievementServiceImpl implements ScientificAchievementSe
      * @return 实例对象
      */
     @Override
-    @Transactional
     public ScientificAchievement queryById(String id) {
         return this.scientificAchievementDao.queryById(id);
     }
@@ -41,7 +39,6 @@ public class ScientificAchievementServiceImpl implements ScientificAchievementSe
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<ScientificAchievement> queryAllByLimit(int offset, int limit) {
         return this.scientificAchievementDao.queryAllByLimit(offset, limit);
     }
@@ -52,40 +49,53 @@ public class ScientificAchievementServiceImpl implements ScientificAchievementSe
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<ScientificAchievement> findAll() {
         return this.scientificAchievementDao.findAll();
     }
 
+    /**
+     * 根据传入的对象进行模糊匹配，所有匹配的结果放入一个list中
+     *
+     * @param scientificAchievement 实例对象
+     * @return 所有匹配的结果的实例对象
+     */
     @Override
     public List<ScientificAchievement> queryAll(ScientificAchievement scientificAchievement) {
         return this.scientificAchievementDao.queryAll(scientificAchievement);
     }
 
     /**
-     * 新增数据
+     * 新增数据,先判断这个id是否已存在，不存在才能插入，存在则返回false
      *
      * @param scientificAchievement 实例对象
-     * @return 实例对象
+     * @return 新增成功返回true，失败返回false
      */
     @Override
-    @Transactional
-    public ScientificAchievement insert(ScientificAchievement scientificAchievement) {
-        this.scientificAchievementDao.insert(scientificAchievement);
-        return scientificAchievement;
+    @Transactional(rollbackFor = Exception.class)
+    public boolean insert(ScientificAchievement scientificAchievement) {
+        ScientificAchievement achievement = scientificAchievementDao.queryById(scientificAchievement.getId());
+        if (achievement == null) {
+            int insert = this.scientificAchievementDao.insert(scientificAchievement);
+            return insert == 1;
+        }
+        return false;
     }
 
     /**
-     * 修改数据
+     * 修改数据,先判断这个id是否已存在，存在才能修改，不存在则返回false
      *
      * @param scientificAchievement 实例对象
-     * @return 实例对象
+     * @return 修改成功返回true，失败返回false
      */
     @Override
-    @Transactional
-    public ScientificAchievement update(ScientificAchievement scientificAchievement) {
-        this.scientificAchievementDao.update(scientificAchievement);
-        return this.queryById(scientificAchievement.getId());
+    @Transactional(rollbackFor = Exception.class)
+    public boolean update(ScientificAchievement scientificAchievement) {
+        ScientificAchievement achievement = scientificAchievementDao.queryById(scientificAchievement.getId());
+        if (achievement != null) {
+            int update = this.scientificAchievementDao.update(scientificAchievement);
+            return update == 1;
+        }
+        return false;
     }
 
     /**
@@ -95,7 +105,7 @@ public class ScientificAchievementServiceImpl implements ScientificAchievementSe
      * @return 是否成功
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean deleteById(String id) {
         return this.scientificAchievementDao.deleteById(id) > 0;
     }

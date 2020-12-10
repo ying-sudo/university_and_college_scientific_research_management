@@ -1,5 +1,7 @@
 package cn.edu.sicnu.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -16,6 +18,7 @@ public class PaperAchievement implements Serializable {
 
     private String name;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date beginDate;
 
     private String paperType;
@@ -41,7 +44,10 @@ public class PaperAchievement implements Serializable {
     public PaperAchievement() {
     }
 
-    public PaperAchievement(String id, String name, Date beginDate, String paperType, String recordId, String descipline, String firstDiscipline, String collegeId, String paperSource, String userId, String information) {
+    public PaperAchievement(String id, String name, Date beginDate, String paperType,
+                            String recordId, String descipline, String firstDiscipline,
+                            String collegeId, String paperSource, String userId,
+                            String information) {
         this.id = id;
         this.name = name;
         this.beginDate = beginDate;

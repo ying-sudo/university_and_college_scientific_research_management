@@ -1,5 +1,7 @@
 package cn.edu.sicnu.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,14 +20,15 @@ public class ScientificAchievement implements Serializable {
 
     private String collegeId;
 
-//    表中无此字段，只是为了向前端放回方便
+//    表中无此字段，只是为了向前端返回方便
     private String collegeName;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private String beginDate;
 
     private String userId;
 
-    //    表中无此字段，只是为了向前端放回方便
+    //    表中无此字段，只是为了向前端返回方便
     private String userName;
 
     private String isTranslate;

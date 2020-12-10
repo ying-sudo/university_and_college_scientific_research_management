@@ -1,24 +1,21 @@
 package cn.edu.sicnu.controller;
 
-import cn.edu.sicnu.entity.PaperAchievement;
 import cn.edu.sicnu.entity.WorkAchievement;
 import cn.edu.sicnu.service.CollegeService;
 import cn.edu.sicnu.service.UserService;
 import cn.edu.sicnu.service.WorkAchievementService;
 import cn.edu.sicnu.utils.Message;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
 
 /**
- * (WorkAchievement)表控制层
+ * (WorkAchievement)著作成果表控制层
  *
- * @author makejava
+ * @author makejava, liangjin
  * @since 2020-11-20 22:47:43
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -29,56 +26,102 @@ public class WorkAchievementController {
      */
     @Resource
     private WorkAchievementService workAchievementService;
-    @Autowired
-    private ObjectMapper objectMapper;
     @Resource
     private UserService userService;
     @Resource
     private CollegeService collegeService;
 
+    private final Logger operLogger = LoggerFactory.getLogger("operationInfo");
+
     /**
-     * 查询用户的著作成果
+     * 查询用户的著作成果，根据用户id
      *
-     * @param id
+     * @param userId 用户id
      * @return 该用户所有著作成果
      */
-    @PostMapping("/workAchievement/findOne/{id}")
-    public String findOne(@PathVariable String id) {
-        try {
-            String string = "";
-            String re = "";
-            List<WorkAchievement> workAchievements = workAchievementService.queryByUserId(id);
-            if (workAchievements.size() == 0) {
-                return "{\"resultCode\":\"-1\",\"resultMsg\":\"请求失败\"}";
-            } else {
-                if (workAchievements.size() == 1) {
-                    string = objectMapper.writeValueAsString(workAchievements.get(0));
-                    re = string.substring(0, string.length() - 1) + ",\"userName\":\"" + userService.queryById(workAchievements.get(0).getUserId()).getName() + "\",\"collegeName\":\"" + collegeService.queryById(workAchievements.get(0).getCollegeId()).getName() + "\",\"phone\":\"" + userService.queryById(workAchievements.get(0).getUserId()).getPhone() + "\"}]";
-                } else {
-                    for (int i = 0; i < workAchievements.size(); i++) {
-                        if (i == workAchievements.size() - 1) {
-                            string = objectMapper.writeValueAsString(workAchievements.get(i));
-                            string = string.substring(0, string.length() - 1) + ",\"userName\":\"" + userService.queryById(workAchievements.get(0).getUserId()).getName() + "\",\"collegeName\":\"" + collegeService.queryById(workAchievements.get(0).getCollegeId()).getName() + "\",\"phone\":\"" + userService.queryById(workAchievements.get(0).getUserId()).getPhone() + "\"}]";
-                        } else {
-                            string = objectMapper.writeValueAsString(workAchievements.get(i));
-                            string = string.substring(0, string.length() - 1) + ",\"userName\":\"" + userService.queryById(workAchievements.get(0).getUserId()).getName() + "\",\"collegeName\":\"" + collegeService.queryById(workAchievements.get(0).getCollegeId()).getName() + "\",\"phone\":\"" + userService.queryById(workAchievements.get(0).getUserId()).getPhone() + "\"},";
-                        }
-                        re += string;
-                    }
-                }
-                System.out.println("re = " + re);
-                return "{\"resultCode\": \"0\",\"resultMsg\": \"成功\",\"data\":[" + re + "}";
-            }
-        } catch (Exception e) {
-            e.toString();
-            return "{\"resultCode\":\"-1\",\"resultMsg\":\"请求失败\"}";
+    @GetMapping("/achievements/work/users/{userId}")
+    public Message getByUserId(@PathVariable("userId") String userId) {
+        List<WorkAchievement> workAchievements = workAchievementService.queryByUserId(userId);
+        String userName;
+        String collegeName;
+        for (WorkAchievement achievement : workAchievements) {
+            userName = userService.queryById(achievement.getUserId()).getName();
+            achievement.setUserName(userName);
+            collegeName = collegeService.queryById(achievement.getCollegeId()).getName();
+            achievement.setCollegeName(collegeName);
+        }
+        return Message.success(workAchievements);
+    }
+
+    /**
+     * 根据成果id查询著作成果
+     *
+     * @param achievementId 著作成果id
+     * @return 存在对应id的著作成果对象返回成功，状态码为0,
+     * 如果没有这个id的记录则返回其他状态码，且message中data未空
+     */
+    @GetMapping("/achievements/work/{achievementId}")
+    public Message getByAchievementId(@PathVariable("achievementId") String achievementId) {
+        WorkAchievement achievement = workAchievementService.queryById(achievementId);
+        String userName = userService.queryById(achievement.getUserId()).getName();
+        achievement.setUserName(userName);
+        String collegeName = collegeService.queryById(achievement.getCollegeId()).getName();
+        achievement.setCollegeName(collegeName);
+        return Message.success(achievement);
+    }
+
+    /**
+     * 查询所有著作成果
+     *
+     * @return 所有著作成果的列表
+     */
+    @GetMapping("/achievements/work")
+    public Message getAll() {
+        List<WorkAchievement> achievementList = workAchievementService.findAll();
+        String userName;
+        String collegeName;
+        for (WorkAchievement achievement : achievementList) {
+            userName = userService.queryById(achievement.getUserId()).getName();
+            achievement.setUserName(userName);
+            collegeName = collegeService.queryById(achievement.getCollegeId()).getName();
+            achievement.setCollegeName(collegeName);
+        }
+        return Message.success(achievementList);
+    }
+
+    /**
+     * 新增著作成果
+     *
+     * @param workAchievement 著作成果对象
+     * @return 成功返回状态码为0
+     */
+    @PostMapping("/achievements/work")
+    public Message add(@RequestBody WorkAchievement workAchievement) {
+        boolean insert = workAchievementService.insert(workAchievement);
+        if (insert) {
+            operLogger.info("新增著作成果成功");
+            return Message.success();
+        } else {
+            operLogger.info("新增著作成果失败");
+            return Message.fail();
         }
     }
 
-    @PutMapping("/workAchievement")
-    public Message update(@RequestBody WorkAchievement workAchievement ) {
-        System.out.println(workAchievement);
-        workAchievementService.insert(workAchievement);
-        return Message.success(null);
+    /**
+     * 修改著作成果
+     *
+     * @param workAchievement 著作成果实体类
+     * @return 修改成功状态码为0，其他为修改失败
+     */
+    @PutMapping("/achievements/work")
+    public Message update(@RequestBody WorkAchievement workAchievement) {
+        boolean update = workAchievementService.update(workAchievement);
+        if (update) {
+            operLogger.info("修改著作成果成功");
+            return Message.success();
+        } else {
+            operLogger.info("修改著作成果失败");
+            return Message.fail();
+        }
     }
 }
