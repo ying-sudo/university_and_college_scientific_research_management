@@ -189,9 +189,12 @@
           if (this.verify_flag) {
             //开始登录的后端请求
             let formData = new FormData();
-            for (var key in this.user) {
-              formData.append(key, this.user[key]);
-            };
+            // for (var key in this.user) {
+            //   formData.append(key, this.user[key]);
+            // };
+            formData.append("id", this.user.username);
+            formData.append("password", this.user.password);
+
 
             console.log(typeof(formData));
             console.log(formData);
@@ -205,7 +208,7 @@
             //判断用户名，密码是否错误
             this.axios({
                 method: "post",
-                url: this.GLOBAL.BASE_URL + "/mangerSys/login",
+                url: this.GLOBAL.BASE_URL + "/mangerSys/user/login",
                 headers: {
                   "Content-Type": "multipart/form-data"
                 },
@@ -215,8 +218,8 @@
                 (response) => {
                   console.log('begin login:   ');
                   console.log(response);
-                  var homeJson = JSON.stringify(response.data.data[0].authority);
-                  var homeJson = JSON.parse(homeJson);
+                  // var homeJson = JSON.stringify(response.data.data[0].authority);
+                  // var homeJson = JSON.parse(homeJson);
                   var resultCode = -2; //返回值，进行登录判断
                   resultCode = response.data.resultCode;
 

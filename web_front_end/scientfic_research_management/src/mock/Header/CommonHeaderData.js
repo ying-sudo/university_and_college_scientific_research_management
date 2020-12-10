@@ -211,20 +211,20 @@ let dataVal = {
           id: "30",
           index: "10-4",
           title: "登录日志记录",
-          urlPath: "/table/loginlog",
+          urlPath: "/logtable/loginlog",
           subMenu: null
         },
         {
           id: "31",
           index: "10-5",
           title: "系统日志记录",
-          urlPath: "/table/systemlog",
+          urlPath: "/logtable/systemlog",
           subMenu: null
         }, {
           id: "32",
           index: "10-6",
           title: "操作日志记录",
-          urlPath: "/table/operationlog",
+          urlPath: "/logtable/operationlog",
           subMenu: null
         },
       ]

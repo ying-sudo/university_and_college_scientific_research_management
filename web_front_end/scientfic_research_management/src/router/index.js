@@ -64,10 +64,19 @@ export default new Router({
       // component: Table
       component: resolve => require(['@/components/table/table_impl/AuthorityTableEnity'], resolve)
     }, {
+      path: '/logtable/:tableKey',
+      name: 'LogTable',
+      component: resolve => require(['@/components/table/table_impl/LogTable'], resolve)
+    }, {
       path: '/teams/member',
       name: 'Member',
-      // component: Table
       component: resolve => require(['@/components/table/table_impl/TeamMemberTable'], resolve)
+    },
+    {
+      path: '/roletable/:roleid',
+      name: 'RoleMember',
+      component: resolve => require(['@/components/table/table_impl/RoleMemberTable'], resolve)
+
     },
     {
       path: '/form/:formKey',
