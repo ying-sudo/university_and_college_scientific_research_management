@@ -77,7 +77,69 @@ let dataVal = {
       index: "5",
       title: "考核结果",
       urlPath: "/assessmentres",
-      subMenu: null
+      subMenu: [
+        {
+          id: "33",
+          index: "5-1",
+          title: "考核结果批次",
+          urlPath: "/table/result_batch",
+          subMenu: null
+        },
+        {
+          id: "34",
+          index: "5-2",
+          title: "项目考核结果",
+          urlPath: "/table/project_result",
+          subMenu: null
+        },
+        {
+          id: "35",
+          index: "5-3",
+          title: "论文考核结果",
+          urlPath: "/table/paper_result",
+          subMenu: null
+        }, {
+          id: "36",
+          index: "5-4",
+          title: "著作考核结果",
+          urlPath: "/table/work_result",
+          subMenu: null
+        }, {
+          id: "37",
+          index: "5-5",
+          title: "科研成果考核结果",
+          urlPath: "/table/scienfic_result",
+          subMenu: null
+        },
+        {
+          id: "38",
+          index: "5-6",
+          title: "专利考核结果",
+          urlPath: "/table/patent_result",
+          subMenu: null
+        },
+        {
+          id: "39",
+          index: "5-7",
+          title: "个人考核结果",
+          urlPath: "/table/personal_result",
+          subMenu: null
+        },
+        {
+          id: "40",
+          index: "5-8",
+          title: "学院考核结果",
+          urlPath: "/table/college_result",
+          subMenu: null
+        },
+        {
+          id: "41",
+          index: "5-9",
+          title: "校级团队考核结果",
+          urlPath: "/table/team_result",
+          subMenu: null
+        }
+      ]
     },
     {
       id: "12",

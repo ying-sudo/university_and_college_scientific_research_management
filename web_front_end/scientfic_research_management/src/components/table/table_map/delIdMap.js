@@ -3,8 +3,7 @@ export function getDelIdMap() {
         ["loginlog", "loginLogId"], 
         ["operationlog", "operationLogId"], 
         ["systemlog", "managerSystemLogId"], 
-        
-        
+     
     ]);
 
     return deleteId_map;

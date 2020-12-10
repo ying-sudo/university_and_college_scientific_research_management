@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "label": "序号",
+        "type": "text",
+        "prop": "order_number",
+        "width":"90"
+    },
+    {
+        "id": 2,
+        "label": "计划(项目)编号",
+        "type": "text",
+        "prop": "project_id",
+        "width":"90"
+    },
+    {
+        "id": 3,
+        "label": "项目名称",
+        "type": "text",
+        "prop": "project_name",
+        "width":"90"
+    },
+    {
+        "id": 4,
+        "label": "项目来源",
+        "type": "text",
+        "prop": "project_source",
+        "width":"90"
+    },
+    {
+        "id": 5,
+        "label": "项目级别",
+        "type": "text",
+        "prop": "project_level",
+        "width":"90"
+    },
+    {
+        "id": 6,
+        "label": "项目负责人",
+        "type": "text",
+        "prop": "project_charger",
+        "width":"90"
+    },
+    {
+        "id": 7,
+        "label": "起始时间",
+        "type": "text",
+        "prop": "project_begin_date",
+        "width":"90"
+    },
+    {
+        "id": 8,
+        "label": "总经费",
+        "type": "text",
+        "prop": "project_total_funds",
+        "width":"90"
+    }
+]

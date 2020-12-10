@@ -1,0 +1,51 @@
+[
+    {
+        "id": 1,
+        "label": "编号",
+        "type": "text",
+        "prop": "id",
+        "width":"90"
+    },
+    {
+        "id": 2,
+        "label": "团队名称",
+        "type": "text",
+        "prop": "team_name",
+        "width":"90"
+    },
+    {
+        "id": 3,
+        "label": "负责人",
+        "type": "text",
+        "prop": "team_charger",
+        "width":"90"
+    },
+    {
+        "id": 4,
+        "label": "联系方式",
+        "type": "text",
+        "prop": "team_contact_information",
+        "width":"90"
+    },
+    {
+        "id": 5,
+        "label": "考核状态",
+        "type": "text",
+        "prop": "team_check_state",
+        "width":"90"
+    },
+    {
+        "id": 6,
+        "label": "考核结果",
+        "type": "text",
+        "prop": "team_check_result",
+        "width":"90"
+    },
+    {
+        "id": 7,
+        "label": "人数",
+        "type": "text",
+        "prop": "team_number",
+        "width":"90"
+    }
+]

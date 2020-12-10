@@ -7,7 +7,13 @@ export function getButtonMap() {
         ["papers", "PaperTableButton"],         
         ["works", "WorkTableButton"],         
         ["patents", "PatentTableButton"],         
-        ["teams", "TeamTableButton"],         
+        ["teams", "TeamTableButton"],    
+        ["scientifics", "ScientificAchievementTableButton"],  
+        ["college_result", "CollegeCheckResultTableButton"],  
+        ["project_result", "ProjectCheckResultTableButton"],  
+          
+        
+             
         
     ]);
 
