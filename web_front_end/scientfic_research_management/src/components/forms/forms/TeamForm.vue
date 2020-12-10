@@ -278,12 +278,17 @@
         }
       },
       findUser() {
+        var token = localStorage.getItem('token');
+        console.log('begin:    ' + token);
+        this.axios.defaults.headers.common["Authorization"] = token;
         this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/selectOne", {data:this.user.id}, {headers: {'Content-Type' : "application/json"}})
         .then((response) => {
-          console.log(this.user.id);
-          console.log('test');
-          console.log(response.data);
           if (response.data.resultCode == 0) {
+            if (response.data.data == null) {
+              Global.methods.message_warning(this, '该用户不存在！');
+              this.user.id = null;
+              return ;
+            }
             Global.methods.getValueOne(response.data.data, this.user);
             this.team.userId = this.user.id;
           } else {

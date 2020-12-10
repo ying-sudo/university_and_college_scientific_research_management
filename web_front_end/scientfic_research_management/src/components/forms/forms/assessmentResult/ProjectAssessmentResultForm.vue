@@ -3,31 +3,11 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <el-dialog v-loading="loading" title="项目考核结果" class="el-dialog__title" style="font-size: 10px;" fullscreen
+      <el-dialog v-loading="loading" title="项目考核" class="el-dialog__title" style="font-size: 10px;" fullscreen
         :esc-press-close="false" :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
         <!-- 成绩框 -->
-        <div style="width: 180px; height: 210px; border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1); float: left;">
-          <div style="font-size: 30px; margin-top: 20px;">
-            考核结果
-          </div>
-          <el-divider></el-divider>
-          <el-input ref="score" v-model="evaluationResult.score" :disabled="scoreDisabled"></el-input>
-          <div>
-            <div v-if="!scoreDisabled">
-              <mu-button style="margin-top: 20px;" @click="enterScore" color="primary">
-                确定&nbsp;&nbsp;
-                <i right class="el-icon-check"></i>
-              </mu-button>
-            </div>
-            <div v-else>
-              <mu-button style="margin-top: 20px;" @click="enterScore" color="primary">
-                修改&nbsp;&nbsp;
-                <i right class="el-icon-check"></i>
-              </mu-button>
-            </div>
-          </div>
-        </div>
+        <ScoreTable :flag="flag" :id="project.id" :sort="'project'"></ScoreTable>
 
         <!-- 表单内容 -->
         <div style="padding: 10px; margin: 0 20px; float: left; width: 1500px;">
@@ -51,19 +31,16 @@
 
             <el-form-item class="mu-demo-min-form" label="所在单位">
               <el-select v-model="project.collegeId" :disabled="notDisabled">
-                <!-- <el-option v-for="option in collegeId" :key="option.id" :label="option.name" :value="option.id"></el-option> -->
               </el-select>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" label="一级学科">
               <el-select v-model="project.firstDiscipline" :disabled="notDisabled">
-                <!-- <el-option v-for="option in firstDiscipline" :key="option" :label="option" :value="option"></el-option> -->
               </el-select>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" label="项目级别">
               <el-select v-model="project.level" :disabled="notDisabled">
-                <!-- <el-option v-for="option in level" :key="option" :label="option" :value="option"></el-option> -->
               </el-select>
             </el-form-item>
 
@@ -76,7 +53,6 @@
 
             <el-form-item class="mu-demo-min-form" label="项目状态">
               <el-select v-model="project.state" :disabled="notDisabled">
-                <!-- <el-option v-for="option in state" :key="option.id" :label="option.name" :value="option.id"></el-option> -->
               </el-select>
             </el-form-item>
 
@@ -89,7 +65,6 @@
 
             <el-form-item class="mu-demo-min-form" label="项目分类">
               <el-select v-model="project.sort" :disabled="notDisabled">
-                <!-- <el-option v-for="option in sort" :key="option" :label="option" :value="option"></el-option> -->
               </el-select>
             </el-form-item>
 
@@ -129,9 +104,8 @@
         <!-- 确定按钮 -->
         <div style="text-align: center; float: left; width: 1820px;">
           <div>
-            <mu-button @click="makeButton" color="primary">
-              确定&nbsp;&nbsp;
-              <i right class="el-icon-upload"></i>
+            <mu-button @click="closeAlertDialog" color="primary">
+              返回&nbsp;&nbsp;
             </mu-button>
           </div>
         </div>
@@ -145,6 +119,7 @@
 <script>
   import UserTable from '@/components/forms/global/UserTable.vue'
   import Global from '@/components/forms/global/global.vue'
+  import ScoreTable from '@/components/forms/global/ScoreTable.vue'
 
   export default {
     props: [
@@ -158,27 +133,8 @@
     data() {
       return {
         labelPosition: "top",
-        isSubmit: true,
-        notDisabled: true, //成绩能否修改，true为不能
-        scoreDisabled: true,
         loading: false,
-        evaluationResult: {
-          id: null,
-          score: null,
-          sort: null,
-          datename: null,
-        },
-        rules: {
-          name: [{
-              required: true,
-              message: '请输入成绩'
-            },
-            {
-              type: 'number',
-              message: '请输入数字'
-            },
-          ]
-        },
+        notDisabled: true,
         project: {
           id: null, //项目编号
           name: null, //项目名称
@@ -203,16 +159,8 @@
       };
     },
     created: function() {
+      this.project = this.TableRow;
       this.notDisabled = true;
-      if (!this.evaluationResult.score) {
-        this.$nextTick(() => {
-          this.$refs.score.focus();
-        });
-        this.scoreDisabled = false;
-      }
-      if (!this.flag.isDisabled) {
-        this.enterScore();
-      }
     },
     methods: {
       closeAlertDialog() {
@@ -220,50 +168,10 @@
         //父子组件传值
         this.$emit("click", this.flag);
       },
-      enterScore() {
-        //回车进行成绩输入确定
-        let that = this;
-        document.onkeypress = function(e) {
-          var keyCode = document.all ? event.keyCode : e.which;
-          if (that.$route.path == "/helloworld" && keyCode == 13) {
-            that.makeScore();
-            return;
-          }
-        }
-      },
-      makeScore() { //成绩确定按钮
-        if (this.evaluationResult.score == null) {
-          Global.methods.message_warning(this, '成绩不符合规范');
-          this.evaluationResult.score = null;
-          return false;
-        }
-        this.evaluationResult.score = this.evaluationResult.score * 1.0;
-        //判断成绩是否符合规范
-        if (this.evaluationResult.score >= 0 && this.evaluationResult.score <= 100) {
-          this.evaluationResult.id = this.project.id;
-          this.evaluationResult.sort = 'project';
-          this.evaluationResult.datename = null;
-          Global.methods.message_success(this, '成绩输入成功');
-          return true;
-        } else {
-          Global.methods.message_warning(this, '成绩不符合规范');
-          this.evaluationResult.score = null;
-          return false;
-        }
-      },
-      makeButton() { //确定按钮
-        var isMake = this.makeScore();
-        if (isMake) {
-          this.closeAlertDialog();
-          return true;
-        } else {
-          return false;
-        }
-      },
-
     },
     components: {
       UserTable,
+      ScoreTable,
     },
   };
 </script>

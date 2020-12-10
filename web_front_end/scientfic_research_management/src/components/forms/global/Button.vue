@@ -26,31 +26,67 @@
     <ScientificButton :isDisabled="isDisabled"></ScientificButton>
 
     <div style="margin: 20px;"></div>
-
+    project
     <ProjectAssessButton :isDisabled="isDisabled"></ProjectAssessButton>
 
     <div style="margin: 20px;"></div>
+    paper
+    <PaperAssessButton :isDisabled="isDisabled"></PaperAssessButton>
 
-<CollegeAssessButton :isDisabled="isDisabled"></CollegeAssessButton>
+    <div style="margin: 20px;"></div>
+    patent
+    <PatentAssessButton :isDisabled="isDisabled"></PatentAssessButton>
+
+    <div style="margin: 20px;"></div>
+    ScientificAssessButton
+    <ScientificAssessButton :isDisabled="isDisabled"></ScientificAssessButton>
+
+    <div style="margin: 20px;"></div>
+    TeamAssessButton
+    <TeamAssessButton :isDisabled="isDisabled"></TeamAssessButton>
+
+    <div style="margin: 20px;"></div>
+    WorkAssessButton
+    <WorkAssessButton :isDisabled="isDisabled"></WorkAssessButton>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div style="margin: 20px;"></div>
+    personal
+    <PersonalAssessButton :isDisabled="isDisabled"></PersonalAssessButton>
+
+    <div style="margin: 20px;"></div>
+    college
+    <CollegeAssessButton :isDisabled="isDisabled"></CollegeAssessButton>
+
 
     <div style="margin: 20px;"></div>
 
-<PersonalAssessButton :isDisabled="isDisabled"></PersonalAssessButton>
+    <div style="margin: 20px;"></div>
 
     <div style="margin: 20px;"></div>
 
-<TeamAssessButton :isDisabled="isDisabled"></TeamAssessButton>
-
-    <div style="margin: 20px;"></div>
-
-
-
-    <div style="margin: 20px;"></div>
-
-
-
-
-    <div style="margin: 20px;"></div>
 
   </div>
 
@@ -80,10 +116,14 @@
   import TeamButton from '@/components/forms/buttons/TeamButton.vue'
   import WorkButton from '@/components/forms/buttons/WorkButton.vue'
   import ScientificButton from '@/components/forms/buttons/ScientificButton.vue'
-  import ProjectAssessButton from '@/components/forms/buttons/assessmentResult/ProjectAssessButton.vue'
   import CollegeAssessButton from '@/components/forms/buttons/assessmentResult/CollegeAssessButton.vue'
+  import PaperAssessButton from '@/components/forms/buttons/assessmentResult/PaperAssessButton.vue'
+  import PatentAssessButton from '@/components/forms/buttons/assessmentResult/PatentAssessButton.vue'
   import PersonalAssessButton from '@/components/forms/buttons/assessmentResult/PersonalAssessButton.vue'
+  import ProjectAssessButton from '@/components/forms/buttons/assessmentResult/ProjectAssessButton.vue'
+  import ScientificAssessButton from '@/components/forms/buttons/assessmentResult/ScientificAssessButton.vue'
   import TeamAssessButton from '@/components/forms/buttons/assessmentResult/TeamAssessButton.vue'
+  import WorkAssessButton from '@/components/forms/buttons/assessmentResult/WorkAssessButton.vue'
 
   export default {
     data() {
@@ -119,10 +159,14 @@
       TeamButton,
       WorkButton,
       ScientificButton,
-      ProjectAssessButton,
       CollegeAssessButton,
+      PaperAssessButton,
+      PatentAssessButton,
       PersonalAssessButton,
+      ProjectAssessButton,
+      ScientificAssessButton,
       TeamAssessButton,
+      WorkAssessButton,
     }
   };
 
