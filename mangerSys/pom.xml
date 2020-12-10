@@ -109,6 +109,11 @@
             <version>8.0.22</version>
             <!--<scope>runtime</scope>-->
         </dependency>
+        <!---->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
 
         <!--oracle-->
         <!--<dependency>-->
@@ -209,13 +214,18 @@
             <artifactId>elasticsearch</artifactId>
             <version>7.10.0</version>
         </dependency>
-
+        <!--springboot2.x集成redis所需的common-pool2-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.6.0</version>
+        </dependency>
         <!--lambda -->
-        <!--<dependency>
+        <dependency>
           <groupId>software.amazon.awscdk</groupId>
           <artifactId>lambda</artifactId>
           <version>1.18.0</version>
-        </dependency>-->
+        </dependency>
 
     </dependencies>
 
