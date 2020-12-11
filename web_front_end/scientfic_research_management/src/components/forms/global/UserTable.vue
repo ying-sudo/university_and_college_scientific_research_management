@@ -2,6 +2,7 @@
 
   <!-- 表单底部表格 -->
   <div style="padding: 10px 0px;">
+    <div style="float: left; font-size: 30px;">成员列表(包括负责人)</div>
     <div style=" padding-top: 20px;" v-if="!isDisabled">
       <mu-button style="float: right; margin: 10px; font-size: 20px;" @click="openAlertDialog" color="primary">
         添加用户&nbsp;&nbsp;
