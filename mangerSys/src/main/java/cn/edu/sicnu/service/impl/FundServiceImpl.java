@@ -1,12 +1,16 @@
 package cn.edu.sicnu.service.impl;
 
 import cn.edu.sicnu.dao.FundDao;
+import cn.edu.sicnu.dao.ProjectDao;
 import cn.edu.sicnu.entity.Fund;
+import cn.edu.sicnu.entity.Project;
 import cn.edu.sicnu.service.FundService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +23,9 @@ import java.util.List;
 public class FundServiceImpl implements FundService {
     @Resource
     private FundDao fundDao;
+
+    @Autowired
+    private ProjectDao projectDao;
 
     /**
      * 通过ID查询单条数据
@@ -38,6 +45,24 @@ public class FundServiceImpl implements FundService {
     @Override
     public List<Fund> getFundByProjectId(String id) {
         return fundDao.getFundByProjectId(id);
+    }
+
+    /**
+     * 根据用户id得到这个用户的所有项目，
+     * 再查出这个用户所有项目的经费信息
+     *
+     * @param userId 用户id
+     * @return 经费信息列表
+     */
+    @Override
+    public List<Fund> getFundByUserId(String userId) {
+        List<Project> projectList = projectDao.queryByUserId(userId);
+        List<Fund> fundList = new ArrayList<>();
+        for (Project project : projectList) {
+            List<Fund> projectFundList = fundDao.getFundByProjectId(project.getId());
+            fundList.addAll(projectFundList);
+        }
+        return fundList;
     }
 
     /**

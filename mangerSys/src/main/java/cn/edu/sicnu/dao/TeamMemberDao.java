@@ -14,12 +14,13 @@ import java.util.List;
 public interface TeamMemberDao {
 
     /**
-     * 通过ID查询单条数据
+     * 通过ID(联合主码)查询单条数据
      *
-     * @param teamId 主键
+     * @param teamId 团队id
+     * @param userId 团队成员id
      * @return 实例对象
      */
-    TeamMember queryById(String teamId);
+    TeamMember queryById(String teamId, String userId);
 
     /**
      * 查询指定行数据
@@ -83,6 +84,6 @@ public interface TeamMemberDao {
      * @param teamId 主键
      * @return 影响行数
      */
-    int deleteById(String teamId);
+    int deleteById(String teamId, String userId);
 
 }

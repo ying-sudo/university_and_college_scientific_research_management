@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.sicnu.dao.TeamMemberDao">
 
     <resultMap type="cn.edu.sicnu.entity.TeamMember" id="TeamMemberMap">
@@ -12,7 +13,7 @@
     <select id="queryById" resultMap="TeamMemberMap">
         select team_id, user_id, post
         from scientific_research.team_member
-        where team_id = #{teamId}
+        where team_id = #{teamId} and user_id = #{userId}
     </select>
 
     <!--查询指定行数据-->
@@ -84,7 +85,7 @@
     <delete id="deleteById">
         delete
         from scientific_research.team_member
-        where team_id = #{teamId}
+        where team_id = #{teamId} and user_id = #{userId}
     </delete>
 
 </mapper>

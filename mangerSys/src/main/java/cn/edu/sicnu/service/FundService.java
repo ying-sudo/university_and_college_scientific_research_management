@@ -27,6 +27,14 @@ public interface FundService {
     List<Fund> getFundByProjectId(String id);
 
     /**
+     * 获取该用户的所有项目的所有经费信息
+     *
+     * @param userId 用户id
+     * @return 对应用户下的所有项目的经费信息
+     */
+    List<Fund> getFundByUserId(String userId);
+
+    /**
      * 查询多条数据
      *
      * @param offset 查询起始位置

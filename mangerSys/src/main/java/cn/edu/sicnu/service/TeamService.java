@@ -36,11 +36,11 @@ public interface TeamService {
      */
     List<Team> findAll();
 
-    List<Team> findAllTeam(String userId);
-
     /**
+     * 根据传入对象进行匹配
      *
-     * @return
+     * @param team 传入的团队对象
+     * @return 所有符合的团队对象的list
      */
     List<Team> queryAll(Team team);
 
@@ -48,17 +48,17 @@ public interface TeamService {
      * 新增数据
      *
      * @param team 实例对象
-     * @return 实例对象
+     * @return 新增成功返回true，失败返回false
      */
-    Team insert(Team team);
+    boolean insert(Team team);
 
     /**
      * 修改数据
      *
      * @param team 实例对象
-     * @return 实例对象
+     * @return 修改成功返回true，失败返回false
      */
-    Team update(Team team);
+    boolean update(Team team);
 
     /**
      * 通过主键删除数据

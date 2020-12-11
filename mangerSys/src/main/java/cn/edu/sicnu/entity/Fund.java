@@ -1,5 +1,7 @@
 package cn.edu.sicnu.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,8 +22,10 @@ public class Fund implements Serializable {
 
     private Double arrivalFund;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date requestDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date arrivalDate;
 
     public Fund() {

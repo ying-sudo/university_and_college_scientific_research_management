@@ -16,7 +16,6 @@ import java.util.List;
  * @since 2020-11-20 22:47:33
  */
 @Service("teamService")
-@Transactional
 public class TeamServiceImpl implements TeamService {
     @Resource
     private TeamDao teamDao;
@@ -28,7 +27,6 @@ public class TeamServiceImpl implements TeamService {
      * @return 实例对象
      */
     @Override
-    @Transactional
     public Team queryById(String id) {
         return this.teamDao.queryById(id);
     }
@@ -41,7 +39,6 @@ public class TeamServiceImpl implements TeamService {
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<Team> queryAllByLimit(int offset, int limit) {
         return this.teamDao.queryAllByLimit(offset, limit);
     }
@@ -52,18 +49,16 @@ public class TeamServiceImpl implements TeamService {
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<Team> findAll() {
         return this.teamDao.findAll();
     }
 
-    @Override
-    public List<Team> findAllTeam(String userId) {
-        List<Team> teamList = teamDao.findAllTeam(userId);
-//        teamList
-        return teamList;
-    }
-
+    /**
+     * 根据传入对象进行匹配
+     *
+     * @param team 传入的团队对象
+     * @return 符合条件的所有对象的list
+     */
     @Override
     public List<Team> queryAll(Team team) {
         return teamDao.queryAll(team);
@@ -73,37 +68,43 @@ public class TeamServiceImpl implements TeamService {
      * 新增数据
      *
      * @param team 实例对象
-     * @return 实例对象
+     * @return 新增成功返回true，失败返回false
      */
     @Override
-    @Transactional
-    public Team insert(Team team) {
-        this.teamDao.insert(team);
-        return team;
+    @Transactional(rollbackFor = Exception.class)
+    public boolean insert(Team team) {
+        if (teamDao.queryById(team.getId()) == null) {
+            int insert = this.teamDao.insert(team);
+            return insert == 1;
+        }
+        return false;
     }
 
     /**
      * 修改数据
      *
      * @param team 实例对象
-     * @return 实例对象
+     * @return 修改成功返回true，失败返回false
      */
     @Override
-    @Transactional
-    public Team update(Team team) {
-        this.teamDao.update(team);
-        return this.queryById(team.getId());
+    @Transactional(rollbackFor = Exception.class)
+    public boolean update(Team team) {
+        int update = this.teamDao.update(team);
+        return update == 1;
     }
 
     /**
      * 通过主键删除数据
      *
      * @param id 主键
-     * @return 是否成功
+     * @return 删除成功返回true，失败返回false
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean deleteById(String id) {
-        return this.teamDao.deleteById(id) > 0;
+        if (teamDao.queryById(id) != null) {
+            return this.teamDao.deleteById(id) > 0;
+        }
+        return false;
     }
 }

@@ -37,19 +37,21 @@ public class FundController {
     private UserService userService;
 
     /**
-     * 查看所有经费记录
+     * 查看用户下的所有项目下的所有经费记录
      *
      * @return 经费记录列表
      */
-    @GetMapping("/funds")
-    public Message getFunds() {
-        List<Fund> fundList = fundService.findAll();
+    @GetMapping("/funds/users/{userId}")
+    public Message getFunds(@PathVariable("userId") String userId) {
+        List<Fund> fundList = fundService.getFundByUserId(userId);
         return Message.success(fundList);
     }
 
     /**
      * 通过项目id获取项目的所有经费记录
-     * 项目id 参数
+     *
+     * @param id 项目id
+     * @return 所有经费记录
      */
     @GetMapping("/funds/projects/{projectId}")
     public String getFundByProjectId(@PathVariable("projectId") String id) {

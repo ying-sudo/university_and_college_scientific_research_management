@@ -63,14 +63,14 @@
         id, name, user_id, research_diection, discipline, first_discipline, founding_time, phone, information
         from scientific_research.team
         <where>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
             <if test="id != null and id != ''">
                 and id = #{id}
             </if>
             <if test="name != null and name != ''">
                 and name = #{name}
-            </if>
-            <if test="userId != null and userId != ''">
-                and user_id = #{userId}
             </if>
             <if test="researchDiection != null and researchDiection != ''">
                 and research_diection = #{researchDiection}
