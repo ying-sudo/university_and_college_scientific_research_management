@@ -1,7 +1,6 @@
 <template>
   <div>
-    <!-- <PaperButton v-model="isDisabled" :TableRow="TableRow"></PaperButton> -->
-    <TeamButton v-model="isDisabled" :TableRow="TableRow"></TeamButton>
+    <PaperButton v-model="isDisabled" :TableRow="TableRow"></PaperButton>
   </div>
 </template>
 

@@ -23,7 +23,7 @@
 import CommonsTableImpl from "@/components/table/table_interface/CommonsTableImpl";
 import SearchBox from "@/components/search_box/SearchBox";
 import { getTableIconMap } from "@/components/table/table_map/OperationIconMap.js";
-import { getTableDataMap } from "@/components/table/table_map/TableDataMap.js";
+import { getTableDataMap } from "@/components/table/table_map/LogTableDataMap.js";
 import { getButtonMap } from "@/components/table/table_map/NewButtonsMap.js";
 
 export default {
@@ -75,11 +75,11 @@ export default {
       console.log("this.backEndInterface:" + this.backEndInterface);
     },
     getTableData: function (newVal) {
-      this.axios.get("/api/table_data").then((res) => {
+      // this.axios.get("/api/table_data").then((res) => {
       let userId = localStorage.getItem("userid");
       console.log(userId);
       //  this.axios.defaults.headers.common["Authorization"] = token;
-      // this.axios.get(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`).then((res) => {
+      this.axios.get(`${this.GLOBAL.BASE_URL}/${newVal}`).then((res) => {
           this.tableData = res.data.data;
           console.log("res.data.data:");
           console.log(res.data);

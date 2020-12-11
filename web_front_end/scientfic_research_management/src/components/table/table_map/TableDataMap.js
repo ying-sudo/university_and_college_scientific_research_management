@@ -1,18 +1,14 @@
 export function getTableDataMap() {
     var table_data_map = new Map([
-        ["fundlists", "mangerSys/fund/fund"], 
-        ["projectlists", "mangerSys/project/projects"], 
-        ["papers", "mangerSys/paperAchievement/findOne"], 
-        ["works", "mangerSys/workAchievement/findOne"], 
-        ["loginlog", "mangerSys/loginlog"], 
-        ["systemlog", "mangerSys/syslog"], 
-        ["operationlog", "mangerSys/operlog"], 
+        ["fundlists", "mangerSys/funds/projects"], 
+        ["projectlists", "mangerSys/projects/users"], 
+        ["papers", "mangerSys/achievements/paper/users"], 
+        ["works", "mangerSys/achievements/work/users"],  
         ["teams", "mangerSys/team"], 
         ["authoritylists", "/api/table_data"], 
-        ["scientifics", "mangerSys/scientAchieve"], 
-        ["patents", "mangerSys/patentAchievement"], 
+        ["scientifics", "mangerSys/achievements/scientific/users"], 
+        ["patents", "mangerSys/achievements/patent/users"], 
         
-              
     ]);
 
     return table_data_map;

@@ -4,10 +4,6 @@
       :itemOptions="itemOptions"
       :tableData="tableData"
     ></CommonsTableTemplate>
-    <!-- :search="search" -->
-    <!-- <p>{{ this.$route.query.TableRow.id }}</p> -->
-    <!-- <p>this.itemOptions:{{this.itemOptions}}</p> -->
-    <!-- <p>this.tableData:{{this.tableData}}</p> -->
   </div>
 </template>
 
