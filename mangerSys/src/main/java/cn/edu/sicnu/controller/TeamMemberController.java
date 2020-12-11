@@ -60,6 +60,8 @@ public class TeamMemberController {
     public Message getMembersByMemberId(@PathVariable("teamId") String teamId,
                                         @PathVariable("memberId") String memberId) {
         TeamMember teamMember = teamMemberService.queryById(teamId, memberId);
+        String userName = userService.queryById(memberId).getName();
+        teamMember.setUserName(userName);
         return Message.success(teamMember);
     }
 
@@ -86,7 +88,7 @@ public class TeamMemberController {
      *
      * @return 修改成功返回true，失败返回false
      */
-    @PutMapping("/teams/{teamId}/members")
+    @PutMapping("/teams/members")
     public Message updateMembers(@RequestBody TeamMember teamMember) {
         boolean update = teamMemberService.update(teamMember);
         if (update) {

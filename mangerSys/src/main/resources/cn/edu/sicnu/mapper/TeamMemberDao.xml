@@ -47,9 +47,9 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="teamId" useGeneratedKeys="true">
-        insert into scientific_research.team_member (post)
-        values (#{post})
+    <insert id="insert" parameterType="TeamMember">
+        insert into scientific_research.team_member (team_id, user_id ,post)
+        values (#{teamId}, #{userId}, #{post})
     </insert>
 
     <insert id="insertBatch" keyProperty="teamId" useGeneratedKeys="true">
@@ -78,7 +78,7 @@
                 post = #{post},
             </if>
         </set>
-        where team_id = #{teamId}
+        where team_id = #{teamId} and user_id = #{userId}
     </update>
 
     <!--通过主键删除-->
