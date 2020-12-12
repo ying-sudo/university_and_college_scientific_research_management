@@ -3,8 +3,8 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <el-dialog v-loading="loading" title="著作申报" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
-        :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
+      <el-dialog v-loading="loading" title="著作申报" class="el-dialog__title" style="font-size: 10px;" fullscreen
+        :esc-press-close="false" :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
         <!-- 表单内容 -->
         <div style="padding: 10px; width: 1520px; margin: 0 140px;">
@@ -16,6 +16,10 @@
 
             <el-form-item class="mu-demo-min-form" prop="id" label="著作编号">
               <el-input v-model="work_achievement.id" :disabled="flag.isDisabled || notDisabled"></el-input>
+            </el-form-item>
+
+            <el-form-item class="mu-demo-min-form" prop="userId" label="负责人学工号">
+              <el-input v-model="work_achievement.userId" :disabled="flag.isDisabled || notDisabled"></el-input>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="publisher" label="出版单位">
@@ -171,9 +175,9 @@
           beginDate: null, //出版时间
           characters: null, //研究类别
           firstDiscipline: null, //一级学科
-          collegeId: '0001', //成果归属
+          collegeId: null, //成果归属
           workSource: null, //项目来源
-          userId: '1234', //作者
+          userId: null, //作者
           information: null //详细信息
         },
         publishLevel: [
@@ -221,26 +225,28 @@
       makesure() {
         this.loading = true;
         //改成string格式
-        var proString = JSON.stringify(this.work_achievement);
-        this.work_achievement.isTranslate = this.work_achievement.isTranslate==='true';
-        proString = JSON.parse(proString);
+        // this.work_achievement.isTranslate = this.work_achievement.isTranslate === 'true';
+        var proString = this.work_achievement;
+        console.log('work begin:  ');
+        console.log(proString);
+
         // 用户成员
         var sendUser = Global.methods.getUser(this.users, this.work_achievement);
         var usersString = JSON.stringify(sendUser);
-        console.log(this.work_achievement);
-        console.log(typeof(this.work_achievement));
+
         // 进行数据和后端交互
+        var token = localStorage.getItem('token');
+        this.axios.defaults.headers.common["Authorization"] = token;
         if (this.notDisabled) {
           console.log("项目表单修改  request begin:  ");
           this.axios
             .put(
               this.GLOBAL.BASE_URL +
-              "/mangerSys/work/works/" +
-              this.work_achievement.id,
+              "/mangerSys/achievements/work",
               proString
             )
             .then((response) => {
-              console.log(response.data.resultCode);
+              console.log(response.data);
               console.log("项目表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
@@ -257,9 +263,9 @@
         } else {
           console.log("项目表单申报  request begin:  ");
           this.axios
-            .put(this.GLOBAL.BASE_URL + "/mangerSys/workAchievement", proString)
+            .post(this.GLOBAL.BASE_URL + "/mangerSys/achievements/work", proString)
             .then((response) => {
-              console.log(response.data.resultCode);
+              console.log(response);
               console.log("项目表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
@@ -321,5 +327,4 @@
     width: 30px;
     height: 30px;
   }
-
 </style>

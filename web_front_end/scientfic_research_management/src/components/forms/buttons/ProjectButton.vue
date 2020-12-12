@@ -42,10 +42,10 @@
           isDisabled: false, //为true表示不能更改，详情界面
         },
         reload: "",
-        collegeInfo: this.GLOBAL.collegeInfo,
-        firstDiscipline: this.GLOBAL.firstDiscipline,
-        level: this.GLOBAL.level,
-        sort: this.GLOBAL.sort,
+        collegeInfo: null,
+        firstDiscipline: null,
+        level: null,
+        sort: null,
       };
     },
     components: {
@@ -53,11 +53,21 @@
     },
     methods: {
       openAlertDialog() {
-        console.log(this.GLOBAL.collegeInfo);
-        console.log(this.GLOBAL.firstDiscipline);
+
+        this.getAllData();
+
         //项目申报表单
         this.reload = new Date().getTime();
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
+      },
+      getAllData() {
+        var collegeInfo = [{}];
+        var sort = [{}];
+        Global.methods.getCollegeData(this, collegeInfo);
+        Global.methods.getOtherData(this, sort);
+        console.log('begin:  ');
+        console.log(collegeInfo);
+        console.log(sort);
       },
     },
   }

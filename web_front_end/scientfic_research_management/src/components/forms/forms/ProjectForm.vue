@@ -149,6 +149,9 @@
     },
     data() {
       return {
+
+        // collegeInfo: null,
+
         labelPosition: "top",
         isSubmit: true,
         notDisabled: false,
@@ -199,10 +202,6 @@
         this.project = this.TableRow;
       }
       this.notDisabled = this.flag.isDisabled;
-      this.collegeId = this.collegeInfo;
-      this.firstDiscipline = this.firstDisciplineProp;
-      this.level = this.levelProp;
-      this.sort = this.sortProp;
     },
     methods: {
       closeAlertDialog() {
@@ -213,92 +212,50 @@
       makesure() {
         this.loading = true;
         //改成string格式
-        var proString = JSON.stringify(this.project);
+        // var proString = JSON.stringify(this.project);
+        var proString = this.project;
 
         // 用户成员
         var sendUser = Global.methods.getUser(this.users, this.project);
         var usersString = JSON.stringify(sendUser);
         // 进行数据和后端交互
+
+        var token = localStorage.getItem('token');
+        this.axios.defaults.headers.common["Authorization"] = token;
         if (this.notDisabled) {
-
-          proString = JSON.parse(proString);
-          proString.arrivalFund = proString.arrivalFund * 1.00;
-          proString.requestFund = proString.requestFund * 1.00;
-
-          console.log("项目表单修改  request begin:  ");
           this.axios
             .put(
-              this.GLOBAL.BASE_URL +
-              "/mangerSys/project/projects/" +
-              this.project.id,
+              this.GLOBAL.BASE_URL + "/mangerSys/projects",
               proString
             )
             .then((response) => {
-              console.log(response.data.resultCode);
-              console.log("项目表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
-                Global.methods.message_success(this, '申报成功');
-                // this.$message({
-                //   showClose: true,
-                //   message: '申报成功',
-                //   type: 'success'
-                // });
+                Global.methods.message_success(this, '修改成功');
                 this.closeAlertDialog();
               } else {
                 Global.methods.message_warning(this, '请检查信息是否填写完整正确');
-                // this.$message({
-                //   showClose: true,
-                //   message: '请检查信息是否填写完整正确',
-                //   type: 'warning'
-                // });
               }
             })
             .catch((error) => {
               this.loading = false;
               Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
-              // this.$message({
-              //   showClose: true,
-              //   message: '网络或服务器错误，请稍后重试',
-              //   type: 'error'
-              // });
             });
         } else {
-          console.log("项目表单申报  request begin:  ");
           this.axios
-            .post(this.GLOBAL.BASE_URL + "/mangerSys/project/projects", {
-              project: proString,
-              users: usersString,
-            })
+            .post(this.GLOBAL.BASE_URL + "/mangerSys/projects", proString)
             .then((response) => {
-              console.log(response.data.resultCode);
-              console.log("项目表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
                 Global.methods.message_success(this, '申报成功');
-                // this.$message({
-                //   showClose: true,
-                //   message: '申报成功',
-                //   type: 'success'
-                // });
                 this.closeAlertDialog();
               } else {
                 Global.methods.message_warning(this, '请检查信息是否填写完整正确');
-                // this.$message({
-                //   showClose: true,
-                //   message: '请检查信息是否填写完整正确',
-                //   type: 'warning'
-                // });
               }
             })
             .catch((error) => {
               this.loading = false;
               Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
-              // this.$message({
-              //   showClose: true,
-              //   message: '网络或服务器错误，请稍后重试',
-              //   type: 'error'
-              // });
             });
         }
       },
@@ -319,6 +276,10 @@
           this.makesure();
         }
       },
+      // getAllData() {
+      //   this.collegeInfo = Global.methods.getCollegeData(this);
+      //   console.log(this.collegeInfo);
+      // }
     },
     components: {
       UserTable,
