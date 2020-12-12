@@ -35,7 +35,7 @@ public class WorkAchievement implements Serializable {
     private String discipline;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date beginDate;
+    private String beginDate;
 
     private String characters;
 
@@ -56,7 +56,9 @@ public class WorkAchievement implements Serializable {
     public WorkAchievement() {
     }
 
-    public WorkAchievement(String id, String name, String publisher, String publishLevel, String workType, String publishLocation, String isbnId, String isTranslate, String translateLanguage, String discipline, Date beginDate, String characters, String firstDiscipline,
+    public WorkAchievement(String id, String name, String publisher, String publishLevel, String workType,
+                           String publishLocation, String isbnId, String isTranslate, String translateLanguage,
+                           String discipline, String beginDate, String characters, String firstDiscipline,
                            String collegeId, String workSource, String userId, String information) {
         this.id = id;
         this.name = name;
@@ -157,11 +159,13 @@ public class WorkAchievement implements Serializable {
         this.discipline = discipline;
     }
 
-    public Date getBeginDate() {
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    public String getBeginDate() {
         return beginDate;
     }
 
-    public void setBeginDate(Date beginDate) {
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    public void setBeginDate(String beginDate) {
         this.beginDate = beginDate;
     }
 

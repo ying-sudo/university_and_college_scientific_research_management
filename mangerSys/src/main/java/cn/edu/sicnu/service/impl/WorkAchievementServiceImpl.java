@@ -74,6 +74,11 @@ public class WorkAchievementServiceImpl implements WorkAchievementService {
     @Transactional(rollbackFor = Exception.class)
     public boolean insert(WorkAchievement workAchievement) {
         WorkAchievement achievement = workAchievementDao.queryById(workAchievement.getId());
+        if (workAchievement.getIsTranslate().equals("false")) {
+            workAchievement.setIsTranslate("1");
+        } else {
+            workAchievement.setIsTranslate("0");
+        }
         if (achievement == null) {
             int insert = this.workAchievementDao.insert(workAchievement);
             return insert == 1;
@@ -90,6 +95,11 @@ public class WorkAchievementServiceImpl implements WorkAchievementService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean update(WorkAchievement workAchievement) {
+        if (workAchievement.getIsTranslate().equals("false")) {
+            workAchievement.setIsTranslate("1");
+        } else {
+            workAchievement.setIsTranslate("0");
+        }
         WorkAchievement achievement = workAchievementDao.queryById(workAchievement.getId());
         if (achievement != null) {
             int update = this.workAchievementDao.update(workAchievement);

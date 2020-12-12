@@ -5,9 +5,9 @@ import cn.edu.sicnu.entity.Sort;
 import java.util.List;
 
 /**
- * (Sort)表服务接口
+ * (Sort)(字典)表服务接口
  *
- * @author makejava
+ * @author makejava, liangjin
  * @since 2020-11-20 22:47:32
  */
 public interface SortService {
@@ -18,7 +18,7 @@ public interface SortService {
      * @param id 主键
      * @return 实例对象
      */
-    Sort queryById(String id);
+    Sort queryById(Integer id);
 
     /**
      * 通过NOTE查询单条数据
@@ -48,17 +48,33 @@ public interface SortService {
      * 新增数据
      *
      * @param sort 实例对象
-     * @return 实例对象
+     * @return 新增成功返回true，失败返回false
      */
-    Sort insert(Sort sort);
+    boolean insert(Sort sort);
+
+    /**
+     * 批量新增数据
+     *
+     * @param sortList 装有sort对象的list
+     * @return 全部新增成功返回true，任意一个失败返回false
+     */
+    boolean insert(List<Sort> sortList);
 
     /**
      * 修改数据
      *
      * @param sort 实例对象
-     * @return 实例对象
+     * @return 修改成功返回true，失败返回false
      */
-    Sort update(Sort sort);
+    boolean update(Sort sort);
+
+    /**
+     * 批量修改数据
+     *
+     * @param sortList 装有sort对象的list
+     * @return 全部修改成功返回true，任意一个失败返回false
+     */
+    boolean update(List<Sort> sortList);
 
     /**
      * 通过主键删除数据
@@ -66,6 +82,6 @@ public interface SortService {
      * @param id 主键
      * @return 是否成功
      */
-    boolean deleteById(String id);
+    boolean deleteById(Integer id);
 
 }

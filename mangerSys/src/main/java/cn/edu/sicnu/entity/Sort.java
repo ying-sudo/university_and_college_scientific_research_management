@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Sort implements Serializable {
     private static final long serialVersionUID = 829734356605213819L;
 
-    private String id;
+    private Integer id;
 
     private String name;
 
@@ -22,18 +22,18 @@ public class Sort implements Serializable {
     public Sort() {
     }
 
-    public Sort(String id, String name, String value, String note) {
+    public Sort(Integer id, String name, String value, String note) {
         this.id = id;
         this.name = name;
         this.value = value;
         this.note = note;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

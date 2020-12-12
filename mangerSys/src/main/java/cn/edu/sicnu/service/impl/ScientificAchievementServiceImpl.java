@@ -73,6 +73,11 @@ public class ScientificAchievementServiceImpl implements ScientificAchievementSe
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean insert(ScientificAchievement scientificAchievement) {
+        if (scientificAchievement.getIsTranslate().equals("false")) {
+            scientificAchievement.setIsTranslate("1");
+        } else {
+            scientificAchievement.setIsTranslate("0");
+        }
         ScientificAchievement achievement = scientificAchievementDao.queryById(scientificAchievement.getId());
         if (achievement == null) {
             int insert = this.scientificAchievementDao.insert(scientificAchievement);
@@ -90,6 +95,11 @@ public class ScientificAchievementServiceImpl implements ScientificAchievementSe
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean update(ScientificAchievement scientificAchievement) {
+        if (scientificAchievement.getIsTranslate().equals("false")) {
+            scientificAchievement.setIsTranslate("1");
+        } else {
+            scientificAchievement.setIsTranslate("0");
+        }
         ScientificAchievement achievement = scientificAchievementDao.queryById(scientificAchievement.getId());
         if (achievement != null) {
             int update = this.scientificAchievementDao.update(scientificAchievement);

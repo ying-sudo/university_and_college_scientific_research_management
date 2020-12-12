@@ -19,7 +19,7 @@ public interface SortDao {
      * @param id 主键
      * @return 实例对象
      */
-    Sort queryById(String id);
+    Sort queryById(Integer id);
 
     /**
      * 通过NOTE查询单条数据
@@ -91,6 +91,6 @@ public interface SortDao {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(String id);
+    int deleteById(Integer id);
 
 }
