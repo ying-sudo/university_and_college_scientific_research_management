@@ -1,13 +1,13 @@
 <template>
   <div class="input_box">
     <!-- 
-      @ @input 键盘输入事件 
+      @ @keyup.enter.native 键盘回车事件 
       @ v-model 
       @ placeholder 搜索框默认内容
      -->
     <el-input
-      @input="SubChangeTable(search)"
-      placeholder="输入要搜索的内容"
+      @keyup.enter.native="SubChangeTable(search)"
+      :placeholder="this.placeholdershow"
       v-model="search"
       type="search"
     >
@@ -27,6 +27,7 @@ export default {
       search: "",
       sub_tables: this.tableData,
       subFilterTag: this.filterTag,
+      placeholdershow:"输入要搜索的内容",
     };
   },
   props: ["tableData", "filterTag"],

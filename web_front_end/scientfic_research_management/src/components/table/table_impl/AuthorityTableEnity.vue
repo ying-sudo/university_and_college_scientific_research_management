@@ -1,10 +1,12 @@
 <template>
   <div v-if="this.tableData !== null">
     <SearchBox :tableData="tableData" @changeTable="changeTable">
-      <div slot="able_to_add">
+      <!-- <div slot="able_to_add">
         <component :is="new_buttons" :multiSelect="multiSelect"></component>
-      </div>
+      </div> -->
     </SearchBox>
+
+    <component :is="new_buttons" :multiSelect="multiSelect"></component>
 
     <CommonsTableImpl
       :tableData="tableDataToChange"

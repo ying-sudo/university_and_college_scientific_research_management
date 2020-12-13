@@ -108,7 +108,7 @@ let dataVal = {
           id: "37",
           index: "5-5",
           title: "科研成果考核结果",
-          urlPath: "/table/scienfic_result",
+          urlPath: "/table/scientific_result",
           subMenu: null
         },
         {
@@ -145,7 +145,7 @@ let dataVal = {
       id: "12",
       index: "6",
       title: "统计报表",
-      urlPath: "/reports",
+      urlPath: "/table/reports",
       subMenu: null
     },
     {
@@ -215,7 +215,7 @@ let dataVal = {
           id: "22",
           index: "8-6",
           title: "校级团队考核",
-          urlPath: "/team",
+          urlPath: "/table/team",
           subMenu: null
         }
       ]

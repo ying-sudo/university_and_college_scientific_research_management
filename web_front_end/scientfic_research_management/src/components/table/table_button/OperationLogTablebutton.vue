@@ -17,5 +17,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.el-col {
+  padding: 10px;
+  padding-bottom: 20px;
+}
 </style>

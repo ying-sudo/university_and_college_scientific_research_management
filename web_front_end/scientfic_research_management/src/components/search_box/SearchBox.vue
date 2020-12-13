@@ -13,7 +13,7 @@
         ><InputBox v-bind="$attrs" v-on="$listeners" :filterTag="filterTag"></InputBox
       ></el-col>
 
-      <el-col :span="12"><slot name="able_to_add"></slot></el-col>
+      <!-- <el-col :span="12"><slot name="able_to_add"></slot></el-col> -->
     </el-row>
   </div>
 </template>

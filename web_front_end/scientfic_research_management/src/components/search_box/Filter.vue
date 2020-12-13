@@ -34,7 +34,7 @@ export default {
   methods: {
     getFilterTag: function (newVal) {
       this.filtertag = newVal;
-      // console.log(this.filtertag);
+      // console.log("this.filtertag:"+this.filtertag);
       this.$emit("changeFilterTag", this.filtertag);
     },
   },

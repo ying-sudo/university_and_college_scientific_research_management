@@ -1,8 +1,10 @@
 <template>
   <div>
-    <el-row
-      ><el-col :span="8"><ProjectButton></ProjectButton> </el-col>
-      <el-col :span="4"><BantchDelete :multiSelect="multiSelect"></BantchDelete></el-col>
+    <el-row 
+      ><el-col :span="4" ><ProjectButton></ProjectButton> </el-col>
+      <el-col :span="4" 
+        ><BantchDelete :multiSelect="multiSelect"></BantchDelete
+      ></el-col>
     </el-row>
     <!-- <p>{{this.multiSelect}}</p> -->
   </div>
@@ -22,5 +24,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.el-col {
+  padding: 10px;
+  padding-bottom: 20px;
+}
 </style>
