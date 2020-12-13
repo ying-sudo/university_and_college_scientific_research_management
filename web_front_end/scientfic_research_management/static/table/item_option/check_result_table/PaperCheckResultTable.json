@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "label": "专利(论文，著作)号",
+        "label": "论文编号",
         "type": "text",
         "prop": "achievement_id",
         "width":"90"
@@ -15,7 +15,7 @@
     },
     {
         "id": 3,
-        "label": "发明人",
+        "label": "撰写人",
         "type": "text",
         "prop": "achievement_researcher",
         "width":"90"

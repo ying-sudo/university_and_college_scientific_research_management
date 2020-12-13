@@ -3,7 +3,7 @@
     <el-row>
       <el-col
         ><el-button
-          type="primary"
+          type="danger"
           icon="el-icon-delete"
           @click="delSelected"
           size="medium"

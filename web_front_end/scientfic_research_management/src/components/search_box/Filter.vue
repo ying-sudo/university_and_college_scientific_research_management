@@ -1,8 +1,9 @@
 <template>
   <div class="filter_selector">
     <el-select
+      v-if="isRouterAlive"
       v-model="value"
-      placeholder="请选择筛选条件"
+      :placeholder="this.placeholder"
       @change="getFilterTag"
     >
       <el-option
@@ -28,6 +29,8 @@ export default {
       value: "",
 
       filterTag: "",
+      placeholder: "请选择筛选条件",
+      isRouterAlive: true,
     };
   },
 
@@ -37,6 +40,11 @@ export default {
       // console.log("this.filtertag:"+this.filtertag);
       this.$emit("changeFilterTag", this.filtertag);
     },
+
+    reload() {
+      this.isRouterAlive = false;
+      this.$nextTick(() => (this.isRouterAlive = true));
+    },
   },
   created: function () {
     this.filterMap = getfilterMap();
@@ -45,6 +53,7 @@ export default {
   watch: {
     $route(to, from) {
       this.condition = this.filterMap.get(this.$route.params.tableKey);
+      this.reload();
     },
   },
 };

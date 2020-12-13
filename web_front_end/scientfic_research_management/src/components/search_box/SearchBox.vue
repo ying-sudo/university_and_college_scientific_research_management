@@ -9,7 +9,7 @@
       ></el-col>
       <!-- v-bind="$attrs" 跨组件传输父组件的值
            v-on="$listeners" 跨组件修改父组件的值 -->
-      <el-col :span="6"
+      <el-col :span="12"
         ><InputBox v-bind="$attrs" v-on="$listeners" :filterTag="filterTag"></InputBox
       ></el-col>
 
@@ -42,8 +42,7 @@ export default {
 </script>
 
 <style>
-/*@margin-bottom 底部margin
-  没有添加scope*/
+/*@margin-bottom 底部margin*/
 .SearchBox {
   margin-bottom: 10px;
 }
