@@ -3,8 +3,8 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <el-dialog v-loading="loading" title="团队表单" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
-        :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
+      <el-dialog v-loading="loading" title="团队表单" class="el-dialog__title" style="font-size: 10px;" fullscreen
+        :esc-press-close="false" :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
 
         <!-- 表单内容 -->
@@ -166,7 +166,7 @@
           foundingTime: '', //成立时间
           phone: '', //办公电话
           information: '', //团队信息
-          userId: '', //负责人
+          userId: '2011000416', //负责人
         },
         firstDiscipline: [], //一级学科内容
         level: [], //项目级别
@@ -216,11 +216,16 @@
       makesure() {
         this.loading = true;
         //改成string格式
-        var proString = JSON.stringify(this.team);
-        proString = JSON.parse(proString);
+        // var proString = JSON.stringify(this.team);
+        var proString = this.team;
+        console.log(proString);
+        // proString = JSON.parse(proString);
         // 用户成员
         var sendUser = Global.methods.getUser(this.users, this.team);
         var usersString = JSON.stringify(sendUser);
+
+        var token = localStorage.getItem('token');
+        this.axios.defaults.headers.common["Authorization"] = token;
         // 进行数据和后端交互
         if (this.notDisabled) {
           console.log("项目表单修改  request begin:  ");
@@ -248,10 +253,11 @@
             });
         } else {
           console.log("项目表单申报  request begin:  ");
+
           this.axios
-            .put(this.GLOBAL.BASE_URL + "/mangerSys/team", proString)
+            .post(this.GLOBAL.BASE_URL + "/mangerSys/teams", proString)
             .then((response) => {
-              console.log(response.data.resultCode);
+              console.log(response.data);
               console.log("项目表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
@@ -279,28 +285,33 @@
       },
       findUser() {
         var token = localStorage.getItem('token');
-        console.log('begin:    ' + token);
         this.axios.defaults.headers.common["Authorization"] = token;
-        this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/selectOne", {data:this.user.id}, {headers: {'Content-Type' : "application/json"}})
-        .then((response) => {
-          if (response.data.resultCode == 0) {
-            if (response.data.data == null) {
-              Global.methods.message_warning(this, '该用户不存在！');
-              this.user.id = null;
-              return ;
+        this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/selectOne", this.user.id,
+          {
+            headers: {
+              'Content-Type': "application/json"
             }
-            Global.methods.getValueOne(response.data.data, this.user);
-            this.team.userId = this.user.id;
-          } else {
+          })
+          .then((response) => {
+            console.log(response);
+            if (response.data.resultCode == 0) {
+              if (response.data.data == null) {
+                Global.methods.message_warning(this, '该用户不存在！');
+                this.user.id = null;
+                return;
+              }
+              Global.methods.getValueOne(response.data.data, this.user);
+              this.team.userId = this.user.id;
+            } else {
+              Global.methods.message_error(this, '服务器错误，请稍后再试！');
+            }
+
+            console.log('用户请求 over  ');
+
+          })
+          .catch((error) => {
             Global.methods.message_error(this, '服务器错误，请稍后再试！');
-          }
-
-          console.log('用户请求 over  ');
-
-        })
-        .catch((error) => {
-          Global.methods.message_error(this, '服务器错误，请稍后再试！');
-        });
+          });
       },
     },
     components: {

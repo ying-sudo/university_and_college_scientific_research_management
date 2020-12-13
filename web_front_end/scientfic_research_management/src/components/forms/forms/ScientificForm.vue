@@ -194,24 +194,24 @@
       makesure() {
         this.loading = true;
         //改成string格式
-        var proString = JSON.stringify(this.scientific_achievement);
-        this.scientific_achievement.isTranslate = this.scientific_achievement.isTranslate==='true';
-        proString = JSON.parse(proString);
+        var proString = this.scientific_achievement;
         // 用户成员
         var sendUser = Global.methods.getUser(this.users, this.scientific_achievement);
         var usersString = JSON.stringify(sendUser);
+        
+        var token = localStorage.getItem('token');
+        this.axios.defaults.headers.common["Authorization"] = token;
         // 进行数据和后端交互
         if (this.notDisabled) {
           console.log("科研表单修改  request begin:  ");
           this.axios
             .put(
               this.GLOBAL.BASE_URL +
-              "/mangerSys/work/works/" +
-              this.scientific_achievement.id,
+              "/mangerSys/achievements/scientific",
               proString
             )
             .then((response) => {
-              console.log(response.data.resultCode);
+              console.log(response.data);
               console.log("科研表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
@@ -228,9 +228,9 @@
         } else {
           console.log("科研表单申报  request begin:  ");
           this.axios
-            .put(this.GLOBAL.BASE_URL + "/mangerSys/scientAchieve", proString)
+            .post(this.GLOBAL.BASE_URL + "/mangerSys/achievements/scientific", proString)
             .then((response) => {
-              console.log(response.data.resultCode);
+              console.log(response);
               console.log("科研表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {

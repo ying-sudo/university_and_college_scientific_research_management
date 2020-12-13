@@ -125,7 +125,7 @@
           canLogin = false;
           error_text = '请输入用户名！！';
         }
-        canLogin = true;
+        // canLogin = true;
         if (canLogin) {
           //输入了用户名和密码，进行验证码确认
           if (this.verify_flag) {

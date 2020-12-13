@@ -3,8 +3,8 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <el-dialog v-loading="loading" title="论文成果" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
-        :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
+      <el-dialog v-loading="loading" title="论文成果" class="el-dialog__title" style="font-size: 10px;" fullscreen
+        :esc-press-close="false" :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
         <!-- 表单内容 -->
         <div style="padding: 10px; margin: 0 140px; float: left; width: 1550px;">
@@ -19,6 +19,10 @@
 
               <el-form-item prop="id" class="mu-demo-min-form" label="论文编号">
                 <el-input v-model="paper_achievement.id" :disabled="flag.isDisabled || notDisabled"></el-input>
+              </el-form-item>
+
+              <el-form-item class="mu-demo-min-form" prop="userId" label="负责人学工号">
+                <el-input v-model="paper_achievement.userId" :disabled="flag.isDisabled || notDisabled"></el-input>
               </el-form-item>
 
               <el-form-item class="mu-demo-min-form" prop="magazine" label="发表期刊">
@@ -39,16 +43,16 @@
                 <el-input v-model="paper_achievement.recordId" :disabled="flag.isDisabled"></el-input>
               </el-form-item>
 
-              <el-form-item class="mu-demo-min-form" prop="discipline" label="学科门类">
-                <el-radio-group v-model="paper_achievement.discipline">
+              <el-form-item class="mu-demo-min-form" prop="descipline" label="学科门类">
+                <el-radio-group v-model="paper_achievement.descipline">
                   <el-radio label="science" :disabled="flag.isDisabled || notDisabled">理科类</el-radio>
                   <el-radio label="social" :disabled="flag.isDisabled || notDisabled">社科类</el-radio>
                 </el-radio-group>
               </el-form-item>
 
-              <el-form-item class="mu-demo-min-form" prop="firstDiscipline" label="一级学科">
-                <el-select v-model="paper_achievement.firstDiscipline" :disabled="flag.isDisabled">
-                  <el-option v-for="option in firstDiscipline" :key="option" :label="option" :value="option"></el-option>
+              <el-form-item class="mu-demo-min-form" prop="firstdescipline" label="一级学科">
+                <el-select v-model="paper_achievement.firstdescipline" :disabled="flag.isDisabled">
+                  <el-option v-for="option in firstdescipline" :key="option" :label="option" :value="option"></el-option>
                 </el-select>
               </el-form-item>
 
@@ -69,7 +73,8 @@
               <UserTable style="float: left; width: 1200px;" v-model='users' :isDisabled="notDisabled"></UserTable>
 
               <!-- 表单备注 -->
-              <el-form-item style="padding-top: 20px; margin-top: 10px; float: left; width: 1200px;" prop="information" label="详细信息">
+              <el-form-item style="padding-top: 20px; margin-top: 10px; float: left; width: 1200px;" prop="information"
+                label="详细信息">
                 <el-input style="border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);" type="textarea"
                   :rows="5" v-model="paper_achievement.information" :disabled="flag.isDisabled"></el-input>
               </el-form-item>
@@ -124,7 +129,7 @@
     props: [
       'flag',
       "collegeInfo", //学院信息
-      "firstDisciplineProp", //第一学科
+      "firstdesciplineProp", //第一学科
       "levelProp", //项目级别
       "sortProp", //项目分类
       "TableRow",
@@ -147,16 +152,16 @@
           beginDate: null, //发表日期
           paperType: null, //论文类型
           recordId: null, //收录号
-          discipline: null, //学科门类
-          firstDiscipline: null, //一级学科
+          descipline: null, //学科门类
+          firstdescipline: 'null', //一级学科
           collegeId: '0001', //成果归属
           paperSource: null, //项目来源
-          userId: '1234', //作者
+          userId: null, //作者
           information: null //详细信息
 
         },
         users: [],
-        firstDiscipline: [],
+        firstdescipline: [],
         collegeId: [],
         magazine: [{
             magazineId: '001',
@@ -199,7 +204,7 @@
       }
       this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;
-      this.firstDiscipline = this.firstDisciplineProp;
+      this.firstdescipline = this.firstdesciplineProp;
       this.level = this.levelProp;
       this.sort = this.sortProp;
     },
@@ -210,23 +215,19 @@
       },
       makesure() {
         this.loading = true;
-        var proString = JSON.stringify(this.paper_achievement);
+        var proString = this.paper_achievement;
 
         var sendUser = Global.methods.getUser(this.users, this.paper_achievement);
         var usersString = JSON.stringify(sendUser);
-        console.log(proString);
-        console.log(typeof(proString));
-        proString = JSON.parse(proString);
-        console.log(proString);
-        console.log(typeof(proString));
         // 进行数据和后端交互
+
+        var token = localStorage.getItem('token');
+        this.axios.defaults.headers.common["Authorization"] = token;
         if (this.notDisabled) {
           console.log("论文表单修改  request begin:  ");
           this.axios
             .put(
-              this.GLOBAL.BASE_URL +
-              "/mangerSys/paperAchievement" +
-              this.paper_achievement.id,
+              this.GLOBAL.BASE_URL + "/mangerSys/achievements/paper",
               proString
             )
             .then((response) => {
@@ -248,9 +249,9 @@
           console.log("论文表单申报  request begin:  ");
           console.log(proString);
           this.axios
-            .put(this.GLOBAL.BASE_URL + "/mangerSys/paperAchievement", proString)
+            .post(this.GLOBAL.BASE_URL + "/mangerSys/achievements/paper", proString)
             .then((response) => {
-              console.log(response.data.resultCode);
+              console.log(response);
               console.log("论文表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {

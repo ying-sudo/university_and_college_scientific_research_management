@@ -42,6 +42,12 @@
               </el-select>
             </el-form-item>
 
+
+            <el-form-item class="mu-demo-min-form" prop="userId" label="负责人学工号">
+              <el-input v-model="patent_achievement.userId" :disabled="flag.isDisabled || notDisabled"></el-input>
+            </el-form-item>
+
+
             <el-form-item class="mu-demo-min-form" prop="applicationDate" label="申请日期">
               <el-date-picker v-model="patent_achievement.applicationDate" type="date" placeholder="选择日期" :disabled="flag.isDisabled || notDisabled"
                 value-format="yyyy-MM-dd">
@@ -138,7 +144,7 @@
           name: null, //名称
           patentType: null, //专利类型
           patentRange: null, //专利范围
-          collegeId: null, //成果归属
+          collegeId: '0001', //成果归属
           state: null, //专利状态
           applicationId: null, //申请编号
           applicationDate: null, //申请日期
@@ -146,7 +152,7 @@
           publicDate: null, //公开日期
           impowerId: null, //授权编号
           impowerDate: null, //授权日期
-          userId: '1234', //作者
+          userId: '2011000416', //作者
           information: null //详细信息
         },
         patentType: [
@@ -186,27 +192,28 @@
       makesure() {
         this.loading = true;
         //改成string格式
-        var proString = JSON.stringify(this.patent_achievement);
-        proString = JSON.parse(proString);
+		var proString = this.patent_achievement;
         // 用户成员
         var sendUser = Global.methods.getUser(this.users, this.patent_achievement);
         var usersString = JSON.stringify(sendUser);
+
+		var token = localStorage.getItem('token');
+		this.axios.defaults.headers.common["Authorization"] = token;
         // 进行数据和后端交互
         if (this.notDisabled) {
           console.log("专利表单修改  request begin:  ");
           this.axios
             .put(
               this.GLOBAL.BASE_URL +
-              "/mangerSys/patent/patents/" +
-              this.patent_achievement.id,
+              "/mangerSys/achievements/patent",
               proString
             )
             .then((response) => {
-              console.log(response.data.resultCode);
+              console.log(response.data);
               console.log("专利表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
-                Global.methods.message_success(this, '申报成功');
+                Global.methods.message_success(this, '修改成功');
                 this.closeAlertDialog();
               } else {
                 Global.methods.message_warning(this, '请检查信息是否填写完整正确');
@@ -219,9 +226,9 @@
         } else {
           console.log("专利表单申报  request begin:  ");
           this.axios
-            .put(this.GLOBAL.BASE_URL + "/mangerSys/patentAchievement", proString)
+            .post(this.GLOBAL.BASE_URL + "/mangerSys/achievements/patent", proString)
             .then((response) => {
-              console.log(response.data.resultCode);
+              console.log(response.data);
               console.log("专利表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {

@@ -157,19 +157,37 @@
         });
       },
 
-      getCollegeData(that) {
+      getCollegeData(that, collegeInfo) {
         //从后端获取表单需要的所有学院的信息，并返回
-        that.axios.get(that.GLOBAL.BASE_URL + "/mangerSys/college/findAll").then(
+        var token = localStorage.getItem('token');
+        that.axios.defaults.headers.common["Authorization"] = token;
+        that.axios.get(that.GLOBAL.BASE_URL + "/mangerSys/colleges").then(
           (response) => {
             that.GLOBAL.collegeInfo = response.data.data;
             console.log('college begin:   ');
-            console.log(response.data);
-            return response.data.data;
+
+console.log(response.data.data)
+            for (var i=0; i<response.data.data.length; i++) {
+              console.log(response.data.data[i].id);
+              var empty = {};
+              collegeInfo.push(empty);
+
+              // for (var key in response.data.data[i]) {
+              //   console.log(response.data.data[i][key]);
+              // }
+
+              this.getValueOne(response.data.data[i], collegeInfo[i]);
+            }
+            console.log(collegeInfo);
+            return;
           });
       },
-      getOtherData(that) {
+      getOtherData(that, sort) {
+        var token = localStorage.getItem('token');
+        that.axios.defaults.headers.common["Authorization"] = token;
+
         //从后端获取表单需要的所有其他选择的信息，并返回
-        that.axios.get(that.GLOBAL.BASE_URL + "/mangerSys/sort/findAll").then(
+        that.axios.get(that.GLOBAL.BASE_URL + "/mangerSys/sorts").then(
           (response) => {
             console.log(response.data);
             return response.data;
