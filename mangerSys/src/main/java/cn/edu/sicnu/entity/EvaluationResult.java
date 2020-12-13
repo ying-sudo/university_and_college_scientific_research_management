@@ -16,14 +16,14 @@ public class EvaluationResult implements Serializable {
 
     private Integer score;
 
-    private Date datename;
+    private String datename;
 
     private String sort;
 
     public EvaluationResult() {
     }
 
-    public EvaluationResult(String id, Integer score, Date datename, String sort) {
+    public EvaluationResult(String id, Integer score, String datename, String sort) {
         this.id = id;
         this.score = score;
         this.datename = datename;
@@ -46,11 +46,11 @@ public class EvaluationResult implements Serializable {
         this.score = score;
     }
 
-    public Date getDatename() {
+    public String getDatename() {
         return datename;
     }
 
-    public void setDatename(Date datename) {
+    public void setDatename(String datename) {
         this.datename = datename;
     }
 

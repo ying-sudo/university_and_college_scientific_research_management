@@ -48,6 +48,16 @@ public class Project implements Serializable {
 
     private String approvalNumber;
 
+    private int score;
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public Project() {
     }
 

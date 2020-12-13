@@ -74,6 +74,10 @@ public class PatentAchievementServiceImpl implements PatentAchievementService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean insert(PatentAchievement patentAchievement) {
+        if (patentAchievement.getId().charAt(0) != 'P') {
+            patentAchievement.setId("P" + patentAchievement.getId());
+        }
+
         PatentAchievement achievement = patentAchievementDao.queryById(patentAchievement.getId());
         if (achievement == null) {
             int i = this.patentAchievementDao.insert(patentAchievement);

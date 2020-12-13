@@ -87,7 +87,7 @@ public class WorkAchievementServiceImpl implements WorkAchievementService {
     }
 
     /**
-     * 新查询这个id的记录是否存在，存在才能修改数据，否则直接返回false
+     * 先查询这个id的记录是否存在，存在才能修改数据，否则直接返回false
      *
      * @param workAchievement 实例对象
      * @return 修改成功返回true，失败返回false
@@ -95,6 +95,10 @@ public class WorkAchievementServiceImpl implements WorkAchievementService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean update(WorkAchievement workAchievement) {
+        if (workAchievement.getId().charAt(0) != 'C') {
+            workAchievement.setId("C" + workAchievement.getId());
+        }
+
         if (workAchievement.getIsTranslate().equals("false")) {
             workAchievement.setIsTranslate("1");
         } else {

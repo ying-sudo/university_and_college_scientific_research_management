@@ -77,6 +77,9 @@ public class PaperAchievementServiceImpl implements PaperAchievementService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean insert(PaperAchievement paperAchievement) {
+        if (paperAchievement.getId().charAt(0) != 'T') {
+            paperAchievement.setId("T" + paperAchievement.getId());
+        }
         PaperAchievement achievement = paperAchievementDao.queryById(paperAchievement.getId());
         if (achievement == null) {
             int insert = this.paperAchievementDao.insert(paperAchievement);

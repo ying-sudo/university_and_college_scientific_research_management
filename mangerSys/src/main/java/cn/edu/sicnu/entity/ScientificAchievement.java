@@ -44,6 +44,15 @@ public class ScientificAchievement implements Serializable {
     private String workSource;
 
     private String information;
+    private int score;
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     public ScientificAchievement() {
     }

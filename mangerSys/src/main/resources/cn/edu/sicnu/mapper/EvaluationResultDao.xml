@@ -5,7 +5,7 @@
     <resultMap type="cn.edu.sicnu.entity.EvaluationResult" id="EvaluationResultMap">
         <result property="id" column="id" jdbcType="VARCHAR"/>
         <result property="score" column="score" jdbcType="INTEGER"/>
-        <result property="datename" column="datename" jdbcType="TIMESTAMP"/>
+        <result property="datename" column="datename" jdbcType="VARCHAR"/>
         <result property="sort" column="sort" jdbcType="VARCHAR"/>
     </resultMap>
 
@@ -51,8 +51,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into scientific_research.evaluation_result (score, sort)
-        values (#{score}, #{sort})
+        insert into scientific_research.evaluation_result (id, score, datename, sort)
+        values (#{id}, #{score}, #{datename}, #{sort})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">

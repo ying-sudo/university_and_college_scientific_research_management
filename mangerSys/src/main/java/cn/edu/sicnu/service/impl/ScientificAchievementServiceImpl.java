@@ -95,6 +95,10 @@ public class ScientificAchievementServiceImpl implements ScientificAchievementSe
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean update(ScientificAchievement scientificAchievement) {
+        if (scientificAchievement.getId().charAt(0) != 'S') {
+            scientificAchievement.setId("S" + scientificAchievement.getId());
+        }
+
         if (scientificAchievement.getIsTranslate().equals("false")) {
             scientificAchievement.setIsTranslate("1");
         } else {

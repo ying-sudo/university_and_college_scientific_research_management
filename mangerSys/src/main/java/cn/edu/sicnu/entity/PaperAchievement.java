@@ -40,6 +40,15 @@ public class PaperAchievement implements Serializable {
     private String userName;
 
     private String information;
+    private int score;
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     public PaperAchievement() {
     }

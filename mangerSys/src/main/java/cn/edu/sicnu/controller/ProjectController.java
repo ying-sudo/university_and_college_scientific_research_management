@@ -140,19 +140,15 @@ public class ProjectController {
      * 新建项目
      *
      * @param project 传入的项目对象
-     * @param session
      * @return message成功时返回中状态码为0，
      * 其余都为操作失败，包括出现异常
      */
     @PostMapping("/projects")
-    public Message insert(@RequestBody Project project, HttpSession session) {
-        MDC.clear();
-        MDC.put("userId", String.valueOf(session.getAttribute("userId")));
-        MDC.clear();
+    public Message insert(@RequestBody Project project) {
         project = projectService.insert(project);
         if (project != null) {
             operLogger.info("新建项目成功");
-            return Message.success(null);
+            return Message.success();
         }
         operLogger.warn("新建项目失败");
         return Message.fail();

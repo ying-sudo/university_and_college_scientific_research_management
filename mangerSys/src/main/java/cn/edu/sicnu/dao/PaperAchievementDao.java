@@ -2,6 +2,7 @@ package cn.edu.sicnu.dao;
 
 import cn.edu.sicnu.entity.PaperAchievement;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author makejava
  * @since 2020-11-20 22:47:28
  */
+@Repository
 public interface PaperAchievementDao {
 
     /**

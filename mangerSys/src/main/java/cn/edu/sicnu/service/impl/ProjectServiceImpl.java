@@ -74,7 +74,11 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Project insert(Project project) {
-        if (project.getBeginDate().before(project.getEndDate())) {
+        if (project.getId().charAt(0) != 'I') {
+            project.setId("I" + project.getId());
+        }
+
+        if (project.getEndDate() == null || project.getBeginDate().before(project.getEndDate())) {
             int i = this.projectDao.insert(project);
             if (i == 1) {
                 return project;

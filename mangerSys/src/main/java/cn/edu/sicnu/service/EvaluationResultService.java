@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * (EvaluationResult)表服务接口
  *
- * @author makejava
+ * @author makejava, liangjin
  * @since 2020-11-20 22:47:26
  */
 public interface EvaluationResultService {
@@ -30,6 +30,21 @@ public interface EvaluationResultService {
     List<EvaluationResult> queryAllByLimit(int offset, int limit);
 
     /**
+     * 根据传入实体类进行精确匹配(不是模糊匹配)
+     *
+     * @param sort 查找哪个类别的审核结果，
+     *             项目:project
+     *             论文成果:paper
+     *             科研成果:scientific
+     *             专利:patent
+     *             著作:work
+     * @return 如果传入参数不是指定的类别返回null，如果参数合法则返回符合结果的所有记录
+     * 直接返回审核的结果(包括审核条目的信息)，如审核项目的话，直接返回Project的list，
+     * 其中每一项的分数(score)设置为从审核结果表查出的分数
+     */
+    List<Object> queryBySort(String sort);
+
+    /**
      * 查询表所有对象
      *
      * @return 对象列表
@@ -40,17 +55,17 @@ public interface EvaluationResultService {
      * 新增数据
      *
      * @param evaluationResult 实例对象
-     * @return 实例对象
+     * @return 新增成功返回true，失败返回false
      */
-    EvaluationResult insert(EvaluationResult evaluationResult);
+    boolean insert(EvaluationResult evaluationResult);
 
     /**
      * 修改数据
      *
      * @param evaluationResult 实例对象
-     * @return 实例对象
+     * @return 修改成功返回true，失败返回false
      */
-    EvaluationResult update(EvaluationResult evaluationResult);
+    boolean update(EvaluationResult evaluationResult);
 
     /**
      * 通过主键删除数据
