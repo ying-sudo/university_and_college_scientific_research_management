@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "label": "科研人员号",
+        "type": "text",
+        "prop": "id",
+        "width":"90"
+    },
+    {
+        "id": 2,
+        "label": "科研人员名",
+        "type": "text",
+        "prop": "id",
+        "width":"130"
+    }
+]

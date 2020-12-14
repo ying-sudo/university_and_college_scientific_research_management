@@ -22,58 +22,30 @@
     },
     {
         "id": 4,
-        "label": "联系方式",
-        "type": "text",
-        "prop": "author_contact_information",
-        "width":"120"
-    },
-    {
-        "id": 5,
         "label": "归属单位",
         "type": "text",
         "prop": "collegeName",
         "width":"120"
     },
     {
-        "id": 6,
-        "label": "专利名称",
-        "type": "text",
-        "prop": "patentType",
-        "width":"120"
-    },
-    {
-        "id": 7,
+        "id": 5,
         "label": "专利范围",
         "type": "text",
         "prop": "patentRange",
         "width":"120"
     },
     {
-        "id": 8,
+        "id": 6,
         "label": "申请日期",
         "type": "text",
         "prop": "applicationDate",
         "width":"120"
     },
     {
-        "id": 9,
-        "label": "公开日期",
-        "type": "text",
-        "prop": "publicDate",
-        "width":"120"
-    },
-    {
-        "id": 10,
+        "id": 7,
         "label": "授权日期",
         "type": "text",
         "prop": "impowerDate",
-        "width":"120"
-    },
-    {
-        "id": 11,
-        "label": "详细信息",
-        "type": "text",
-        "prop": "information",
         "width":"120"
     }
 ]

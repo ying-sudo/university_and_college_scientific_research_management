@@ -28,6 +28,8 @@ export function getTableMap() {
         ["/personal_result", "/check_result_table/ResearcherCheckResultTable.json"], 
         ["/college_result", "/check_result_table/CollegeCheckResultTable.json"], 
         ["/team_result", "/check_result_table/TeamCheckResultTable.json"], 
+        ["/collegesdep", "/college_researchers_table/CollegeDep.json"], 
+        ["/researchers", "/college_researchers_table/Researchers.json"], 
         
     ]);
 

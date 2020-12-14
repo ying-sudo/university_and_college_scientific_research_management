@@ -23,51 +23,30 @@
     },
     {
         "id": 4,
-        "label": "项目性质",
-        "type": "text",
-        "prop": "characters",
-        "width":"120"
-    },
-    {
-        "id": 5,
-        "label": "项目级别",
-        "type": "text",
-        "prop": "level",
-        "width":"120"
-    },
-    {
-        "id": 6,
         "label": "项目分类",
         "type": "text",
         "prop": "sort",
         "width":"120"
     },
     {
-        "id": 7,
+        "id": 5,
         "label": "负责人",
         "type": "text",
         "prop": "userName",
         "width":"120"
     },
     {
-        "id": 8,
+        "id": 6,
         "label": "审核状态",
         "type": "text",
         "prop": "states",
         "width":"120"
     },
     {
-        "id": 9,
+        "id": 7,
         "label": "项目经费",
         "type": "text",
         "prop": "requestFund",
-        "width":"120"
-    },
-    {
-        "id": 10,
-        "label": "到账金额",
-        "type": "text",
-        "prop": "arrivalFund",
         "width":"120"
     }
 ]

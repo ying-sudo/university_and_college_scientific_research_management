@@ -22,51 +22,37 @@
     },
     {
         "id": 4,
-        "label": "联系方式",
-        "type": "text",
-        "prop": "phone",
-        "width":"120"
-    },
-    {
-        "id": 5,
         "label": "归属单位",
         "type": "text",
         "prop": "collegeName",
         "width":"150"
     },
     {
-        "id": 6,
+        "id": 5,
         "label": "出版社",
         "type": "text",
         "prop": "publisher",
         "width":"120"
     },
     {
-        "id": 7,
-        "label": "出版社所在地",
-        "type": "text",
-        "prop": "publishLocation",
-        "width":"120"
-    },
-    {
-        "id": 8,
+        "id": 6,
         "label": "撰写日期",
         "type": "text",
         "prop": "beginDate",
         "width":"120"
     },
     {
-        "id": 9,
+        "id": 7,
         "label": "学科",
         "type": "text",
         "prop": "discipline",
-        "width":"120"
+        "width":"110"
     },
     {
-        "id": 10,
+        "id": 8,
         "label": "第一学科",
         "type": "text",
         "prop": "firstDiscipline",
-        "width":"120"
+        "width":"100"
     }
 ]
