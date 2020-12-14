@@ -18,8 +18,8 @@
         </div>
       </mu-flex>
 
-      <PatentForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
-        :levelProp="level" :sortProp="sort" :TableRow="TableRow"></PatentForm>
+      <PatentForm v-if="canOpen" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :patentRangeProp="patentRange"
+        :patentTypeProp="patentType" :TableRow="TableRow"></PatentForm>
     </mu-container>
   </div>
 
@@ -42,11 +42,18 @@
           isDisabled: false
         },
         reload: '',
-        collegeInfo: this.GLOBAL.collegeInfo,
-        firstDiscipline: this.GLOBAL.firstDiscipline,
-        level: this.GLOBAL.level,
-        sort: this.GLOBAL.sort,
+        collegeInfo: [],
+        //专利：  专利类型，专利范围
+        otherAll: {
+          patentType: [],
+          patentRange: [],
+        },
+        patentType: null,
+        patentRange: null,
       };
+    },
+    created: function() {
+      this.getAllData();
     },
     components: {
       PatentForm
@@ -54,9 +61,23 @@
     methods: {
       openAlertDialog() { //专利申请表单
         this.reload = new Date().getTime(); //重载改组件
+        this.patentRange = this.otherAll.patentRange;
+        this.patentType = this.otherAll.patentType;
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
       },
+      getAllData() {
+        Global.methods.getCollegeData(this, this.collegeInfo);
+        Global.methods.getOtherData(this, this.otherAll);
+
+        return;
+      },
     },
+    computed: {
+      canOpen() {
+        var isEmpty = Global.methods.isEmpty(this.patentRange, this.patentType, this.collegeInfo);
+        return isEmpty;
+      }
+    }
   }
 </script>
 

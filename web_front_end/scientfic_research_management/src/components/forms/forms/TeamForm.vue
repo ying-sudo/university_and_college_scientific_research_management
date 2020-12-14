@@ -11,7 +11,7 @@
         <div style="float: left; padding: 10px; width: 1520px; margin: 0 140px;">
           <el-form :model="team" ref="team" :rules="rules" :label-position="labelPosition" label-width="1000">
             <el-form-item class="mu-demo-min-form" prop="name" label="团队名称">
-              <el-input v-model="team.name" :disabled="flag.isDisabled"></el-input>
+              <el-input v-model="team.name" :disabled="flag.isDisabled || notDisabled"></el-input>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="id" label="团队编号">
@@ -19,7 +19,7 @@
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="researchDiection" label="研究方向">
-              <el-input v-model="team.researchDiection" :disabled="flag.isDisabled"></el-input>
+              <el-input v-model="team.researchDiection" :disabled="flag.isDisabled || notDisabled"></el-input>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="discipline" label="学科门类">
@@ -42,7 +42,7 @@
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="phone" label="办公电话">
-              <el-input v-model="team.phone" :disabled="flag.isDisabled"></el-input>
+              <el-input v-model="team.phone" :disabled="flag.isDisabled || notDisabled"></el-input>
             </el-form-item>
 
             <!-- 团队负责人 -->
@@ -142,8 +142,6 @@
       'flag',
       "collegeInfo", //学院信息
       "firstDisciplineProp", //第一学科
-      "levelProp", //项目级别
-      "sortProp", //项目分类
       "TableRow",
     ],
     model: {
@@ -166,11 +164,9 @@
           foundingTime: '', //成立时间
           phone: '', //办公电话
           information: '', //团队信息
-          userId: '2011000416', //负责人
+          userId: localStorage.getItem('userId'), //负责人
         },
         firstDiscipline: [], //一级学科内容
-        level: [], //项目级别
-        sort: [], //项目分类
         state: [{
             id: 1,
             name: "进行"
@@ -194,7 +190,7 @@
           post: '',
           email: ''
         },
-        users: []
+        users: [],
 
       };
     },
@@ -205,8 +201,6 @@
       this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;
       this.firstDiscipline = this.firstDisciplineProp;
-      this.level = this.levelProp;
-      this.sort = this.sortProp;
     },
     methods: {
       closeAlertDialog() {
@@ -216,10 +210,7 @@
       makesure() {
         this.loading = true;
         //改成string格式
-        // var proString = JSON.stringify(this.team);
         var proString = this.team;
-        console.log(proString);
-        // proString = JSON.parse(proString);
         // 用户成员
         var sendUser = Global.methods.getUser(this.users, this.team);
         var usersString = JSON.stringify(sendUser);
@@ -228,17 +219,12 @@
         this.axios.defaults.headers.common["Authorization"] = token;
         // 进行数据和后端交互
         if (this.notDisabled) {
-          console.log("项目表单修改  request begin:  ");
           this.axios
             .put(
-              this.GLOBAL.BASE_URL +
-              "/mangerSys/team/teams/" +
-              this.project.id,
+              this.GLOBAL.BASE_URL + "/mangerSys/teams",
               proString
             )
             .then((response) => {
-              console.log(response.data.resultCode);
-              console.log("项目表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
                 Global.methods.message_success(this, '申报成功');
@@ -252,13 +238,10 @@
               Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         } else {
-          console.log("项目表单申报  request begin:  ");
 
           this.axios
             .post(this.GLOBAL.BASE_URL + "/mangerSys/teams", proString)
             .then((response) => {
-              console.log(response.data);
-              console.log("项目表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
                 Global.methods.message_success(this, '申报成功');
@@ -286,14 +269,12 @@
       findUser() {
         var token = localStorage.getItem('token');
         this.axios.defaults.headers.common["Authorization"] = token;
-        this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/selectOne", this.user.id,
-          {
+        this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/selectOne", this.user.id, {
             headers: {
               'Content-Type': "application/json"
             }
           })
           .then((response) => {
-            console.log(response);
             if (response.data.resultCode == 0) {
               if (response.data.data == null) {
                 Global.methods.message_warning(this, '该用户不存在！');
@@ -305,9 +286,6 @@
             } else {
               Global.methods.message_error(this, '服务器错误，请稍后再试！');
             }
-
-            console.log('用户请求 over  ');
-
           })
           .catch((error) => {
             Global.methods.message_error(this, '服务器错误，请稍后再试！');

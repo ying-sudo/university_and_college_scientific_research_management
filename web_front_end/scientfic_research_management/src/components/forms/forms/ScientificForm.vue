@@ -3,8 +3,8 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <el-dialog v-loading="loading" title="科研申报" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
-        :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
+      <el-dialog v-loading="loading" title="科研申报" class="el-dialog__title" style="font-size: 10px;" fullscreen
+        :esc-press-close="false" :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
         <!-- 表单内容 -->
         <div style="padding: 10px; width: 1520px; margin: 0 140px;">
@@ -19,7 +19,7 @@
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="collegeId" label="成果归属">
-              <el-select v-model="scientific_achievement.collegeId" :disabled="flag.isDisabled">
+              <el-select v-model="scientific_achievement.collegeId" :disabled="flag.isDisabled || notDisabled">
                 <el-option v-for="option in collegeId" :key="option.id" :label="option.name" :value="option.id"></el-option>
               </el-select>
             </el-form-item>
@@ -36,13 +36,13 @@
 
             <el-form-item class="mu-demo-min-form" prop="isTranslate" label="是否翻译">
               <el-radio-group v-model="scientific_achievement.isTranslate">
-                <el-radio label="true" :disabled="flag.isDisabled">是</el-radio>
-                <el-radio label="false" :disabled="flag.isDisabled">否</el-radio>
+                <el-radio label="true" :disabled="flag.isDisabled || notDisabled">是</el-radio>
+                <el-radio label="false" :disabled="flag.isDisabled || notDisabled">否</el-radio>
               </el-radio-group>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="translateLanguage" label="翻译语种">
-              <el-select v-model="scientific_achievement.translateLanguage" :disabled="flag.isDisabled || scientific_achievement.isTranslate!='true'">
+              <el-select v-model="scientific_achievement.translateLanguage" :disabled="flag.isDisabled || scientific_achievement.isTranslate!='true' || notDisabled">
                 <el-option v-for="option in translateLanguage" :key="option" :label="option" :value="option"></el-option>
               </el-select>
             </el-form-item>
@@ -55,13 +55,13 @@
 
             <el-form-item class="mu-demo-min-form" prop="discipline" label="学科门类">
               <el-radio-group v-model="scientific_achievement.discipline">
-                <el-radio label="science" :disabled="flag.isDisabled">理工类</el-radio>
-                <el-radio label="social" :disabled="flag.isDisabled">社科类</el-radio>
+                <el-radio label="science" :disabled="flag.isDisabled || notDisabled">理工类</el-radio>
+                <el-radio label="social" :disabled="flag.isDisabled || notDisabled">社科类</el-radio>
               </el-radio-group>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="workType" label="研究类别">
-              <el-select v-model="scientific_achievement.workType" :disabled="flag.isDisabled">
+              <el-select v-model="scientific_achievement.workType" :disabled="flag.isDisabled || notDisabled">
                 <el-option v-for="option in workType" :key="option" :label="option" :value="option"></el-option>
               </el-select>
             </el-form-item>
@@ -119,9 +119,10 @@
       'flag',
       "collegeInfo", //学院信息
       "firstDisciplineProp", //第一学科
-      "levelProp", //科研级别
-      "sortProp", //科研分类
-      "TableRow"
+      "workSourceProp",
+      "translateLanguageProp",
+      "workTypeProp",
+      "TableRow",
     ],
     model: {
       prop: 'flag',
@@ -137,9 +138,9 @@
         scientific_achievement: {
           id: null, //科研编号
           name: null, //科研题目
-          collegeId: '0001', //成果归属
+          collegeId: null, //成果归属
           scientificId: null,
-          userId: '1234', //作者
+          userId: null, //作者
           isTranslate: 'false', //是否翻译
           translateLanguage: null, //翻译语种
           beginDate: null,
@@ -147,33 +148,16 @@
           discipline: null, //学科门类
           characters: null, //研究类别
           workSource: null, //科研来源
-          information: null //详细信息
+          information: null, //详细信息
         },
-        publishLevel: [
-          '级别1', '级别2'
-        ],
-        workType: [
-          '类别1', '类别2'
-        ],
-        publishLocation: [
-          '出版地1', '出版地2'
-        ],
-        translateLanguage: [
-          '翻译语种1', '翻译语种2'
-        ],
-        firstDiscipline: [
-          '一级学科1', '一级学科2'
-        ],
+        collegeId: [],
+        workType: [],
+        translateLanguage: [],
+        firstDiscipline: [], //一级学科内容
+        workSource: [],
         users: [
           //参加人员
         ],
-        collegeId: [],
-        firstDiscipline: [], //一级学科内容
-        level: [], //科研级别
-        sort: [], //科研分类
-        workSource: [
-          '项目来源1', '项目来源2'
-        ]
       };
     },
     created: function() {
@@ -183,8 +167,9 @@
       this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;
       this.firstDiscipline = this.firstDisciplineProp;
-      this.level = this.levelProp;
-      this.sort = this.sortProp;
+      this.workType = this.workTypeProp
+      this.translateLanguage = this.translateLanguageProp
+      this.workSource = this.workSourceProp
     },
     methods: {
       closeAlertDialog() {
@@ -198,12 +183,11 @@
         // 用户成员
         var sendUser = Global.methods.getUser(this.users, this.scientific_achievement);
         var usersString = JSON.stringify(sendUser);
-        
+
         var token = localStorage.getItem('token');
         this.axios.defaults.headers.common["Authorization"] = token;
         // 进行数据和后端交互
         if (this.notDisabled) {
-          console.log("科研表单修改  request begin:  ");
           this.axios
             .put(
               this.GLOBAL.BASE_URL +
@@ -211,8 +195,6 @@
               proString
             )
             .then((response) => {
-              console.log(response.data);
-              console.log("科研表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
                 Global.methods.message_success(this, '申报成功');
@@ -226,12 +208,9 @@
               Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         } else {
-          console.log("科研表单申报  request begin:  ");
           this.axios
             .post(this.GLOBAL.BASE_URL + "/mangerSys/achievements/scientific", proString)
             .then((response) => {
-              console.log(response);
-              console.log("科研表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
                 Global.methods.message_success(this, '申报成功');
@@ -291,5 +270,4 @@
     width: 30px;
     height: 30px;
   }
-
 </style>

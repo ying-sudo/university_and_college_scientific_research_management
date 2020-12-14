@@ -2,8 +2,6 @@
   <!-- 论文成果按钮 -->
   <div>
 
-    <div v-if="getAllData"></div>
-
     <mu-container>
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
@@ -20,7 +18,7 @@
         </div>
       </mu-flex>
 
-      <PaperForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
+      <PaperForm v-if="canOpen" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
         :levelProp="level" :sortProp="sort" :TableRow="TableRow"></PaperForm>
     </mu-container>
   </div>
@@ -43,24 +41,38 @@
           isDisabled: false,
         }, //论文成果表单
         reload: '',
+        //收录，一级学科
         collegeInfo: null,
         firstDiscipline: null,
-        level: null,
-        sort: null,
+        magazineSort: null,
       };
+    },
+    created: function() {
+      this.getAllData();
     },
     components: {
       PaperForm,
     },
     methods: {
       openAlertDialog() {
-        this.collegeInfo = Global.methods.getCollegeData(this);
-        console.log(this.collegeInfo);
         this.reload = new Date().getTime();
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
       },
+      getAllData() {
+        var otherAll = {
+          firstDiscipline: [],
+          level: [],
+          sort: [],
+        };
+        Global.methods.getCollegeData(this, this.collegeInfo);
+        Global.methods.getOtherData(this, otherAll);
+
+        this.firstDiscipline = otherAll.firstDiscipline;
+
+        return;
+      },
     },
-    
+
   };
 </script>
 

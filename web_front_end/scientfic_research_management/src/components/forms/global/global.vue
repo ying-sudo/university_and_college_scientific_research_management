@@ -82,7 +82,7 @@
           dir[key] = sour[key];
         }
       },
-      getValue(sour, dir) { //二维
+      getValue(sour, dir) { //二维，最后一个添加
         for (var key in sour) {
           dir[dir.length - 1][key] = sour[key];
         }
@@ -163,36 +163,64 @@
         that.axios.defaults.headers.common["Authorization"] = token;
         that.axios.get(that.GLOBAL.BASE_URL + "/mangerSys/colleges").then(
           (response) => {
-            that.GLOBAL.collegeInfo = response.data.data;
-            console.log('college begin:   ');
-
-console.log(response.data.data)
-            for (var i=0; i<response.data.data.length; i++) {
-              console.log(response.data.data[i].id);
+            for (var i = 0; i < response.data.data.length; i++) {
               var empty = {};
               collegeInfo.push(empty);
-
-              // for (var key in response.data.data[i]) {
-              //   console.log(response.data.data[i][key]);
-              // }
-
               this.getValueOne(response.data.data[i], collegeInfo[i]);
             }
-            console.log(collegeInfo);
             return;
           });
       },
       getOtherData(that, sort) {
         var token = localStorage.getItem('token');
         that.axios.defaults.headers.common["Authorization"] = token;
-
         //从后端获取表单需要的所有其他选择的信息，并返回
         that.axios.get(that.GLOBAL.BASE_URL + "/mangerSys/sorts").then(
           (response) => {
-            console.log(response.data);
-            return response.data;
+            for (var key in response.data.data) {
+              for (var i = 0; i < response.data.data[key].length; i++) {
+                sort[key].push(response.data.data[key][i]);
+              }
+            }
+
+            return;
           })
-      }
+      },
+
+      //使用不定参数，把所有的值传过来，判断是否为空
+      isEmpty() {
+        var len = arguments.length;
+
+        for (var i = 0; i < len; i++) {
+          if (arguments[i].length == 0) {
+            return false;
+          }
+        }
+
+        return true;
+      },
+
+      //下载
+      //下载excel文件
+      downloadExcel(tHeader, filterVal, excelName, tableData) {
+        this.export2Excel(tHeader, filterVal, excelName, tableData);
+      },
+      export2Excel(tHeader, filterVal, excelName, tableData) {
+        require.ensure([], () => {
+          const {
+            export_json_to_excel
+          } = require('@/lib/excel/Export2Excel.js');
+          const list = tableData; //把data里的tableData存到list
+          const data = this.formatJson(filterVal, list);
+          export_json_to_excel(tHeader, data, excelName); //导出Excel 文件名
+        })
+      },
+      formatJson(filterVal, jsonData) {
+        return jsonData.map(v => filterVal.map(j => v[j]))
+      },
+
+
+
     },
   }
 </script>

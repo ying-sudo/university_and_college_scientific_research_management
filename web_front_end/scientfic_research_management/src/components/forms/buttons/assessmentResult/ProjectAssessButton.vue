@@ -39,7 +39,6 @@
     },
     components: {
       ProjectAssessmentResultForm,
-
     },
     methods: {
       openAlertDialog() { //专利申请表单

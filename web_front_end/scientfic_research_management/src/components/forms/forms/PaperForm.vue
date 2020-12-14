@@ -26,7 +26,7 @@
               </el-form-item>
 
               <el-form-item class="mu-demo-min-form" prop="magazine" label="发表期刊">
-                <el-input v-model="paper_achievement.magazine" :disabled="flag.isDisabled"></el-input>
+                <el-input v-model="paper_achievement.magazine" :disabled="flag.isDisabled || notDisabled"></el-input>
               </el-form-item>
 
               <el-form-item class="mu-demo-min-form" prop="beginDate" label="发表时间">
@@ -36,11 +36,11 @@
               </el-form-item>
 
               <el-form-item class="mu-demo-min-form" prop="paperType" label="论文类型">
-                <el-input v-model="paper_achievement.paperType" :disabled="flag.isDisabled"></el-input>
+                <el-input v-model="paper_achievement.paperType" :disabled="flag.isDisabled || notDisabled"></el-input>
               </el-form-item>
 
               <el-form-item class="mu-demo-min-form" prop="recordId" label="收录号">
-                <el-input v-model="paper_achievement.recordId" :disabled="flag.isDisabled"></el-input>
+                <el-input v-model="paper_achievement.recordId" :disabled="flag.isDisabled || notDisabled"></el-input>
               </el-form-item>
 
               <el-form-item class="mu-demo-min-form" prop="descipline" label="学科门类">
@@ -51,7 +51,7 @@
               </el-form-item>
 
               <el-form-item class="mu-demo-min-form" prop="firstdescipline" label="一级学科">
-                <el-select v-model="paper_achievement.firstdescipline" :disabled="flag.isDisabled">
+                <el-select v-model="paper_achievement.firstdescipline" :disabled="flag.isDisabled || notDisabled">
                   <el-option v-for="option in firstdescipline" :key="option" :label="option" :value="option"></el-option>
                 </el-select>
               </el-form-item>
@@ -64,7 +64,7 @@
               </el-form-item>
 
               <el-form-item class="mu-demo-min-form" prop="collegeId" label="成果归属">
-                <el-select v-model="paper_achievement.collegeId" :disabled="flag.isDisabled">
+                <el-select v-model="paper_achievement.collegeId" :disabled="flag.isDisabled || notDisabled">
                   <el-option v-for="option in collegeId" :key="option.id" :label="option.name" :value="collegeId.id"></el-option>
                 </el-select>
               </el-form-item>
@@ -91,7 +91,7 @@
               <div style="overflow-y: scroll; height: 725px;">
                 <mu-flex class="select-control-row" :key="magazineSort[i-1].id" v-for="i in magazineSort.length">
                   <mu-checkbox style="margin: 5px;" :value="magazineSort[i-1].id" v-model="magazineId" :label='magazineSort[i-1].name'
-                    :disabled="flag.isDisabled"></mu-checkbox>
+                    :disabled="flag.isDisabled || notDisabled"></mu-checkbox>
                 </mu-flex>
               </div>
             </div>
@@ -130,8 +130,6 @@
       'flag',
       "collegeInfo", //学院信息
       "firstdesciplineProp", //第一学科
-      "levelProp", //项目级别
-      "sortProp", //项目分类
       "TableRow",
     ],
     model: {
@@ -153,12 +151,11 @@
           paperType: null, //论文类型
           recordId: null, //收录号
           descipline: null, //学科门类
-          firstdescipline: 'null', //一级学科
-          collegeId: '0001', //成果归属
+          firstdescipline: null, //一级学科
+          collegeId: null, //成果归属
           paperSource: null, //项目来源
-          userId: null, //作者
+          userId: localStorage.getItem('userId'), //作者
           information: null //详细信息
-
         },
         users: [],
         firstdescipline: [],
@@ -205,8 +202,6 @@
       this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;
       this.firstdescipline = this.firstdesciplineProp;
-      this.level = this.levelProp;
-      this.sort = this.sortProp;
     },
     methods: {
       closeAlertDialog() {
@@ -224,15 +219,12 @@
         var token = localStorage.getItem('token');
         this.axios.defaults.headers.common["Authorization"] = token;
         if (this.notDisabled) {
-          console.log("论文表单修改  request begin:  ");
           this.axios
             .put(
               this.GLOBAL.BASE_URL + "/mangerSys/achievements/paper",
               proString
             )
             .then((response) => {
-              console.log(response.data.resultCode);
-              console.log("论文表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
                 Global.methods.message_success(this, '申报成功');
@@ -246,13 +238,9 @@
               Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         } else {
-          console.log("论文表单申报  request begin:  ");
-          console.log(proString);
           this.axios
             .post(this.GLOBAL.BASE_URL + "/mangerSys/achievements/paper", proString)
             .then((response) => {
-              console.log(response);
-              console.log("论文表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
                 Global.methods.message_success(this, '申报成功');

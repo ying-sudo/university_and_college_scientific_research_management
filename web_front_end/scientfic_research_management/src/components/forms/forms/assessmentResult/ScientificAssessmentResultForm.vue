@@ -129,15 +129,23 @@
           discipline: null, //学科门类
           characters: null, //研究类别
           workSource: null, //科研来源
-          information: null //详细信息
+          information: null,//详细信息
+          score: null,
         },
         users: [
           //参加人员
         ],
+        scoreInfo: {
+          id: null,
+          score: null,
+          sort: 'scientific',
+        },
       };
     },
     created: function() {
       this.scientific_achievement = this.TableRow;
+      this.scoreInfo.id = this.scientific_achievement.id;
+      this.scoreInfo.score = this.scientific_achievement.score;
       this.notDisabled = true;
     },
     methods: {

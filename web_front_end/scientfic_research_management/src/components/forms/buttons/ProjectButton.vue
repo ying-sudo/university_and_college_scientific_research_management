@@ -18,8 +18,8 @@
         <!-- <p>{{this.TableRow}}</p> -->
       </mu-flex>
 
-      <ProjectForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
-        :levelProp="level" :sortProp="sort" :TableRow="TableRow"></ProjectForm>
+      <ProjectForm :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
+        :levelProp="level" :sortProp="sort" :TableRow="TableRow" v-if="canOpen"></ProjectForm>
 
     </mu-container>
   </div>
@@ -42,34 +42,45 @@
           isDisabled: false, //为true表示不能更改，详情界面
         },
         reload: "",
-        collegeInfo: null,
+        collegeInfo: [],
+        otherAll: {
+          firstDiscipline: [],
+          level: [],
+          sort: [],
+        },
         firstDiscipline: null,
         level: null,
         sort: null,
       };
+    },
+    created: function() {
+      this.getAllData();
     },
     components: {
       ProjectForm,
     },
     methods: {
       openAlertDialog() {
-
-        this.getAllData();
-
-        //项目申报表单
         this.reload = new Date().getTime();
+        this.firstDiscipline = this.otherAll.firstDiscipline;
+        this.level = this.otherAll.level;
+        this.sort = this.otherAll.sort;
+        //项目申报表单
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
       },
       getAllData() {
-        var collegeInfo = [{}];
-        var sort = [{}];
-        Global.methods.getCollegeData(this, collegeInfo);
-        Global.methods.getOtherData(this, sort);
-        console.log('begin:  ');
-        console.log(collegeInfo);
-        console.log(sort);
+        Global.methods.getCollegeData(this, this.collegeInfo);
+        Global.methods.getOtherData(this, this.otherAll);
+
+        return;
       },
     },
+    computed: {
+      canOpen() {
+        var isEmpty = Global.methods.isEmpty(this.firstDiscipline, this.level, this.sort, this.collegeInfo);
+        return isEmpty;
+      }
+    }
   }
 </script>
 

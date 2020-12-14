@@ -18,8 +18,9 @@
         </div>
       </mu-flex>
 
-      <ScientificForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
-        :levelProp="level" :sortProp="sort" :TableRow="TableRow"></ScientificForm>
+      <ScientificForm v-if="canOpen" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :TableRow="TableRow"
+        :workSourceProp="workSource" :translateLanguageProp="translateLanguage" :workTypeProp="workType"
+        :firstDisciplineProp="firstDiscipline"></ScientificForm>
 
     </mu-container>
   </div>
@@ -43,11 +44,22 @@
           isDisabled: false
         },
         reload: '',
-        collegeInfo: this.GLOBAL.collegeInfo,
-        firstDiscipline: this.GLOBAL.firstDiscipline,
-        level: this.GLOBAL.level,
-        sort: this.GLOBAL.sort,
+        collegeInfo: null,
+        //一级学科，研究类别，项目来源
+        otherAll: {
+          firstDiscipline: [],
+          workType: [],
+          translateLanguage: [],
+          workSource: [],
+        },
+        firstDiscipline: null,
+        workType: null,
+        translateLanguage: null,
+        workSource: null,
       };
+    },
+    created: function() {
+      this.getAllData();
     },
     components: {
       ScientificForm
@@ -55,8 +67,25 @@
     methods: {
       openAlertDialog() {
         this.reload = new Date().getTime();
+        this.firstDiscipline = this.otherAll.firstDiscipline;
+        this.workType = this.otherAll.workType;
+        this.translateLanguage = this.otherAll.translateLanguage;
+        this.workSource = this.otherAll.workSource;
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
       },
+      getAllData() {
+        Global.methods.getCollegeData(this, this.collegeInfo);
+        Global.methods.getOtherData(this, this.otherAll);
+
+        return;
+      },
+    },
+    computed: {
+      canOpen() {
+        var isEmpty = Global.methods.isEmpty(this.firstDiscipline, this.workType, this.translateLanguage, this.collegeInfo,
+          this.workSource);
+        return isEmpty;
+      }
     },
   }
 </script>

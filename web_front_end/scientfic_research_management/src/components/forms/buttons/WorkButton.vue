@@ -18,8 +18,9 @@
         </div>
       </mu-flex>
 
-      <WorkForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
-        :levelProp="level" :sortProp="sort" :TableRow="TableRow"></WorkForm>
+      <WorkForm v-if="canOpen" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :TableRow="TableRow"
+        :publishLevelProp="publishLevel" :workTypeProp="workType" :publishLocationProp="publishLocation"
+        :translateLanguageProp="translateLanguage" :firstDisciplineProp="firstDiscipline" :workSourceProp="workSource"></WorkForm>
     </mu-container>
   </div>
 
@@ -42,11 +43,26 @@
           isDisabled: false
         },
         reload: '',
-        collegeInfo: this.GLOBAL.collegeInfo,
-        firstDiscipline: this.GLOBAL.firstDiscipline,
-        level: this.GLOBAL.level,
-        sort: this.GLOBAL.sort,
+        collegeInfo: [],
+        //著作：出版社级别，著作类别，出版地，翻译语种，一级学科，项目来源
+        otherAll: {
+          publishLevel: [],
+          workType: [],
+          publishLocation: [],
+          translateLanguage: [],
+          firstDiscipline: [],
+          workSource: [],
+        },
+        publishLevel: null,
+        workType: null,
+        publishLocation: null,
+        translateLanguage: null,
+        firstDiscipline: null,
+        workSource: null,
       };
+    },
+    created: function() {
+      this.getAllData();
     },
     components: {
       WorkForm
@@ -54,9 +70,28 @@
     methods: {
       openAlertDialog() {
         this.reload = new Date().getTime();
+        this.publishLevel = this.otherAll.publishLevel;
+        this.workType = this.otherAll.workType;
+        this.publishLocation = this.otherAll.publishLocation;
+        this.translateLanguage = this.otherAll.translateLanguage;
+        this.firstDiscipline = this.otherAll.firstDiscipline;
+        this.workSource = this.otherAll.workSource;
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
       },
+      getAllData() {
+        Global.methods.getCollegeData(this, this.collegeInfo);
+        Global.methods.getOtherData(this, this.otherAll);
+
+        return;
+      },
     },
+    computed: {
+      canOpen() {
+        var isEmpty = Global.methods.isEmpty(this.firstDiscipline, this.collegeInfo, this.publishLevel, this.workType,
+          this.publishLocation, this.workSource);
+        return isEmpty;
+      }
+    }
   }
 </script>
 

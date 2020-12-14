@@ -12,10 +12,6 @@
   // const BASE_URL = 'http://172.20.10.6:9999';
   // const BASE_URL = 'http://192.168.1.106:9999';
 
-  const sort = ['null'];
-  const firstDiscipline = ['null'];
-  const level = ['null'];
-  const collegeInfo = [{id:'0001', name:'test'}];
   const rules = {
     name: [{
       required: true,
@@ -128,11 +124,8 @@
 
   export default {
     BASE_URL,
-    sort,
-    firstDiscipline,
-    level,
-    collegeInfo,
     rules,
+
   }
 </script>
 

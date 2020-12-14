@@ -19,12 +19,18 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
-import global_ from './Base.vue'
+import global_ from '@/Base.vue'
 Vue.prototype.GLOBAL = global_;
 axios.defaults.baseURI = global_.BASE_URL;
 
 import echarts from "echarts";
 Vue.prototype.$echarts = echarts
+
+//导出excel
+import Blob from '@/lib/excel/Blob.js'
+import Export2Excel from '@/lib/excel/Export2Excel.js'
+// import JsonExcel from 'vue-json-excel'
+// Vue.component('downloadExcel', JsonExcel)
 
 Vue.config.productionTip = false
 

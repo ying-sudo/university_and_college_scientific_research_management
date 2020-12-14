@@ -136,12 +136,20 @@
           impowerId: null, //授权编号
           impowerDate: null, //授权日期
           userId: '1234', //作者
-          information: null //详细信息
+          information: null, //详细信息
+          score: null,
+        },
+        scoreInfo: {
+          id: null,
+          score: null,
+          sort: 'patent',
         },
       };
     },
     created: function() {
       this.patent_achievement = this.TableRow;
+      this.scoreInfo.id = this.patent_achievement.id;
+      this.scoreInfo.score = this.patent_achievement.score;
       this.notDisabled = true;
     },
     methods: {

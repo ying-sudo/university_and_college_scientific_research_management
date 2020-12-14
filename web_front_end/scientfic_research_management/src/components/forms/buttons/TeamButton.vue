@@ -18,8 +18,8 @@
         </div>
       </mu-flex>
 
-      <TeamForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
-        :levelProp="level" :sortProp="sort" :TableRow="TableRow"></TeamForm>
+      <TeamForm v-if="canOpen" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
+        :TableRow="TableRow"></TeamForm>
     </mu-container>
   </div>
 
@@ -42,11 +42,16 @@
           isDisabled: false
         }, //论文成果表单
         reload: '',
-        collegeInfo: this.GLOBAL.collegeInfo,
-        firstDiscipline: this.GLOBAL.firstDiscipline,
-        level: this.GLOBAL.level,
-        sort: this.GLOBAL.sort,
+        collegeInfo: [],
+        //团队：一级学科
+        otherAll: {
+          firstDiscipline: [],
+        },
+        firstDiscipline: null,
       };
+    },
+    created: function() {
+      this.getAllData();
     },
     components: {
       TeamForm
@@ -54,8 +59,21 @@
     methods: {
       openAlertDialog() { //论文成果表单
         this.reload = new Date().getTime();
+        this.firstDiscipline = this.otherAll.firstDiscipline;
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
       },
+      getAllData() {
+        Global.methods.getCollegeData(this, this.collegeInfo);
+        Global.methods.getOtherData(this, this.otherAll);
+
+        return;
+      },
+    },
+    computed: {
+      canOpen() {
+        var isEmpty = Global.methods.isEmpty(this.firstDiscipline, this.collegeInfo);
+        return isEmpty;
+      }
     },
   }
 </script>
