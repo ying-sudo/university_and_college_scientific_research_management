@@ -53,8 +53,6 @@ export default {
             //   this.axios.delete("/api/pageList/batchDelete", { data: this.multiSelect })
             .then((res) => {
               // console.log("res.data.code:" + res.data.code);
-              console.log("res.data.code:");
-              console.log(res.data);
               //   if (res.data.code === "0") {
               if (res.data.resultCode === 0) {
                 this.$message.success("批量删除成功！");
