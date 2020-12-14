@@ -4,7 +4,7 @@
         "label": "科研成果编号",
         "type": "text",
         "prop": "id",
-        "width":"120"
+        "width":"115"
     },
     {
         "id": 2,
@@ -22,45 +22,31 @@
     },
     {
         "id": 4,
-        "label": "联系方式",
-        "type": "text",
-        "prop": "author_contact_information",
-        "width":"120"
-    },
-    {
-        "id": 5,
         "label": "归属单位",
         "type": "text",
         "prop": "collegeName",
         "width":"120"
     },
     {
-        "id": 6,
+        "id": 5,
         "label": "学科分类",
         "type": "text",
         "prop": "discipline",
         "width":"120"
     },{
-        "id": 7,
+        "id": 6,
         "label": "第一学科",
         "type": "text",
         "prop": "firstDiscipline",
         "width":"120"
-    },
-    {
-        "id": 8,
-        "label": "撰写日期",
-        "type": "text",
-        "prop": "beginDate",
-        "width":"120"
     },{
-        "id": 9,
+        "id": 7,
         "label": "研究类别",
         "type": "text",
         "prop": "characters",
         "width":"120"
     },{
-        "id": 10,
+        "id": 8,
         "label": "项目来源",
         "type": "text",
         "prop": "workSource",

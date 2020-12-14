@@ -6,17 +6,18 @@
      @width:table的宽度 
      @max-height:列的最大高度 -->
     <el-table
+      id="exportTab"
       :data="tableDataList"
+      border
       ref="multipleTable"
       @selection-change="handleSelectionChange"
       fit
       highlight-current-row
       style="width: 100%"
       v-if="tableData !== null"
-      size="middle"
-      
+      size="small"
     >
-      <el-table-column type="selection" width="30" > </el-table-column>
+      <el-table-column type="selection" width="40"></el-table-column>
 
       <!-- @item:表中的每一列  
          @:key: 当前第几列
@@ -42,14 +43,10 @@
                
         </template>
       </el-table-column>
+
       <!-- 在TableTemplate中留下一列供父组件修改的列插槽，将该组件的作用域延迟到父组件编译，
       父组件对应标签内的所有内容将代替子组件的<slot>标签及它的内容 -->
-      <el-table-column
-        fixed="right"
-        label="操作"
-        width="170"
-        align="center"
-      >
+      <el-table-column label="操作" align="center">
         <!-- <p>{{scope.$index}}</p> -->
         <template slot-scope="scope">
           <slot name="table_template_slot" :row="scope.row"></slot>
@@ -94,8 +91,8 @@ export default {
 
       multipleSelection: [],
       delIds: [], //批量删除的ID
-      DelIdMap:[],
-      _delId:"",
+      DelIdMap: [],
+      _delId: "",
     };
   },
 
@@ -109,8 +106,8 @@ export default {
     Pagination,
   },
 
-  created(){
-    this.DelIdMap=getDelIdMap();
+  created() {
+    this.DelIdMap = getDelIdMap();
     console.log(this.DelIdMap);
   },
 
@@ -148,9 +145,8 @@ export default {
     },
 
     handleSelectionChange(val) {
-      
-      this._delId=this.DelIdMap.get(this.$route.params.tableKey);
-      console.log("this._delId:"+this._delId);
+      this._delId = this.DelIdMap.get(this.$route.params.tableKey);
+      console.log("this._delId:" + this._delId);
       // console.log("this.delId:"+this.delId);
 
       this.multipleSelection = val;
@@ -187,8 +183,8 @@ export default {
   line-height: 30px !important;
 }
 
-.el-table{
-  font-size: 16px
+.el-table {
+  font-size: 15px;
 }
 </style>
 

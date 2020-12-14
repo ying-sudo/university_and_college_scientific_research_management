@@ -78,13 +78,13 @@ let dataVal = {
       title: "考核结果",
       urlPath: "/assessmentres",
       subMenu: [
-        {
-          id: "33",
-          index: "5-1",
-          title: "考核结果批次",
-          urlPath: "/table/result_batch",
-          subMenu: null
-        },
+        // {
+        //   id: "33",
+        //   index: "5-1",
+        //   title: "考核结果批次",
+        //   urlPath: "/table/result_batch",
+        //   subMenu: null
+        // },
         {
           id: "34",
           index: "5-2",
@@ -108,7 +108,7 @@ let dataVal = {
           id: "37",
           index: "5-5",
           title: "科研成果考核结果",
-          urlPath: "/table/scienfic_result",
+          urlPath: "/table/scientific_result",
           subMenu: null
         },
         {
@@ -145,7 +145,7 @@ let dataVal = {
       id: "12",
       index: "6",
       title: "统计报表",
-      urlPath: "/reports",
+      urlPath: "/table/reports",
       subMenu: null
     },
     {
@@ -176,13 +176,13 @@ let dataVal = {
       title: "考核",
       urlPath: "/assessment",
       subMenu: [
-        {
-          id: "17",
-          index: "8-1",
-          title: "考核批次",
-          urlPath: "/table/batch",
-          subMenu: null
-        },
+        // {
+        //   id: "17",
+        //   index: "8-1",
+        //   title: "考核批次",
+        //   urlPath: "/table/batch",
+        //   subMenu: null
+        // },
         {
           id: "18",
           index: "8-2",
@@ -193,29 +193,48 @@ let dataVal = {
         {
           id: "19",
           index: "8-3",
-          title: "成果考核",
-          urlPath: "/table/achievement",
+          title: "论文考核",
+          urlPath: "/table/paper_result",
+          subMenu: null
+        }, {
+          id: "42",
+          index: "8-4",
+          title: "著作考核",
+          urlPath: "/table/work_result",
+          subMenu: null
+        }, {
+          id: "43",
+          index: "8-5",
+          title: "科研成果考核",
+          urlPath: "/table/scientific_result",
+          subMenu: null
+        },
+        {
+          id: "44",
+          index: "8-6",
+          title: "专利考核",
+          urlPath: "/table/patent_result",
           subMenu: null
         },
         {
           id: "20",
-          index: "8-4",
+          index: "8-7",
           title: "个人考核",
           urlPath: "/table/personal",
           subMenu: null
         },
         {
           id: "21",
-          index: "8-5",
+          index: "8-8",
           title: "学院考核",
           urlPath: "/table/college",
           subMenu: null
         },
         {
           id: "22",
-          index: "8-6",
+          index: "8-9",
           title: "校级团队考核",
-          urlPath: "/team",
+          urlPath: "/table/team",
           subMenu: null
         }
       ]
@@ -230,14 +249,14 @@ let dataVal = {
           id: "24",
           index: "9-1",
           title: "院系机构",
-          urlPath: "/table/colleges",
+          urlPath: "/table/collegesdep",
           subMenu: null
         },
         {
           id: "25",
           index: "9-2",
           title: "科研人员",
-          urlPath: "/table/people",
+          urlPath: "/table/researchers",
           subMenu: null
         }
       ]

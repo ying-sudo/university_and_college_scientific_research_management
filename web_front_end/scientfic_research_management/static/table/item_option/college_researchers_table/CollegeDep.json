@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "label": "院系机构号",
+        "type": "text",
+        "prop": "id",
+        "width":"90"
+    },
+    {
+        "id": 2,
+        "label": "院系机构名",
+        "type": "text",
+        "prop": "id",
+        "width":"130"
+    }
+]

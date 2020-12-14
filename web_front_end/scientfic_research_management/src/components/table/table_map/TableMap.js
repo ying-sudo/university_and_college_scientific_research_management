@@ -23,11 +23,13 @@ export function getTableMap() {
         ["/project_result", "/check_result_table/ProjectCheckResultTable.json"], 
         ["/paper_result", "/check_result_table/PaperCheckResultTable.json"], 
         ["/work_result", "/check_result_table/WorkCheckResultTable.json"], 
-        ["/scienfic_result", "/check_result_table/ScientificCheckResultTable.json"], 
+        ["/scientific_result", "/check_result_table/ScientificCheckResultTable.json"], 
         ["/patent_result", "/check_result_table/PatentCheckResultTable.json"], 
         ["/personal_result", "/check_result_table/ResearcherCheckResultTable.json"], 
         ["/college_result", "/check_result_table/CollegeCheckResultTable.json"], 
         ["/team_result", "/check_result_table/TeamCheckResultTable.json"], 
+        ["/collegesdep", "/college_researchers_table/CollegeDep.json"], 
+        ["/researchers", "/college_researchers_table/Researchers.json"], 
         
     ]);
 

@@ -183,4 +183,9 @@ body > .el-container {
 .el-container:nth-child(7) .el-aside {
   line-height: 320px;
 }
+
+/* 解决表头数据和表格数据对不齐的问题 */
+.el-table th.gutter{
+   display: table-cell!important;
+ }
 </style>

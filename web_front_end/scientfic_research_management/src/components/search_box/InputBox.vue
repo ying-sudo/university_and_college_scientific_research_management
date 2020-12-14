@@ -1,19 +1,32 @@
 <template>
   <div class="input_box">
     <!-- 
-      @ @input 键盘输入事件 
+      @ @keyup.enter.native 键盘回车事件 
       @ v-model 
       @ placeholder 搜索框默认内容
      -->
-    <el-input
-      @input="SubChangeTable(search)"
-      placeholder="输入要搜索的内容"
-      v-model="search"
-      type="search"
+    <el-row
+      ><el-col :span="16">
+        <el-input
+          @keyup.enter.native="SubChangeTable(search)"
+          :placeholder="this.placeholdershow"
+          v-model="search"
+          type="search"
+        >
+          <!-- 搜索图标 -->
+          <i
+            slot="prefix"
+            class="el-input__icon el-icon-search"
+          ></i> </el-input></el-col
+      ><el-col :span="8"
+        ><el-button
+          type="primary"
+          icon="el-icon-search"
+          @click="SubChangeTable(search)"
+          >搜索</el-button
+        ></el-col
+      ></el-row
     >
-      <!-- 搜索图标 -->
-      <i slot="prefix" class="el-input__icon el-icon-search"></i>
-    </el-input>
   </div>
 </template>
 
@@ -27,6 +40,7 @@ export default {
       search: "",
       sub_tables: this.tableData,
       subFilterTag: this.filterTag,
+      placeholdershow: "输入要搜索的内容",
     };
   },
   props: ["tableData", "filterTag"],
@@ -39,9 +53,7 @@ export default {
   methods: {
     SubChangeTable: function (newVal) {
       this.search = newVal;
-      // console.log(`new: ${newVal} `);
       console.log("tables:" + this.tables.length);
-      // this.$emit("changeTable", this.tables);
       this.$emit("changeTable", this.tables, this.search);
     },
   },
@@ -71,15 +83,16 @@ export default {
       if (search) {
         return this.tableData.filter((dataNews) => {
           // return Object.keys(dataNews).some((key) => {
-            return String(dataNews[this.subFilterTag]).toLowerCase().indexOf(search) > -1;
-            // return String(dataNews[key]).toLowerCase().indexOf(search) > -1;
+          return (
+            String(dataNews[this.subFilterTag]).toLowerCase().indexOf(search) >
+            -1
+          );
+          // return String(dataNews[key]).toLowerCase().indexOf(search) > -1;
           // });
         });
       }
       return this.tableData;
-      
     },
-
   },
 };
 </script>

@@ -1,51 +1,51 @@
 [
     {
         "id": 1,
-        "label": "专利(论文，著作)号",
+        "label": "著作号",
         "type": "text",
         "prop": "achievement_id",
         "width":"90"
     },
     {
         "id": 2,
-        "label": "专利(论文，著作)名称",
+        "label": "著作名称",
         "type": "text",
         "prop": "achievement_name",
-        "width":"90"
+        "width":"150"
     },
     {
         "id": 3,
         "label": "发明人",
         "type": "text",
         "prop": "achievement_researcher",
-        "width":"90"
+        "width":"110"
     },
     {
         "id": 4,
-        "label": "专利（论文，著作）权利人",
+        "label": "著作权利人",
         "type": "text",
         "prop": "achievement_obligee",
-        "width":"90"
+        "width":"110"
     },
     {
         "id": 5,
         "label": "联系人",
         "type": "text",
         "prop": "contact_person",
-        "width":"90"
+        "width":"110"
     },
     {
         "id": 6,
         "label": "联系方式",
         "type": "text",
         "prop": "contact_information",
-        "width":"90"
+        "width":"120"
     },
     {
         "id": 7,
         "label": "考核状态",
         "type": "text",
         "prop": "check_state",
-        "width":"90"
+        "width":"100"
     }
 ]
