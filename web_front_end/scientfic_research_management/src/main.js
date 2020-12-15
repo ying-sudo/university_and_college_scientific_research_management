@@ -27,10 +27,8 @@ import echarts from "echarts";
 Vue.prototype.$echarts = echarts
 
 //导出excel
-import Blob from '@/lib/excel/Blob.js'
-import Export2Excel from '@/lib/excel/Export2Excel.js'
-// import JsonExcel from 'vue-json-excel'
-// Vue.component('downloadExcel', JsonExcel)
+// import Blob from '@/lib/excel/Blob.js'
+// import Export2Excel from '@/lib/excel/Export2Excel.js'
 
 Vue.config.productionTip = false
 

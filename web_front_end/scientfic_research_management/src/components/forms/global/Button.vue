@@ -57,7 +57,7 @@
 
 
 
-<ExcelDialog :tHeader="tHeader" :filterVal="filterVal" :tableData="tableData" :excelName="excelName"></ExcelDialog>
+<!-- <ExcelDialog :tHeader="tHeader" :filterVal="filterVal" :tableData="tableData" :excelName="excelName"></ExcelDialog> -->
 
 
 

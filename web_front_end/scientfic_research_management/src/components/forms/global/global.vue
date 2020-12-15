@@ -202,22 +202,22 @@
 
       //下载
       //下载excel文件
-      downloadExcel(tHeader, filterVal, excelName, tableData) {
-        this.export2Excel(tHeader, filterVal, excelName, tableData);
-      },
-      export2Excel(tHeader, filterVal, excelName, tableData) {
-        require.ensure([], () => {
-          const {
-            export_json_to_excel
-          } = require('@/lib/excel/Export2Excel.js');
-          const list = tableData; //把data里的tableData存到list
-          const data = this.formatJson(filterVal, list);
-          export_json_to_excel(tHeader, data, excelName); //导出Excel 文件名
-        })
-      },
-      formatJson(filterVal, jsonData) {
-        return jsonData.map(v => filterVal.map(j => v[j]))
-      },
+      // downloadExcel(tHeader, filterVal, excelName, tableData) {
+      //   this.export2Excel(tHeader, filterVal, excelName, tableData);
+      // },
+      // export2Excel(tHeader, filterVal, excelName, tableData) {
+      //   require.ensure([], () => {
+      //     const {
+      //       export_json_to_excel
+      //     } = require('@/lib/excel/Export2Excel.js');
+      //     const list = tableData; //把data里的tableData存到list
+      //     const data = this.formatJson(filterVal, list);
+      //     export_json_to_excel(tHeader, data, excelName); //导出Excel 文件名
+      //   })
+      // },
+      // formatJson(filterVal, jsonData) {
+      //   return jsonData.map(v => filterVal.map(j => v[j]))
+      // },
 
 
 
