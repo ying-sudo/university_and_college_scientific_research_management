@@ -107,7 +107,7 @@
 
 <script>
   import Global from '@/components/forms/global/global.vue'
-  import ExcelDialog from '@/components/forms/global/ExcelDialog.vue'
+  // import ExcelDialog from '@/components/forms/global/ExcelDialog.vue'
 
   import PaperButton from '@/components/forms/buttons/PaperButton.vue'
   import ProjectButton from '@/components/forms/buttons/ProjectButton.vue'
@@ -129,25 +129,25 @@
     data() {
       return {
 
-        tableData: [{
-            'index': '999',
-            "nickName": "的旧时光",
-            "name": "98491231841251"
-          },
-          {
-            'index': '1',
-            "nickName": "高贵",
-            "name": "张"
-          },
-          {
-            'index': '2',
-            "nickName": "海aaa灰尘",
-            "name": "小兰"
-          }
-        ],
-        tHeader: ['序号', '昵称', '姓名'],
-        filterVal: ['index', 'nickName', 'name'],
-        excelName: 'aaaa',
+        // tableData: [{
+        //     'index': '999',
+        //     "nickName": "的旧时光",
+        //     "name": "98491231841251"
+        //   },
+        //   {
+        //     'index': '1',
+        //     "nickName": "高贵",
+        //     "name": "张"
+        //   },
+        //   {
+        //     'index': '2',
+        //     "nickName": "海aaa灰尘",
+        //     "name": "小兰"
+        //   }
+        // ],
+        // tHeader: ['序号', '昵称', '姓名'],
+        // filterVal: ['index', 'nickName', 'name'],
+        // excelName: 'aaaa',
 
 
         isDisabled: false,
@@ -190,7 +190,7 @@
       TeamAssessButton,
       WorkAssessButton,
       bu,
-      ExcelDialog,
+      // ExcelDialog,
 
     },
     methods: {

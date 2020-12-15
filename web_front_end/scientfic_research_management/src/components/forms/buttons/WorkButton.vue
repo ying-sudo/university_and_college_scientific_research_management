@@ -53,12 +53,12 @@
           firstDiscipline: [],
           workSource: [],
         },
-        publishLevel: null,
-        workType: null,
-        publishLocation: null,
-        translateLanguage: null,
-        firstDiscipline: null,
-        workSource: null,
+        publishLevel: [],
+        workType: [],
+        publishLocation: [],
+        translateLanguage: [],
+        firstDiscipline: [],
+        workSource: [],
       };
     },
     created: function() {

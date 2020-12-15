@@ -47,7 +47,7 @@
         otherAll: {
           firstDiscipline: [],
         },
-        firstDiscipline: null,
+        firstDiscipline: [],
       };
     },
     created: function() {

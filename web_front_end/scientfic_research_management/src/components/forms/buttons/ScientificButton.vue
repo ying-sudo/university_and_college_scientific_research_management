@@ -44,7 +44,7 @@
           isDisabled: false
         },
         reload: '',
-        collegeInfo: null,
+        collegeInfo: [],
         //一级学科，研究类别，项目来源
         otherAll: {
           firstDiscipline: [],
@@ -52,10 +52,10 @@
           translateLanguage: [],
           workSource: [],
         },
-        firstDiscipline: null,
-        workType: null,
-        translateLanguage: null,
-        workSource: null,
+        firstDiscipline: [],
+        workType: [],
+        translateLanguage: [],
+        workSource: [],
       };
     },
     created: function() {

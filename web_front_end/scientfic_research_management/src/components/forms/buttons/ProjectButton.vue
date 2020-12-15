@@ -15,7 +15,6 @@
             <el-button icon="el-icon-view" type="text" @click="openAlertDialog" style="color: #545C64; font-size: 18px;"></el-button>
           </el-tooltip>
         </div>
-        <!-- <p>{{this.TableRow}}</p> -->
       </mu-flex>
 
       <ProjectForm :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
@@ -48,13 +47,14 @@
           level: [],
           sort: [],
         },
-        firstDiscipline: null,
-        level: null,
-        sort: null,
+        firstDiscipline: [],
+        level: [],
+        sort: [],
       };
     },
     created: function() {
       this.getAllData();
+      console.log(this.isDisabled);
     },
     components: {
       ProjectForm,

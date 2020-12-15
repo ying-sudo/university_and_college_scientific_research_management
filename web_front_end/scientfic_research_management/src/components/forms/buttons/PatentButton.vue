@@ -48,8 +48,8 @@
           patentType: [],
           patentRange: [],
         },
-        patentType: null,
-        patentRange: null,
+        patentType: [],
+        patentRange: [],
       };
     },
     created: function() {
