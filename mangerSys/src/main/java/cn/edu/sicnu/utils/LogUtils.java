@@ -1,12 +1,17 @@
 package cn.edu.sicnu.utils;
 
+import cn.edu.sicnu.sercurity.utils.TokenManger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
@@ -71,5 +76,44 @@ public class LogUtils {
         MDC.put("methodName", joinPoint.getSignature().getName());
         systemLogger.error(ex.toString());
         MDC.clear();
+    }
+
+    /**
+     * 增加操作切点
+     */
+    @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
+    public void postPointCut() {
+    }
+
+    /**
+     * 修改操作切点
+     */
+    @Pointcut("@annotation(org.springframework.web.bind.annotation.PutMapping)")
+    public void putPointCut() {
+    }
+
+    /**
+     * 删除操作切点
+     */
+    @Pointcut("@annotation(org.springframework.web.bind.annotation.DeleteMapping)")
+    public void deletePointCut() {
+    }
+
+    /**
+     * 在请求头中取得token，解析得到用户id，放入MDC中
+     */
+    @Before(value = "postPointCut() || putPointCut() || deletePointCut()")
+    public void getUserId() {
+        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes sra = (ServletRequestAttributes) ra;
+        HttpServletRequest request = sra.getRequest();
+        String token = request.getHeader("authorization");
+        if (token != null) {
+            String userId = new TokenManger().getUserInfoFromToken(token);
+            System.out.println(userId);
+            MDC.clear();
+            MDC.put("userId", userId);
+        }
+
     }
 }

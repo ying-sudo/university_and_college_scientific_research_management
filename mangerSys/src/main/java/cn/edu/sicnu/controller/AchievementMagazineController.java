@@ -17,7 +17,6 @@ import javax.annotation.Resource;
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("achievementMagazine")
 public class AchievementMagazineController {
     /**
      * 服务对象
@@ -26,23 +25,12 @@ public class AchievementMagazineController {
     private AchievementMagazineService achievementMagazineService;
 
     /**
-     * 通过主键查询单条数据
-     *
-     * @param id 主键
-     * @return 单条数据
-     */
-    @GetMapping("selectOne")
-    public AchievementMagazine selectOne(String id) {
-        return this.achievementMagazineService.queryById(id);
-    }
-
-    /**
      * 查询所有
      *
      * @return 所有数据
      */
-    @RequestMapping("")
-    public String findAll() {
+    @RequestMapping("/achievementMagazine")
+    public String findByAchievementId() {
         return "";
     }
 

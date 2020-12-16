@@ -16,7 +16,6 @@ import java.util.List;
  * @since 2020-11-20 22:47:21
  */
 @Service("achievementMagazineService")
-@Transactional
 public class AchievementMagazineServiceImpl implements AchievementMagazineService {
     @Resource
     private AchievementMagazineDao achievementMagazineDao;
@@ -28,7 +27,6 @@ public class AchievementMagazineServiceImpl implements AchievementMagazineServic
      * @return 实例对象
      */
     @Override
-    @Transactional
     public AchievementMagazine queryById(String achievementId) {
         return this.achievementMagazineDao.queryById(achievementId);
     }
@@ -41,7 +39,6 @@ public class AchievementMagazineServiceImpl implements AchievementMagazineServic
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<AchievementMagazine> queryAllByLimit(int offset, int limit) {
         return this.achievementMagazineDao.queryAllByLimit(offset, limit);
     }
@@ -52,7 +49,6 @@ public class AchievementMagazineServiceImpl implements AchievementMagazineServic
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<AchievementMagazine> findAll() {
         return this.achievementMagazineDao.findAll();
     }

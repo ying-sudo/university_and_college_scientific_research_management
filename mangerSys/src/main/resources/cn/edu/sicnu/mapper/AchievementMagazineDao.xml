@@ -9,7 +9,7 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="AchievementMagazineMap">
-        select achievement_id, magazine_id
+        select magazine_id
         from scientific_research.achievement_magazine
         where achievement_id = #{achievementId}
     </select>

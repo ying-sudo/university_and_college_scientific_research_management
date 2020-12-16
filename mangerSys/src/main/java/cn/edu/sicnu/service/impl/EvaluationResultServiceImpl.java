@@ -123,6 +123,92 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
     }
 
     /**
+     * @param sort   类别
+     *               查找哪个类别的审核结果，
+     *               项目:project
+     *               论文成果:paper
+     *               科研成果:scientific
+     *               专利:patent
+     *               著作:work
+     * @param userId 用户id
+     * @return
+     */
+    @Override
+    public List<Object> queryByUserId(String sort, String userId) {
+        if (!sort.matches("project|paper|scientific|patent|work")) {
+            return null;
+        }
+
+        List<Object> objectList = new ArrayList<>();
+        EvaluationResult result;
+        if ("project".equals(sort)) {
+            List<Project> projectList = projectDao.queryByUserId(userId);
+            for (Project project : projectList) {
+                result = evaluationResultDao.queryById(project.getId());
+                if (result != null) {
+                    project.setScore(result.getScore());
+                } else {
+                    project.setScore(-1);
+                }
+                objectList.add(project);
+            }
+
+        } else if ("paper".equals(sort)) {
+            List<PaperAchievement> achievementList = paperAchievementDao.queryByUserId(userId);
+            for (PaperAchievement achievement : achievementList) {
+                result = evaluationResultDao.queryById(achievement.getId());
+                if (result != null) {
+                    achievement.setScore(result.getScore());
+                } else {
+                    achievement.setScore(-1);
+                }
+                objectList.add(achievement);
+            }
+
+        } else if ("scientific".equals(sort)) {
+            ScientificAchievement scientificAchievement = new ScientificAchievement();
+            scientificAchievement.setUserId(userId);
+            List<ScientificAchievement> achievementList = scientificAchievementDao.queryAll(scientificAchievement);
+            for (ScientificAchievement achievement : achievementList) {
+                result = evaluationResultDao.queryById(achievement.getId());
+                if (result != null) {
+                    achievement.setScore(result.getScore());
+                } else {
+                    achievement.setScore(-1);
+                }
+                objectList.add(achievement);
+            }
+
+        } else if ("patent".equals(sort)) {
+            PatentAchievement patentAchievement = new PatentAchievement();
+            patentAchievement.setUserId(userId);
+            List<PatentAchievement> achievementList = patentAchievementDao.queryAll(patentAchievement);
+            for (PatentAchievement achievement : achievementList) {
+                result = evaluationResultDao.queryById(achievement.getId());
+                if (result != null) {
+                    achievement.setScore(result.getScore());
+                } else {
+                    achievement.setScore(-1);
+                }
+                objectList.add(achievement);
+            }
+
+        } else if ("work".equals(sort)) {
+            List<WorkAchievement> achievementList = workAchievementDao.queryByUserId(userId);
+            for (WorkAchievement achievement : achievementList) {
+                result = evaluationResultDao.queryById(achievement.getId());
+                if (result != null) {
+                    achievement.setScore(result.getScore());
+                } else {
+                    achievement.setScore(-1);
+                }
+                objectList.add(achievement);
+            }
+        }
+        return objectList;
+    }
+
+    /**
      * 查询表所有对象
      *
      * @return 对象列表

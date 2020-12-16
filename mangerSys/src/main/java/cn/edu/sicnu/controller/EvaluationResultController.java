@@ -54,6 +54,24 @@ public class EvaluationResultController {
     }
 
     /**
+     *
+     * @param assessVal
+     * @param userId
+     * @return
+     */
+    @GetMapping("/assess/{assessVal}/user/{userId}")
+    public Message findByUserId(@PathVariable("assessVal") String assessVal, @PathVariable("userId") String userId) {
+        String regex = "projects|papers|scientifics|patents|works";
+        if (!assessVal.matches(regex)) {
+            return Message.fail();
+        }
+        //        去掉后面的s
+        assessVal = assessVal.substring(0, assessVal.length() - 1);
+        List<Object> objectList = evaluationResultService.queryByUserId(assessVal, userId);
+        return Message.success(objectList);
+    }
+
+    /**
      * 审核（打分）
      *
      * @param result 审核结果实体类
