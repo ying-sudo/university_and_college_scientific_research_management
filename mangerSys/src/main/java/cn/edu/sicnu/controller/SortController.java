@@ -5,6 +5,7 @@ import cn.edu.sicnu.service.SortService;
 import cn.edu.sicnu.utils.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -32,6 +33,7 @@ public class SortController {
      *
      * @return 所有数据
      */
+//    @PreAuthorize("hasAnyAuthority()")
     @GetMapping("/sorts")
     public String findAll() {
         String re = "{\"resultCode\": \"0\",\"resultMsg\": \"成功\",\"data\":{";
@@ -78,6 +80,7 @@ public class SortController {
      * @param kindId 类别id
      * @return 查询数据放入data
      */
+//    @PreAuthorize("hasAnyAuthority()")
     @GetMapping("/sorts/{kindId}")
     public Message find(@PathVariable("kindId") String kindId) {
         List<Sort> sorts = sortService.selectByNote(kindId);
@@ -93,6 +96,7 @@ public class SortController {
      * @param sort 多个字典项对应实体类的list
      * @return 新增成功返回状态码为0，失败返回其他状态码
      */
+//    @PreAuthorize("hasAnyAuthority()")
     @PostMapping("/sorts")
     public Message insert(@RequestBody List<Sort> sort) {
         boolean insert = sortService.insert(sort);
@@ -110,6 +114,7 @@ public class SortController {
      * @param sortList 字典项对应实体类
      * @return 修改成功返回状态码为0，失败返回其他状态码
      */
+//    @PreAuthorize("hasAnyAuthority()")
     @PutMapping("/sorts")
     public Message update(@RequestBody List<Sort> sortList) {
         boolean update = sortService.update(sortList);
@@ -127,6 +132,7 @@ public class SortController {
      * @param sortId 字典项id
      * @return 删除成功返回状态码为0，失败返回其他状态码
      */
+//    @PreAuthorize("hasAnyAuthority()")
     @DeleteMapping("/sorts/{sortId}")
     public Message delete(@PathVariable("sortId") Integer sortId) {
         boolean delete = sortService.deleteById(sortId);

@@ -1,6 +1,5 @@
 package cn.edu.sicnu;
 
-import cn.edu.sicnu.controller.getRights;
 import cn.edu.sicnu.service.impl.CollegeServiceImpl;
 import org.apache.log4j.Logger;
 //import org.jasypt.encryption.StringEncryptor;

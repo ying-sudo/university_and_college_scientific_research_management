@@ -7,6 +7,7 @@ import cn.edu.sicnu.service.ProjectService;
 import cn.edu.sicnu.service.UserService;
 import cn.edu.sicnu.utils.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +42,7 @@ public class FundController {
      *
      * @return 经费记录列表
      */
+    @PreAuthorize("hasAnyAuthority()")
     @GetMapping("/funds/users/{userId}")
     public Message getFunds(@PathVariable("userId") String userId) {
         List<Fund> fundList = fundService.getFundByUserId(userId);
@@ -53,6 +55,7 @@ public class FundController {
      * @param id 项目id
      * @return 所有经费记录
      */
+    @PreAuthorize("hasAnyAuthority('/projects','/table/fundlists')")
     @GetMapping("/funds/projects/{projectId}")
     public String getFundByProjectId(@PathVariable("projectId") String id) {
         String re = "";

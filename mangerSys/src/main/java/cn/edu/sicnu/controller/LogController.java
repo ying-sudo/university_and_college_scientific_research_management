@@ -8,6 +8,7 @@ import cn.edu.sicnu.service.ManagerSystemLogService;
 import cn.edu.sicnu.service.OperationLogService;
 import cn.edu.sicnu.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +40,7 @@ public class LogController {
      *
      * @return message的data中放入查到的日志列表
      */
+    @PreAuthorize("hasAnyAuthority('/admin')")
     @GetMapping("/loginlog")
     public Message findAllLoginLog() {
         List<LoginLog> loginLogs = loginLogService.findAll();
@@ -51,6 +53,7 @@ public class LogController {
      * @param deleteLogId 多个登录日志记录id，中间以逗号分隔
      * @return 通过resultCode分辨删除成功与否
      */
+    @PreAuthorize("hasAnyAuthority('/admin')")
     @DeleteMapping("/loginlog")
     public Message deleteLoginLogByBatch(@RequestBody String deleteLogId) {
         String[] loginLogIdArr = deleteLogId.split(",");
@@ -72,6 +75,7 @@ public class LogController {
      *
      * @return message中data放入查到的数据
      */
+    @PreAuthorize("hasAnyAuthority('/admin')")
     @GetMapping("/syslog")
     public Message findAllSysLog() {
         List<ManagerSystemLog> systemLogs = systemLogService.findAll();
@@ -84,6 +88,7 @@ public class LogController {
      * @param deleteLogId 多个登录日志记录id，中间以逗号分隔
      * @return 通过resultCode分辨删除成功与否
      */
+    @PreAuthorize("hasAnyAuthority('/admin')")
     @DeleteMapping("/syslog")
     public Message deleteSysLogByBatch(@RequestBody String deleteLogId) {
         String[] sysLogIdArr = deleteLogId.split(",");
@@ -106,6 +111,7 @@ public class LogController {
      *
      * @return message中data放入查到的数据
      */
+    @PreAuthorize("hasAnyAuthority('/admin')")
     @GetMapping("/operlog")
     public Message findAllOperLog() {
         List<OperationLog> operLogs = operationLogService.findAll();
@@ -118,6 +124,7 @@ public class LogController {
      * @param deleteLogId 待删除系统日志表中的id
      * @return message中resultMsg返回删除成功与否
      */
+    @PreAuthorize("hasAnyAuthority('/admin')")
     @DeleteMapping("/operlog")
     public Message deleteOperLogByBatch(@RequestBody String deleteLogId) {
         String[] operLogIdArr = deleteLogId.split(",");

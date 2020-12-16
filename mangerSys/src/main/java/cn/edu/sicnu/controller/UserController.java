@@ -39,7 +39,7 @@ public class UserController {
      * @param id 主键
      * @return 单条数据
      */
-    @PreAuthorize("hasRole('admin1')")
+    @PreAuthorize("hasAnyAuthority('/table/teams')")
     @PostMapping("/user/selectOne")
     public Message selectOne(@RequestBody String id) {
         System.out.println(id);
@@ -70,7 +70,6 @@ public class UserController {
      * /initPWD
      * id password 输入参数
      */
-    @ResponseBody
     @PostMapping("/user/initPWD")
     public String initPWD(@RequestBody Map<String, String> map) {
         try {

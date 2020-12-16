@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -45,6 +46,7 @@ public class ProjectController {
      *
      * @return
      */
+    @PreAuthorize("hasAnyAuthority('/projects')")
     @GetMapping("/projects")
     public String findAll() {
         try {
@@ -87,6 +89,7 @@ public class ProjectController {
      * @param userId 用户id
      * @return 以该用户id为项目负责人的所有项目
      */
+    @PreAuthorize("hasAnyAuthority('/projects')")
     @GetMapping("/projects/users/{userId}")
     public String findById(@PathVariable("userId") String userId) {
         try {
@@ -130,6 +133,7 @@ public class ProjectController {
      * @param projectId 项目id
      * @return 如果存在，返回message中data为项目的实体类信息；如果不存在，返回的message中data为null
      */
+    @PreAuthorize("hasAnyAuthority('/projects')")
     @GetMapping("/projects/{projectId}")
     public Message findByProjectId(@PathVariable("projectId") String projectId) {
         Project project = projectService.queryById(projectId);
@@ -143,6 +147,7 @@ public class ProjectController {
      * @return message成功时返回中状态码为0，
      * 其余都为操作失败，包括出现异常
      */
+    @PreAuthorize("hasAnyAuthority('/projects','/table/projectlists')")
     @PostMapping("/projects")
     public Message insert(@RequestBody Project project) {
         project = projectService.insert(project);
@@ -162,6 +167,7 @@ public class ProjectController {
      * @return message成功时返回中状态码为0，
      * 其余都为操作失败，包括出现异常
      */
+    @PreAuthorize("hasAnyAuthority('/projects','/table/projectlists')")
     @PutMapping("/projects")
     public Message update(@RequestBody Project project, HttpSession session) {
         MDC.clear();
@@ -185,6 +191,7 @@ public class ProjectController {
      * @param projectId 项目id
      * @return 删除成功状态码为0，失败为其他
      */
+    @PreAuthorize("hasAnyAuthority('/projects','/table/projectlists')")
     @DeleteMapping("/projects/{projectId}")
     public Message delete(@PathVariable("projectId") String projectId) {
         boolean delete = projectService.deleteById(projectId);

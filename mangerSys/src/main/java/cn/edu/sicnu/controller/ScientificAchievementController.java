@@ -9,6 +9,7 @@ import cn.edu.sicnu.utils.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -42,6 +43,7 @@ public class ScientificAchievementController {
      *
      * @return 所有数据
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/scientifics')")
     @GetMapping("/achievements/scientific/users/{userId}")
     public Message getByUserId(@PathVariable("userId") String userId) {
         ScientificAchievement achievement = new ScientificAchievement();
@@ -64,6 +66,7 @@ public class ScientificAchievementController {
      * @param achievementId 成果id号
      * @return 如果存在返回对于科研成果对象，不存在message中data为null
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/scientifics')")
     @GetMapping("/achievements/scientific/{achievementId}")
     public Message getByAchievementId(@PathVariable("achievementId") String achievementId) {
         ScientificAchievement scientificAchievement = scientificAchievementService.queryById(achievementId);
@@ -79,6 +82,7 @@ public class ScientificAchievementController {
      *
      * @return 所有科研成果
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/scientifics')")
     @GetMapping("/achievements/scientific")
     public Message getAll() {
         List<ScientificAchievement> achievementList = scientificAchievementService.findAll();
@@ -99,6 +103,7 @@ public class ScientificAchievementController {
      * @param achievement 传入的科研成果对象
      * @return 修改成功返回状态码为0，失败返回其他状态码
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/scientifics')")
     @PostMapping("/achievements/scientific")
     public Message add(@RequestBody ScientificAchievement achievement) {
         boolean insert = scientificAchievementService.insert(achievement);
@@ -117,6 +122,7 @@ public class ScientificAchievementController {
      * @param achievement 科研成果对象
      * @return 修改成功返回状态码0，失败返回其他状态码
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/scientifics')")
     @PutMapping("/achievements/scientific")
     public Message update(@RequestBody ScientificAchievement achievement) {
         boolean insert = scientificAchievementService.update(achievement);

@@ -3,6 +3,7 @@ package cn.edu.sicnu.controller;
 import cn.edu.sicnu.entity.CharactersRight;
 import cn.edu.sicnu.service.CharactersRightService;
 import cn.edu.sicnu.utils.getRights;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,6 +56,7 @@ public class CharactersRightController {
      * 改变权限
      * map<String,Object> 参数
      */
+    @PreAuthorize("hasAnyAuthority('/admin','/table/authoritylists')")
     @PostMapping("updataRights")
     public String updateRights(@RequestBody Map<String,Object> map){
         getRights get = new getRights();

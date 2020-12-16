@@ -9,6 +9,7 @@ import cn.edu.sicnu.utils.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -43,6 +44,7 @@ public class TeamController {
      * @param userId 用户id
      * @return 团队列表
      */
+    @PreAuthorize("hasAnyAuthority('/table/teams')")
     @GetMapping("/teams/users/{userId}")
     public Message getTeamByUserId(@PathVariable("userId") String userId) {
         Team team = new Team();
@@ -64,6 +66,7 @@ public class TeamController {
      * @param teamId 团队id号
      * @return 如果存在返回团队对象，不存在返回空对象
      */
+    @PreAuthorize("hasAnyAuthority('/table/teams')")
     @GetMapping("/teams/{teamId}")
     public Message getTeamByTeamId(@PathVariable("teamId") String teamId) {
         Team team = teamService.queryById(teamId);
@@ -80,6 +83,7 @@ public class TeamController {
      *
      * @return 所有团队对象的list
      */
+    @PreAuthorize("hasAnyAuthority('/table/teams')")
     @GetMapping("/teams")
     public Message getAllTeam() {
         List<Team> teamList = teamService.findAll();
@@ -97,6 +101,7 @@ public class TeamController {
      * @param team 团队实体类
      * @return 成功返回状态码为0，失败返回其他状态码
      */
+    @PreAuthorize("hasAnyAuthority('/table/teams')")
     @PostMapping("/teams")
     public Message addTeam(@RequestBody Team team) {
         boolean insert = teamService.insert(team);
@@ -115,6 +120,7 @@ public class TeamController {
      * @param team 团队实体类
      * @return 成功返回状态码为0，失败返回其他状态码
      */
+    @PreAuthorize("hasAnyAuthority('/table/teams')")
     @PutMapping("/teams")
     public Message updateTeam(@RequestBody Team team) {
         boolean update = teamService.update(team);
@@ -133,6 +139,7 @@ public class TeamController {
      * @param teamId 团队id
      * @return 成功返回状态码为0，失败返回其他状态码
      */
+    @PreAuthorize("hasAnyAuthority('/table/teams')")
     @DeleteMapping("/teams/{teamId}")
     public Message deleteTeam(@PathVariable("teamId") String teamId) {
         boolean delete = teamService.deleteById(teamId);

@@ -5,6 +5,7 @@ import cn.edu.sicnu.service.EvaluationResultService;
 import cn.edu.sicnu.utils.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -37,6 +38,7 @@ public class EvaluationResultController {
      *                  著作:works
      * @return data中放入查出的审核记录
      */
+    @PreAuthorize("hasAnyAuthority('/assessment')")
     @GetMapping("/assess/{assessVal}")
     public Message findBySort(@PathVariable("assessVal") String assessVal) {
         String regex = "projects|papers|scientifics|patents|works";
@@ -59,6 +61,7 @@ public class EvaluationResultController {
      * @param result 审核结果实体类
      * @return 审核成功返回状态码0，失败返回其他状态码
      */
+    @PreAuthorize("hasAnyAuthority('/assessment')")
     @PostMapping("/assess")
     public Message insert(@RequestBody EvaluationResult result) {
         boolean insert = evaluationResultService.insert(result);
@@ -77,6 +80,7 @@ public class EvaluationResultController {
      * @param result 审核结果实体类
      * @return 修改成功返回状态码为0，失败返回其他状态码
      */
+    @PreAuthorize("hasAnyAuthority('/assessment')")
     @PutMapping("/assess")
     public Message update(@RequestBody EvaluationResult result) {
         boolean update = evaluationResultService.update(result);

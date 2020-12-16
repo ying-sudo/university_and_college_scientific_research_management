@@ -8,6 +8,7 @@ import cn.edu.sicnu.utils.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -42,6 +43,7 @@ public class PatentAchievementController {
      * @param userId 用户id
      * @return data中有该用户所有专利的list
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/patents')")
     @GetMapping("/achievements/patent/users/{userId}")
     public Message getByUserId(@PathVariable("userId") String userId) {
         PatentAchievement achievement = new PatentAchievement();
@@ -58,11 +60,12 @@ public class PatentAchievementController {
     }
 
     /**
-     * 通过成果id得到成果
+     * 通过成果id得到专利
      *
      * @param achievementId 成果id
      * @return 请求成功data中放入成果实体类
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/patents')")
     @GetMapping("/achievements/patent/{achievementId}")
     public Message getByAchievementId(@PathVariable("achievementId") String achievementId) {
         PatentAchievement patentAchievement = patentAchievementService.queryById(achievementId);
@@ -74,6 +77,7 @@ public class PatentAchievementController {
      *
      * @return 所有专利产品的list
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/patents')")
     @GetMapping("/achievements/patent")
     public Message getAll() {
         List<PatentAchievement> achievementList = patentAchievementService.findAll();
@@ -94,6 +98,7 @@ public class PatentAchievementController {
      * @param patentAchievement 专利产品实体类
      * @return 增加成功返回状态码0，失败返回其他状态码
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/patents')")
     @PostMapping("/achievements/patent")
     public Message add(@RequestBody PatentAchievement patentAchievement) {
         boolean insert = patentAchievementService.insert(patentAchievement);
@@ -112,6 +117,7 @@ public class PatentAchievementController {
      * @param patentAchievement 专利产品实体类
      * @return 增加成功返回状态码0，失败返回其他状态码
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/patents')")
     @PutMapping("/achievements/patent")
     public Message update(@RequestBody PatentAchievement patentAchievement) {
         boolean update = patentAchievementService.update(patentAchievement);

@@ -7,6 +7,7 @@ import cn.edu.sicnu.service.UserService;
 import cn.edu.sicnu.utils.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -38,6 +39,7 @@ public class PaperAchievementController {
      *
      * @return 相关数据
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/papers')")
     @GetMapping("/achievements/paper/users/{userId}")
     public Message getByUserId(@PathVariable("userId") String id) {
         List<PaperAchievement> achievementList = paperAchievementService.queryByUserId(id);
@@ -58,6 +60,7 @@ public class PaperAchievementController {
      * @param achievementId 成果id号
      * @return 根据id得到的成果实体类
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/papers')")
     @GetMapping("/achievements/paper/{achievementId}")
     public Message getByAchievementId(@PathVariable("achievementId") String achievementId) {
         PaperAchievement achievement = paperAchievementService.queryById(achievementId);
@@ -71,6 +74,7 @@ public class PaperAchievementController {
      *
      * @return 论文成果列表
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/papers')")
     @GetMapping("/achievements/paper")
     public Message getAll() {
         List<PaperAchievement> achievementList = paperAchievementService.findAll();
@@ -88,6 +92,7 @@ public class PaperAchievementController {
      * @param achievement 论文成果对象
      * @return 增加成功返回状态码0，失败返回其他状态码
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/papers')")
     @PostMapping("/achievements/paper")
     public Message add(@RequestBody PaperAchievement achievement) {
         boolean insert = paperAchievementService.insert(achievement);
@@ -106,6 +111,7 @@ public class PaperAchievementController {
      * @param paperAchievement 论文成果对象
      * @return 修改成功返回状态码0，失败返回其他状态码
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/papers')")
     @PutMapping("/achievements/paper")
     public Message update(@RequestBody PaperAchievement paperAchievement) {
         boolean insert = paperAchievementService.update(paperAchievement);

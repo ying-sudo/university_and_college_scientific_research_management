@@ -7,6 +7,7 @@ import cn.edu.sicnu.service.WorkAchievementService;
 import cn.edu.sicnu.utils.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -39,6 +40,7 @@ public class WorkAchievementController {
      * @param userId 用户id
      * @return 该用户所有著作成果
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/works')")
     @GetMapping("/achievements/work/users/{userId}")
     public Message getByUserId(@PathVariable("userId") String userId) {
         List<WorkAchievement> workAchievements = workAchievementService.queryByUserId(userId);
@@ -60,6 +62,7 @@ public class WorkAchievementController {
      * @return 存在对应id的著作成果对象返回成功，状态码为0,
      * 如果没有这个id的记录则返回其他状态码，且message中data未空
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/works')")
     @GetMapping("/achievements/work/{achievementId}")
     public Message getByAchievementId(@PathVariable("achievementId") String achievementId) {
         WorkAchievement achievement = workAchievementService.queryById(achievementId);
@@ -75,6 +78,7 @@ public class WorkAchievementController {
      *
      * @return 所有著作成果的列表
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/works')")
     @GetMapping("/achievements/work")
     public Message getAll() {
         List<WorkAchievement> achievementList = workAchievementService.findAll();
@@ -95,6 +99,7 @@ public class WorkAchievementController {
      * @param workAchievement 著作成果对象
      * @return 成功返回状态码为0
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/works')")
     @PostMapping("/achievements/work")
     public Message add(@RequestBody WorkAchievement workAchievement) {
         boolean insert = workAchievementService.insert(workAchievement);
@@ -113,6 +118,7 @@ public class WorkAchievementController {
      * @param workAchievement 著作成果实体类
      * @return 修改成功状态码为0，其他为修改失败
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/works')")
     @PutMapping("/achievements/work")
     public Message update(@RequestBody WorkAchievement workAchievement) {
         boolean update = workAchievementService.update(workAchievement);

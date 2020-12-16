@@ -7,6 +7,7 @@ import cn.edu.sicnu.utils.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -37,6 +38,7 @@ public class TeamMemberController {
      *
      * @return data中放入团队成员列表
      */
+    @PreAuthorize("hasAnyAuthority('/table/teams')")
     @GetMapping("/teams/{teamId}/members")
     public Message getMembersByTeamId(@PathVariable("teamId") String teamId) {
         TeamMember teamMember = new TeamMember();
@@ -56,6 +58,7 @@ public class TeamMemberController {
      * @param memberId 成员id（用户id）
      * @return data放入团队下的某一个成员的信息
      */
+    @PreAuthorize("hasAnyAuthority('/table/teams')")
     @GetMapping("/teams/{teamId}/members/{memberId}")
     public Message getMembersByMemberId(@PathVariable("teamId") String teamId,
                                         @PathVariable("memberId") String memberId) {
@@ -71,6 +74,7 @@ public class TeamMemberController {
      * @param teamMemberList 团队成员对象的list
      * @return 添加成功返回状态码为0，其他状态码为失败
      */
+    @PreAuthorize("hasAnyAuthority('/table/teams')")
     @PostMapping("/teams/members")
     public Message addMembers(@RequestBody List<TeamMember> teamMemberList) {
         boolean insert = teamMemberService.insert(teamMemberList);
@@ -88,6 +92,7 @@ public class TeamMemberController {
      *
      * @return 修改成功返回true，失败返回false
      */
+    @PreAuthorize("hasAnyAuthority('/table/teams')")
     @PutMapping("/teams/members")
     public Message updateMembers(@RequestBody TeamMember teamMember) {
         boolean update = teamMemberService.update(teamMember);
@@ -105,6 +110,7 @@ public class TeamMemberController {
      *
      * @return 移除成功返回true，失败返回false
      */
+    @PreAuthorize("hasAnyAuthority('/table/teams')")
     @DeleteMapping("/teams/{teamId}/members/{memberId}")
     public Message deleteMembers(@PathVariable("teamId") String teamId,
                                  @PathVariable("memberId") String userId) {
