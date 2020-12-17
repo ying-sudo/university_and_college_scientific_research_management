@@ -7,6 +7,8 @@ import cn.edu.sicnu.sercurity.service.UnauthEntryPoint;
 import cn.edu.sicnu.sercurity.service.MyLogoutHandler;
 import cn.edu.sicnu.sercurity.utils.DefaultPasswordEncoder;
 import cn.edu.sicnu.sercurity.utils.TokenManger;
+import cn.edu.sicnu.service.CharactersRightService;
+import cn.edu.sicnu.service.UserCharacterService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -14,6 +16,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
@@ -37,6 +40,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
     private DataSource dataSource;
+    @Resource
+    private UserCharacterService userCharacterService;
+    @Resource
+    private CharactersRightService charactersRightService;
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository(){
@@ -74,13 +81,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable()
                 .authorizeRequests()
                 .anyRequest().authenticated()
-                .and().logout().logoutUrl("user/logout")
+                .and().logout().logoutUrl("user/logout").logoutSuccessUrl("/login")
                 .addLogoutHandler(new MyLogoutHandler(tokenManger,redisTemplate)).and()
-                .addFilter(new TokenLoginFilter(authenticationManager(),tokenManger,redisTemplate))
+                .addFilter(new TokenLoginFilter(authenticationManager(),tokenManger,redisTemplate,userCharacterService,charactersRightService))
                 .addFilter(new TokenAuthFilter(authenticationManager(),tokenManger,redisTemplate)).httpBasic()
                 .and().rememberMe().tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(60)
-                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsService)
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);//排除session
 
     }
     //调用userDetailsService和密码处理
@@ -91,7 +99,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     //不用认证就可以访问的接口
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/userCharacter/**");
-        web.ignoring().antMatchers("/charactersRight/**");
+        web.ignoring().antMatchers("/sorts/**")
+                .antMatchers("/colleges/**")
+                .antMatchers("/home/**")
+                .antMatchers("/user/initPWD");
     }
 }

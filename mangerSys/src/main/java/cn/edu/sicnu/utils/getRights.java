@@ -18,15 +18,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-@Controller
 public class getRights {
 
-    @Resource
     private UserCharacterService userCharacterService;
-
-    @Resource
     private CharactersRightService charactersRightService;
 
+    public getRights(UserCharacterService userCharacterService, CharactersRightService charactersRightService) {
+        this.userCharacterService = userCharacterService;
+        this.charactersRightService = charactersRightService;
+    }
 
     private static ThreadLocal<Map<String,Integer>> t=new ThreadLocal<>();
 

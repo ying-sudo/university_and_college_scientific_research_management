@@ -89,5 +89,10 @@
         from scientific_research.characters
         where id = #{id}
     </delete>
+    <delete id="deleteByName">
+        delete
+        from scientific_research.characters
+        where name = #{name}
+    </delete>
 
 </mapper>

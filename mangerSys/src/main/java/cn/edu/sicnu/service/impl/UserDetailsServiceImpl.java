@@ -1,11 +1,14 @@
 package cn.edu.sicnu.service.impl;
 
+import cn.edu.sicnu.entity.CharactersRight;
 import cn.edu.sicnu.entity.UserCharacter;
 import cn.edu.sicnu.entity.Users;
 import cn.edu.sicnu.sercurity.entity.MyUser;
 import cn.edu.sicnu.sercurity.entity.SecurityUser;
 import cn.edu.sicnu.sercurity.utils.DefaultPasswordEncoder;
+import cn.edu.sicnu.service.CharactersRightService;
 import cn.edu.sicnu.service.CharactersService;
+import cn.edu.sicnu.service.RightsService;
 import cn.edu.sicnu.service.UserCharacterService;
 import cn.edu.sicnu.service.UserService;
 import cn.edu.sicnu.utils.getRights;
@@ -32,7 +35,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Resource
     private CharactersService charactersService;
     @Resource
-    private getRights get;
+    private CharactersRightService charactersRightService;
+    @Resource
+    private RightsService rightsService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -45,14 +50,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         BeanUtils.copyProperties(users,myUser);
         //通过用户id获取该用户的角色
         UserCharacter userCharacters = userCharacterService.queryByuserId(username);
-        //new一个getRights获取用户权限
-        String rights = get.getRightsByCharacters(username);
+        //通过角色id获取权限id
+        List<CharactersRight> charactersRights = charactersRightService.queryByCharacterId(userCharacters.getCharacterId());
         List<String> list = new ArrayList<>();
-        list.add(charactersService.queryById(userCharacters.getCharacterId()).getName());
-        list.add(rights);
+        //把权限取出来放到list中
+        for (CharactersRight charactersRight : charactersRights) {
+            list.add(rightsService.queryById(charactersRight.getRightId()).getUrlPath());
+        }
         SecurityUser securityUser=new SecurityUser();
         securityUser.setPermissionValueList(list);
-        myUser.setPassword(defaultPasswordEncoder.encode(myUser.getPassword()));
+        System.out.println("myUser = " + myUser);
+//        myUser.setPassword(defaultPasswordEncoder.encode(myUser.getPassword()));
         securityUser.setCurrentUsersInfo(myUser);
         return securityUser;
     }

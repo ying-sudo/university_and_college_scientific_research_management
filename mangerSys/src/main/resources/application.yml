@@ -2,9 +2,9 @@ server:
   servlet:
     context-path: /mangerSys
 #  address: 192.168.1.106
-#jasypt:
-#  encryptor:
-#    password: ljk
+jasypt:
+  encryptor:
+    password: ljk
 
 spring:
   profiles:
@@ -30,8 +30,8 @@ spring:
 mybatis-plus:
   mapper-locations: cn/edu/sicnu/mapper/*.xml
   type-aliases-package: cn.edu.sicnu.entity
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 logging:
   config: classpath:log4j.xml

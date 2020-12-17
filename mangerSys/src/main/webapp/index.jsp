@@ -9,6 +9,11 @@
     <title>Document</title>
 </head>
 <body>
-<h1>hello word</h1>
+<form method="post" action="#{pageContext-}/mangerSys/login"><br/>
+    用户：<input type="text" name="username"/><br/>
+    密码：<input type="text" name="password"/><br/>
+    <input type="checkbox" name="remember-me"/>记住我<br/>
+    <input type="submit" value="登录"/>
+</form>
 </body>
 </html>

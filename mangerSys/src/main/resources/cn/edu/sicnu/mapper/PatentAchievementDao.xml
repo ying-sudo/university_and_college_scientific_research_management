@@ -38,6 +38,24 @@
         from scientific_research.patent_achievement
         where id = #{id}
     </select>
+    <select id="queryByUserId" resultMap="PatentAchievementMap">
+        select id,
+               name,
+               patent_type,
+               patent_range,
+               college_id,
+               state,
+               application_id,
+               application_date,
+               public_id,
+               public_date,
+               impower_id,
+               impower_date,
+               user_id,
+               information
+        from scientific_research.patent_achievement
+        where user_id = #{id}
+    </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="PatentAchievementMap">

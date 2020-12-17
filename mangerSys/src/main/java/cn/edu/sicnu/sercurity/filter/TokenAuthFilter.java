@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
+import static org.apache.commons.lang3.StringUtils.trim;
+
 /**
  * token的校验
  * 该类继承自BasicAuthenticationFilter，在doFilterInternal方法中，
@@ -60,10 +62,15 @@ public class TokenAuthFilter extends BasicAuthenticationFilter {
             String username = tokenManger.getUserInfoFromToken(token);
             System.out.println("username = " + username);
             //从redis中获取权限列表
-            String permissionValuelist=(String) redisTemplate.opsForValue().get(username);
+            List<String> permissionValuelist=(ArrayList<String>) redisTemplate.opsForValue().get(username);
+            System.out.println("permissionValuelist = " + permissionValuelist.toString());
+            String[] split = permissionValuelist.toString().substring(1, permissionValuelist.toString().length() - 1).split(",");
             Collection<GrantedAuthority> authorities=new ArrayList<>();
-            SimpleGrantedAuthority auth =new SimpleGrantedAuthority(permissionValuelist);
-            authorities.add(auth);
+            for (String s : split) {
+                System.out.println("s = " + trim(s));
+                SimpleGrantedAuthority auth =new SimpleGrantedAuthority(trim(s).substring(11,trim(s).length()-1));
+                authorities.add(auth);
+            }
             return new UsernamePasswordAuthenticationToken(username,token,authorities);
         }
         return null;

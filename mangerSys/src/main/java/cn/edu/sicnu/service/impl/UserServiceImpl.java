@@ -27,9 +27,11 @@ public class UserServiceImpl implements UserService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public Users queryById(String id) {
         return this.userDao.queryById(id);
     }
+
 
     /**
      * 查询多条数据
@@ -39,6 +41,7 @@ public class UserServiceImpl implements UserService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<Users> queryAllByLimit(int offset, int limit) {
         return this.userDao.queryAllByLimit(offset, limit);
     }
@@ -49,6 +52,7 @@ public class UserServiceImpl implements UserService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<Users> findAll() {
         return this.userDao.findAll();
     }

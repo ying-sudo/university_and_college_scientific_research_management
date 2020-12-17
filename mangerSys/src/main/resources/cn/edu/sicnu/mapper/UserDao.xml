@@ -19,20 +19,20 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
-        select id,
-                password,
-               name,
-               phone,
-               email,
-               id_number,
-               college_id,
-               register,
-               note,
-               sex,
-               birth_date,
-               post
-        from scientific_research.users
-        where id = #{id}
+    select id,
+           password,
+           name,
+           phone,
+           email,
+           id_number,
+           college_id,
+           register,
+           note,
+           sex,
+           birth_date,
+           post
+    from scientific_research.users
+    where id = #{id}
     </select>
 
     <!--查询指定行数据-->

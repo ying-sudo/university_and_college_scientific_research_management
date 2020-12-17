@@ -24,6 +24,14 @@ public interface ScientificAchievementDao {
     ScientificAchievement queryById(String id);
 
     /**
+     * 通过ID查询单条数据
+     *
+     * @param id 主键
+     * @return 实例对象
+     */
+    List<ScientificAchievement> queryByUserId(String id);
+
+    /**
      * 查询指定行数据
      *
      * @param offset 查询起始位置

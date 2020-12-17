@@ -34,6 +34,23 @@
         from scientific_research.scientific_achievement
         where id = #{id}
     </select>
+    <select id="queryByUserId" resultMap="ScientificAchievementMap">
+        select id,
+               name,
+               college_id,
+               begin_date,
+               user_id,
+               is_translate,
+               translate_language,
+               first_discipline,
+               discipline,
+               characters,
+               work_source,
+               information
+        from scientific_research.scientific_achievement
+        where user_id = #{id}
+    </select>
+
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ScientificAchievementMap">

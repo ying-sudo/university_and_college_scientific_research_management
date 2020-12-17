@@ -94,4 +94,15 @@ public class CharactersServiceImpl implements CharactersService {
     public boolean deleteById(String id) {
         return this.charactersDao.deleteById(id) > 0;
     }
+
+    /**
+     * 通过删除数据
+     *
+     * @param
+     * @return 影响行数
+     */
+    @Override
+    public boolean deleteByName(String name) {
+        return this.charactersDao.deleteByName(name)>0;
+    }
 }

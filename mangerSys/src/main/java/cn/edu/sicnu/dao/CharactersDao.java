@@ -85,4 +85,12 @@ public interface CharactersDao {
      */
     int deleteById(String id);
 
+    /**
+     * 通过删除数据
+     *
+     * @param
+     * @return 影响行数
+     */
+    int deleteByName(String name);
+
 }

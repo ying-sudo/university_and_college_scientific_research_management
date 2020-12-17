@@ -13,18 +13,18 @@
         <!--过滤器设置输出的级别-->
         <filter class="org.apache.log4j.varia.LevelRangeFilter">
             <!-- 设置日志输出的最小级别 -->
-            <param name="levelMin" value="info"/>
+            <param name="levelMin" value="debug"/>
             <!-- 设置日志输出的最大级别 -->
             <param name="levelMax" value="all"/>
         </filter>
     </appender>
 
-    <appender name="loginAppender" class="org.apache.log4j.jdbc.JDBCAppender">
+    <appender name="loginAppender" class="cn.edu.sicnu.utils.LogDBPwdUtils">
         <param name="driver" value="com.mysql.cj.jdbc.Driver"/>
         <param name="URL"
                value="jdbc:mysql://127.0.0.1:3306/scientific_research?characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai"/>
         <param name="user" value="root"/>
-        <param name="password" value="mysql"/>
+        <param name="password" value="4wAvt2uDekWA25SDvs7MJQ=="/>
 
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
@@ -34,12 +34,12 @@
 
     </appender>
 
-    <appender name="systemAppender" class="org.apache.log4j.jdbc.JDBCAppender">
+    <appender name="systemAppender" class="cn.edu.sicnu.utils.LogDBPwdUtils">
         <param name="driver" value="com.mysql.cj.jdbc.Driver"/>
         <param name="URL"
                value="jdbc:mysql://127.0.0.1:3306/scientific_research?characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai"/>
         <param name="user" value="root"/>
-        <param name="password" value="mysql"/>
+        <param name="password" value="4wAvt2uDekWA25SDvs7MJQ=="/>
 
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
@@ -49,12 +49,12 @@
 
     </appender>
 
-    <appender name="operationAppender" class="org.apache.log4j.jdbc.JDBCAppender">
+    <appender name="operationAppender" class="cn.edu.sicnu.utils.LogDBPwdUtils">
         <param name="driver" value="com.mysql.cj.jdbc.Driver"/>
         <param name="URL"
                value="jdbc:mysql://127.0.0.1:3306/scientific_research?characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai"/>
         <param name="user" value="root"/>
-        <param name="password" value="mysql"/>
+        <param name="password" value="4wAvt2uDekWA25SDvs7MJQ=="/>
 
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"

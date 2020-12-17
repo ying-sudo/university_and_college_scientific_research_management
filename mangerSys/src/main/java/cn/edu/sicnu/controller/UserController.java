@@ -1,8 +1,11 @@
 package cn.edu.sicnu.controller;
 
 import cn.edu.sicnu.entity.Users;
+import cn.edu.sicnu.sercurity.utils.DefaultPasswordEncoder;
 import cn.edu.sicnu.service.UserService;
 import cn.edu.sicnu.utils.Message;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.MDC;
 import org.slf4j.LoggerFactory;
@@ -27,7 +30,10 @@ public class UserController {
      */
     @Resource
     private UserService userService;
-
+    @Resource
+    private ObjectMapper objectMapper;
+    @Resource
+    private DefaultPasswordEncoder defaultPasswordEncoder;
 
     //    private final Logger loggingLogger = Logger.getLogger("loginInfo");
 //    private final Logger systemLogger = Logger.getLogger("systemInfo");
@@ -42,14 +48,6 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('/table/teams')")
     @PostMapping("/user/selectOne")
     public Message selectOne(@RequestBody String id) {
-        System.out.println(id);
-//        id = id.substring(0, id.length() - 1);
-        String[] split = id.split(":");
-        for (String s : split) {
-            System.out.println(s);
-        }
-        id = split[1].substring(1, split[1].length() - 2);
-        System.out.println(id);
         return Message.success(userService.queryById(id));
     }
 
@@ -71,15 +69,36 @@ public class UserController {
      * id password 输入参数
      */
     @PostMapping("/user/initPWD")
-    public String initPWD(@RequestBody Map<String, String> map) {
+    public Message initPWD(@RequestBody Map<String, String> map) {
         try {
             Users user = userService.queryById(map.get("id"));
-            user.setPassword(map.get("password"));
-            userService.update(user);
-            return "{'resultCode': '0','resultMsg': '密码修改成功'}";
+            if(map.get("identify").equals(user.getIdNumber())){
+                user.setPassword(defaultPasswordEncoder.encode(map.get("password")));
+                userService.update(user);
+                return Message.success();
+            }else{
+                return Message.fail();
+            }
         } catch (Exception e) {
             System.out.println("e = " + e.toString());
-            return "{'resultCode': '-1','resultMsg': '密码修改失败'}";
+            return Message.fail();
+        }
+    }
+    /**
+     * 查询个人信息
+     */
+    @PreAuthorize("hasAnyAuthority('/home')")
+    @PostMapping("user/getOneInformation")
+    public Message getOne(@RequestBody String id){
+        Users users = userService.queryById(id);
+        System.out.println("users = " + users.toString());
+        try {
+            String string = objectMapper.writeValueAsString(users);
+            System.out.println("string = " + string);
+            return Message.success(string);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return Message.fail();
         }
     }
 }

@@ -4,6 +4,9 @@ import cn.edu.sicnu.sercurity.entity.MyUser;
 import cn.edu.sicnu.sercurity.entity.SecurityUser;
 import cn.edu.sicnu.sercurity.utils.SetResponse;
 import cn.edu.sicnu.sercurity.utils.TokenManger;
+import cn.edu.sicnu.service.CharactersRightService;
+import cn.edu.sicnu.service.UserCharacterService;
+import cn.edu.sicnu.utils.getRights;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.MDC;
@@ -16,6 +19,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -36,12 +41,16 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
     private RedisTemplate redisTemplate;
     private AuthenticationManager authenticationManager;
     private final org.slf4j.Logger loggingLogger = LoggerFactory.getLogger("loginInfo");
+    private UserCharacterService userCharacterService;
+    private CharactersRightService charactersRightService;
 
 
-    public TokenLoginFilter(AuthenticationManager authenticationManager,TokenManger tokenManger,RedisTemplate redisTemplate){
+    public TokenLoginFilter(AuthenticationManager authenticationManager,TokenManger tokenManger,RedisTemplate redisTemplate,UserCharacterService userCharacterService,CharactersRightService charactersRightService){
         this.authenticationManager=authenticationManager;
         this.tokenManger=tokenManger;
         this.redisTemplate=redisTemplate;
+        this.userCharacterService=userCharacterService;
+        this.charactersRightService=charactersRightService;
         this.setPostOnly(false);
         this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/login","POST"));
     }
@@ -73,15 +82,13 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         loggingLogger.info("登录成功");
         //生成token
         String token = tokenManger.createToken(user.getCurrentUsersInfo().getUsername());
-        //获取认证成功后用户的权限并返回给前端供其使用
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
-        List<GrantedAuthority> list = new ArrayList<>();
-        for (GrantedAuthority authority : authorities) {
-            list.add(authority);
-        }
+        //获取认证成功后用户的权限并返回给前端供其使用
+        getRights get = new getRights(userCharacterService,charactersRightService);
+        String rights = get.getRightsByCharacters(user.getUsername());
         //把用户的名称和角色列表信息放到redis
-        redisTemplate.opsForValue().set(user.getCurrentUsersInfo().getUsername(),"ROLE_"+list.get(0).getAuthority());
-        SetResponse.REResponse(response,"0",token,list.get(1).toString());
+        redisTemplate.opsForValue().set(user.getCurrentUsersInfo().getUsername(),authorities);
+        SetResponse.REResponse(response,"0",token,rights);
     }
     //认证失败
     @Override

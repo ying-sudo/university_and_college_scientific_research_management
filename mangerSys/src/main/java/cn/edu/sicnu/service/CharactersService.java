@@ -60,4 +60,12 @@ public interface CharactersService {
      */
     boolean deleteById(String id);
 
+    /**
+     * 通过删除数据
+     *
+     * @param
+     * @return 影响行数
+     */
+    boolean deleteByName(String name);
+
 }

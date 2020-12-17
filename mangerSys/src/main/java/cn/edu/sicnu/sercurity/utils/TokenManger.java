@@ -38,8 +38,7 @@ public class TokenManger implements Serializable {
      */
     public String getUserInfoFromToken(String token){
         String subject = Jwts.parser().setSigningKey(SECRECT_KEY).parseClaimsJws(token).getBody().getSubject();
-        String[] s = subject.split(" ");
-        subject=s[s.length-1];
+        subject=subject.substring(7);
         return subject;
     }
 
