@@ -53,7 +53,6 @@
 
     <div style="margin: 20px;"></div>
     审核
-    <bu :isDisabled="isDisabled"></bu>
 
 
 
@@ -123,8 +122,6 @@
   import ScientificAssessButton from '@/components/forms/buttons/assessmentResult/ScientificAssessButton.vue'
   import TeamAssessButton from '@/components/forms/buttons/assessmentResult/TeamAssessButton.vue'
   import WorkAssessButton from '@/components/forms/buttons/assessmentResult/WorkAssessButton.vue'
-  import bu from '../buttons/review/ProjectButton.vue'
-
   export default {
     data() {
       return {
@@ -189,7 +186,6 @@
       ScientificAssessButton,
       TeamAssessButton,
       WorkAssessButton,
-      bu,
       ExcelDialog,
 
     },
