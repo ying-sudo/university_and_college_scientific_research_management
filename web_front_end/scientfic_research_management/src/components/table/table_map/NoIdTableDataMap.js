@@ -7,7 +7,10 @@ export function getTableDataMap() {
         ["collegesdep", "mangerSys/colleges"], 
         ["researchers", "mangerSys/colleges"], 
 
-        ["roles", "mangerSys/characters/findAll"],    
+        ["roles", "mangerSys/characters/findAll"],   
+        ["authoritylists", "mangerSys/characters/findAll"], 
+
+         
     ]);
 
     return table_data_map;

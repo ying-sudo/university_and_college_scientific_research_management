@@ -293,7 +293,7 @@ let dataVal = {
           id: "29",
           index: "9-3",
           title: "权限设置",
-          urlPath: "/table/authoritylists",
+          urlPath: "/noIdtable/authoritylists",
           subMenu: null
         },
         {

@@ -75,12 +75,12 @@ export default {
       console.log("this.backEndInterface:" + this.backEndInterface);
     },
     getTableData: function (newVal) {
-      var token = localStorage.getItem('token');
+      var token = sessionStorage.getItem('token');
       this.axios.defaults.headers.common["Authorization"] = token;
 
       // this.axios.get("/api/table_data").then((res) => {
-      let userId = localStorage.getItem("userid");
-      console.log(userId);
+      // let userId = localStorage.getItem("userid");
+      // // console.log(userId);
       //  this.axios.defaults.headers.common["Authorization"] = token;
       this.axios.get(`${this.GLOBAL.BASE_URL}/${newVal}`).then((res) => {
           this.tableData = res.data.data;

@@ -1,13 +1,7 @@
 <template>
   <div>
-    <el-row
-      id="outer-container"
-      :gutter="20"
-    >
-      <el-col
-        :span="2"
-        :offset="1"
-      >
+    <el-row id="outer-container" :gutter="20">
+      <el-col :span="2" :offset="1">
         <div class="grid-content bg-purple-dark"><span>可访问视图</span></div>
       </el-col>
       <el-col :span="21">
@@ -15,22 +9,13 @@
           :indeterminate="isIndeterminate"
           v-model="checkAll"
           @change="handleCheckAllChange"
-        >全选</el-checkbox>
+          >全选</el-checkbox
+        >
       </el-col>
-
     </el-row>
 
-    <el-row
-      id="outer-container"
-      :gutter="20"
-    >
-
-      <el-col
-        :span="21"
-        :offset="3"
-        v-for="item in items"
-        :key="item.index"
-      >
+    <el-row id="outer-container" :gutter="20">
+      <el-col :span="21" :offset="3" v-for="item in items" :key="item.index">
         <div class="grid-content bg-purple-dark">
           <el-checkbox-group
             v-model="checkedItem"
@@ -43,23 +28,19 @@
               v-for="subItem in item.subMenu"
               :label="subItem.id"
               :key="subItem.index"
-            >{{
-              subItem.title
-            }}</el-checkbox>
+              >{{ subItem.title }}</el-checkbox
+            >
           </el-checkbox-group>
-
         </div>
       </el-col>
-
     </el-row>
     <el-divider></el-divider>
 
-    <el-button
-      type="primary"
-      @click="handleSubmit"
-      :loading="onLoad"
-    >保存</el-button>
+    <el-button type="primary" @click="handleSubmit" :loading="onLoad"
+      >保存</el-button
+    >
     <el-button @click="handleGoBack">返回</el-button>
+    <!-- <p>{{this.$route.query.role_authority}}</p> -->
   </div>
 </template>
 
@@ -137,7 +118,7 @@ export default {
       // this.axios({
       //   method: "post",
       //   url:
-          // "http://192.168.43.229:9999/mangerSys/charactersRight/updataRights",
+      // "http://192.168.43.229:9999/mangerSys/charactersRight/updataRights",
       //   data: {
       //     id: "001",
       //     list: this.checkedItem,
@@ -163,46 +144,30 @@ export default {
    * 代表默认选项的checkedItem中存放所有默认选项的title属性
    */
   created: function () {
-    // this.axios
-    //   .post("http://192.168.43.229:9999/mangerSys/user/login", {
-    //     id: "1",
-    //     password: "123",
-    //   })
-    this.axios.post("/api/header").then(
-      (response) => {
-        // console.log(response.data.data.headerLists);
-        // response = JSON.parse(response.data.data);
-        // console.log(response);
-        console.log(response.data);
-        this.items = response.data.data.headerLists;
-        console.log("created");
-        console.log(this.items);
-        let i = 0,
-          j = 0,
-          arr = [...this.items];
-        arr.splice(arr.length - 2, 2);
-        console.log(this.checkedItem);
+    console.log(this.$route.query.role_authority);
+    this.items = this.$route.query.role_authority.headerLists;
 
-        for (const iterator of arr) {
-          // console.log(iterator);
-          this.checkedItem[i++] = iterator.id;
-          // this.submitItems[i++] = iterator.id;
-          if (iterator.subMenu !== "null" && iterator.subMenu !== null) {
-            for (const subMenuItemTitle of iterator.subMenu) {
-              this.checkedItem[i++] = subMenuItemTitle.id;
-              // this.submitItems[i++] = subMenuItemTitle.id;
-            }
-            j = 0;
-          }
+    let i = 0,
+      j = 0,
+      arr = [...this.items];
+    arr.splice(arr.length - 2, 2);
+    console.log(this.checkedItem);
+
+    for (const iterator of arr) {
+      // console.log(iterator);
+      this.checkedItem[i++] = iterator.id;
+      // this.submitItems[i++] = iterator.id;
+      if (iterator.subMenu !== "null" && iterator.subMenu !== null) {
+        for (const subMenuItemTitle of iterator.subMenu) {
+          this.checkedItem[i++] = subMenuItemTitle.id;
+          // this.submitItems[i++] = subMenuItemTitle.id;
         }
-        // console.log(this.items);
-        console.log(this.checkedItem);
-        // console.log(this.submitItems);
-      },
-      (response) => {
-        console.log("request data error");
+        j = 0;
       }
-    );
+    }
+    // console.log(this.items);
+    console.log(this.checkedItem);
+    // console.log(this.submitItems);
   },
 };
 </script>
