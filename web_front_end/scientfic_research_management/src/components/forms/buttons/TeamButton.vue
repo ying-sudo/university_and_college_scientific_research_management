@@ -6,7 +6,7 @@
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
         <div v-if="!isDisabled">
-          <mu-button @click="openAlertDialog" color="primary">
+          <mu-button @click="openAlertDialog" color="primary" :loading="loading">
             团队申报表单&nbsp;&nbsp;
             <i right class="el-icon-document-add"></i>
           </mu-button>
@@ -18,8 +18,8 @@
         </div>
       </mu-flex>
 
-      <TeamForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
-        :levelProp="level" :sortProp="sort" :TableRow="TableRow"></TeamForm>
+      <TeamForm v-if="canOpen" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
+        :TableRow="TableRow"></TeamForm>
     </mu-container>
   </div>
 
@@ -42,20 +42,44 @@
           isDisabled: false
         }, //论文成果表单
         reload: '',
-        collegeInfo: this.GLOBAL.collegeInfo,
-        firstDiscipline: this.GLOBAL.firstDiscipline,
-        level: this.GLOBAL.level,
-        sort: this.GLOBAL.sort,
+        loading: false,
+        collegeInfo: [],
+        //团队：一级学科
+        otherAll: {
+          firstDiscipline: [],
+        },
+        firstDiscipline: [],
       };
+    },
+    created: function() {
+      this.getAllData();
     },
     components: {
       TeamForm
     },
     methods: {
       openAlertDialog() { //论文成果表单
+        this.loading = true;
         this.reload = new Date().getTime();
+        this.firstDiscipline = this.otherAll.firstDiscipline;
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
       },
+      getAllData() {
+        Global.methods.getCollegeData(this, this.collegeInfo);
+        Global.methods.getOtherData(this, this.otherAll);
+
+        return;
+      },
+    },
+    computed: {
+      canOpen() {
+        var isEmpty = Global.methods.isEmpty(this.firstDiscipline, this.collegeInfo);
+        // isEmpty = true;
+        if (isEmpty) {
+          this.loading = false;
+        }
+        return isEmpty;
+      }
     },
   }
 </script>

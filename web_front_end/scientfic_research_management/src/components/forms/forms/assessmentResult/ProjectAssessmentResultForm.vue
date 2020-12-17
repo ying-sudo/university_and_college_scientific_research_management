@@ -1,4 +1,4 @@
-<template>
+  <template>
 
   <div>
     <mu-container>
@@ -7,7 +7,7 @@
         :esc-press-close="false" :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
         <!-- 成绩框 -->
-        <ScoreTable :flag="flag" :id="project.id" :sort="'project'"></ScoreTable>
+        <ScoreTable :flag="flag" :scoreInfo="scoreInfo"></ScoreTable>
 
         <!-- 表单内容 -->
         <div style="padding: 10px; margin: 0 20px; float: left; width: 1500px;">
@@ -152,14 +152,22 @@
           state: null, //审核状态
           approvalNumber: null, //批准文号
           information: null, //项目信息
+          score: null,
         },
         users: [
           //参加人员
         ],
+        scoreInfo: {
+          id: null,
+          score: null,
+          sort: 'project',
+        },
       };
     },
     created: function() {
       this.project = this.TableRow;
+      this.scoreInfo.id = this.project.id;
+      this.scoreInfo.score = this.project.score;
       this.notDisabled = true;
     },
     methods: {

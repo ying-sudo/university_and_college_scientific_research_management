@@ -3,8 +3,8 @@
   <div>
     <mu-container>
       <!-- 表单头部 -->
-      <el-dialog v-loading="loading" title="专利产品" class="el-dialog__title" style="font-size: 10px;" fullscreen :esc-press-close="false"
-        :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
+      <el-dialog v-loading="loading" title="专利产品" class="el-dialog__title" style="font-size: 10px;" fullscreen
+        :esc-press-close="false" :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
         <!-- 表单内容 -->
         <div style="padding: 10px; width: 1520px; float: left; margin: 0 150px;">
@@ -25,19 +25,19 @@
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="patentRange" label="专利范围">
-              <el-select v-model="patent_achievement.patentRange" :disabled="flag.isDisabled">
+              <el-select v-model="patent_achievement.patentRange" :disabled="flag.isDisabled || notDisabled">
                 <el-option v-for="option in patentRange" :key="option" :label="option" :value="option"></el-option>
               </el-select>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="collegeId" label="成果归属">
-              <el-select v-model="patent_achievement.collegeId" :disabled="flag.isDisabled">
+              <el-select v-model="patent_achievement.collegeId" :disabled="flag.isDisabled || notDisabled">
                 <el-option v-for="option in collegeId" :key="option.id" :label="option.name" :value="option.id"></el-option>
               </el-select>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="state" label="专利状态">
-              <el-select v-model="patent_achievement.state" :disabled="flag.isDisabled">
+              <el-select v-model="patent_achievement.state" :disabled="flag.isDisabled || notDisabled">
                 <el-option v-for="option in state" :key="option.id" :label="option.name" :value="option.id"></el-option>
               </el-select>
             </el-form-item>
@@ -59,23 +59,23 @@
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="publicDate" label="公开日期">
-              <el-date-picker v-model="patent_achievement.publicDate" type="date" placeholder="选择日期" :disabled="flag.isDisabled"
+              <el-date-picker v-model="patent_achievement.publicDate" type="date" placeholder="选择日期" :disabled="flag.isDisabled || notDisabled"
                 value-format="yyyy-MM-dd">
               </el-date-picker>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="publicId" label="公开编号">
-              <el-input v-model="patent_achievement.publicId" :disabled="flag.isDisabled"></el-input>
+              <el-input v-model="patent_achievement.publicId" :disabled="flag.isDisabled || notDisabled"></el-input>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="impowerDate" label="授权日期">
-              <el-date-picker v-model="patent_achievement.impowerDate" type="date" placeholder="选择日期" :disabled="flag.isDisabled"
+              <el-date-picker v-model="patent_achievement.impowerDate" type="date" placeholder="选择日期" :disabled="flag.isDisabled || notDisabled"
                 value-format="yyyy-MM-dd">
               </el-date-picker>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="impowerId" label="授权编号">
-              <el-input v-model="patent_achievement.impowerId" :disabled="flag.isDisabled"></el-input>
+              <el-input v-model="patent_achievement.impowerId" :disabled="flag.isDisabled || notDisabled"></el-input>
             </el-form-item>
 
             <!-- 表单底部表格 -->
@@ -125,6 +125,8 @@
     props: [
       'flag',
       "collegeInfo", //学院信息
+      "patentTypeProp",
+      "patentRangeProp",
       "TableRow",
     ],
     model: {
@@ -144,7 +146,7 @@
           name: null, //名称
           patentType: null, //专利类型
           patentRange: null, //专利范围
-          collegeId: '0001', //成果归属
+          collegeId: null, //成果归属
           state: null, //专利状态
           applicationId: null, //申请编号
           applicationDate: null, //申请日期
@@ -152,15 +154,11 @@
           publicDate: null, //公开日期
           impowerId: null, //授权编号
           impowerDate: null, //授权日期
-          userId: '2011000416', //作者
+          userId: sessionStorage.getItem('userId'), //作者
           information: null //详细信息
         },
-        patentType: [
-          '类型1', '类型2'
-        ],
-        patentRange: [
-          '范围1', '范围2'
-        ],
+        patentType: [],
+        patentRange: [],
         collegeId: [],
         state: [{
             id: 1,
@@ -183,6 +181,8 @@
       }
       this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;
+      this.patentRange = this.patentRangeProp;
+      this.patentType = this.patentTypeProp;
     },
     methods: {
       closeAlertDialog() {
@@ -192,16 +192,15 @@
       makesure() {
         this.loading = true;
         //改成string格式
-		var proString = this.patent_achievement;
+        var proString = this.patent_achievement;
         // 用户成员
         var sendUser = Global.methods.getUser(this.users, this.patent_achievement);
         var usersString = JSON.stringify(sendUser);
 
-		var token = localStorage.getItem('token');
-		this.axios.defaults.headers.common["Authorization"] = token;
+        var token = localStorage.getItem('token');
+        this.axios.defaults.headers.common["Authorization"] = token;
         // 进行数据和后端交互
         if (this.notDisabled) {
-          console.log("专利表单修改  request begin:  ");
           this.axios
             .put(
               this.GLOBAL.BASE_URL +
@@ -209,8 +208,6 @@
               proString
             )
             .then((response) => {
-              console.log(response.data);
-              console.log("专利表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
                 Global.methods.message_success(this, '修改成功');
@@ -224,12 +221,9 @@
               Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         } else {
-          console.log("专利表单申报  request begin:  ");
           this.axios
             .post(this.GLOBAL.BASE_URL + "/mangerSys/achievements/patent", proString)
             .then((response) => {
-              console.log(response.data);
-              console.log("专利表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
                 Global.methods.message_success(this, '申报成功');

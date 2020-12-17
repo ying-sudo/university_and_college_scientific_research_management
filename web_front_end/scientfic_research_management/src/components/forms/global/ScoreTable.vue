@@ -6,8 +6,8 @@
       考核结果
     </div>
     <el-divider></el-divider>
-    <el-input ref="score" v-model="evaluationResult.score" :disabled="scoreDisabled"></el-input>
-    <div>
+    <el-input ref="score" v-model="evaluationResult.score" :disabled="scoreDisabled || flag.isDisabled"></el-input>
+    <div v-if="!flag.isDisabled">
       <div v-if="!scoreDisabled">
         <mu-button style="margin-top: 20px;" @click="makeScore" color="primary">
           确定&nbsp;&nbsp;
@@ -31,22 +31,22 @@
   export default {
     props: [
       "flag",
-      "id",
-      "sort",
+      "scoreInfo",
     ],
     data() {
       return {
         notDisabled: true, //成绩能否修改，true为不能
-        scoreDisabled: true,
+        scoreDisabled: true, //修改按钮和确定按钮的互换,true为修改
+        isChange: false,
         evaluationResult: {
-          id: null,
-          score: null,
-          sort: null,
-          datename: null,
+          id: null, //id
+          score: null, //分数
+          sort: null, //类别
         },
       }
     },
     created: function() {
+      this.evaluationResult = this.scoreInfo;
       if (!this.evaluationResult.score) {
         this.$nextTick(() => {
           this.$refs.score.focus();
@@ -56,6 +56,10 @@
       if (!this.flag.isDisabled) {
         this.enterScore();
       }
+      if (this.evaluationResult.score) {
+        console.log(this.isChange);
+        this.isChange = true;
+      }
     },
     methods: {
       enterScore() {
@@ -63,7 +67,7 @@
         let that = this;
         document.onkeypress = function(e) {
           var keyCode = document.all ? event.keyCode : e.which;
-          if (that.$route.path == "/helloworld" && keyCode == 13) {
+          if (that.$route.path == "/helloworld" && keyCode == 13 && !that.scoreDisabled) {
             that.makeScore();
             return;
           }
@@ -78,9 +82,23 @@
         this.evaluationResult.score = this.evaluationResult.score * 1.0;
         //判断成绩是否符合规范
         if (this.evaluationResult.score >= 0 && this.evaluationResult.score <= 100) {
-          this.evaluationResult.id = this.id;
-          this.evaluationResult.sort = this.sort;
-          this.evaluationResult.datename = null;
+          var token = localStorage.getItem('token');
+          this.axios.defaults.headers.common["Authorization"] = token;
+
+          if (this.isChange) {
+            //修改
+            this.axios.put(this.GLOBAL.BASE_URL + "/mangerSys/assess", this.evaluationResult).then(
+              (response) => {
+                console.log(response);
+              });
+          } else {
+            //第一次进行输入成绩
+            this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/assess", this.evaluationResult).then(
+              (response) => {
+                console.log(response);
+              });
+          }
+
           Global.methods.message_success(this, '成绩输入成功');
           this.scoreDisabled = true;
           return true;
@@ -88,13 +106,6 @@
           Global.methods.message_warning(this, '成绩不符合规范');
           this.evaluationResult.score = null;
           return false;
-        }
-      },
-      makeButton() { //确定按钮
-        if (this.evaluationResult.score && this.scoreDisabled) {
-          this.closeAlertDialog();
-        } else {
-          Global.methods.message_warning(this, '请输入成绩');
         }
       },
       editScore() {

@@ -1,9 +1,12 @@
 <template>
 
   <!-- 登录界面 -->
-  <div style="height: 916px; background-color: #ffff00; padding: 2px;">
+  <div style="height: 916px; background-color: #ffffff; padding: 2px;">
     <!-- 四川师范大学图标 -->
-    <div style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); background-color: #76d1b6; width: 100%;">
+    <div style="
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+      background-color: #E5E9F2;
+      width: 100%;">
       <img src="../../assets/images/LoginLogo.png" style="margin: 15px 100px;" alt="">
     </div>
 
@@ -64,7 +67,7 @@
           <!-- 第一步 填写账号 -->
           <div v-if="activeStep === 0" style="margin: 15px;">
             <i class="el-icon-user" style="font-size: 35px; padding: 5px;"></i>
-            <mu-text-field v-model="username" label="用户名" label-float help-text="用户名为学工号"></mu-text-field><br />
+            <mu-text-field v-model="user.id" label="用户名" label-float help-text="用户名为学工号"></mu-text-field><br />
 
 
             <i class="el-icon-user" style="font-size: 35px; padding: 5px;"></i>
@@ -96,12 +99,12 @@
               :action-click="() => (visibility = !visibility)" :type="visibility ? 'text' : 'password'" label-float
               help-text="请再次输入你要修改的密码"></mu-text-field><br />
 
-              <!-- 错误警告 -->
-              <div style="width: 400px; margin: 0 auto;">
-                <mu-alert color="red" @delete="alarm = false" delete v-if="alarm" transition="mu-scale-transition" style=" height: 30px;">
-                  <mu-icon left value="warning"></mu-icon> {{error_text}}
-                </mu-alert>
-              </div>
+            <!-- 错误警告 -->
+            <div style="width: 400px; margin: 0 auto;">
+              <mu-alert color="red" @delete="alarm = false" delete v-if="alarm" transition="mu-scale-transition" style=" height: 30px;">
+                <mu-icon left value="warning"></mu-icon> {{error_text}}
+              </mu-alert>
+            </div>
 
           </div>
 
@@ -112,8 +115,9 @@
 
           <!-- 下一步按钮 -->
           <div>
-            <mu-button flat class="demo-step-button" :disabled="activeStep !== 1" @click="handlePrev"> 上一步 </mu-button>
-            <mu-button class="demo-step-button" color="primary" @click="handleNext"> {{activeStep === 2 ? '完成' : activeStep === 1 ? '确认' : '下一步'}}</mu-button>
+            <mu-button flat class="demo-step-button" :disabled="activeStep !== 1 || loading" @click="handlePrev"> 上一步
+            </mu-button>
+            <mu-button class="demo-step-button" color="primary" v-loading="loading" :disabled="loading" @click="handleNext"> {{activeStep === 2 ? '完成' : activeStep === 1 ? '确认' : '下一步'}}</mu-button>
           </div>
         </template>
       </div>
@@ -125,20 +129,27 @@
 
 <script>
   import Verify from '@/addModules/vue2-verify'
+  import Global from '@/components/forms/global/global.vue'
 
   export default {
     data() {
       return {
         username: '',
         userID: '',
+        user: {
+          id: null,
+          password: null,
+          identify: null,
+        },
         password: '',
         isPWD: '',
         error_text: '',
         alarm: false,
+        loading: false,
         passwordError: false,
-        verify_flag: true,
+        verify_flag: false,
         activeStep: 0, //步骤
-        visibility: false
+        visibility: false,
       }
     },
     computed: {
@@ -174,36 +185,69 @@
         this.reload = new Date().getTime();
       },
       handleNext() { //下一步 步骤条
+        this.loading = true;
         if (this.activeStep === 0) { //验证码确认和学号确认
           if (this.verify_flag) {
-            console.log('username:   ' + this.username);
-            console.log('userID:     ' + this.userID);
+            this.loading = false;
             this.activeStep++;
           } else {
-            alert('请先通过验证');
+            this.loading = false;
+            // alert('请先通过验证');
+            Global.methods.message_error(this, '请先通过验证');
           }
         } else if (this.activeStep === 1) { //密码输入
           var firstPWD = this.password;
           var flagPWD = this.isPWD;
           if (firstPWD != '' && flagPWD != '') {
             if (firstPWD === flagPWD) {
-              console.log('相等');
+              this.user.password = this.password;
+              this.user.identify = this.userID;
               this.passwordError = false;
-              
+
               //这里进行向后端传输，进行判断，是否有错误
-              
-              this.activeStep++;
+              this.axios({
+                  method: "post",
+                  url: this.GLOBAL.BASE_URL + "/mangerSys/user/initPWD",
+                  data: this.user
+                }).then(
+                  (response) => {
+                    var resultCode = -2; //返回值，进行登录判断
+                    resultCode = response.data.resultCode;
+                    console.log(response);
+                    //关闭组件
+                    this.loading = false;
+                    if (resultCode == 0) {
+                      // 检索
+                      this.activeStep++;
+                    } else if (resultCode == -1) {
+                      //失败
+                      this.$router.push('./initPWD');
+                      Global.methods.message_error(this, '用户名或身份错误');
+                    } else {
+                      //后端返回值不是0，-1 其他原因
+                      this.$router.push('./initPWD');
+                      Global.methods.message_error(this, '服务器错误，请稍后再试');
+                    }
+                  })
+                .catch((error) => {
+                  //请求错误，关闭加载
+                  this.loading = false;
+                  this.$router.push('./initPWD');
+                  Global.methods.message_error(this, "出现了不可避免的错误，请稍后再试");
+                });
+
             } else {
-              this.login_failing('不相等');
-              console.log('不相等');
+              this.loading = false;
+              Global.methods.message_error(this, '不相等');
               this.passwordError = true;
             }
           } else {
-            this.login_failing('密码不能为空');
-            console.log('不能为空');
+            this.loading = false;
+            Global.methods.message_error(this, '密码不能为空');
             this.passwordError = true;
           }
         } else if (this.activeStep === 2) { //最后一步，进入登录页面
+          this.loading = false;
           this.initSure();
         }
       }

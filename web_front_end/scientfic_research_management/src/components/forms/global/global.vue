@@ -82,13 +82,13 @@
           dir[key] = sour[key];
         }
       },
-      getValue(sour, dir) { //二维
+      getValue(sour, dir) { //二维，最后一个添加
         for (var key in sour) {
           dir[dir.length - 1][key] = sour[key];
         }
       },
 
-      getUser(users, project) {
+      getUser(users, project, category) {
         // 用户
         var i = 0;
         var sendUser = [];
@@ -101,6 +101,7 @@
           //用赋值的方式对用户的id和项目id进行赋值
           sendUser[i].userId = userId;
           sendUser[i].id = id;
+          sendUser[i].category = category;
           //删除用户输入的名字和学院
           delete sendUser[i].name;
           delete sendUser[i].collegeName;
@@ -127,9 +128,13 @@
         if (value == 0) {
           this.message_success(that, msg);
         } else if (value == -1) {
-          this.message_warning(that, msg);
-        } else {
           this.message_error(that, msg);
+        } else if (value == -2) {
+          this.message_error(that, msg);
+        } else if (value == -3) {
+          this.message_error(that, msg);
+        } else {
+          this.message_error(that, '出现未知错误！请稍后重试。');
         }
       },
       message_success(that, msg) {
@@ -159,40 +164,111 @@
 
       getCollegeData(that, collegeInfo) {
         //从后端获取表单需要的所有学院的信息，并返回
-        var token = localStorage.getItem('token');
+        var token = sessionStorage.getItem('token');
         that.axios.defaults.headers.common["Authorization"] = token;
         that.axios.get(that.GLOBAL.BASE_URL + "/mangerSys/colleges").then(
           (response) => {
-            that.GLOBAL.collegeInfo = response.data.data;
-            console.log('college begin:   ');
-
-console.log(response.data.data)
-            for (var i=0; i<response.data.data.length; i++) {
-              console.log(response.data.data[i].id);
+            for (var i = 0; i < response.data.data.length; i++) {
               var empty = {};
               collegeInfo.push(empty);
-
-              // for (var key in response.data.data[i]) {
-              //   console.log(response.data.data[i][key]);
-              // }
-
               this.getValueOne(response.data.data[i], collegeInfo[i]);
             }
-            console.log(collegeInfo);
             return;
           });
       },
       getOtherData(that, sort) {
-        var token = localStorage.getItem('token');
+        var token = sessionStorage.getItem('token');
         that.axios.defaults.headers.common["Authorization"] = token;
-
         //从后端获取表单需要的所有其他选择的信息，并返回
         that.axios.get(that.GLOBAL.BASE_URL + "/mangerSys/sorts").then(
           (response) => {
-            console.log(response.data);
-            return response.data;
+            for (var key in response.data.data) {
+              for (var i = 0; i < response.data.data[key].length; i++) {
+                sort[key].push(response.data.data[key][i]);
+              }
+            }
+
+            return;
           })
+      },
+
+      //使用不定参数，把所有的值传过来，判断是否为空
+      isEmpty() {
+        var len = arguments.length;
+
+        for (var i = 0; i < len; i++) {
+          if (arguments[i].length == 0) {
+            return false;
+          }
+        }
+
+        return true;
+      },
+
+      //下载
+      //下载excel文件
+      // downloadExcel(tHeader, filterVal, excelName, tableData) {
+      //   this.export2Excel(tHeader, filterVal, excelName, tableData);
+      // },
+      // export2Excel(tHeader, filterVal, excelName, tableData) {
+      //   require.ensure([], () => {
+      //     const {
+      //       export_json_to_excel
+      //     } = require('@/lib/excel/Export2Excel.js');
+      //     const list = tableData; //把data里的tableData存到list
+      //     const data = this.formatJson(filterVal, list);
+      //     export_json_to_excel(tHeader, data, excelName); //导出Excel 文件名
+      //   })
+      // },
+      // formatJson(filterVal, jsonData) {
+      //   return jsonData.map(v => filterVal.map(j => v[j]))
+      // },
+
+      sendUsers(that, sendUser) {
+
+        this.axios.post(this.GLOBAL.BASE_URL + '/mangerSys/sorts/insertUsers', sendUser)
+          .then((response) => {
+            console.log(response);
+          })
+
+
+        var token = sessionStorage.getItem('token');
+        that.axios.defaults.headers.common["Authorization"] = token;
+        that.axios
+          .post(this.GLOBAL.BASE_URL + "/mangerSys/sorts/insertUsers", sendUser)
+          .then((response) => {
+            console.log(response);
+            if (response.data.resultCode == 0) {} else {}
+          })
+          .catch((error) => {
+            Global.methods.message_error(that, '网络或服务器错误，请稍后重试');
+          });
+      },
+
+      //获取数组的最大（0），最小（1)和平均值（2），
+      getMaxMinAvgByArray(arr) {
+        var res = [];
+        var sum = 0;
+        res[0] = arr[0];
+        res[1] = arr[1];
+
+        for (var i = 0; i < arr.length; i++) {
+          if (res[0] <= arr[i]) {
+            res[0] = arr[i];
+          }
+          if (res[1] >= arr[i]) {
+            res[1] = arr[i];
+          }
+          sum += arr[i];
+        }
+
+        res[2] = sum / arr.length;
+
+        return res;
+
       }
+
+
     },
   }
 </script>

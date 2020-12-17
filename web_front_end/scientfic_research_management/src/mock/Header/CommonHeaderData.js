@@ -118,27 +118,27 @@ let dataVal = {
           urlPath: "/table/patent_result",
           subMenu: null
         },
-        {
-          id: "39",
-          index: "5-7",
-          title: "个人考核结果",
-          urlPath: "/table/personal_result",
-          subMenu: null
-        },
-        {
-          id: "40",
-          index: "5-8",
-          title: "学院考核结果",
-          urlPath: "/table/college_result",
-          subMenu: null
-        },
-        {
-          id: "41",
-          index: "5-9",
-          title: "校级团队考核结果",
-          urlPath: "/table/team_result",
-          subMenu: null
-        }
+        // {
+        //   id: "39",
+        //   index: "5-7",
+        //   title: "个人考核结果",
+        //   urlPath: "/table/personal_result",
+        //   subMenu: null
+        // },
+        // {
+        //   id: "40",
+        //   index: "5-8",
+        //   title: "学院考核结果",
+        //   urlPath: "/table/college_result",
+        //   subMenu: null
+        // },
+        // {
+        //   id: "41",
+        //   index: "5-9",
+        //   title: "校级团队考核结果",
+        //   urlPath: "/table/team_result",
+        //   subMenu: null
+        // }
       ]
     },
     {
@@ -156,31 +156,31 @@ let dataVal = {
         }
       ]
     },
-    {
-      id: "13",
-      index: "7",
-      title: "项目评审",
-      urlPath: "/reviews",
-      subMenu: [
-        {
-          id: "14",
-          index: "7-1",
-          title: "项目批次",
-          urlPath: "/table/batch",
-          subMenu: null
-        },
-        {
-          id: "15",
-          index: "7-2",
-          title: "在线审评",
-          urlPath: "/online",
-          subMenu: null
-        }
-      ]
-    },
+    // {
+    //   id: "13",
+    //   index: "7",
+    //   title: "项目评审",
+    //   urlPath: "/reviews",
+    //   subMenu: [
+    //     {
+    //       id: "14",
+    //       index: "7-1",
+    //       title: "项目批次",
+    //       urlPath: "/table/batch",
+    //       subMenu: null
+    //     },
+    //     {
+    //       id: "15",
+    //       index: "7-2",
+    //       title: "在线审评",
+    //       urlPath: "/online",
+    //       subMenu: null
+    //     }
+    //   ]
+    // },
     {
       id: "16",
-      index: "8",
+      index: "7",
       title: "考核",
       urlPath: "/assessment",
       subMenu: [
@@ -193,76 +193,76 @@ let dataVal = {
         // },
         {
           id: "18",
-          index: "8-2",
+          index: "7-2",
           title: "项目考核",
           urlPath: "/table/project",
           subMenu: null
         },
         {
           id: "19",
-          index: "8-3",
+          index: "7-3",
           title: "论文考核",
           urlPath: "/table/paper_result",
           subMenu: null
         }, {
           id: "42",
-          index: "8-4",
+          index: "7-4",
           title: "著作考核",
           urlPath: "/table/work_result",
           subMenu: null
         }, {
           id: "43",
-          index: "8-5",
+          index: "7-5",
           title: "科研成果考核",
           urlPath: "/table/scientific_result",
           subMenu: null
         },
         {
           id: "44",
-          index: "8-6",
+          index: "7-6",
           title: "专利考核",
           urlPath: "/table/patent_result",
           subMenu: null
         },
-        {
-          id: "20",
-          index: "8-7",
-          title: "个人考核",
-          urlPath: "/table/personal",
-          subMenu: null
-        },
-        {
-          id: "21",
-          index: "8-8",
-          title: "学院考核",
-          urlPath: "/table/college",
-          subMenu: null
-        },
-        {
-          id: "22",
-          index: "8-9",
-          title: "校级团队考核",
-          urlPath: "/table/team",
-          subMenu: null
-        }
+        // {
+        //   id: "20",
+        //   index: "8-7",
+        //   title: "个人考核",
+        //   urlPath: "/table/personal",
+        //   subMenu: null
+        // },
+        // {
+        //   id: "21",
+        //   index: "8-8",
+        //   title: "学院考核",
+        //   urlPath: "/table/college",
+        //   subMenu: null
+        // },
+        // {
+        //   id: "22",
+        //   index: "8-9",
+        //   title: "校级团队考核",
+        //   urlPath: "/table/team",
+        //   subMenu: null
+        // }
       ]
     },
     {
       id: "23",
-      index: "9",
+      index: "8",
       title: "机构及人员",
       urlPath: "/institutions",
       subMenu: [
         {
           id: "24",
-          index: "9-1",
+          index: "8-1",
           title: "院系机构",
           urlPath: "/noIdtable/collegesdep",
           subMenu: null
         },
         {
           id: "25",
-          index: "9-2",
+          index: "8-2",
           title: "科研人员",
           urlPath: "/noIdtable/researchers",
           subMenu: null
@@ -271,47 +271,47 @@ let dataVal = {
     },
     {
       id: "26",
-      index: "10",
+      index: "9",
       title: "系统管理",
       urlPath: "/admin",
       subMenu: [
         {
           id: "27",
-          index: "10-1",
+          index: "9-1",
           title: "角色管理",
           urlPath: "/noIdtable/roles",
           subMenu: null
         },
-        {
-          id: "28",
-          index: "10-2",
-          title: "分类设置",
-          urlPath: "/sorts",
-          subMenu: null
-        },
+        // {
+        //   id: "28",
+        //   index: "9-2",
+        //   title: "分类设置",
+        //   urlPath: "/sorts",
+        //   subMenu: null
+        // },
         {
           id: "29",
-          index: "10-3",
+          index: "9-3",
           title: "权限设置",
           urlPath: "/table/authoritylists",
           subMenu: null
         },
         {
           id: "30",
-          index: "10-4",
+          index: "9-4",
           title: "登录日志记录",
           urlPath: "/noIdtable/loginlog",
           subMenu: null
         },
         {
           id: "31",
-          index: "10-5",
+          index: "9-5",
           title: "系统日志记录",
           urlPath: "/noIdtable/systemlog",
           subMenu: null
         }, {
           id: "32",
-          index: "10-6",
+          index: "9-6",
           title: "操作日志记录",
           urlPath: "/noIdtable/operationlog",
           subMenu: null

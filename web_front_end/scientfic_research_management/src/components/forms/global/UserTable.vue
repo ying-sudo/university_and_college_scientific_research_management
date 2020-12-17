@@ -43,18 +43,16 @@
         <el-table-column fixed prop="id" label="学工号" width="300"></el-table-column>
         <el-table-column fixed prop="name" label="姓名" width="300"></el-table-column>
         <el-table-column prop="collegeName" label="单位" width="500"></el-table-column>
-        <el-table-column prop="contribution" label="贡献率" width="100"></el-table-column>
-        <el-table-column fixed="right" label="操作" width="300">
-          <div v-if="!isDisabled">
-            <template slot-scope="scope">
-              <el-button style="font-size: 20px;" @click.native.prevent="deleteRow(scope.$index)" type="text" size="small">
-                移除
-              </el-button>
-              <el-button style="font-size: 20px;" @click.native.prevent="editRow(scope.$index)" type="text" size="small">
-                编辑
-              </el-button>
-            </template>
-          </div>
+        <el-table-column prop="contribution" label="贡献率" :width="isDisabled ? 400 : 100"></el-table-column>
+        <el-table-column fixed="right" label="操作" width="300" v-if="!isDisabled">
+          <template slot-scope="scope">
+            <el-button style="font-size: 20px;" @click.native.prevent="deleteRow(scope.$index)" type="text" size="small">
+              移除
+            </el-button>
+            <el-button style="font-size: 20px;" @click.native.prevent="editRow(scope.$index)" type="text" size="small">
+              编辑
+            </el-button>
+          </template>
         </el-table-column>
       </el-table>
     </div>
@@ -80,10 +78,10 @@
         rules: this.GLOBAL.rules,
         index: null,
         user: {
-          id: '123',
-          name: '123',
-          collegeName: 'qwe',
-          contribution: '123'
+          id: '',
+          name: '',
+          collegeName: '',
+          contribution: ''
         },
         flag: {
           openAlert: false,
@@ -132,8 +130,7 @@
         }
       }
     },
-    components: {
-    }
+    components: {}
   }
 </script>
 

@@ -6,7 +6,7 @@
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
         <div v-if="!isDisabled">
-          <mu-button @click="openAlertDialog" color="primary">
+          <mu-button @click="openAlertDialog" color="primary" :loading="loading">
             科研申报表单&nbsp;&nbsp;
             <i right class="el-icon-document-add"></i>
           </mu-button>
@@ -18,8 +18,9 @@
         </div>
       </mu-flex>
 
-      <ScientificForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
-        :levelProp="level" :sortProp="sort" :TableRow="TableRow"></ScientificForm>
+      <ScientificForm v-if="canOpen" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :TableRow="TableRow"
+        :workSourceProp="workSource" :translateLanguageProp="translateLanguage" :workTypeProp="workType"
+        :firstDisciplineProp="firstDiscipline"></ScientificForm>
 
     </mu-container>
   </div>
@@ -43,20 +44,54 @@
           isDisabled: false
         },
         reload: '',
-        collegeInfo: this.GLOBAL.collegeInfo,
-        firstDiscipline: this.GLOBAL.firstDiscipline,
-        level: this.GLOBAL.level,
-        sort: this.GLOBAL.sort,
+        loading: false,
+        collegeInfo: [],
+        //一级学科，研究类别，项目来源
+        otherAll: {
+          firstDiscipline: [],
+          workType: [],
+          translateLanguage: [],
+          workSource: [],
+        },
+        firstDiscipline: [],
+        workType: [],
+        translateLanguage: [],
+        workSource: [],
       };
+    },
+    created: function() {
+      this.getAllData();
     },
     components: {
       ScientificForm
     },
     methods: {
       openAlertDialog() {
+        this.loading = true;
         this.reload = new Date().getTime();
+        this.firstDiscipline = this.otherAll.firstDiscipline;
+        this.workType = this.otherAll.workType;
+        this.translateLanguage = this.otherAll.translateLanguage;
+        this.workSource = this.otherAll.workSource;
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
       },
+      getAllData() {
+        Global.methods.getCollegeData(this, this.collegeInfo);
+        Global.methods.getOtherData(this, this.otherAll);
+
+        return;
+      },
+    },
+    computed: {
+      canOpen() {
+        var isEmpty = Global.methods.isEmpty(this.firstDiscipline, this.workType, this.translateLanguage, this.collegeInfo,
+          this.workSource);
+        if (isEmpty) {
+          this.loading = false;
+        }
+        // isEmpty = true;
+        return isEmpty;
+      }
     },
   }
 </script>

@@ -155,15 +155,23 @@
           collegeId: '0001', //成果归属
           workSource: null, //项目来源
           userId: '1234', //作者
-          information: null //详细信息
+          information: null ,//详细信息
+          score: null,
         },
         users: [
           //参加人员
         ],
+        scoreInfo: {
+          id: null,
+          score: null,
+          sort: 'work',
+        },
       };
     },
     created: function() {
       this.work_achievement = this.TableRow;
+      this.scoreInfo.id = this.work_achievement.id;
+      this.scoreInfo.score = this.work_achievement.score;
       this.notDisabled = true;
     },
     methods: {

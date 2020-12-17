@@ -51,17 +51,13 @@
 
 
 
+    <div style="margin: 20px;"></div>
+    审核
+    <bu :isDisabled="isDisabled"></bu>
 
 
 
-
-
-
-
-
-
-
-
+<ExcelDialog :tHeader="tHeader" :filterVal="filterVal" :tableData="tableData" :excelName="excelName"></ExcelDialog>
 
 
 
@@ -110,6 +106,9 @@
 </template>
 
 <script>
+  import Global from '@/components/forms/global/global.vue'
+  import ExcelDialog from '@/components/forms/global/ExcelDialog.vue'
+
   import PaperButton from '@/components/forms/buttons/PaperButton.vue'
   import ProjectButton from '@/components/forms/buttons/ProjectButton.vue'
   import PatentButton from '@/components/forms/buttons/PatentButton.vue'
@@ -124,10 +123,33 @@
   import ScientificAssessButton from '@/components/forms/buttons/assessmentResult/ScientificAssessButton.vue'
   import TeamAssessButton from '@/components/forms/buttons/assessmentResult/TeamAssessButton.vue'
   import WorkAssessButton from '@/components/forms/buttons/assessmentResult/WorkAssessButton.vue'
+  import bu from '../buttons/review/ProjectButton.vue'
 
   export default {
     data() {
       return {
+
+        tableData: [{
+            'index': '999',
+            "nickName": "的旧时光",
+            "name": "98491231841251"
+          },
+          {
+            'index': '1',
+            "nickName": "高贵",
+            "name": "张"
+          },
+          {
+            'index': '2',
+            "nickName": "海aaa灰尘",
+            "name": "小兰"
+          }
+        ],
+        tHeader: ['序号', '昵称', '姓名'],
+        filterVal: ['index', 'nickName', 'name'],
+        excelName: 'aaaa',
+
+
         isDisabled: false,
         project: {
           id: 'ccc', //项目编号
@@ -167,6 +189,11 @@
       ScientificAssessButton,
       TeamAssessButton,
       WorkAssessButton,
+      bu,
+      ExcelDialog,
+
+    },
+    methods: {
     }
   };
 

@@ -11,7 +11,7 @@
         <div style="float: left; padding: 10px; width: 1520px; margin: 0 140px;">
           <el-form :model="team" ref="team" :rules="rules" :label-position="labelPosition" label-width="1000">
             <el-form-item class="mu-demo-min-form" prop="name" label="团队名称">
-              <el-input v-model="team.name" :disabled="flag.isDisabled"></el-input>
+              <el-input v-model="team.name" :disabled="flag.isDisabled || notDisabled"></el-input>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="id" label="团队编号">
@@ -19,7 +19,7 @@
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="researchDiection" label="研究方向">
-              <el-input v-model="team.researchDiection" :disabled="flag.isDisabled"></el-input>
+              <el-input v-model="team.researchDiection" :disabled="flag.isDisabled || notDisabled"></el-input>
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="discipline" label="学科门类">
@@ -42,7 +42,7 @@
             </el-form-item>
 
             <el-form-item class="mu-demo-min-form" prop="phone" label="办公电话">
-              <el-input v-model="team.phone" :disabled="flag.isDisabled"></el-input>
+              <el-input v-model="team.phone" :disabled="flag.isDisabled || notDisabled"></el-input>
             </el-form-item>
 
             <!-- 团队负责人 -->
@@ -52,26 +52,28 @@
               <div style="width: 1470px; float: left; padding: 5px; border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);">
                 <el-form :inline="true" :model="team" class="demo-form-inline">
                   <div style="margin: 5px; text-align:">
-                    <el-form-item prop="" label="负责人学工号:">
+                    <el-form-item prop="id" label="负责人学工号:">
                       <el-input v-model="user.id"></el-input>
                     </el-form-item>
-                    <el-form-item prop="" label="姓名:">
-                      <el-input v-model="user.name"></el-input>
-                    </el-form-item>
                     <el-form-item v-if="!flag.isDisabled">
-                      <el-button type="primary" @click="findUser">查询</el-button>
+                      <el-button type="primary" @click="findUser" :loading="isUserLoad">查询</el-button>
                     </el-form-item>
                   </div>
 
                   <div style="float: left; width: 1470px;">
+
+                    <el-form-item class="mu-demo-min-form" prop="name" label="负责人姓名:">
+                      <el-input v-model="user.name" disabled></el-input>
+                    </el-form-item>
+
                     <el-form-item class="mu-demo-min-form" prop="collegeId" label="所在单位">
                       <el-input v-model="user.collegeId" disabled></el-input>
                     </el-form-item>
 
                     <el-form-item class="mu-demo-min-form" prop="user_sex" label="负责人性别">
                       <el-radio-group v-model="user.sex">
-                        <el-radio label="male" disabled>男性</el-radio>
-                        <el-radio label="female" disabled>女性</el-radio>
+                        <el-radio label="男" disabled>男性</el-radio>
+                        <el-radio label="女" disabled>女性</el-radio>
                       </el-radio-group>
                     </el-form-item>
 
@@ -142,8 +144,6 @@
       'flag',
       "collegeInfo", //学院信息
       "firstDisciplineProp", //第一学科
-      "levelProp", //项目级别
-      "sortProp", //项目分类
       "TableRow",
     ],
     model: {
@@ -157,6 +157,7 @@
         isSubmit: false,
         rules: this.GLOBAL.rules,
         loading: false,
+        isUserLoad: false,
         team: {
           id: '', //编号
           name: '', //名字
@@ -166,11 +167,9 @@
           foundingTime: '', //成立时间
           phone: '', //办公电话
           information: '', //团队信息
-          userId: '2011000416', //负责人
+          userId: '', //负责人
         },
         firstDiscipline: [], //一级学科内容
-        level: [], //项目级别
-        sort: [], //项目分类
         state: [{
             id: 1,
             name: "进行"
@@ -185,7 +184,7 @@
           }
         ],
         user: {
-          id: '',
+          id: sessionStorage.getItem('userId'),
           name: '',
           phone: '',
           collegeId: '',
@@ -194,8 +193,7 @@
           post: '',
           email: ''
         },
-        users: []
-
+        users: [],
       };
     },
     created: function() {
@@ -205,8 +203,6 @@
       this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;
       this.firstDiscipline = this.firstDisciplineProp;
-      this.level = this.levelProp;
-      this.sort = this.sortProp;
     },
     methods: {
       closeAlertDialog() {
@@ -216,10 +212,7 @@
       makesure() {
         this.loading = true;
         //改成string格式
-        // var proString = JSON.stringify(this.team);
         var proString = this.team;
-        console.log(proString);
-        // proString = JSON.parse(proString);
         // 用户成员
         var sendUser = Global.methods.getUser(this.users, this.team);
         var usersString = JSON.stringify(sendUser);
@@ -228,17 +221,12 @@
         this.axios.defaults.headers.common["Authorization"] = token;
         // 进行数据和后端交互
         if (this.notDisabled) {
-          console.log("项目表单修改  request begin:  ");
           this.axios
             .put(
-              this.GLOBAL.BASE_URL +
-              "/mangerSys/team/teams/" +
-              this.project.id,
+              this.GLOBAL.BASE_URL + "/mangerSys/teams",
               proString
             )
             .then((response) => {
-              console.log(response.data.resultCode);
-              console.log("项目表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
                 Global.methods.message_success(this, '申报成功');
@@ -252,13 +240,10 @@
               Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         } else {
-          console.log("项目表单申报  request begin:  ");
 
           this.axios
             .post(this.GLOBAL.BASE_URL + "/mangerSys/teams", proString)
             .then((response) => {
-              console.log(response.data);
-              console.log("项目表单  request  over");
               this.loading = false;
               if (response.data.resultCode == 0) {
                 Global.methods.message_success(this, '申报成功');
@@ -284,15 +269,16 @@
         }
       },
       findUser() {
-        var token = localStorage.getItem('token');
+        this.isUserLoad = true;
+        var token = sessionStorage.getItem('token');
         this.axios.defaults.headers.common["Authorization"] = token;
-        this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/selectOne", this.user.id,
-          {
+        this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/selectOne", this.user.id, {
             headers: {
               'Content-Type': "application/json"
             }
           })
           .then((response) => {
+            this.isUserLoad = false;
             console.log(response);
             if (response.data.resultCode == 0) {
               if (response.data.data == null) {
@@ -305,9 +291,6 @@
             } else {
               Global.methods.message_error(this, '服务器错误，请稍后再试！');
             }
-
-            console.log('用户请求 over  ');
-
           })
           .catch((error) => {
             Global.methods.message_error(this, '服务器错误，请稍后再试！');

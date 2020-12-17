@@ -7,14 +7,13 @@
         :esc-press-close="false" :overlay-close="false" :visible.sync="flag.openAlert" :modal-append-to-body='false'>
 
         <!-- 成绩框 -->
-        <ScoreTable :flag="flag" :id="paper_achievement.id" :sort="'paper_achievement'"></ScoreTable>
+        <ScoreTable :flag="flag" :scoreInfo="scoreInfo"></ScoreTable>
 
         <!-- 表单内容 -->
         <div style="padding: 10px; margin: 0 30px; float: left; width: 1560px;">
           <!-- 左侧框 -->
           <div style="width: 1200px; float: left;">
-            <el-form :model="paper_achievement" ref="paper_achievement" :label-position="labelPosition"
-              label-width="1000">
+            <el-form :model="paper_achievement" ref="paper_achievement" :label-position="labelPosition" label-width="1000">
 
               <el-form-item prop="name" class="mu-demo-min-form" label="论文题目">
                 <el-input v-model="paper_achievement.name" :disabled="notDisabled"></el-input>
@@ -80,7 +79,7 @@
           </div>
 
           <!-- 右侧选择框 -->
-         <div style="float: left; margin-left: 30px; width: 300px; height: 678px; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); border-radius: 4px;">
+          <div style="float: left; margin-left: 30px; width: 300px; height: 678px; box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04); border-radius: 4px;">
             <div class="select-control-group">
               <div style="font-size: 20px; padding: 2px; text-align: center; ">
                 <b>收录情况</b>
@@ -138,11 +137,16 @@
           recordId: null, //收录号
           discipline: null, //学科门类
           firstDiscipline: null, //一级学科
-          collegeId: '0001', //成果归属
+          collegeId: null, //成果归属
           paperSource: null, //项目来源
-          userId: '1234', //作者
-          information: null //详细信息
-
+          userId: null, //作者
+          information: null, //详细信息
+          score: null,
+        },
+        scoreInfo: {
+          id: null,
+          score: null,
+          sort: 'paper',
         },
         users: [],
         magazine: [{
@@ -182,6 +186,8 @@
     },
     created: function() {
       this.paper_achievement = this.TableRow;
+      this.scoreInfo.id = this.paper_achievement.id;
+      this.scoreInfo.score = this.paper_achievement.score;
       this.notDisabled = true;
     },
     methods: {

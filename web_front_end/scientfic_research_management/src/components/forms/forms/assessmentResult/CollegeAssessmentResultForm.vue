@@ -44,10 +44,8 @@
 
             <!-- 项目数据表格 -->
               <div>
-                学院人员显示
                 学院的项目
                 每个项目的分数
-                管理员打分
               </div>
 
             <!-- 表单备注 -->
@@ -92,7 +90,6 @@
       return {
         labelPosition: 'top',
         notDisabled: true, //部分不能更改的标志
-        isSubmit: true, //是否可以提交，需要把值全部填完才能进行提交
         loading: false,
         /*
     姓名 name
@@ -111,12 +108,6 @@
           snumber: null,
           information: null
         },
-        //学院的所有人员
-        users: [
-          {
-
-          }
-        ],
         //学院的所有项目
         projects: [
           {
