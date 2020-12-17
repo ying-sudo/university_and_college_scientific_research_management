@@ -45,6 +45,22 @@ public interface EvaluationResultService {
     List<Object> queryBySort(String sort);
 
     /**
+     * 查这个用户下对应类别的所有记录的审核结果
+     * 如传入类别为项目，则返回改用户的所有项目记录，如果没有审核结果则这个项目的审核结果为null，
+     *
+     * @param sort   类别
+     *               查找哪个类别的审核结果，
+     *               项目:project
+     *               论文成果:paper
+     *               科研成果:scientific
+     *               专利:patent
+     *               著作:work
+     * @param userId 用户id
+     * @return
+     */
+    List<Object> queryByUserId(String sort, String userId);
+
+    /**
      * 查询表所有对象
      *
      * @return 对象列表

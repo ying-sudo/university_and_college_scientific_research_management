@@ -12,11 +12,10 @@ import java.util.List;
 /**
  * (AchievementMagazine)表服务实现类
  *
- * @author makejava
+ * @author makejava, liangjin
  * @since 2020-11-20 22:47:21
  */
 @Service("achievementMagazineService")
-@Transactional
 public class AchievementMagazineServiceImpl implements AchievementMagazineService {
     @Resource
     private AchievementMagazineDao achievementMagazineDao;
@@ -28,7 +27,6 @@ public class AchievementMagazineServiceImpl implements AchievementMagazineServic
      * @return 实例对象
      */
     @Override
-    @Transactional
     public AchievementMagazine queryById(String achievementId) {
         return this.achievementMagazineDao.queryById(achievementId);
     }
@@ -41,7 +39,6 @@ public class AchievementMagazineServiceImpl implements AchievementMagazineServic
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<AchievementMagazine> queryAllByLimit(int offset, int limit) {
         return this.achievementMagazineDao.queryAllByLimit(offset, limit);
     }
@@ -52,7 +49,6 @@ public class AchievementMagazineServiceImpl implements AchievementMagazineServic
      * @return 对象列表
      */
     @Override
-    @Transactional
     public List<AchievementMagazine> findAll() {
         return this.achievementMagazineDao.findAll();
     }
@@ -61,26 +57,26 @@ public class AchievementMagazineServiceImpl implements AchievementMagazineServic
      * 新增数据
      *
      * @param achievementMagazine 实例对象
-     * @return 实例对象
+     * @return 新增成功返回true，失败返回false
      */
     @Override
-    @Transactional
-    public AchievementMagazine insert(AchievementMagazine achievementMagazine) {
-        this.achievementMagazineDao.insert(achievementMagazine);
-        return achievementMagazine;
+    @Transactional(rollbackFor = Exception.class)
+    public boolean insert(AchievementMagazine achievementMagazine) {
+        int insert = this.achievementMagazineDao.insert(achievementMagazine);
+        return insert == 1;
     }
 
     /**
      * 修改数据
      *
      * @param achievementMagazine 实例对象
-     * @return 实例对象
+     * @return 修改成功返回true，失败返回false
      */
     @Override
     @Transactional
-    public AchievementMagazine update(AchievementMagazine achievementMagazine) {
-        this.achievementMagazineDao.update(achievementMagazine);
-        return this.queryById(achievementMagazine.getAchievementId());
+    public boolean update(AchievementMagazine achievementMagazine) {
+        int update = this.achievementMagazineDao.update(achievementMagazine);
+        return update == 1;
     }
 
     /**
