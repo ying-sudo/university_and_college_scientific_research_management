@@ -5,6 +5,8 @@ import cn.edu.sicnu.entity.Magazine;
 import cn.edu.sicnu.service.AchievementMagazineService;
 import cn.edu.sicnu.service.MagazineService;
 import cn.edu.sicnu.utils.Message;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +16,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * (Magazine)表控制层
+ * (Magazine)期刊表控制层
+ * 包括查询所有期刊，查询某个项目或者成果(论文，科研，专利，著作)的期刊收录情况
+ * 为某个项目或者成果添加期刊收录
  *
  * @author makejava
  * @since 2020-11-20 22:47:27
@@ -29,20 +33,59 @@ public class MagazineController {
     private MagazineService magazineService;
     @Autowired
     private AchievementMagazineService achievementMagazineService;
+    private final Logger operLogger = LoggerFactory.getLogger("operationInfo");
 
     /**
-     * 查询所有
+     * 查询所有期刊
      *
      * @return 所有数据
      */
-    @GetMapping("/magazine/{achievementId}")
-    public Message findAll(@PathVariable("achievementId") String achievementId) {
+    @GetMapping("/magazine")
+    public Message findAll() {
         List<Magazine> magazineList = magazineService.findAll();
+        return Message.success(magazineList);
+    }
+
+    /**
+     * 查询某个项目或者成果(论文，科研，专利，著作)的期刊收录情况
+     *
+     * @param achievementId 成果或者项目id
+     * @return 所有数据
+     */
+    @GetMapping("/magazine/{achievementId}")
+    public Message findByAchievementId(@PathVariable("achievementId") String achievementId) {
         AchievementMagazine achievementMagazine = achievementMagazineService.queryById(achievementId);
-        Map<String, Object> map = new HashMap<>();
-        map.put("magazineSort", magazineList);
-        map.put("magazineId", achievementMagazine);
-        return Message.success(map);
+        return Message.success(achievementMagazine);
+    }
+
+    /**
+     * 为某个项目或者成果增加期刊收录
+     *
+     * @param achievementMagazine 对应期刊收录情况实体类
+     * @return 插入成功返回true，失败返回false
+     */
+    @PostMapping("/magazine")
+    public Message insert(@RequestBody AchievementMagazine achievementMagazine) {
+        boolean insert = achievementMagazineService.insert(achievementMagazine);
+        if (insert) {
+            operLogger.info("插入期刊收录情况成功");
+            return Message.success();
+        } else {
+            operLogger.info("插入期刊收录情况失败");
+            return Message.fail();
+        }
+    }
+
+    @PutMapping("/magazine")
+    public Message update(@RequestBody AchievementMagazine achievementMagazine) {
+        boolean update = achievementMagazineService.update(achievementMagazine);
+        if (update) {
+            operLogger.info("修改期刊收录情况成功");
+            return Message.success();
+        } else {
+            operLogger.info("修改期刊收录情况失败");
+            return Message.fail();
+        }
     }
 
 }

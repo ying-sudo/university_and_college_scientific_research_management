@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * (AchievementMagazine)表服务实现类
  *
- * @author makejava
+ * @author makejava, liangjin
  * @since 2020-11-20 22:47:21
  */
 @Service("achievementMagazineService")
@@ -57,26 +57,26 @@ public class AchievementMagazineServiceImpl implements AchievementMagazineServic
      * 新增数据
      *
      * @param achievementMagazine 实例对象
-     * @return 实例对象
+     * @return 新增成功返回true，失败返回false
      */
     @Override
-    @Transactional
-    public AchievementMagazine insert(AchievementMagazine achievementMagazine) {
-        this.achievementMagazineDao.insert(achievementMagazine);
-        return achievementMagazine;
+    @Transactional(rollbackFor = Exception.class)
+    public boolean insert(AchievementMagazine achievementMagazine) {
+        int insert = this.achievementMagazineDao.insert(achievementMagazine);
+        return insert == 1;
     }
 
     /**
      * 修改数据
      *
      * @param achievementMagazine 实例对象
-     * @return 实例对象
+     * @return 修改成功返回true，失败返回false
      */
     @Override
     @Transactional
-    public AchievementMagazine update(AchievementMagazine achievementMagazine) {
-        this.achievementMagazineDao.update(achievementMagazine);
-        return this.queryById(achievementMagazine.getAchievementId());
+    public boolean update(AchievementMagazine achievementMagazine) {
+        int update = this.achievementMagazineDao.update(achievementMagazine);
+        return update == 1;
     }
 
     /**

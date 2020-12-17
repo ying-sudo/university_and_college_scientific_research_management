@@ -5,7 +5,7 @@ import cn.edu.sicnu.entity.AchievementMagazine;
 import java.util.List;
 
 /**
- * (AchievementMagazine)表服务接口
+ * (AchievementMagazine)期刊收录情况表服务接口
  *
  * @author makejava
  * @since 2020-11-20 22:47:21
@@ -37,20 +37,20 @@ public interface AchievementMagazineService {
     List<AchievementMagazine> findAll();
 
     /**
-     * 新增数据
+     * 新增数据，给项目或者成果选择期刊
      *
      * @param achievementMagazine 实例对象
-     * @return 实例对象
+     * @return 新增成功返回true，失败返回false
      */
-    AchievementMagazine insert(AchievementMagazine achievementMagazine);
+    boolean insert(AchievementMagazine achievementMagazine);
 
     /**
      * 修改数据
      *
      * @param achievementMagazine 实例对象
-     * @return 实例对象
+     * @return 修改成功返回true，失败返回false
      */
-    AchievementMagazine update(AchievementMagazine achievementMagazine);
+    boolean update(AchievementMagazine achievementMagazine);
 
     /**
      * 通过主键删除数据
