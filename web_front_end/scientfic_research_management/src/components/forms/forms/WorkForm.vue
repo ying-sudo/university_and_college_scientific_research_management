@@ -180,7 +180,7 @@
           firstDiscipline: null, //一级学科
           collegeId: null, //成果归属
           workSource: null, //项目来源
-          userId: null, //作者
+          userId: sessionStorage.getItem('userId'), //作者
           information: null //详细信息
         },
         collegeId: [],
@@ -222,7 +222,7 @@
         var usersString = JSON.stringify(sendUser);
 
         // 进行数据和后端交互
-        var token = localStorage.getItem('token');
+        var token = sessionStorage.getItem('token');
         this.axios.defaults.headers.common["Authorization"] = token;
         if (this.notDisabled) {
           this.axios

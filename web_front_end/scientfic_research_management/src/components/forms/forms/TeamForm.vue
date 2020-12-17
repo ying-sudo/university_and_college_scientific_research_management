@@ -52,26 +52,28 @@
               <div style="width: 1470px; float: left; padding: 5px; border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);">
                 <el-form :inline="true" :model="team" class="demo-form-inline">
                   <div style="margin: 5px; text-align:">
-                    <el-form-item prop="" label="负责人学工号:">
+                    <el-form-item prop="id" label="负责人学工号:">
                       <el-input v-model="user.id"></el-input>
                     </el-form-item>
-                    <el-form-item prop="" label="姓名:">
-                      <el-input v-model="user.name"></el-input>
-                    </el-form-item>
                     <el-form-item v-if="!flag.isDisabled">
-                      <el-button type="primary" @click="findUser">查询</el-button>
+                      <el-button type="primary" @click="findUser" :loading="isUserLoad">查询</el-button>
                     </el-form-item>
                   </div>
 
                   <div style="float: left; width: 1470px;">
+
+                    <el-form-item class="mu-demo-min-form" prop="name" label="负责人姓名:">
+                      <el-input v-model="user.name" disabled></el-input>
+                    </el-form-item>
+
                     <el-form-item class="mu-demo-min-form" prop="collegeId" label="所在单位">
                       <el-input v-model="user.collegeId" disabled></el-input>
                     </el-form-item>
 
                     <el-form-item class="mu-demo-min-form" prop="user_sex" label="负责人性别">
                       <el-radio-group v-model="user.sex">
-                        <el-radio label="male" disabled>男性</el-radio>
-                        <el-radio label="female" disabled>女性</el-radio>
+                        <el-radio label="男" disabled>男性</el-radio>
+                        <el-radio label="女" disabled>女性</el-radio>
                       </el-radio-group>
                     </el-form-item>
 
@@ -155,6 +157,7 @@
         isSubmit: false,
         rules: this.GLOBAL.rules,
         loading: false,
+        isUserLoad: false,
         team: {
           id: '', //编号
           name: '', //名字
@@ -164,7 +167,7 @@
           foundingTime: '', //成立时间
           phone: '', //办公电话
           information: '', //团队信息
-          userId: localStorage.getItem('userId'), //负责人
+          userId: '', //负责人
         },
         firstDiscipline: [], //一级学科内容
         state: [{
@@ -181,7 +184,7 @@
           }
         ],
         user: {
-          id: '',
+          id: sessionStorage.getItem('userId'),
           name: '',
           phone: '',
           collegeId: '',
@@ -191,7 +194,6 @@
           email: ''
         },
         users: [],
-
       };
     },
     created: function() {
@@ -267,7 +269,8 @@
         }
       },
       findUser() {
-        var token = localStorage.getItem('token');
+        this.isUserLoad = true;
+        var token = sessionStorage.getItem('token');
         this.axios.defaults.headers.common["Authorization"] = token;
         this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/selectOne", this.user.id, {
             headers: {
@@ -275,6 +278,8 @@
             }
           })
           .then((response) => {
+            this.isUserLoad = false;
+            console.log(response);
             if (response.data.resultCode == 0) {
               if (response.data.data == null) {
                 Global.methods.message_warning(this, '该用户不存在！');

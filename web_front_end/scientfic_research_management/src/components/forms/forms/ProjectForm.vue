@@ -157,7 +157,7 @@
         project: {
           id: null, //项目编号
           name: null, //项目名称
-          userId: localStorage.getItem('userId'), //负责人
+          userId: sessionStorage.getItem('userId'), //负责人
           collegeId: null, //所属学院
           discipline: null, //学科门类
           characters: null, //项目性质
@@ -212,17 +212,16 @@
       },
       makesure() {
         this.loading = true;
-        //改成string格式
         var proString = this.project;
 
         // 用户成员
-        var sendUser = Global.methods.getUser(this.users, this.project);
-        var usersString = JSON.stringify(sendUser);
+        var sendUser = Global.methods.getUser(this.users, this.project, 1);
         // 进行数据和后端交互
 
-        var token = localStorage.getItem('token');
+        var token = sessionStorage.getItem('token');
         this.axios.defaults.headers.common["Authorization"] = token;
         if (this.notDisabled) {
+          //修改
           this.axios
             .put(
               this.GLOBAL.BASE_URL + "/mangerSys/projects",
@@ -230,11 +229,9 @@
             )
             .then((response) => {
               this.loading = false;
+              Global.methods.message_control(response.data.resultCode, this, response.data.resultMsg);
               if (response.data.resultCode == 0) {
-                Global.methods.message_success(this, '修改成功');
                 this.closeAlertDialog();
-              } else {
-                Global.methods.message_warning(this, '请检查信息是否填写完整正确');
               }
             })
             .catch((error) => {
@@ -242,15 +239,26 @@
               Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         } else {
+          //申报
           this.axios
             .post(this.GLOBAL.BASE_URL + "/mangerSys/projects", proString)
             .then((response) => {
-              this.loading = false;
               if (response.data.resultCode == 0) {
-                Global.methods.message_success(this, '申报成功');
-                this.closeAlertDialog();
+
+                this.axios.post(this.GLOBAL.BASE_URL + '/mangerSys/sorts/insertUsers', sendUser)
+                  .then((response) => {
+                    this.loading = false;
+                    Global.methods.message_control(response.data.resultCode, this, response.data.resultMsg);
+                    console.log(response);
+                    this.closeAlertDialog();
+                  })
+                  .catch((error) => {
+                    this.loading = false;
+                    Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
+                  });
+
               } else {
-                Global.methods.message_warning(this, '请检查信息是否填写完整正确');
+                Global.methods.message_control(response.data.resultCode, this, response.data.resultMsg);
               }
             })
             .catch((error) => {

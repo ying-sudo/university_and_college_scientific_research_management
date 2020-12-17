@@ -130,6 +130,8 @@
       'flag',
       "collegeInfo", //学院信息
       "firstdesciplineProp", //第一学科
+      "magazineSortProp",
+      "magazineIdProp",
       "TableRow",
     ],
     model: {
@@ -154,45 +156,14 @@
           firstdescipline: null, //一级学科
           collegeId: null, //成果归属
           paperSource: null, //项目来源
-          userId: localStorage.getItem('userId'), //作者
+          userId: sessionStorage.getItem('userId'), //作者
           information: null //详细信息
         },
         users: [],
         firstdescipline: [],
         collegeId: [],
-        magazine: [{
-            magazineId: '001',
-            magazineName: 'aaaa',
-          },
-          {
-            magazineId: '002',
-            magazineName: 'bbbb',
-          }
-        ],
-        magazineId: [
-          '001', '003', '004'
-        ],
-        magazineSort: [{
-            id: '001',
-            name: '1'
-          },
-          {
-            id: '002',
-            name: '2'
-          },
-          {
-            id: '003',
-            name: '3'
-          },
-          {
-            id: '004',
-            name: '4'
-          },
-          {
-            id: '005',
-            name: '5'
-          }
-        ],
+        magazineId: [],
+        magazineSort: [],
       };
     },
     created: function() {
@@ -202,6 +173,8 @@
       this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;
       this.firstdescipline = this.firstdesciplineProp;
+      this.magazineId = this.magazineIdProp;
+      this.magazineSort = this.magazineSortProp;
     },
     methods: {
       closeAlertDialog() {
@@ -212,11 +185,10 @@
         this.loading = true;
         var proString = this.paper_achievement;
 
-        var sendUser = Global.methods.getUser(this.users, this.paper_achievement);
-        var usersString = JSON.stringify(sendUser);
+        var sendUser = Global.methods.getUser(this.users, this.paper_achievement, 2);
         // 进行数据和后端交互
 
-        var token = localStorage.getItem('token');
+        var token = sessionStorage.getItem('token');
         this.axios.defaults.headers.common["Authorization"] = token;
         if (this.notDisabled) {
           this.axios
@@ -226,11 +198,10 @@
             )
             .then((response) => {
               this.loading = false;
+              Global.methods.message_control(response.data.resultCode, this, response.data.resultMsg);
               if (response.data.resultCode == 0) {
                 Global.methods.message_success(this, '申报成功');
                 this.closeAlertDialog();
-              } else {
-                Global.methods.message_warning(this, '请检查信息是否填写完整正确');
               }
             })
             .catch((error) => {
@@ -241,12 +212,16 @@
           this.axios
             .post(this.GLOBAL.BASE_URL + "/mangerSys/achievements/paper", proString)
             .then((response) => {
+              Global.methods.message_control(response.data.resultCode, this, response.data.resultMsg);
+              this.axios.post(this.GLOBAL.BASE_URL + '/mangerSys/sorts/insertUsers', sendUser)
+              .then( (response) => {
+                Global.methods.message_control(response.data.resultCode, this, response.data.resultMsg);
+                console.log(response);
+              })
+              
               this.loading = false;
               if (response.data.resultCode == 0) {
-                Global.methods.message_success(this, '申报成功');
                 this.closeAlertDialog();
-              } else {
-                Global.methods.message_warning(this, '请检查信息是否填写完整正确');
               }
             })
             .catch((error) => {

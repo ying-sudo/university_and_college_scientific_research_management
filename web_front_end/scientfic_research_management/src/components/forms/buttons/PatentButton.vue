@@ -75,6 +75,7 @@
     computed: {
       canOpen() {
         var isEmpty = Global.methods.isEmpty(this.patentRange, this.patentType, this.collegeInfo);
+        isEmpty = true;
         return isEmpty;
       }
     }

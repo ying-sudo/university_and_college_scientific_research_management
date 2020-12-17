@@ -144,7 +144,7 @@
             //请求表单选择数据
             // this.getCollegeData();
             // this.getOtherData();
-            console.log(this.user);
+            // console.log(this.user);
             //判断用户名，密码是否错误
             this.axios({
                 method: "post",
@@ -163,11 +163,11 @@
                   if (resultCode == 0) {
                     //成功
                     // 存储  userid
-                    localStorage.setItem("userid", this.user.username);
+                    sessionStorage.setItem("userId", this.user.username);
                     //存放token
-                    localStorage.setItem("token", response.data.resultMsg);
+                    sessionStorage.setItem("token", response.data.resultMsg);
                     // 检索
-                    // document.getElementById("result").innerHTML = localStorage.getItem("userid");
+                    // document.getElementById("result").innerHTML = sessionStorage.getItem("userid");
                     //进入成功方法
                     this.login_success();
                   } else if (resultCode == -1) {
@@ -212,21 +212,21 @@
         this.alarm = true;
       },
       //获取表单选择数据
-      getCollegeData() {
-        this.axios.get(this.GLOBAL.BASE_URL + "/mangerSys/college/findAll").then(
-          (response) => {
-            this.GLOBAL.collegeInfo = response.data.data;
-          });
-      },
-      getOtherData() {
-        this.axios
-          .get(this.GLOBAL.BASE_URL + "/mangerSys/sort/findAll")
-          .then((response) => {
-            this.GLOBAL.firstDiscipline = response.data.data.firstDiscipline;
-            this.GLOBAL.level = response.data.data.level;
-            this.GLOBAL.sort = response.data.data.sort;
-          });
-      },
+      // getCollegeData() {
+      //   this.axios.get(this.GLOBAL.BASE_URL + "/mangerSys/college/findAll").then(
+      //     (response) => {
+      //       this.GLOBAL.collegeInfo = response.data.data;
+      //     });
+      // },
+      // getOtherData() {
+      //   this.axios
+      //     .get(this.GLOBAL.BASE_URL + "/mangerSys/sort/findAll")
+      //     .then((response) => {
+      //       this.GLOBAL.firstDiscipline = response.data.data.firstDiscipline;
+      //       this.GLOBAL.level = response.data.data.level;
+      //       this.GLOBAL.sort = response.data.data.sort;
+      //     });
+      // },
     },
     created() {
       //回车登录

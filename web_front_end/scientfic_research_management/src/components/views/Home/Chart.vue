@@ -1,7 +1,7 @@
 <template>
-  <div id="statisticsChart" style="float: left; width: 700px; height: 620px;">
+  <div id="statisticsChart" style="width: 500px; height: 750px; float: left;">
 
-    <!--    时间框，今天的时间进行标红
+<!--   时间框，今天的时间进行标红
     天气框
     统计图，统计表格，统计图点击可以展开统计表格？
     统计图
@@ -12,7 +12,6 @@
 
 <script>
   import ChartGlobal from '@/components/views/Home/chartGlobal.vue'
-  import Global from '@/components/forms/global/global.vue'
 
   export default {
     data() {
@@ -25,24 +24,15 @@
           scientific: 5,
           work: 1,
         },
-        name: {
-          project: "项目",
-          paper: "论文成果",
-          patent: "专利产品",
-          scientific: "科研成果",
-          work: "著作成果",
-        }
       };
     },
     mounted() {
-      this.statisticsChart = ChartGlobal.methods.getElementById(this, 'statisticsChart');
-      this.statisticsChart.showLoading();
-      this.getData();
+      this.drawChart();
     },
     methods: {
       drawChart() {
+        this.statisticsChart = ChartGlobal.methods.getElementById(this, 'statisticsChart');
         this.chart();
-        this.statisticsChart.hideLoading();
       },
       chart() {
         let option = {
@@ -60,23 +50,23 @@
           dataset: {
             source: [{
                 value: this.number.project,
-                name: this.name.project,
+                name: '项目'
               },
               {
                 value: this.number.paper,
-                name: this.name.paper,
+                name: '论文成果'
               },
               {
                 value: this.number.work,
-                name: this.name.work,
+                name: '著作成果'
               },
               {
                 value: this.number.scientific,
-                name: this.name.scientific,
+                name: '科研成果'
               },
               {
                 value: this.number.patent,
-                name: this.name.patent,
+                name: '专利产品'
               }
             ]
           },
@@ -91,30 +81,9 @@
         };
         this.statisticsChart.setOption(option);
       },
-      getData() {
-        //请求数据
-        var userId = sessionStorage.getItem('userId');
-        var token = sessionStorage.getItem('token');
-        this.axios.defaults.headers.common["Authorization"] = token;
-        this.axios
-          .post(
-            this.GLOBAL.BASE_URL +
-            "/mangerSys/home/overview",
-            userId
-          )
-          .then((response) => {
-            var chartJson = JSON.parse(response.data.data);
-            Global.methods.getValueOne(chartJson, this.number);
-            console.log(this.number);
-            this.drawChart();
-          })
-          .catch((error) => {
-            Global.methods.message_error(this, '出现错误，请稍后重试');
-          });
-      },
-
     },
-    components: {}
+    components: {
+    }
   };
 </script>
 

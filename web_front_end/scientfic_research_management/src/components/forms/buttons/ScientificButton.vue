@@ -84,6 +84,7 @@
       canOpen() {
         var isEmpty = Global.methods.isEmpty(this.firstDiscipline, this.workType, this.translateLanguage, this.collegeInfo,
           this.workSource);
+        // isEmpty = true;
         return isEmpty;
       }
     },

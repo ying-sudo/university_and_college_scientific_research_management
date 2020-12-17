@@ -140,7 +140,7 @@
           name: null, //科研题目
           collegeId: null, //成果归属
           scientificId: null,
-          userId: null, //作者
+          userId: sessionStorage.getItem('userId'), //作者
           isTranslate: 'false', //是否翻译
           translateLanguage: null, //翻译语种
           beginDate: null,

@@ -154,7 +154,7 @@
           publicDate: null, //公开日期
           impowerId: null, //授权编号
           impowerDate: null, //授权日期
-          userId: localStorage.getItem('userId'), //作者
+          userId: sessionStorage.getItem('userId'), //作者
           information: null //详细信息
         },
         patentType: [],

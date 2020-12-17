@@ -88,7 +88,7 @@
         }
       },
 
-      getUser(users, project) {
+      getUser(users, project, category) {
         // 用户
         var i = 0;
         var sendUser = [];
@@ -101,6 +101,7 @@
           //用赋值的方式对用户的id和项目id进行赋值
           sendUser[i].userId = userId;
           sendUser[i].id = id;
+          sendUser[i].category = category;
           //删除用户输入的名字和学院
           delete sendUser[i].name;
           delete sendUser[i].collegeName;
@@ -127,9 +128,13 @@
         if (value == 0) {
           this.message_success(that, msg);
         } else if (value == -1) {
-          this.message_warning(that, msg);
-        } else {
           this.message_error(that, msg);
+        } else if (value == -2) {
+          this.message_error(that, msg);
+        } else if (value == -3) {
+          this.message_error(that, msg);
+        } else {
+          this.message_error(that, '出现未知错误！请稍后重试。');
         }
       },
       message_success(that, msg) {
@@ -159,7 +164,7 @@
 
       getCollegeData(that, collegeInfo) {
         //从后端获取表单需要的所有学院的信息，并返回
-        var token = localStorage.getItem('token');
+        var token = sessionStorage.getItem('token');
         that.axios.defaults.headers.common["Authorization"] = token;
         that.axios.get(that.GLOBAL.BASE_URL + "/mangerSys/colleges").then(
           (response) => {
@@ -172,7 +177,7 @@
           });
       },
       getOtherData(that, sort) {
-        var token = localStorage.getItem('token');
+        var token = sessionStorage.getItem('token');
         that.axios.defaults.headers.common["Authorization"] = token;
         //从后端获取表单需要的所有其他选择的信息，并返回
         that.axios.get(that.GLOBAL.BASE_URL + "/mangerSys/sorts").then(
@@ -219,6 +224,28 @@
       //   return jsonData.map(v => filterVal.map(j => v[j]))
       // },
 
+      sendUsers(that, sendUser) {
+
+        this.axios.post(this.GLOBAL.BASE_URL + '/mangerSys/sorts/insertUsers', sendUser)
+        .then( (response) => {
+          console.log(response);
+        })
+
+
+        var token = sessionStorage.getItem('token');
+        that.axios.defaults.headers.common["Authorization"] = token;
+        that.axios
+          .post(this.GLOBAL.BASE_URL + "/mangerSys/sorts/insertUsers", sendUser)
+          .then((response) => {
+            console.log(response);
+            if (response.data.resultCode == 0) {
+            } else {
+            }
+          })
+          .catch((error) => {
+            Global.methods.message_error(that, '网络或服务器错误，请稍后重试');
+          });
+      },
 
 
     },

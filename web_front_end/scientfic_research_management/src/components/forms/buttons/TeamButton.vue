@@ -72,6 +72,7 @@
     computed: {
       canOpen() {
         var isEmpty = Global.methods.isEmpty(this.firstDiscipline, this.collegeInfo);
+        // isEmpty = true;
         return isEmpty;
       }
     },
