@@ -3,49 +3,50 @@
         "id": 1,
         "label": "科研成果号",
         "type": "text",
-        "prop": "achievement_id",
+        "prop": "id",
         "width":"100"
     },
     {
         "id": 2,
         "label": "科研成果名称",
         "type": "text",
-        "prop": "achievement_name",
+        "prop": "name",
         "width":"150"
     },
     {
         "id": 3,
         "label": "发明人",
         "type": "text",
-        "prop": "achievement_researcher",
+        "prop": "userName",
         "width":"110"
     },
     {
         "id": 4,
-        "label": "科研成果权利人",
+        "label": "学科分类",
         "type": "text",
-        "prop": "achievement_obligee",
-        "width":"130"
+        "prop": "discipline",
+        "width":"110"
     },
     {
         "id": 5,
-        "label": "联系人",
+        "label": "成果来源",
         "type": "text",
-        "prop": "contact_person",
+        "prop": "workSource",
         "width":"110"
     },
     {
         "id": 6,
-        "label": "联系方式",
+        "label": "发表日期",
         "type": "text",
-        "prop": "contact_information",
-        "width":"120"
+        "prop": "beginDate",
+        "width":"110"
     },
     {
         "id": 7,
         "label": "考核状态",
         "type": "text",
-        "prop": "check_state",
+        "prop": "state",
         "width":"100"
     }
+    
 ]

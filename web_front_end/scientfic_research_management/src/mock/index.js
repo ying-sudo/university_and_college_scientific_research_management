@@ -41,3 +41,19 @@ Mock.mock("/api/table_data/funds", "get", FundsData);
 //项目考核列表模拟数据
 import ProjectCheckResultData from "./table_data/ProjectCheckResultTableData";
 Mock.mock("/api/table_data/project_check_result", "get", ProjectCheckResultData);
+
+//项目导出到excel
+import projectExcel from "./excel _data/projectExcel";
+Mock.mock("/api/table_data/projectExcel", "get", projectExcel);
+//论文导出到excel
+import paperExcel from "./excel _data/paperExcel";
+Mock.mock("/api/table_data/paperExcel", "get", paperExcel);
+//著作导出到excel
+import workExcel from "./excel _data/workExcel";
+Mock.mock("/api/table_data/workExcel", "get", workExcel);
+//科技成果导出到excel
+import scientificExcel from "./excel _data/scientificExcel";
+Mock.mock("/api/table_data/scientificExcel", "get", scientificExcel);
+//专利导出到excel
+import patentExcel from "./excel _data/patentExcel";
+Mock.mock("/api/table_data/patentExcel", "get", patentExcel);

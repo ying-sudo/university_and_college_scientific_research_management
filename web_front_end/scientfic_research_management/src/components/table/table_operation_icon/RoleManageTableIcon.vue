@@ -17,20 +17,23 @@
 </template>
 
 <script>
-
 export default {
-    props: ["TableRow"],
-    data(){
-        return{
-            RoleMap:[""],
-        }
+  props: ["TableRow"],
+  data() {
+    return {
+      RoleMap: [""],
+    };
+  },
+  methods: {
+    handleClick: function () {
+      // this.$router.push({name:"RoleMember",params:{roleid:this.TableRow.id}});
+      this.$router.push({
+        path: "/role/member",
+        query: { TableRow: this.TableRow },
+      });
+      //  this.$router.push({path: "/roletable/"+this.TableRow.id,query: { TableRow: this.TableRow.id },});
     },
-    methods:{
-        handleClick:function(){
-            this.$router.push({name:"RoleMember",params:{roleid:this.TableRow.id}});
-            //  this.$router.push({path: "/roletable/"+this.TableRow.id,query: { TableRow: this.TableRow.id },});
-        }
-    },
+  },
 };
 </script>
 

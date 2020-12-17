@@ -1,58 +1,52 @@
 [
+    
     {
         "id": 1,
-        "label": "序号",
-        "type": "text",
-        "prop": "order_number",
-        "width":"90"
-    },
-    {
-        "id": 2,
         "label": "项目编号",
         "type": "text",
         "prop": "id",
         "width":"90"
     },
     {
-        "id": 3,
+        "id": 2,
         "label": "项目名称",
         "type": "text",
         "prop": "name",
         "width":"170"
     },
     {
-        "id": 4,
-        "label": "项目来源",
-        "type": "text",
-        "prop": "source",
-        "width":"90"
-    },
-    {
-        "id": 5,
+        "id": 3,
         "label": "项目级别",
         "type": "text",
         "prop": "level",
-        "width":"90"
+        "width":"100"
+    },
+    {
+        "id": 4,
+        "label": "项目负责人",
+        "type": "text",
+        "prop": "userName",
+        "width":"100"
+    },
+    {
+        "id": 5,
+        "label": "起始时间",
+        "type": "text",
+        "prop": "beginDate",
+        "width":"130"
     },
     {
         "id": 6,
-        "label": "项目负责人",
+        "label": "总经费",
         "type": "text",
-        "prop": "charger",
+        "prop": "arrivalFund",
         "width":"100"
     },
     {
         "id": 7,
-        "label": "起始时间",
+        "label": "考核状态",
         "type": "text",
-        "prop": "begin_date",
-        "width":"90"
-    },
-    {
-        "id": 8,
-        "label": "总经费",
-        "type": "text",
-        "prop": "total_funds",
-        "width":"90"
+        "prop": "state",
+        "width":"110"
     }
 ]

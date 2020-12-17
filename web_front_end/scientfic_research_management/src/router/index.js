@@ -64,13 +64,18 @@ export default new Router({
       // component: Table
       component: resolve => require(['@/components/table/table_impl/AuthorityTableEnity'], resolve)
     }, {
-      path: '/logtable/:tableKey',
+      path: '/noIdtable/:tableKey',
       name: 'LogTable',
-      component: resolve => require(['@/components/table/table_impl/LogTable'], resolve)
+      component: resolve => require(['@/components/table/table_impl/NoIdTableEnity'], resolve)
     }, {
       path: '/teams/member',
       name: 'Member',
       component: resolve => require(['@/components/table/table_impl/TeamMemberTable'], resolve)
+    },
+    {
+      path: '/role/member',
+      name: 'Member',
+      component: resolve => require(['@/components/table/table_impl/RoleMemberTableEnity'], resolve)
     },
     {
       path: '/roletable/:roleid',

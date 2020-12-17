@@ -6,7 +6,7 @@
      @width:table的宽度 
      @max-height:列的最大高度 -->
     <el-table
-      id="exportTab"
+ 
       :data="tableDataList"
       border
       ref="multipleTable"
@@ -14,10 +14,14 @@
       fit
       highlight-current-row
       style="width: 100%"
-      v-if="tableData !== null"
+      v-if="this.tableData !== null && this.itemOptions !== null"
       size="small"
     >
-      <el-table-column type="selection" width="40"></el-table-column>
+      <el-table-column
+        type="selection"
+        width="40"
+        v-if="this.HasCheckBox.get(this.$route.params.tableKey)"
+      ></el-table-column>
 
       <!-- @item:表中的每一列  
          @:key: 当前第几列
@@ -46,13 +50,20 @@
 
       <!-- 在TableTemplate中留下一列供父组件修改的列插槽，将该组件的作用域延迟到父组件编译，
       父组件对应标签内的所有内容将代替子组件的<slot>标签及它的内容 -->
-      <el-table-column label="操作" align="center">
+        <!-- v-if="this.HasOperation.get(this.$route.params.tableKey)" -->
+      <el-table-column
+        label="操作"
+        align="center"
+        v-if="this.HasOperation.get(this.$route.params.tableKey)"
+      >
         <!-- <p>{{scope.$index}}</p> -->
         <template slot-scope="scope">
           <slot name="table_template_slot" :row="scope.row"></slot>
         </template>
       </el-table-column>
     </el-table>
+    <!-- <p>{{this.HasOperation.get(this.$route.params.tableKey)}}</p> -->
+    <!-- <p>{{this.$route.params.tableKey}}</p> -->
 
     <!-- @totalRows 传入总数据量
          @currentPage 当前页码
@@ -72,6 +83,8 @@
  */
 import Pagination from "@/components/pagination/pagination";
 import { getDelIdMap } from "@/components/table/table_map/delIdMap.js";
+import { getCheckBoxMap } from "@/components/table/table_map/HasCheckBoxMap.js";
+import { getOperationMap } from "@/components/table/table_map/HasOperatMap.js";
 
 export default {
   name: "CommonsTable",
@@ -93,6 +106,9 @@ export default {
       delIds: [], //批量删除的ID
       DelIdMap: [],
       _delId: "",
+
+      HasCheckBox: [],
+      HasOperation: [],
     };
   },
 
@@ -109,6 +125,9 @@ export default {
   created() {
     this.DelIdMap = getDelIdMap();
     console.log(this.DelIdMap);
+
+    this.HasCheckBox = getCheckBoxMap();
+    this.HasOperation = getOperationMap();
   },
 
   /**
@@ -158,7 +177,7 @@ export default {
   },
 
   /**
-   * @newVal 就是接受的tableData
+   * @newVal 就是传入的tableData
    * newVal存在的话执行getNewData函数
    */
   watch: {

@@ -3,8 +3,7 @@ export function getDeleteMap() {
         ["loginlog", "mangerSys/loginlog"], 
         ["systemlog", "mangerSys/syslog"], 
         ["operationlog", "mangerSys/operlog"], 
-        
-        
+       
     ]);
 
     return delete_map;

@@ -1,11 +1,7 @@
 <template>
   <div>
-    <el-row>
+    <el-row type="flex" justify="end">
       <el-col :span="8"><TeamButton></TeamButton> </el-col>
-
-      <el-col :span="8"
-        ><BantchDelete :multiSelect="multiSelect"></BantchDelete
-      ></el-col>
     </el-row>
     <!-- <p>{{this.multiSelect}}</p> -->
   </div>

@@ -3,49 +3,56 @@
         "id": 1,
         "label": "著作号",
         "type": "text",
-        "prop": "achievement_id",
+        "prop": "id",
         "width":"90"
     },
     {
         "id": 2,
         "label": "著作名称",
         "type": "text",
-        "prop": "achievement_name",
+        "prop": "name",
         "width":"150"
     },
     {
         "id": 3,
-        "label": "发明人",
+        "label": "撰写人",
         "type": "text",
-        "prop": "achievement_researcher",
+        "prop": "userName",
         "width":"110"
     },
     {
         "id": 4,
-        "label": "著作权利人",
+        "label": "著作类型",
         "type": "text",
-        "prop": "achievement_obligee",
+        "prop": "workType",
         "width":"110"
     },
     {
         "id": 5,
-        "label": "联系人",
+        "label": "出版社",
         "type": "text",
-        "prop": "contact_person",
-        "width":"110"
+        "prop": "publisher",
+        "width":"130"
     },
     {
         "id": 6,
-        "label": "联系方式",
+        "label": "出版日期",
         "type": "text",
-        "prop": "contact_information",
-        "width":"120"
+        "prop": "beginDate",
+        "width":"110"
     },
     {
         "id": 7,
+        "label": "学科分类",
+        "type": "text",
+        "prop": "discipline",
+        "width":"110"
+    },
+    {
+        "id": 8,
         "label": "考核状态",
         "type": "text",
-        "prop": "check_state",
+        "prop": "state",
         "width":"100"
     }
 ]

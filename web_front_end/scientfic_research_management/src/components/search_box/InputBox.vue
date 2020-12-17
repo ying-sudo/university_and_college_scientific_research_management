@@ -6,7 +6,7 @@
       @ placeholder 搜索框默认内容
      -->
     <el-row
-      ><el-col :span="16">
+      ><el-col :span="18">
         <el-input
           @keyup.enter.native="SubChangeTable(search)"
           :placeholder="this.placeholdershow"
@@ -18,7 +18,7 @@
             slot="prefix"
             class="el-input__icon el-icon-search"
           ></i> </el-input></el-col
-      ><el-col :span="8"
+      ><el-col :span="6"
         ><el-button
           type="primary"
           icon="el-icon-search"
@@ -98,4 +98,7 @@ export default {
 </script>
 
 <style scoped>
+.input_box{
+  width: 600px;
+}
 </style>

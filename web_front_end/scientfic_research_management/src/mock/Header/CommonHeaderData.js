@@ -145,8 +145,16 @@ let dataVal = {
       id: "12",
       index: "6",
       title: "统计报表",
-      urlPath: "/table/reports",
-      subMenu: null
+      urlPath: "/reports",
+      subMenu: [
+        {
+          id: "45",
+          index: "7-1",
+          title: "统计报表",
+          urlPath: "/table/reports",
+          subMenu: null
+        }
+      ]
     },
     {
       id: "13",
@@ -249,14 +257,14 @@ let dataVal = {
           id: "24",
           index: "9-1",
           title: "院系机构",
-          urlPath: "/table/collegesdep",
+          urlPath: "/noIdtable/collegesdep",
           subMenu: null
         },
         {
           id: "25",
           index: "9-2",
           title: "科研人员",
-          urlPath: "/table/researchers",
+          urlPath: "/noIdtable/researchers",
           subMenu: null
         }
       ]
@@ -271,7 +279,7 @@ let dataVal = {
           id: "27",
           index: "10-1",
           title: "角色管理",
-          urlPath: "/table/roles",
+          urlPath: "/noIdtable/roles",
           subMenu: null
         },
         {
@@ -292,20 +300,20 @@ let dataVal = {
           id: "30",
           index: "10-4",
           title: "登录日志记录",
-          urlPath: "/logtable/loginlog",
+          urlPath: "/noIdtable/loginlog",
           subMenu: null
         },
         {
           id: "31",
           index: "10-5",
           title: "系统日志记录",
-          urlPath: "/logtable/systemlog",
+          urlPath: "/noIdtable/systemlog",
           subMenu: null
         }, {
           id: "32",
           index: "10-6",
           title: "操作日志记录",
-          urlPath: "/logtable/operationlog",
+          urlPath: "/noIdtable/operationlog",
           subMenu: null
         },
       ]

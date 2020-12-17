@@ -11,28 +11,28 @@
         "label": "项目名",
         "type": "text",
         "prop": "projectName",
-        "width":"170"
+        "width":"200"
     },
     {
         "id": 3,
         "label": "项目分类",
         "type": "text",
         "prop": "projectSort",
-        "width":"120"
+        "width":"130"
     },
     {
         "id": 4,
         "label": "负责人",
         "type": "text",
         "prop": "userName",
-        "width":"120"
+        "width":"160"
     },
     {
         "id": 5,
         "label": "请求日期",
         "type": "text",
         "prop": "requestDate",
-        "width":"120"
+        "width":"170"
     },
     {
         "id": 6,
@@ -46,6 +46,6 @@
         "label": "到账时间",
         "type": "text",
         "prop": "arrivalDate",
-        "width":"120"
+        "width":"170"
     }
 ]

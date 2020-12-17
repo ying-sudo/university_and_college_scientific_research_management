@@ -9,7 +9,8 @@ export function getButtonMap() {
         ["patents", "PatentTableButton"],         
         ["teams", "TeamTableButton"],    
         ["scientifics", "ScientificAchievementTableButton"],  
-         
+        ["reports", "StatementTablebutton"],  
+        
    
     ]);
 

@@ -1,20 +1,18 @@
 <template>
   <div>
     <el-row type="flex" justify="end">
-        <el-col :span="5"><WorkButton></WorkButton> </el-col>
+      <el-col :span="4"><ExportTable></ExportTable></el-col>
     </el-row>
     <!-- <p>{{this.multiSelect}}</p> -->
   </div>
 </template>
 
 <script>
-import WorkButton from "@/components/forms/buttons/WorkButton";
-import BantchDelete from "@/components/table/batch_delete/BantchDelete";
-
+import ExportTable from '@/components/table/export_table/TestExcel';
 export default {
+    
   components: {
-    WorkButton,
-    BantchDelete,
+      ExportTable
   },
 
   props: ["multiSelect"],

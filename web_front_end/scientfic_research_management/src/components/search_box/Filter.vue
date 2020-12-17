@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style scoped>
-/* .filter_selector {
+.filter_selector {
   width: 300px; 
-} */
+}
 </style>

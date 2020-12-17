@@ -3,49 +3,49 @@
         "id": 1,
         "label": "论文编号",
         "type": "text",
-        "prop": "achievement_id",
+        "prop": "id",
         "width":"90"
     },
     {
         "id": 2,
         "label": "论文名称",
         "type": "text",
-        "prop": "achievement_name",
-        "width":"150"
+        "prop": "name",
+        "width":"170"
     },
     {
         "id": 3,
         "label": "撰写人",
         "type": "text",
-        "prop": "achievement_researcher",
+        "prop": "userName",
         "width":"110"
     },
     {
         "id": 4,
-        "label": "论文权利人",
+        "label": "发表日期",
         "type": "text",
-        "prop": "achievement_obligee",
-        "width":"110"
+        "prop": "beginDate",
+        "width":"170"
     },
     {
         "id": 5,
-        "label": "联系人",
+        "label": "所属院系",
         "type": "text",
-        "prop": "contact_person",
+        "prop": "collegeName",
         "width":"110"
     },
     {
         "id": 6,
-        "label": "联系方式",
+        "label": "学科分类",
         "type": "text",
-        "prop": "contact_information",
-        "width":"120"
+        "prop": "descipline",
+        "width":"110"
     },
     {
         "id": 7,
         "label": "考核状态",
         "type": "text",
-        "prop": "check_state",
+        "prop": "state",
         "width":"100"
     }
 ]

@@ -4,23 +4,30 @@
       :itemOptions="itemOptions"
       :tableData="tableData"
     ></CommonsTableTemplate>
+
+    <el-button @click="reloadFun">刷新</el-button>
+    <!-- <p>{{this.$route.query.TableRow.id}}</p> -->
   </div>
 </template>
 
 <script>
 import CommonsTableTemplate from "@/components/table/table_template/CommonsTableTemplate";
 export default {
+  inject: ['reload'],
   data() {
     return {
       tableData: [],
       itemOptions: [],
-      itemOptionsFileName: "/team_table/TeamMemberTable.json",
+      itemOptionsFileName: "/role_management_table/RoleMemberTable.json",
     };
   },
   components: {
     CommonsTableTemplate,
   },
   methods: {
+    reloadFun () {
+  		this.reload()
+  	},
     getTableItem: function () {
       this.axios
         .get(
@@ -33,7 +40,7 @@ export default {
 
     // /teams/{teamId}/members
     getTableData: function () {
-      var token = localStorage.getItem('token');
+      var token = localStorage.getItem("token");
       this.axios.defaults.headers.common["Authorization"] = token;
 
       // this.axios.get("/api/table_data").then((res) => {
@@ -57,5 +64,4 @@ export default {
 </script>
 
 <style>
-
 </style>

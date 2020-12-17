@@ -4,13 +4,35 @@
         "label": "院系机构号",
         "type": "text",
         "prop": "id",
-        "width":"90"
+        "width":"110"
     },
     {
         "id": 2,
         "label": "院系机构名",
         "type": "text",
-        "prop": "id",
-        "width":"130"
+        "prop": "name",
+        "width":"160"
+    },
+    {
+        "id": 3,
+        "label": "院系所在校区",
+        "type": "text",
+        "prop": "location",
+        "width":"160"
+    },
+    {
+        "id": 4,
+        "label": "科研人员数",
+        "type": "text",
+        "prop": "snumber",
+        "width":"160"
+    },
+    {
+        "id": 5,
+        "label": "备注",
+        "type": "text",
+        "prop": "information",
+        "width":"300"
     }
+
 ]

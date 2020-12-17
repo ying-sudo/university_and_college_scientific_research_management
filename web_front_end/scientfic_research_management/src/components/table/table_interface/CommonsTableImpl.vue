@@ -29,17 +29,10 @@ export default {
   props: ["tableData", "search"],
   data() {
     return {
-      //存储url参数以及对于表头文件名的map(key: url参数, value: 表头文件名)
-      tableMap: [],
-
-      //从map中取到的表头文件的文件名
-      itemOptionsFileName: "",
-
-      //map中的key，对于url地址中的参数
-      tableMapKey: "",
-
-      //返回到页面中的表头数据
-      itemOptions: [],
+      tableMap: [], //存储url参数以及对于表头文件名的map(key: url参数, value: 表头文件名)
+      itemOptionsFileName: "", //从map中取到的表头文件的文件名
+      tableMapKey: "", //map中的key，对于url地址中的参数
+      itemOptions: [], //返回到页面中的表头数据
     };
   },
   components: {
@@ -51,9 +44,11 @@ export default {
       this.axios
         .get(
           `http://localhost:8080/static/table/item_option${itemOptionsFileName}`
-        ) //必须要加上this
+        ) //如果是直接用data中定义的值的话，必须要加上this
         .then((res) => {
           this.itemOptions = res.data;
+          console.log("this.itemOptions:");
+          console.log(this.itemOptions);
         });
     },
 

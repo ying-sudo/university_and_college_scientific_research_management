@@ -47,7 +47,7 @@
         "width":"120"
     },{
         "id": 8,
-        "label": "项目来源",
+        "label": "成果来源",
         "type": "text",
         "prop": "workSource",
         "width":"120"

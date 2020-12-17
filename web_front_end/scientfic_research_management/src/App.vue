@@ -40,10 +40,16 @@ export default {
     headernav: headernav,
     sidenav: sidenav,
   },
+   provide () {
+    return {
+      reload: this.reload
+    }
+  },
   data() {
     return {
       headerLists: [],
       parentSelectIndex: 1,
+      isRouterShow: true,
     };
   },
 
@@ -85,6 +91,13 @@ export default {
         }
       );
     },
+
+    //刷新当前组件
+    async reload () {
+      this.isRouterShow = false
+      await this.$nextTick()
+      this.isRouterShow = true
+    }
   },
 
   watch: {
