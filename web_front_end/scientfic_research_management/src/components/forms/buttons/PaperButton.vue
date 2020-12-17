@@ -83,7 +83,7 @@
           //修改的按钮
           this.axios
             .get(
-              this.GLOBAL.BASE_URL + "/mangerSys/magazine" + this.TableRow.id,
+              this.GLOBAL.BASE_URL + "/mangerSys/magazine/" + this.TableRow.id,
             )
             .then((response) => {
               console.log('begin111');
@@ -125,6 +125,7 @@
         if (isEmpty) {
           this.loading = false;
         }
+        isEmpty = true;
         return isEmpty;
       }
     }

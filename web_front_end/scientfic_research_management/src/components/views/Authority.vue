@@ -68,10 +68,10 @@ export default {
         tempArr = [];
       // arr.splice(arr.length - 2, 2);
       for (const iterator of arr) {
-        tempArr[i++] = iterator.title;
-        if (iterator.subMenu !== null) {
+        tempArr[i++] = iterator.id;
+        if (iterator.subMenu !== "null") {
           for (const subMenuItemTitle of iterator.subMenu) {
-            tempArr[i++] = subMenuItemTitle.title;
+            tempArr[i++] = subMenuItemTitle.id;
           }
           j = 0;
         }
@@ -93,9 +93,6 @@ export default {
         checkedCount > 0 && checkedCount < this.items.length;
       console.log(this.checkedItem);
 
-      // for (const iterator of object) {
-      // }
-      // console.log(this.items);
     },
 
     /**
@@ -115,15 +112,6 @@ export default {
       let characterId = localStorage.getItem("id");
       // console.log("user id: " + characterId);
       console.log(this.checkedItem);
-      // this.axios({
-      //   method: "post",
-      //   url:
-      // "http://192.168.43.229:9999/mangerSys/charactersRight/updataRights",
-      //   data: {
-      //     id: "001",
-      //     list: this.checkedItem,
-      //   },
-      // });
 
       // this.onLoad = true;
 
@@ -144,14 +132,16 @@ export default {
    * 代表默认选项的checkedItem中存放所有默认选项的title属性
    */
   created: function () {
-    console.log(this.$route.query.role_authority);
-    this.items = this.$route.query.role_authority.headerLists;
-
+    // console.log(this.$route.query.role_authority);
+    // console.log(typeof(this.$route.query.role_authority));
+    this.items = JSON.parse(this.$route.query.role_authority);
+    this.items = this.items.headerLists;
+    // console.log(this.items)
     let i = 0,
       j = 0,
       arr = [...this.items];
     arr.splice(arr.length - 2, 2);
-    console.log(this.checkedItem);
+    // console.log(this.checkedItem);
 
     for (const iterator of arr) {
       // console.log(iterator);
@@ -166,7 +156,7 @@ export default {
       }
     }
     // console.log(this.items);
-    console.log(this.checkedItem);
+    // console.log(this.checkedItem);
     // console.log(this.submitItems);
   },
 };

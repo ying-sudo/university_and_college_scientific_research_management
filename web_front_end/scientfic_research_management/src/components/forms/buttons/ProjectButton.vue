@@ -90,7 +90,7 @@
           this.loading = false;
         }
         this.isEmpty = isEmpty;
-        // isEmpty = true;
+        isEmpty = true;
         return isEmpty;
       }
     }

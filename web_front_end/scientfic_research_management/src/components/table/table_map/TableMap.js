@@ -36,6 +36,12 @@ export function getTableMap() {
         ["/college_result", "/check_result_table/CollegeCheckResultTable.json"], 
         ["/team_result", "/check_result_table/TeamCheckResultTable.json"], 
 
+        ["/project_check", "/check_result_table/ProjectCheckResultTable.json"], 
+        ["/paper_check", "/check_result_table/PaperCheckResultTable.json"], 
+        ["/work_check", "/check_result_table/WorkCheckResultTable.json"], 
+        ["/scientific_check", "/check_result_table/ScientificCheckResultTable.json"], 
+        ["/patent_check", "/check_result_table/PatentCheckResultTable.json"], 
+
         ["/reports", "/statistical_statement_table/Statement.json"], 
         
         ["/authoritylists", "/authority_table/AuthorityTable.json"], 

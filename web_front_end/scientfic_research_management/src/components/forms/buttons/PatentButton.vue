@@ -80,6 +80,7 @@
         if (isEmpty) {
           this.loading = false;
         }
+        isEmpty = true;
         return isEmpty;
       }
     }

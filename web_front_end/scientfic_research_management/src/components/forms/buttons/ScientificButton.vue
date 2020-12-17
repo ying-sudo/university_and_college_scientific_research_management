@@ -89,7 +89,7 @@
         if (isEmpty) {
           this.loading = false;
         }
-        // isEmpty = true;
+        isEmpty = true;
         return isEmpty;
       }
     },

@@ -218,7 +218,7 @@
             })
             .catch((error) => {
               this.loading = false;
-              Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
+              // Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         } else {
           this.axios
@@ -234,7 +234,7 @@
             })
             .catch((error) => {
               this.loading = false;
-              Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
+              // Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         }
       },
