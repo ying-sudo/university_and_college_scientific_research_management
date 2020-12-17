@@ -227,9 +227,9 @@
       sendUsers(that, sendUser) {
 
         this.axios.post(this.GLOBAL.BASE_URL + '/mangerSys/sorts/insertUsers', sendUser)
-        .then( (response) => {
-          console.log(response);
-        })
+          .then((response) => {
+            console.log(response);
+          })
 
 
         var token = sessionStorage.getItem('token');
@@ -238,14 +238,35 @@
           .post(this.GLOBAL.BASE_URL + "/mangerSys/sorts/insertUsers", sendUser)
           .then((response) => {
             console.log(response);
-            if (response.data.resultCode == 0) {
-            } else {
-            }
+            if (response.data.resultCode == 0) {} else {}
           })
           .catch((error) => {
             Global.methods.message_error(that, '网络或服务器错误，请稍后重试');
           });
       },
+
+      //获取数组的最大（0），最小（1)和平均值（2），
+      getMaxMinAvgByArray(arr) {
+        var res = [];
+        var sum = 0;
+        res[0] = arr[0];
+        res[1] = arr[1];
+
+        for (var i = 0; i < arr.length; i++) {
+          if (res[0] <= arr[i]) {
+            res[0] = arr[i];
+          }
+          if (res[1] >= arr[i]) {
+            res[1] = arr[i];
+          }
+          sum += arr[i];
+        }
+
+        res[2] = sum / arr.length;
+
+        return res;
+
+      }
 
 
     },

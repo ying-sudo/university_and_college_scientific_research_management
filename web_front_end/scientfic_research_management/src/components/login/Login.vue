@@ -51,11 +51,11 @@
       </div>
 
       <!-- 错误警告 -->
-      <div style="width: 400px; margin: 0 auto; height: 42px;">
+<!--      <div style="width: 400px; margin: 0 auto; height: 42px;">
         <mu-alert color="red" @delete="alarm = false" delete v-if="alarm" transition="mu-scale-transition" style="height: 30px">
           <mu-icon left value="warning"></mu-icon> {{ error_text }}
         </mu-alert>
-      </div>
+      </div> -->
 
       <!-- 图形验证码 -->
       <div style="margin: 20px; text-align: center">
@@ -97,7 +97,7 @@
         },
         username: "",
         password: "",
-        verify_flag: true,
+        verify_flag: false,
         visibility: false,
         alarm: false,
         error_text: "",
@@ -120,10 +120,12 @@
           //没有输入密码
           canLogin = false;
           error_text = '请输入密码！！';
+          Global.methods.message_error(this, error_text);
         } else {
           //没有输入用户名
           canLogin = false;
           error_text = '请输入用户名！！';
+          Global.methods.message_error(this, error_text);
         }
         // canLogin = true;
         if (canLogin) {
@@ -167,28 +169,27 @@
                     //存放token
                     sessionStorage.setItem("token", response.data.resultMsg);
                     // 检索
-                    // document.getElementById("result").innerHTML = sessionStorage.getItem("userid");
-                    //进入成功方法
                     this.login_success();
                   } else if (resultCode == -1) {
                     //失败
                     this.login_failing("用户名或密码错误");
+                    Global.methods.message_error(this, error_text);
                   } else {
                     //后端返回值不是0，-1 其他原因
                     this.login_failing("服务器错误，请稍后再试");
+                    Global.methods.message_error(this, error_text);
                   }
                 })
               .catch((error) => {
                 //请求错误，关闭加载
                 this.loading = false;
-                this.login_failing("出现了不可避免的错误，请稍后再试");
-                console.log(error);
+                // this.login_failing("出现了不可避免的错误，请稍后再试");
+                Global.methods.message_error(this, "出现了不可避免的错误，请稍后再试");
               });
           } else {
-            this.login_failing("请通过验证");
+            // this.login_failing("请通过验证");
+            Global.methods.message_error(this, "请先通过验证");
           }
-        } else {
-          this.login_failing(error_text);
         }
       },
       //注册

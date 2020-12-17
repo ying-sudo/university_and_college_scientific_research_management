@@ -6,7 +6,7 @@
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
         <div v-if="!isDisabled">
-          <mu-button @click="openAlertDialog" color="primary">
+          <mu-button @click="openAlertDialog" color="primary" :loading="loading">
             专利申请表单&nbsp;&nbsp;
             <i right class="el-icon-document-add"></i>
           </mu-button>
@@ -42,6 +42,7 @@
           isDisabled: false
         },
         reload: '',
+        loading: false,
         collegeInfo: [],
         //专利：  专利类型，专利范围
         otherAll: {
@@ -60,6 +61,7 @@
     },
     methods: {
       openAlertDialog() { //专利申请表单
+      this.loading = true;
         this.reload = new Date().getTime(); //重载改组件
         this.patentRange = this.otherAll.patentRange;
         this.patentType = this.otherAll.patentType;
@@ -75,7 +77,9 @@
     computed: {
       canOpen() {
         var isEmpty = Global.methods.isEmpty(this.patentRange, this.patentType, this.collegeInfo);
-        isEmpty = true;
+        if (isEmpty) {
+          this.loading = false;
+        }
         return isEmpty;
       }
     }

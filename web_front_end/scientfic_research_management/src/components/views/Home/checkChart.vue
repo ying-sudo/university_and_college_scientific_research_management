@@ -19,9 +19,9 @@
       return {
         resultChart: {},
         name: ['项目考核结果', '论文考核结果', '专利考核结果', '科研考核结果', '著作考核结果'],
-        minScore: [23, 12, 45, 12, 56],
-        maxScore: [56, 67, 75, 53, 86],
-        avgScore: [23, 55, 62, 12, 37],
+        minScore: [],
+        maxScore: [],
+        avgScore: [],
         titleName: ['最低考核成绩', '最高考核成绩', '平均考核成绩'],
       };
     },
@@ -85,19 +85,40 @@
       },
       getData() {
         //请求数据
-        // this.axios
-        //   .put(
-        //     this.GLOBAL.BASE_URL +
-        //     "/mangerSys/home/assessmentresult",
-        //   )
-        //   .then((response) => {
-        //     console.log('checkChart :');
-        //     console.log(response);
-        //     this.drawChart();
-        //   })
-        //   .catch((error) => {
-        //     Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
-        //   });
+        var userId = sessionStorage.getItem('userId');
+        console.log(userId);
+        var token = sessionStorage.getItem('token');
+        this.axios.defaults.headers.common["Authorization"] = token;
+        this.axios
+          .post(
+            this.GLOBAL.BASE_URL +
+            "/mangerSys/home/assessmentresult", userId, {
+              headers: {
+                'Content-Type': "application/json"
+              }
+            }
+          )
+          .then((response) => {
+            console.log('checkChart :');
+            console.log(response);
+            var chartJson = JSON.parse(response.data.data);
+            console.log(chartJson);
+
+            var i = 0;
+            for (var key in chartJson) {
+              var res = Global.methods.getMaxMinAvgByArray(chartJson[key]);
+              this.minScore[i] = res[0];
+              this.maxScore[i] = res[1];
+              this.avgScore[i] = res[2];
+              i++;
+            }
+
+
+            this.drawChart();
+          })
+          .catch((error) => {
+            Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
+          });
       },
 
     }

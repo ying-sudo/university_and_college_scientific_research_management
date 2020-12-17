@@ -6,7 +6,7 @@
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
         <div v-if="!isDisabled">
-          <mu-button @click="openAlertDialog" color="primary">
+          <mu-button @click="openAlertDialog" color="primary" :loading="loading">
             团队申报表单&nbsp;&nbsp;
             <i right class="el-icon-document-add"></i>
           </mu-button>
@@ -42,6 +42,7 @@
           isDisabled: false
         }, //论文成果表单
         reload: '',
+        loading: false,
         collegeInfo: [],
         //团队：一级学科
         otherAll: {
@@ -58,6 +59,7 @@
     },
     methods: {
       openAlertDialog() { //论文成果表单
+        this.loading = true;
         this.reload = new Date().getTime();
         this.firstDiscipline = this.otherAll.firstDiscipline;
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
@@ -73,6 +75,9 @@
       canOpen() {
         var isEmpty = Global.methods.isEmpty(this.firstDiscipline, this.collegeInfo);
         // isEmpty = true;
+        if (isEmpty) {
+          this.loading = false;
+        }
         return isEmpty;
       }
     },

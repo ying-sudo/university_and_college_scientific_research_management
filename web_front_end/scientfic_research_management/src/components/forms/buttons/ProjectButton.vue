@@ -43,6 +43,7 @@
         reload: "",
         loading: false,
         collegeInfo: [],
+        isEmpty: false,
         otherAll: {
           firstDiscipline: [],
           level: [],
@@ -68,9 +69,9 @@
         this.sort = this.otherAll.sort;
 
         //如果数据请求失败，会重新进行请求
-        if (!canOpen()) {
-          this.getAllData();
-        }
+        // if (!this.isEmpty) {
+        //   this.getAllData();
+        // }
 
         //项目申报表单
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
@@ -88,6 +89,7 @@
         if (isEmpty) {
           this.loading = false;
         }
+        this.isEmpty = isEmpty;
         // isEmpty = true;
         return isEmpty;
       }

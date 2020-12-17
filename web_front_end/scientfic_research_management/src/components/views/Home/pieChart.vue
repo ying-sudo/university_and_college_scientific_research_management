@@ -100,11 +100,16 @@
           .post(
             this.GLOBAL.BASE_URL +
             "/mangerSys/home/overview",
-            userId
+            userId, {
+              headers: {
+                'Content-Type': "application/json"
+              }
+            }
           )
           .then((response) => {
             var chartJson = JSON.parse(response.data.data);
             Global.methods.getValueOne(chartJson, this.number);
+            console.log('pichart:')
             console.log(this.number);
             this.drawChart();
           })
@@ -114,7 +119,8 @@
       },
 
     },
-    components: {}
+    components: {},
+    
   };
 </script>
 

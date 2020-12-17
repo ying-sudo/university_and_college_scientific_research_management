@@ -148,7 +148,7 @@
         paper_achievement: { //申报的内容
           id: null, //论文编号
           name: null, //论文题目
-          magazine: null, //期刊
+          // magazine: null, //期刊
           beginDate: null, //发表日期
           paperType: null, //论文类型
           recordId: null, //收录号
@@ -169,12 +169,14 @@
     created: function() {
       if (this.flag.isDisabled) {
         this.paper_achievement = this.TableRow;
+        this.magazineId = this.magazineIdProp;
       }
+      console.log('aa');
       this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;
       this.firstdescipline = this.firstdesciplineProp;
-      this.magazineId = this.magazineIdProp;
       this.magazineSort = this.magazineSortProp;
+      console.log(this.magazineSort);
     },
     methods: {
       closeAlertDialog() {
@@ -214,11 +216,11 @@
             .then((response) => {
               Global.methods.message_control(response.data.resultCode, this, response.data.resultMsg);
               this.axios.post(this.GLOBAL.BASE_URL + '/mangerSys/sorts/insertUsers', sendUser)
-              .then( (response) => {
-                Global.methods.message_control(response.data.resultCode, this, response.data.resultMsg);
-                console.log(response);
-              })
-              
+                .then((response) => {
+                  Global.methods.message_control(response.data.resultCode, this, response.data.resultMsg);
+                  console.log(response);
+                })
+
               this.loading = false;
               if (response.data.resultCode == 0) {
                 this.closeAlertDialog();
