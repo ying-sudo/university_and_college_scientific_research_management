@@ -29,6 +29,7 @@
           size="medium"
           round
           icon="el-icon-switch-button"
+          @click="logout()"
         ></el-button>
 
       </el-menu-item>
@@ -82,6 +83,16 @@ export default {
       // console.log(resURL);
       return resURL;
     },
+
+    logout() {
+      var token = sessionStorage.getItem('token');
+      this.axios.defaults.headers.common["Authorization"] = token;
+      this.axios.post(this.GLOBAL.BASE_URL + "/mangerSys/user/logout").then().catch((error) => {
+        // console.log("log out fail")
+      });
+      sessionStorage.clear();
+      this.$router.replace("/login")
+    }
   },
 };
 </script>
