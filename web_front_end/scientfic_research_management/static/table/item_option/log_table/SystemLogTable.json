@@ -4,28 +4,28 @@
         "label": "日志编号",
         "type": "text",
         "prop": "managerSystemLogId",
-        "width":"120"
+        "width":"100"
     },
     {
         "id": 2,
         "label": "日志产生类",
         "type": "text",
         "prop": "className",
-        "width":"150"
+        "width":"300"
     },
     {
         "id": 3,
         "label": "日志产生方法",
         "type": "text",
         "prop": "methodName",
-        "width":"120"
+        "width":"115"
     },
     {
         "id": 4,
         "label": "日志产生时间",
         "type": "text",
         "prop": "createTime",
-        "width":"150"
+        "width":"180"
     },
     {
         "id": 5,
@@ -39,6 +39,6 @@
         "label": "日志信息",
         "type": "text",
         "prop": "message",
-        "width":"120"
+        "width":"360"
     }
 ]

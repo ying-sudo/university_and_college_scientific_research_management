@@ -1,19 +1,20 @@
 <template>
   <div>
-    <BantchDelete :multiSelect="multiSelect"></BantchDelete>
+    <el-row type="flex" justify="end"
+      ><el-col :span="4"> <BantchDelete :multiSelect="multiSelect" v-on="$listeners"></BantchDelete></el-col
+    ></el-row>
   </div>
 </template>
 
 <script>
-import BantchDelete from "@/components/table/batch_delete/BantchDelete"
+import BantchDelete from "@/components/table/batch_delete/BantchDelete";
 
 export default {
-  components:{
+  components: {
     BantchDelete,
   },
 
   props: ["multiSelect"],
-
 };
 </script>
 

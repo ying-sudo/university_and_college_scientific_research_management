@@ -22,27 +22,20 @@
     },
     {
         "id": 4,
-        "label": "联系方式",
-        "type": "text",
-        "prop": "phone",
-        "width":"120"
-    },
-    {
-        "id": 5,
         "label": "归属单位",
         "type": "text",
         "prop": "collegeName",
         "width":"150"
     },
     {
-        "id": 6,
+        "id": 5,
         "label": "期刊名称",
         "type": "text",
         "prop": "paperSource",
         "width":"120"
     },
     {
-        "id": 7,
+        "id": 6,
         "label": "撰写日期",
         "type": "text",
         "prop": "beginDate",

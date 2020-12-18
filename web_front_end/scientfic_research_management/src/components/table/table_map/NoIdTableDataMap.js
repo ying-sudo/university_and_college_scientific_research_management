@@ -9,6 +9,7 @@ export function getTableDataMap() {
 
         ["roles", "mangerSys/characters/findAll"],   
         ["authoritylists", "mangerSys/characters/findAll"], 
+        
 
          
     ]);

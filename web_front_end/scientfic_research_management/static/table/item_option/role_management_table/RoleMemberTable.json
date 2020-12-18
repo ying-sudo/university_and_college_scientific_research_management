@@ -1,16 +1,61 @@
 [
     {
         "id": 1,
-        "label": "用户编号",
+        "label": "用户id",
         "type": "text",
         "prop": "id",
         "width":"160"
     },
     {
         "id": 2,
-        "label": "用户名称",
+        "label": "用户名",
         "type": "text",
         "prop": "name",
         "width":"160"
+    },
+    {
+        "id": 3,
+        "label": "性别",
+        "type": "text",
+        "prop": "sex",
+        "width":"160"
+    },
+    {
+        "id": 4,
+        "label": "电话号码",
+        "type": "text",
+        "prop": "phone",
+        "width":"160"
+    },
+    {
+        "id": 5,
+        "label": "职位",
+        "type": "text",
+        "prop": "post",
+        "width":"160"
+    },
+    {
+        "id": 6,
+        "label": "电话号码",
+        "type": "text",
+        "prop": "phone",
+        "width":"160"
+    },
+    {
+        "id": 7,
+        "label": "电子邮箱",
+        "type": "text",
+        "prop": "email",
+        "width":"160"
+    },
+    {
+        "id": 8,
+        "label": "注册日期",
+        "type": "text",
+        "prop": "register",
+        "width":"160"
     }
+    
+
+    
 ]

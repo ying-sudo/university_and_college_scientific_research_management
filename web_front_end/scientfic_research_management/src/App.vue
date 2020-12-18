@@ -23,7 +23,7 @@
 
         </el-aside>
         <el-main>
-          <router-view></router-view>
+          <router-view v-if="isRouterShow"></router-view>
         </el-main>
       </el-container>
 

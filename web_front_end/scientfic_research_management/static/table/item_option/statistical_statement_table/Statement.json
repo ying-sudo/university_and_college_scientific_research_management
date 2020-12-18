@@ -3,49 +3,42 @@
         "id": 1,
         "label": "报表文件名",
         "type": "text",
-        "prop": "statement_file_name",
+        "prop": "name",
         "width":"130"
     },
     {
         "id": 2,
         "label": "拥有者",
         "type": "text",
-        "prop": "statement_type",
+        "prop": "userName",
         "width":"110"
     },
     {
         "id": 3,
         "label": "所属学院",
         "type": "text",
-        "prop": "statement_belongs_college",
+        "prop": "collegeName",
         "width":"120"
     },
     {
         "id": 4,
-        "label": "报表类型",
-        "type": "text",
-        "prop": "statement_type",
-        "width":"130"
-    },   
-    {
-        "id": 5,
         "label": "(项目，成果)发表个数",
         "type": "text",
-        "prop": "statement_type",
+        "prop": "reportNumber",
         "width":"180"
     },
     {
-        "id": 6,
+        "id": 5,
         "label": "(项目，成果)在审核个数",
         "type": "text",
-        "prop": "statement_type",
+        "prop": "checkingNumber",
         "width":"190"
     },
     {
-        "id": 7,
+        "id": 6,
         "label": "(项目，成果)通过审核个数",
         "type": "text",
-        "prop": "statement_type",
+        "prop": "checkedNumber",
         "width":"200"
     }
 ]

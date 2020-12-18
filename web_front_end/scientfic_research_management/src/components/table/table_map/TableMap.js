@@ -23,8 +23,6 @@ export function getTableMap() {
         ["/college", "/check_table/CollegeCheckTable.json"], 
 
         ["/roles", "/role_management_table/RoleManagementTable.json"], 
-        
-        ["/batch", "/project_review_table/ProjectBranchReview.json"], 
 
         ["/result_batch", "/check_result_table/CheckResultBranchTable.json"], 
         ["/project_result", "/check_result_table/ProjectCheckResultTable.json"], 
@@ -32,9 +30,6 @@ export function getTableMap() {
         ["/work_result", "/check_result_table/WorkCheckResultTable.json"], 
         ["/scientific_result", "/check_result_table/ScientificCheckResultTable.json"], 
         ["/patent_result", "/check_result_table/PatentCheckResultTable.json"], 
-        ["/personal_result", "/check_result_table/ResearcherCheckResultTable.json"], 
-        ["/college_result", "/check_result_table/CollegeCheckResultTable.json"], 
-        ["/team_result", "/check_result_table/TeamCheckResultTable.json"], 
 
         ["/project_check", "/check_result_table/ProjectCheckResultTable.json"], 
         ["/paper_check", "/check_result_table/PaperCheckResultTable.json"], 

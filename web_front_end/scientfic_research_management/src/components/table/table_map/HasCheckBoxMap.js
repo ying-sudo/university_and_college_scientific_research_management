@@ -27,6 +27,10 @@ export function getCheckBoxMap() {
         ["team_result", false], 
         ["collegesdep", false], 
         ["researchers", false], 
+
+        ["authoritylists", false],
+        ["researcroleshers", false],
+        
         ["loginlog", true], 
         ["systemlog", true], 
         ["operationlog", true], 

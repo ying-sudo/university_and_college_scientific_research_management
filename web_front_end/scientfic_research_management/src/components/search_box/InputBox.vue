@@ -84,8 +84,7 @@ export default {
         return this.tableData.filter((dataNews) => {
           // return Object.keys(dataNews).some((key) => {
           return (
-            String(dataNews[this.subFilterTag]).toLowerCase().indexOf(search) >
-            -1
+            String(dataNews[this.subFilterTag]).toLowerCase().indexOf(search) > -1
           );
           // return String(dataNews[key]).toLowerCase().indexOf(search) > -1;
           // });
