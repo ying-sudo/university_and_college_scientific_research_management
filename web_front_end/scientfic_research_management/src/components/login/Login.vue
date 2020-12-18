@@ -66,7 +66,7 @@
           </div>
           <!-- 验证按钮 -->
           <el-button slot="reference" class="ButtonStyle" v-if="!verify_flag">点击验证</el-button>
-          <el-button slot="reference" class="ButtonStyle" v-if="verify_flag" style="color: #0b97c4; font-size: 15px"><i
+          <el-button slot="reference" class="ButtonStyle" v-if="verify_flag" disabled style="color: #0b97c4; font-size: 15px"><i
               class="el-icon-success" style="margin-right: 5px"></i>验证成功</el-button>
         </el-popover>
       </div>
@@ -168,6 +168,7 @@
                     sessionStorage.setItem("userId", this.user.username);
                     //存放token
                     sessionStorage.setItem("token", response.data.resultMsg);
+                    sessionStorage.getItem("home", response.data.data);
                     // 检索
                     this.login_success();
                   } else if (resultCode == -1) {

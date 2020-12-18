@@ -29,8 +29,8 @@ import CommonsTableImpl from "@/components/table/table_interface/CommonsTableImp
 import SearchBox from "@/components/search_box/SearchBox";
 import { getButtonMap } from "@/components/table/table_map/NewButtonsMap.js";
 import { getTableIconMap } from "@/components/table/table_map/OperationIconMap.js";
-// import { getTableDataMap } from "@/components/table/table_map/TableDataMap.js"; //真实数据
-import { getTableDataMap } from "@/components/table/table_map/MockDataMap.js"; //模拟数据
+import { getTableDataMap } from "@/components/table/table_map/TableDataMap.js"; //真实数据
+// import { getTableDataMap } from "@/components/table/table_map/MockDataMap.js"; //模拟数据
 
 export default {
   inject: ['reload'],
@@ -90,11 +90,11 @@ export default {
       var token = localStorage.getItem('token');
       this.axios.defaults.headers.common["Authorization"] = token;
 
-      this.axios.get(newVal).then((res) => {
+      // this.axios.get(newVal).then((res) => {
       let userId = localStorage.getItem("userid");
       console.log(userId);
 
-      // this.axios.get(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`).then((res) => {
+      this.axios.get(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`).then((res) => {
           this.tableData = res.data.data;
           console.log("res.data.data:");
           console.log(res.data);
