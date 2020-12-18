@@ -6,10 +6,10 @@
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
         <div v-if="!isDisabled">
-          <mu-button @click="openAlertDialog" color="primary" :loading="loading">
+          <el-button @click="openAlertDialog" type="primary" :loading="loading">
             专利申请表单&nbsp;&nbsp;
             <i right class="el-icon-document-add"></i>
-          </mu-button>
+          </el-button>
         </div>
         <div v-if="isDisabled">
           <el-tooltip effect="light" content="专利详情" placement="bottom-end" :open-delay="500">
@@ -18,7 +18,7 @@
         </div>
       </mu-flex>
 
-      <PatentForm v-if="canOpen" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :patentRangeProp="patentRange"
+      <PatentForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :patentRangeProp="patentRange"
         :patentTypeProp="patentType" :TableRow="TableRow"></PatentForm>
     </mu-container>
   </div>
@@ -45,45 +45,37 @@
         loading: false,
         collegeInfo: [],
         //专利：  专利类型，专利范围
-        otherAll: {
-          patentType: [],
-          patentRange: [],
-        },
+        otherAll: [
+          [],
+          [],
+        ],
         patentType: [],
         patentRange: [],
       };
     },
-    created: function() {
-      this.getAllData();
-    },
     components: {
-      PatentForm
+      PatentForm,
     },
     methods: {
       openAlertDialog() { //专利申请表单
-      this.loading = true;
+        this.loading = true;
         this.reload = new Date().getTime(); //重载改组件
-        this.patentRange = this.otherAll.patentRange;
-        this.patentType = this.otherAll.patentType;
-        Global.methods.openAlertDialog(this.flag, this.isDisabled);
+
+        this.patentRange = this.otherAll[1];
+        this.patentType = this.otherAll[0];
+
+        this.getAllData();
       },
       getAllData() {
         Global.methods.getCollegeData(this, this.collegeInfo);
-        Global.methods.getOtherData(this, this.otherAll);
+
+        var i = [3, 8];
+        Global.methods.getFormData(this, i, 0, this.otherAll);
 
         return;
       },
     },
-    computed: {
-      canOpen() {
-        var isEmpty = Global.methods.isEmpty(this.patentRange, this.patentType, this.collegeInfo);
-        if (isEmpty) {
-          this.loading = false;
-        }
-        isEmpty = true;
-        return isEmpty;
-      }
-    }
+
   }
 </script>
 

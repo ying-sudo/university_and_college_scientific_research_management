@@ -6,10 +6,10 @@
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
         <div v-if="!isDisabled">
-          <mu-button @click="openAlertDialog" color="primary" :loading="loading">
+          <el-button @click="openAlertDialog" type="primary" :loading="loading">
             团队申报表单&nbsp;&nbsp;
             <i right class="el-icon-document-add"></i>
-          </mu-button>
+          </el-button>
         </div>
         <div v-if="isDisabled">
           <el-tooltip effect="light" content="论文详情" placement="bottom-end" :open-delay="500">
@@ -18,7 +18,7 @@
         </div>
       </mu-flex>
 
-      <TeamForm v-if="canOpen" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
+      <TeamForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
         :TableRow="TableRow"></TeamForm>
     </mu-container>
   </div>
@@ -45,41 +45,31 @@
         loading: false,
         collegeInfo: [],
         //团队：一级学科
-        otherAll: {
-          firstDiscipline: [],
-        },
+        otherAll: [
+          [],
+        ],
         firstDiscipline: [],
       };
     },
-    created: function() {
-      this.getAllData();
-    },
     components: {
-      TeamForm
+      TeamForm,
     },
     methods: {
       openAlertDialog() { //论文成果表单
         this.loading = true;
         this.reload = new Date().getTime();
-        this.firstDiscipline = this.otherAll.firstDiscipline;
-        Global.methods.openAlertDialog(this.flag, this.isDisabled);
+
+        this.firstDiscipline = this.otherAll[0];
+
+        this.getAllData();
       },
       getAllData() {
         Global.methods.getCollegeData(this, this.collegeInfo);
-        Global.methods.getOtherData(this, this.otherAll);
 
+        var i = [1];
+        Global.methods.getFormData(this, i, 0, this.otherAll);
         return;
       },
-    },
-    computed: {
-      canOpen() {
-        var isEmpty = Global.methods.isEmpty(this.firstDiscipline, this.collegeInfo);
-        if (isEmpty) {
-          this.loading = false;
-        }
-        isEmpty = true;
-        return isEmpty;
-      }
     },
   }
 </script>

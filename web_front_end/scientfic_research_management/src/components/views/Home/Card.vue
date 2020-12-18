@@ -1,11 +1,17 @@
 <template>
-  <div style="text-align: left;" v-loading="loading">
+  <div style="text-align: left; font-size: 20px;" v-loading="loading">
     <el-card shadow="hover">
-      姓名：{{user.name}}
+      <div style="float: left;">
+        <el-avatar :size="60" :src="require('@/assets/images/Logo.jpg')"></el-avatar>
+      </div>
+      <span style="margin-left: 20px;">
+        欢迎您！{{user.name}} {{user.post}}
+      </span>
       <br>
-      职位：{{user.post}}
-      <br>
-      学院：{{user.sex}}
+      <span style="margin-left: 20px;">
+        联系方式：{{user.phone}}
+        邮箱：{{user.email}}
+      </span>
     </el-card>
   </div>
 </template>
@@ -66,4 +72,8 @@
 </script>
 
 <style>
+
+  .el-card__body {
+    width: 700px;
+  }
 </style>

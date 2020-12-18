@@ -6,10 +6,10 @@
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
         <div v-if="!isDisabled">
-          <mu-button @click="openAlertDialog" color="primary" :loading="loading">
+          <el-button @click="openAlertDialog" type="primary" :loading="loading">
             著作申报表单&nbsp;&nbsp;
             <i right class="el-icon-document-add"></i>
-          </mu-button>
+          </el-button>
         </div>
         <div v-if="isDisabled">
           <el-tooltip effect="light" content="著作详情" placement="bottom-end" :open-delay="500">
@@ -18,7 +18,7 @@
         </div>
       </mu-flex>
 
-      <WorkForm v-if="canOpen" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :TableRow="TableRow"
+      <WorkForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :TableRow="TableRow"
         :publishLevelProp="publishLevel" :workTypeProp="workType" :publishLocationProp="publishLocation"
         :translateLanguageProp="translateLanguage" :firstDisciplineProp="firstDiscipline" :workSourceProp="workSource"></WorkForm>
     </mu-container>
@@ -46,14 +46,14 @@
         loading: false,
         collegeInfo: [],
         //著作：出版社级别，著作类别，出版地，翻译语种，一级学科，项目来源
-        otherAll: {
-          publishLevel: [],
-          workType: [],
-          publishLocation: [],
-          translateLanguage: [],
-          firstDiscipline: [],
-          workSource: [],
-        },
+        otherAll: [
+          [],
+          [],
+          [],
+          [],
+          [],
+          [],
+        ],
         publishLevel: [],
         workType: [],
         publishLocation: [],
@@ -62,42 +62,31 @@
         workSource: [],
       };
     },
-    created: function() {
-      this.getAllData();
-    },
     components: {
-      WorkForm
+      WorkForm,
     },
     methods: {
       openAlertDialog() {
         this.loading = true;
         this.reload = new Date().getTime();
-        this.publishLevel = this.otherAll.publishLevel;
-        this.workType = this.otherAll.workType;
-        this.publishLocation = this.otherAll.publishLocation;
-        this.translateLanguage = this.otherAll.translateLanguage;
-        this.firstDiscipline = this.otherAll.firstDiscipline;
-        this.workSource = this.otherAll.workSource;
-        Global.methods.openAlertDialog(this.flag, this.isDisabled);
+
+        this.firstDiscipline = this.otherAll[0];
+        this.workType = this.otherAll[1];
+        this.publishLevel = this.otherAll[2];
+        this.publishLocation = this.otherAll[3];
+        this.translateLanguage = this.otherAll[4];
+        this.workSource = this.otherAll[5];
+
+        this.getAllData();
       },
       getAllData() {
         Global.methods.getCollegeData(this, this.collegeInfo);
-        Global.methods.getOtherData(this, this.otherAll);
 
+        var i = [1, 3, 4, 5, 6, 7];
+        Global.methods.getFormData(this, i, 0, this.otherAll);
         return;
       },
     },
-    computed: {
-      canOpen() {
-        var isEmpty = Global.methods.isEmpty(this.firstDiscipline, this.collegeInfo, this.publishLevel, this.workType,
-          this.publishLocation, this.workSource);
-        if (isEmpty) {
-          this.loading = false;
-        }
-        isEmpty = true;
-        return isEmpty;
-      }
-    }
   }
 </script>
 

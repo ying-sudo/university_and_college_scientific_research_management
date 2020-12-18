@@ -18,7 +18,7 @@
       </mu-flex>
 
       <ProjectForm :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
-        :levelProp="level" :sortProp="sort" :TableRow="TableRow" v-if="canOpen"></ProjectForm>
+        :levelProp="level" :sortProp="sort" :TableRow="TableRow" v-if="flag.openAlert"></ProjectForm>
 
     </mu-container>
   </div>
@@ -43,19 +43,15 @@
         reload: "",
         loading: false,
         collegeInfo: [],
-        isEmpty: false,
-        otherAll: {
-          firstDiscipline: [],
-          level: [],
-          sort: [],
-        },
+        otherAll: [
+          [],
+          [],
+          [],
+        ],
         firstDiscipline: [],
         level: [],
         sort: [],
       };
-    },
-    created: function() {
-      this.getAllData();
     },
     components: {
       ProjectForm,
@@ -65,57 +61,21 @@
         this.loading = true;
         this.reload = new Date().getTime();
 
-        this.axios
-          .get(this.GLOBAL.BASE_URL + "/mangerSys/sorts/1")
-          .then( (response) => {
+        this.firstDiscipline = this.otherAll[0];
+        this.level = this.otherAll[1];
+        this.sort = this.otherAll[2];
 
-          })
-          .catch( (error) => {
-
-          });
-
-        this.firstDiscipline = this.otherAll.firstDiscipline;
-        this.level = this.otherAll.level;
-        this.sort = this.otherAll.sort;
-
-        //如果数据请求失败，会重新进行请求
-        // if (!this.isEmpty) {
-        //   this.getAllData();
-        // }
-
-        //项目申报表单
-        Global.methods.openAlertDialog(this.flag, this.isDisabled);
+        this.getAllData();
       },
       getAllData() {
+        
+        Global.methods.getCollegeData(this, this.collegeInfo);
+
         var i = [1, 2, 3];
-        // Global.methods.getFormData(this, i, 0, this.otherAll);
-
-        this.axios
-          .get(this.GLOBAL.BASE_URL + "/mangerSys/sorts/1")
-          .then( (response) => {
-            console.log(response);
-          })
-          .catch( (Error) => {
-            console.log(Error);
-          })
-
-        // Global.methods.getCollegeData(this, this.collegeInfo);
-        // Global.methods.getOtherData(this, this.otherAll);
-
+        Global.methods.getFormData(this, i, 0, this.otherAll);
         return;
       },
     },
-    computed: {
-      canOpen() {
-        var isEmpty = Global.methods.isEmpty(this.firstDiscipline, this.level, this.sort, this.collegeInfo);
-        if (isEmpty) {
-          this.loading = false;
-        }
-        this.isEmpty = isEmpty;
-        isEmpty = true;
-        return isEmpty;
-      }
-    }
   }
 </script>
 

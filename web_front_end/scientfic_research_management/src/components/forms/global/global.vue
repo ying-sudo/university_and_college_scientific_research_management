@@ -168,11 +168,11 @@
         that.axios.defaults.headers.common["Authorization"] = token;
         that.axios
           .get(this.GLOBAL.BASE_URL + "/mangerSys/colleges")
-          .then( (response) => {
+          .then((response) => {
 
             that.axios
               .get(this.GLOBAL.BASE_URL + "/mangerSys/sorts")
-              .then( (response) => {
+              .then((response) => {
 
               })
 
@@ -189,6 +189,8 @@
               collegeInfo.push(empty);
               this.getValueOne(response.data.data[i], collegeInfo[i]);
             }
+            // that.loading = false;
+            // this.openAlertDialog(that.flag, that.isDisabled);
             return;
           });
       },
@@ -208,22 +210,30 @@
             return;
           })
       },
-      
+
       getFormData(that, i, n, formData) {
-        
-        if (i.length >= n) {
+
+        if (i.length <= n) {
+          that.loading = false;
+          this.openAlertDialog(that.flag, that.isDisabled);
           return;
         }
-        
+
         var token = sessionStorage.getItem('token');
         that.axios.defaults.headers.common["Authorization"] = token;
-        
-        this.axios
-          .get(this.GLOBAL.BASE_URL + "/mangerSys/sorts/" + i[n])
-          .then( (response) => {
-            console.log(i[n] + '  aa  ');
-            console.log(response);
+
+        that.axios
+          .get(that.GLOBAL.BASE_URL + "/mangerSys/sorts/" + i[n])
+          .then((response) => {
+            for (var j = 0; j < response.data.data.length; j++) {
+              formData[n][j] = response.data.data[j].value;
+            }
             this.getFormData(that, i, ++n, formData);
+          })
+          .catch((error) => {
+            that.loading = false;
+            var msg = "数据请求错误，请稍后重试";
+            this.message_error(that, msg);
           })
       },
 

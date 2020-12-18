@@ -6,10 +6,10 @@
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
         <div v-if="!isDisabled">
-          <mu-button @click="openAlertDialog" color="primary" :loading="loading">
+          <el-button @click="openAlertDialog" type="primary" :loading="loading">
             论文成果申报&nbsp;&nbsp;
             <i right class="el-icon-document-add"></i>
-          </mu-button>
+          </el-button>
         </div>
         <div v-if="isDisabled">
           <el-tooltip effect="light" content="论文详情" placement="bottom-end" :open-delay="500">
@@ -18,7 +18,7 @@
         </div>
       </mu-flex>
 
-      <PaperForm v-if="canOpen" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
+      <PaperForm v-if="flag.openAlert" :key="reload" v-model="flag" :collegeInfo="collegeInfo" :firstDisciplineProp="firstDiscipline"
         :magazineSortProp="magazineSort" :magazineIdProp="magazineId" :TableRow="TableRow"></PaperForm>
     </mu-container>
   </div>
@@ -48,14 +48,10 @@
         firstDiscipline: [],
         magazineSort: [],
         magazineId: [],
-        otherAll: {
-          firstDiscipline: [],
-        },
+        otherAll: [
+          [],
+        ],
       };
-    },
-    created: function() {
-      this.flag.isDisabled = this.isDisabled;
-      this.getAllData();
     },
     components: {
       PaperForm,
@@ -68,14 +64,16 @@
         // this.axios
         //   .get(this.GLOBAL.BASE_URL + "/mangerSys/sorts/" + )
 
-        this.firstDiscipline = this.otherAll.firstDiscipline;
+        this.firstDiscipline = this.otherAll[0];
 
-        Global.methods.openAlertDialog(this.flag, this.isDisabled);
+        this.getAllData();
       },
       getAllData() {
 
         Global.methods.getCollegeData(this, this.collegeInfo);
-        Global.methods.getOtherData(this, this.otherAll);
+
+        var i = [1];
+        Global.methods.getFormData(this, i, 0, this.otherAll);
 
         if (this.flag.isDisabled) {
           //修改的按钮
@@ -101,6 +99,7 @@
               this.GLOBAL.BASE_URL + "/mangerSys/magazine"
             )
             .then((response) => {
+              console.log(response);
               if (response.data.resultCode == 0) {
                 this.magazineSort = response.data.data;
                 // this.magazineId = response.data.data.magazineId;
@@ -112,22 +111,9 @@
             });
         }
 
-        this.firstDiscipline = this.otherAll.firstDiscipline;
         return;
       },
     },
-    computed: {
-      canOpen() {
-        var isEmpty = Global.methods.isEmpty(this.firstDiscipline, this.collegeInfo,
-          this.magazineSort);
-        if (isEmpty) {
-          this.loading = false;
-        }
-        isEmpty = true;
-        return isEmpty;
-      }
-    }
-
   };
 </script>
 

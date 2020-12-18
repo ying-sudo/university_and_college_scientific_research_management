@@ -1,5 +1,7 @@
 <template>
-  <div id="login" style="height: 916px; background-color: #ffffff; padding: 20px">
+  <div id="login" class="bg" style="height: 916px; padding: 20px;">
+    <!-- background-image: @/assets/images/loginBackground.jpg; -->
+    <!-- <img src="@/assets/images/loginBackground.jpg" alt=""> -->
     <!-- 四川师范大学图标 -->
     <div style="
         float: left;
@@ -7,7 +9,7 @@
         background-color: #E5E9F2;
         width: 100%;
       ">
-      <img src="../../assets/images/LoginLogo.png" style="width: 296px; float: left; margin: 15px 100px" alt="" />
+      <img src="@/assets/images/LoginLogo.png" style="width: 296px; float: left; margin: 15px 100px" alt="" />
     </div>
 
     <!-- 登录界面 -->
@@ -168,7 +170,7 @@
                     sessionStorage.setItem("userId", this.user.username);
                     //存放token
                     sessionStorage.setItem("token", response.data.resultMsg);
-                    sessionStorage.getItem("home", response.data.data);
+                    sessionStorage.setItem("home", response.data.data);
                     // 检索
                     this.login_success();
                   } else if (resultCode == -1) {
@@ -251,5 +253,9 @@
   .ButtonStyle {
     border-radius: 8px;
     width: 180px;
+  }
+
+  .bg {
+    background-image: url(require('@/assets/images/loginBackground.jpg'));
   }
 </style>
