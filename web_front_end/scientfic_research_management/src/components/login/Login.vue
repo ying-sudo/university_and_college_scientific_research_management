@@ -154,6 +154,7 @@
                 data: this.user
               }).then(
                 (response) => {
+                  // console.log(response.data)
                   // var homeJson = JSON.stringify(response.data.data[0].authority);
                   // var homeJson = JSON.parse(homeJson);
                   var resultCode = -2; //返回值，进行登录判断
@@ -168,7 +169,7 @@
                     sessionStorage.setItem("userId", this.user.username);
                     //存放token
                     sessionStorage.setItem("token", response.data.resultMsg);
-                    sessionStorage.getItem("home", response.data.data);
+                    sessionStorage.setItem("home", response.data.data);
                     // 检索
                     this.login_success();
                   } else if (resultCode == -1) {

@@ -20,7 +20,7 @@
       </el-menu-item>
 
       <el-menu-item
-        index="11"
+        :index="parentHeaderLists[parentHeaderLists.length]"
         id="logoutbtn"
         style="margin-right: 0px"
       >
@@ -55,14 +55,12 @@ export default {
     };
   },
 
-  mounted: function () {
+  created: function () {
     // console.log(this.parentHeaderLists);
   },
   methods: {
     handleSelect(key, keyPath) {
-      // console.log("子组件 " + key, keyPath);
       this.selectIndex = key;
-      // console.log("子组件 " + this.selectIndex);
       this.$emit("handelSelect", Number(this.selectIndex));
     },
 
@@ -77,7 +75,7 @@ export default {
       menuObj = { index: "1", title: "首页", urlPath: "/home", subMenu: null }
     ) {
       let resURL = menuObj.urlPath;
-      if (menuObj.subMenu != null) {
+      if (menuObj.subMenu != null && menuObj.subMenu !== "null") {
         resURL = menuObj.subMenu[0].urlPath;
       }
       // console.log(resURL);
