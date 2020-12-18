@@ -15,34 +15,27 @@
     },
     {
         "id": 3,
-        "label": "项目分类",
-        "type": "text",
-        "prop": "projectSort",
-        "width":"130"
-    },
-    {
-        "id": 4,
         "label": "负责人",
         "type": "text",
         "prop": "userName",
         "width":"160"
     },
     {
-        "id": 5,
+        "id": 4,
         "label": "请求日期",
         "type": "text",
         "prop": "requestDate",
         "width":"170"
     },
     {
-        "id": 6,
+        "id": 5,
         "label": "到账金额",
         "type": "text",
         "prop": "arrivalFund",
         "width":"120"
     },
     {
-        "id": 7,
+        "id": 6,
         "label": "到账时间",
         "type": "text",
         "prop": "arrivalDate",

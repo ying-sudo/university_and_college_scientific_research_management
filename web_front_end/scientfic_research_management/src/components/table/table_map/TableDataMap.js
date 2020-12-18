@@ -9,6 +9,7 @@ export function getTableDataMap() {
         ["patents", "mangerSys/achievements/patent/users"],
 
         ["teams", "mangerSys/teams/users"], 
+        ["reports", "mangerSys/batch/getData"], 
         
         ["project_result", "mangerSys/assess/projects/user"], 
         ["paper_result", "mangerSys/assess/papers/user"], 
@@ -21,9 +22,6 @@ export function getTableDataMap() {
         ["scientific_check", "mangerSys/assess/scientifics/user"], 
         ["work_check", "mangerSys/assess/works/user"], 
         ["patent_check", "mangerSys/assess/patents/user"],
-        
-
-        ["authoritylists", "/api/table_data"], 
 
 
         

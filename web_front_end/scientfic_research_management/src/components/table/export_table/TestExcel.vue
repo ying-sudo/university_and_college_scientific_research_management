@@ -103,20 +103,20 @@ export default {
 
       //每一列的宽度
       let wscols = [
-        { wch: 12 },
-        { wch: 12 },
-        { wch: 12 },
-        { wch: 12 },
-        { wch: 12 },
-        { wch: 12 },
-        { wch: 12 },
-        { wch: 12 },
-        { wch: 12 },
-        { wch: 12 },
-        { wch: 12 },
-        { wch: 12 },
-        { wch: 12 },
-        { wch: 12 },
+        { wch: 14 },
+        { wch: 14 },
+        { wch: 14 },
+        { wch: 14 },
+        { wch: 14 },
+        { wch: 16 },
+        { wch: 14 },
+        { wch: 14 },
+        { wch: 14 },
+        { wch: 14 },
+        { wch: 14 },
+        { wch: 14 },
+        { wch: 14 },
+        { wch: 14 },
       ]; //设置字段宽度
 
       let sheetNames = [];
@@ -158,23 +158,45 @@ export default {
     },
 
     baseData() {
-      this.axios.get("/api/table_data/projectExcel").then((res) => {
+      // this.axios.get("/api/table_data/projectExcel").then((res) => {
+      //   this.projectTableData = res.data.data;
+      // });
+
+      // this.axios.get("/api/table_data/paperExcel").then((res) => {
+      //   this.paperTableData = res.data.data;
+      // });
+
+      // this.axios.get("/api/table_data/scientificExcel").then((res) => {
+      //   this.scientificTableData = res.data.data;
+      // });
+
+      // this.axios.get("/api/table_data/workExcel").then((res) => {
+      //   this.workTableData = res.data.data;
+      // });
+
+      // this.axios.get("/api/table_data/patentExcel").then((res) => {
+      //   this.patentTableData = res.data.data;
+      // });
+
+      var userId = sessionStorage.getItem('userId');
+
+      this.axios.get(`${this.GLOBAL.BASE_URL}/mangerSys/projects/users/${userId}`).then((res) => {
         this.projectTableData = res.data.data;
       });
 
-      this.axios.get("/api/table_data/paperExcel").then((res) => {
+      this.axios.get(`${this.GLOBAL.BASE_URL}/mangerSys/achievements/paper/users/${userId}`).then((res) => {
         this.paperTableData = res.data.data;
       });
 
-      this.axios.get("/api/table_data/scientificExcel").then((res) => {
+      this.axios.get(`${this.GLOBAL.BASE_URL}/mangerSys/achievements/scientific/users/${userId}`).then((res) => {
         this.scientificTableData = res.data.data;
       });
 
-      this.axios.get("/api/table_data/workExcel").then((res) => {
+      this.axios.get(`${this.GLOBAL.BASE_URL}/mangerSys/achievements/work/users/${userId}`).then((res) => {
         this.workTableData = res.data.data;
       });
 
-      this.axios.get("/api/table_data/patentExcel").then((res) => {
+      this.axios.get(`${this.GLOBAL.BASE_URL}/mangerSys/achievements/patent/users/${userId}`).then((res) => {
         this.patentTableData = res.data.data;
       });
     },

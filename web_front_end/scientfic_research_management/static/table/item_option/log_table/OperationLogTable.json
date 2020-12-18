@@ -11,7 +11,7 @@
         "label": "日志产生时间",
         "type": "text",
         "prop": "operationTime",
-        "width":"150"
+        "width":"200"
     },
     {
         "id": 3,
@@ -25,13 +25,13 @@
         "label": "操作用户id",
         "type": "text",
         "prop": "userId",
-        "width":"120"
+        "width":"200"
     },
     {
         "id": 5,
         "label": "日志信息",
         "type": "text",
         "prop": "message",
-        "width":"120"
+        "width":"160"
     }
 ]

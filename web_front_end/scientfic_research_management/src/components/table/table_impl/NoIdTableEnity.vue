@@ -1,9 +1,11 @@
 <template>
   <div v-if="this.tableData !== null">
+    <component :is="new_buttons" :multiSelect="multiSelect" @refreshTable="refreshTable"></component>
+
     <SearchBox :tableData="tableData" @changeTable="changeTable">
-      <div slot="able_to_add">
+      <!-- <div slot="able_to_add">
         <component :is="new_buttons" :multiSelect="multiSelect"></component>
-      </div>
+      </div> -->
     </SearchBox>
 
     <CommonsTableImpl
@@ -23,10 +25,11 @@
 import CommonsTableImpl from "@/components/table/table_interface/CommonsTableImpl";
 import SearchBox from "@/components/search_box/SearchBox";
 import { getTableIconMap } from "@/components/table/table_map/OperationIconMap.js";
-import { getTableDataMap } from "@/components/table/table_map/NoIdTableDataMap.js";
+import { getTableDataMap } from "@/components/table/table_map/NoIdTableDataMap.js"; //真实数据
 import { getButtonMap } from "@/components/table/table_map/NewButtonsMap.js";
 
 export default {
+  inject: ['reload'],
   data() {
     return {
       //返回到表格中的数据
@@ -56,6 +59,13 @@ export default {
     SearchBox,
   },
   methods: {
+    //删除数据后刷新页面
+     refreshTable: function (refresh) {
+      // this.$router.go(0);
+      this.reload();
+      console.log("refresh:" + this.refresh);
+    },
+
     //子组件修改父组件的tableDataToChange
     changeTable: function (Tables, search1) {
       // console.log("changeTable work");
@@ -71,22 +81,19 @@ export default {
 
     //从后端/mock获取接口表格数据
     getInterface: function (key) {
-      this.backEndInterface = this.InterfaceMap.get(key);   
+      this.backEndInterface = this.InterfaceMap.get(key);
       console.log("this.backEndInterface:" + this.backEndInterface);
     },
     getTableData: function (newVal) {
-      var token = sessionStorage.getItem('token');
+      var token = sessionStorage.getItem("token");
       this.axios.defaults.headers.common["Authorization"] = token;
 
       // this.axios.get("/api/table_data").then((res) => {
-      // let userId = localStorage.getItem("userid");
-      // // console.log(userId);
-      //  this.axios.defaults.headers.common["Authorization"] = token;
       this.axios.get(`${this.GLOBAL.BASE_URL}/${newVal}`).then((res) => {
-          this.tableData = res.data.data;
-          console.log("res.data.data:");
-          console.log(res.data);
-        });
+        this.tableData = res.data.data;
+        console.log("res.data.data:");
+        console.log(res.data);
+      });
     },
 
     //动态注册操作列按钮

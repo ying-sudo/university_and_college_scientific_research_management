@@ -19,7 +19,7 @@
         <component :is="apps" :TableRow="row"></component>
       </template>
     </CommonsTableImpl>
-    <el-button @click="reloadFun">刷新</el-button>
+    <!-- <el-button @click="reloadFun">刷新</el-button> -->
 
   </div>
 </template>

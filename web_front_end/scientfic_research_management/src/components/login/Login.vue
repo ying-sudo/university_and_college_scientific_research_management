@@ -156,6 +156,7 @@
                 data: this.user
               }).then(
                 (response) => {
+                  // console.log(response.data)
                   // var homeJson = JSON.stringify(response.data.data[0].authority);
                   // var homeJson = JSON.parse(homeJson);
                   var resultCode = -2; //返回值，进行登录判断

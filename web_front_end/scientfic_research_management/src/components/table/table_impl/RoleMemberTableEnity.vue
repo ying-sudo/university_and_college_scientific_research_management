@@ -40,13 +40,13 @@ export default {
 
     // /teams/{teamId}/members
     getTableData: function () {
-      var token = localStorage.getItem("token");
+      var token = sessionStorage.getItem("token");
       this.axios.defaults.headers.common["Authorization"] = token;
 
       // this.axios.get("/api/table_data").then((res) => {
       this.axios
         .get(
-          `${this.GLOBAL.BASE_URL}/mangerSys/teams/${this.$route.query.TableRow.id}/members`
+          `${this.GLOBAL.BASE_URL}/mangerSys/characters/findUserByCharacter/${this.$route.query.TableRow.id}`
         )
         .then((res) => {
           this.tableData = res.data.data;

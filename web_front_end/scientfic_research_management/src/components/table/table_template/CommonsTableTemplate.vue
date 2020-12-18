@@ -5,8 +5,9 @@
     <!-- @data:数据列的来源 
      @width:table的宽度 
      @max-height:列的最大高度 -->
+    <!-- <p>{{this.HasCheckBox.get(this.$route.params.tableKey)}}</p>
+    <p>{{this.HasOperation.get(this.$route.params.tableKey)}}</p> -->
     <el-table
- 
       :data="tableDataList"
       border
       ref="multipleTable"
@@ -14,7 +15,7 @@
       fit
       highlight-current-row
       style="width: 100%"
-      v-if="this.tableData !== null && this.itemOptions !== null"
+      v-if="this.tableData !== null"
       size="small"
     >
       <el-table-column
@@ -50,7 +51,6 @@
 
       <!-- 在TableTemplate中留下一列供父组件修改的列插槽，将该组件的作用域延迟到父组件编译，
       父组件对应标签内的所有内容将代替子组件的<slot>标签及它的内容 -->
-        <!-- v-if="this.HasOperation.get(this.$route.params.tableKey)" -->
       <el-table-column
         label="操作"
         align="center"
@@ -62,8 +62,6 @@
         </template>
       </el-table-column>
     </el-table>
-    <!-- <p>{{this.HasOperation.get(this.$route.params.tableKey)}}</p> -->
-    <!-- <p>{{this.$route.params.tableKey}}</p> -->
 
     <!-- @totalRows 传入总数据量
          @currentPage 当前页码

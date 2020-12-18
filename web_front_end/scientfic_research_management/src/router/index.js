@@ -62,7 +62,7 @@ export default new Router({
       path: '/table/:tableKey',
       name: 'Table',
       // component: Table
-      component: resolve => require(['@/components/table/table_impl/AuthorityTableEnity'], resolve)
+      component: resolve => require(['@/components/table/table_impl/TableEnity'], resolve)
     }, {
       path: '/noIdtable/:tableKey',
       name: 'LogTable',
