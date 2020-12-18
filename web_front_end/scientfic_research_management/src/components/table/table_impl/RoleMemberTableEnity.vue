@@ -1,11 +1,13 @@
 <template>
   <div>
+    <el-row type="flex" justify="end"><el-col :span="4"><el-button @click="$router.back(-1)">返回</el-button></el-col></el-row>
+
     <CommonsTableTemplate
       :itemOptions="itemOptions"
       :tableData="tableData"
     ></CommonsTableTemplate>
 
-    <el-button @click="reloadFun">刷新</el-button>
+    <!-- <el-button @click="reloadFun">刷新</el-button> -->
     <!-- <p>{{this.$route.query.TableRow.id}}</p> -->
   </div>
 </template>
