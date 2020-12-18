@@ -25,6 +25,10 @@ export function getTableIconMap() {
         ["work_check","WorkCheckTableIcon"],
         ["scientific_check","ScientificCheckTableIcon"],
         ["patent_check","PatentCheckTableIcon"],
+
+        ["loginlog", "LoginLogTableIcon"], 
+        ["systemlog", "SystemLogTableIcon"], 
+        ["operationlog", "OperationLogTableIcon"], 
         
         
     ]);

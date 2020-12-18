@@ -2,7 +2,7 @@
 </template>
 
 <script>
-  // const BASE_URL = 'http://192.168.1.101:9999';
+  const BASE_URL = 'http://192.168.1.105:9999';
   // const BASE_URL = 'http://172.20.10.4:9999';
   // const BASE_URL = 'http://192.168.43.229:9999';
   // const BASE_URL = 'http://192.168.43.25:9999';

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-row type="flex" justify="end"><el-col :span="4"><el-button @click="$router.back(-1)">返回</el-button></el-col></el-row>
     <RoleMemberTableInterface :tableData="tableData"></RoleMemberTableInterface>
   </div>
 </template>
