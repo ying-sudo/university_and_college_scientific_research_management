@@ -2,7 +2,7 @@
   <div style="text-align: left; font-size: 20px;" v-loading="loading">
     <el-card shadow="hover">
       <div style="float: left;">
-        <el-avatar :size="60" :src="require('@/assets/images/Logo.jpg')"></el-avatar>
+        <el-avatar :size="80" :src="require('@/assets/images/Logo.jpg')"></el-avatar>
       </div>
       <span style="margin-left: 20px;">
         欢迎您！{{user.name}} {{user.post}}
@@ -10,7 +10,10 @@
       <br>
       <span style="margin-left: 20px;">
         联系方式：{{user.phone}}
-        邮箱：{{user.email}}
+        <br>
+        <span style="margin-left: 20px;">
+          邮箱：{{user.email}}
+        </span>
       </span>
     </el-card>
   </div>

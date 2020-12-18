@@ -116,7 +116,7 @@
         // 字符串转数字
         var contribution = this.user.contribution * 1;
         this.user.contribution = contribution;
-        if (this.project_achievement_user) {
+        if (this.project_achievement_user.length != 0) {
           this.deleteRow(this.index);
         }
         // 创建一个空的json,放用户
