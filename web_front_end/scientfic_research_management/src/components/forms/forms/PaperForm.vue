@@ -171,12 +171,10 @@
         this.paper_achievement = this.TableRow;
         this.magazineId = this.magazineIdProp;
       }
-      console.log('aa');
       this.notDisabled = this.flag.isDisabled;
       this.collegeId = this.collegeInfo;
       this.firstdescipline = this.firstdesciplineProp;
       this.magazineSort = this.magazineSortProp;
-      console.log(this.magazineSort);
     },
     methods: {
       closeAlertDialog() {
@@ -193,38 +191,68 @@
         var token = sessionStorage.getItem('token');
         this.axios.defaults.headers.common["Authorization"] = token;
         if (this.notDisabled) {
+          //修改
           this.axios
             .put(
               this.GLOBAL.BASE_URL + "/mangerSys/achievements/paper",
               proString
             )
             .then((response) => {
-              this.loading = false;
-              Global.methods.message_control(response.data.resultCode, this, response.data.resultMsg);
-              if (response.data.resultCode == 0) {
-                Global.methods.message_success(this, '申报成功');
-                this.closeAlertDialog();
-              }
+              console.log('magazineID:   ');
+              console.log(this.magazineId);
+              //收录
+              this.axios
+                .post(this.GLOBAL.BASE_URL + "/mangerSys/magazine", this.magazineId)
+                .then((response) => {
+                  this.loading = false;
+                  Global.methods.message_control(response.data.resultCode, this, response.data.resultMsg);
+                  console.log(response);
+                  if (response.data.resultCode == 0) {
+                    this.closeAlertDialog();
+                  }
+                })
+                .catch((error) => {
+                  this.loading = false;
+                  Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
+                });
             })
             .catch((error) => {
               this.loading = false;
               // Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         } else {
+          //申报
           this.axios
             .post(this.GLOBAL.BASE_URL + "/mangerSys/achievements/paper", proString)
             .then((response) => {
               Global.methods.message_control(response.data.resultCode, this, response.data.resultMsg);
+
               this.axios.post(this.GLOBAL.BASE_URL + '/mangerSys/sorts/insertUsers', sendUser)
                 .then((response) => {
                   Global.methods.message_control(response.data.resultCode, this, response.data.resultMsg);
                   console.log(response);
-                })
 
-              this.loading = false;
-              if (response.data.resultCode == 0) {
-                this.closeAlertDialog();
-              }
+                  //收录
+                  this.axios
+                    .post(this.GLOBAL.BASE_URL + "/mangerSys/magazine", this.magazineId)
+                    .then((response) => {
+                      this.loading = false;
+                      Global.methods.message_control(response.data.resultCode, this, response.data.resultMsg);
+                      console.log(response);
+                      if (response.data.resultCode == 0) {
+                        this.closeAlertDialog();
+                      }
+                    })
+                    .catch((error) => {
+                      this.loading = false;
+                      Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
+                    });
+                })
+                .catch((error) => {
+                  this.loading = false;
+                  Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
+                });
+
             })
             .catch((error) => {
               this.loading = false;

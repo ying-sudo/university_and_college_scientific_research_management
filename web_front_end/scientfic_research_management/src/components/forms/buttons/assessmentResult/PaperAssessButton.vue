@@ -5,7 +5,12 @@
     <mu-container>
       <!-- 表单按钮 -->
       <mu-flex justify-content="center">
-        <div>
+        <div v-if="isDisabled">
+          <el-tooltip effect="light" content="论文考核结果" placement="bottom-end" :open-delay="500">
+            <el-button icon="el-icon-view" type="text" @click="openAlertDialog" style="color: #545C64; font-size: 18px;"></el-button>
+          </el-tooltip>
+        </div>
+        <div v-else>
           <el-tooltip effect="light" content="论文考核详情" placement="bottom-end" :open-delay="500">
             <el-button icon="el-icon-view" type="text" @click="openAlertDialog" style="color: #545C64; font-size: 18px;"></el-button>
           </el-tooltip>

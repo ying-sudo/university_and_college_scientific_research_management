@@ -54,10 +54,7 @@ export default {
   },
 
   created: function () {
-    // console.log("created");
-
     if (this.$route.path !== "/login" && this.$route.path !== "/initPWD") {
-      // console.log("created fasdf");
       this.getHeaderData();
     }
   },
@@ -80,16 +77,7 @@ export default {
     },
 
     getHeaderData(requestUrl) {
-      requestUrl = requestUrl || "/api/header";
-      this.axios.post(requestUrl + "").then(
-        (response) => {
-          // console.log(response.data);
-          this.headerLists = response.data.data.headerLists;
-        },
-        (response) => {
-          console.log("header error");
-        }
-      );
+      this.headerLists = JSON.parse(sessionStorage.getItem("home")).headerLists;
     },
 
     //刷新当前组件
@@ -102,13 +90,11 @@ export default {
 
   watch: {
     $route(to, from) {
-      // this.loading = true;
       if (this.$route.path !== "/login" && this.$route.path !== "/initPWD") {
         this.getHeaderData();
+        // console.log(this.headerLists)
       }
-      // console.log(this.itemOptionsFileName);
     },
-    // immediate: true
   },
 };
 </script>

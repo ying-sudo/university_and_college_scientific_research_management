@@ -13,7 +13,7 @@
           :default-openeds="['' + parentHeaderLists[selectIndex].index]"
         >
           <el-menu-item
-            v-if="!parentHeaderLists[selectIndex].subMenu"
+            v-if="parentHeaderLists[selectIndex].subMenu === 'null'"
             @click="getURL(parentHeaderLists[selectIndex], parentHeaderLists[selectIndex].index)"
           >
             <i class="el-icon-setting"></i>
@@ -83,17 +83,15 @@ export default {
      * @param index: 鼠标点击的位置
      */
     getURL: function (menu, index) {
-      // console.log("getURL: " + index);
       let path = "";
 
-      if (menu.subMenu !== null) {
+      if (menu.subMenu !== null && menu.subMenu !== "null") {
         let arr = menu.index.split("-");
         menu = menu[Number(arr[0] - 1)];
         path = menu.urlPath;
       } else {
         path = menu.urlPath;
       }
-      // console.log(path);
 
       return path;
     },
