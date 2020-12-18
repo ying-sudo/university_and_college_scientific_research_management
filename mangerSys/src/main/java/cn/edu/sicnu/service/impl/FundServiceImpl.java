@@ -2,6 +2,7 @@ package cn.edu.sicnu.service.impl;
 
 import cn.edu.sicnu.dao.FundDao;
 import cn.edu.sicnu.dao.ProjectDao;
+import cn.edu.sicnu.dao.UserDao;
 import cn.edu.sicnu.entity.Fund;
 import cn.edu.sicnu.entity.Project;
 import cn.edu.sicnu.service.FundService;
@@ -26,6 +27,8 @@ public class FundServiceImpl implements FundService {
 
     @Autowired
     private ProjectDao projectDao;
+    @Autowired
+    private UserDao userDao;
 
     /**
      * 通过ID查询单条数据
@@ -34,6 +37,7 @@ public class FundServiceImpl implements FundService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public Fund queryById(String id) {
         return this.fundDao.queryById(id);
     }
@@ -43,6 +47,7 @@ public class FundServiceImpl implements FundService {
      * 项目id 参数
      */
     @Override
+    @Transactional
     public List<Fund> getFundByProjectId(String id) {
         return fundDao.getFundByProjectId(id);
     }
@@ -55,6 +60,7 @@ public class FundServiceImpl implements FundService {
      * @return 经费信息列表
      */
     @Override
+    @Transactional
     public List<Fund> getFundByUserId(String userId) {
         List<Project> projectList = projectDao.queryByUserId(userId);
         List<Fund> fundList = new ArrayList<>();
@@ -62,6 +68,11 @@ public class FundServiceImpl implements FundService {
             List<Fund> projectFundList = fundDao.getFundByProjectId(project.getId());
             fundList.addAll(projectFundList);
         }
+        for (Fund fund : fundList) {
+            fund.setProjectName(projectDao.queryById(fund.getProjectId()).getName());
+            fund.setUserName(userDao.queryById(projectDao.queryById(fund.getProjectId()).getUserId()).getName());
+        }
+        System.out.println(fundList);
         return fundList;
     }
 
@@ -73,6 +84,7 @@ public class FundServiceImpl implements FundService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<Fund> queryAllByLimit(int offset, int limit) {
         return this.fundDao.queryAllByLimit(offset, limit);
     }
@@ -83,6 +95,7 @@ public class FundServiceImpl implements FundService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<Fund> findAll() {
         return this.fundDao.findAll();
     }

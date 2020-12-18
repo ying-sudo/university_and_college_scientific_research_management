@@ -40,6 +40,7 @@ public class LoginLogServiceImpl implements LoginLogService {
      * @return 所有的登录日志
      */
     @Override
+    @Transactional
     public List<LoginLog> findAll() {
         return loginLogDao.findAll();
     }

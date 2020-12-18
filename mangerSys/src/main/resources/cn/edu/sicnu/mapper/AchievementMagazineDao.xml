@@ -42,9 +42,9 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="achievementId" useGeneratedKeys="true">
-        insert into scientific_research.achievement_magazine (magazine_id)
-        values (#{magazineId})
+    <insert id="insert">
+        insert into scientific_research.achievement_magazine (achievement_id,magazine_id)
+        values (#{achievementId},#{magazineId})
     </insert>
 
     <insert id="insertBatch" keyProperty="achievementId" useGeneratedKeys="true">

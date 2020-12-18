@@ -28,6 +28,7 @@ public class SortServiceImpl implements SortService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public Sort queryById(Integer id) {
         return this.sortDao.queryById(id);
     }
@@ -39,6 +40,7 @@ public class SortServiceImpl implements SortService {
      * @return 实例对象list
      */
     @Override
+    @Transactional
     public List<Sort> selectByNote(String note) {
         return sortDao.selectByNote(note);
     }
@@ -51,6 +53,7 @@ public class SortServiceImpl implements SortService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<Sort> queryAllByLimit(int offset, int limit) {
         return this.sortDao.queryAllByLimit(offset, limit);
     }
@@ -61,6 +64,7 @@ public class SortServiceImpl implements SortService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<Sort> findAll() {
         return this.sortDao.findAll();
     }

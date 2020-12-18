@@ -27,6 +27,7 @@ public class ScientificAchievementServiceImpl implements ScientificAchievementSe
      * @return 实例对象
      */
     @Override
+    @Transactional
     public ScientificAchievement queryById(String id) {
         return this.scientificAchievementDao.queryById(id);
     }
@@ -38,6 +39,7 @@ public class ScientificAchievementServiceImpl implements ScientificAchievementSe
      * @return 实例对象
      */
     @Override
+    @Transactional
     public List<ScientificAchievement> queryByUserId(String id) {
         return scientificAchievementDao.queryByUserId(id);
     }
@@ -50,6 +52,7 @@ public class ScientificAchievementServiceImpl implements ScientificAchievementSe
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<ScientificAchievement> queryAllByLimit(int offset, int limit) {
         return this.scientificAchievementDao.queryAllByLimit(offset, limit);
     }
@@ -60,6 +63,7 @@ public class ScientificAchievementServiceImpl implements ScientificAchievementSe
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<ScientificAchievement> findAll() {
         return this.scientificAchievementDao.findAll();
     }
@@ -71,6 +75,7 @@ public class ScientificAchievementServiceImpl implements ScientificAchievementSe
      * @return 所有匹配的结果的实例对象
      */
     @Override
+    @Transactional
     public List<ScientificAchievement> queryAll(ScientificAchievement scientificAchievement) {
         return this.scientificAchievementDao.queryAll(scientificAchievement);
     }

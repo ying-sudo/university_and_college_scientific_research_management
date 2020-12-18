@@ -29,6 +29,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
      * @return 如果存在返回团队成员对象，不存在返回null
      */
     @Override
+    @Transactional
     public TeamMember queryById(String teamId, String userId) {
         return teamMemberDao.queryById(teamId, userId);
     }
@@ -41,6 +42,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<TeamMember> queryAllByLimit(int offset, int limit) {
         return this.teamMemberDao.queryAllByLimit(offset, limit);
     }
@@ -51,6 +53,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<TeamMember> findAll() {
         return this.teamMemberDao.findAll();
     }
@@ -62,6 +65,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
      * @return 所有符合条件的对象list
      */
     @Override
+    @Transactional
     public List<TeamMember> queryAll(TeamMember teamMember) {
         return this.teamMemberDao.queryAll(teamMember);
     }

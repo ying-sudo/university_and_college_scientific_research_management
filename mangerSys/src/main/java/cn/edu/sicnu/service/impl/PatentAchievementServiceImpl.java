@@ -27,6 +27,7 @@ public class PatentAchievementServiceImpl implements PatentAchievementService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public PatentAchievement queryById(String id) {
         return this.patentAchievementDao.queryById(id);
     }
@@ -38,6 +39,7 @@ public class PatentAchievementServiceImpl implements PatentAchievementService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public List<PatentAchievement> queryByUserId(String id) {
         return patentAchievementDao.queryByUserId(id);
     }
@@ -50,6 +52,7 @@ public class PatentAchievementServiceImpl implements PatentAchievementService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<PatentAchievement> queryAllByLimit(int offset, int limit) {
         return this.patentAchievementDao.queryAllByLimit(offset, limit);
     }
@@ -60,6 +63,7 @@ public class PatentAchievementServiceImpl implements PatentAchievementService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<PatentAchievement> findAll() {
         return this.patentAchievementDao.findAll();
     }
@@ -71,6 +75,7 @@ public class PatentAchievementServiceImpl implements PatentAchievementService {
      * @return 和传入实体类相近的所有专利成果列表
      */
     @Override
+    @Transactional
     public List<PatentAchievement> queryAll(PatentAchievement achievement) {
         return this.patentAchievementDao.queryAll(achievement);
     }

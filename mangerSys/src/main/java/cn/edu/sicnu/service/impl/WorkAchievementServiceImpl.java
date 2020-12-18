@@ -27,6 +27,7 @@ public class WorkAchievementServiceImpl implements WorkAchievementService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public WorkAchievement queryById(String id) {
         return this.workAchievementDao.queryById(id);
     }
@@ -38,6 +39,7 @@ public class WorkAchievementServiceImpl implements WorkAchievementService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public List<WorkAchievement> queryByUserId(String userId) {
         return workAchievementDao.queryByUserId(userId);
     }
@@ -50,6 +52,7 @@ public class WorkAchievementServiceImpl implements WorkAchievementService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<WorkAchievement> queryAllByLimit(int offset, int limit) {
         return this.workAchievementDao.queryAllByLimit(offset, limit);
     }
@@ -60,6 +63,7 @@ public class WorkAchievementServiceImpl implements WorkAchievementService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<WorkAchievement> findAll() {
         return this.workAchievementDao.findAll();
     }

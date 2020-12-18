@@ -17,6 +17,8 @@ public class Fund implements Serializable {
     private String id;
 
     private String projectId;
+    private String projectName;
+    private String userName;
 
     private Double requestFund;
 
@@ -51,7 +53,6 @@ public class Fund implements Serializable {
     public String getProjectId() {
         return projectId;
     }
-
     public void setProjectId(String projectId) {
         this.projectId = projectId;
     }
@@ -88,11 +89,29 @@ public class Fund implements Serializable {
         this.arrivalDate = arrivalDate;
     }
 
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
     @Override
     public String toString() {
         return "Fund{" +
                 "id='" + id + '\'' +
                 ", projectId='" + projectId + '\'' +
+                ", projectName='" + projectName + '\'' +
+                ", userName='" + userName + '\'' +
                 ", requestFund=" + requestFund +
                 ", arrivalFund=" + arrivalFund +
                 ", requestDate=" + requestDate +

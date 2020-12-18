@@ -27,6 +27,7 @@ public class CollegeServiceImpl implements CollegeService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public College queryById(String id) {
         return this.collegeDao.queryById(id);
     }
@@ -39,6 +40,7 @@ public class CollegeServiceImpl implements CollegeService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<College> queryAllByLimit(int offset, int limit) {
         return this.collegeDao.queryAllByLimit(offset, limit);
     }
@@ -49,6 +51,7 @@ public class CollegeServiceImpl implements CollegeService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<College> findAll() {
         return this.collegeDao.findAll();
     }

@@ -1,5 +1,6 @@
 package cn.edu.sicnu.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
@@ -43,16 +44,29 @@ public class WorkAchievement implements Serializable {
 
     private String collegeId;
 
+    @TableField(exist = false)
     private String collegeName;
 
     private String workSource;
 
     private String userId;
 
+    @TableField(exist = false)
     private String userName;
 
     private String information;
+    @TableField(exist = false)
     private int score;
+
+    private Integer state;
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
     public int getScore() {
         return score;

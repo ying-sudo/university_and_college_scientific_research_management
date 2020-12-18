@@ -48,7 +48,7 @@ public class PaperAchievementController {
         for (PaperAchievement achievement : achievementList) {
             userName = userService.queryById(achievement.getUserId()).getName();
             achievement.setUserName(userName);
-            collegeName = collegeService.queryById(achievement.getCollegeId()).getName();
+                collegeName = collegeService.queryById(achievement.getCollegeId()).getName();
             achievement.setCollegeName(collegeName);
         }
         return Message.success(achievementList);

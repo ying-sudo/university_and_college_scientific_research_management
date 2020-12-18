@@ -48,7 +48,54 @@ public class getRights {
         for (int s=0;s<rights.size();s++) {
             if(s==rights.size()-1){
                 if(rights.get(s).getOrdinate()==1){
-                    Sumt+="\"{id:\""+rights.get(s).getId()+"\",index:\""+"\""+columnPosition.toString()+"\""+",\"title\":"+"\""+rights.get(s).getName()+"\""+",\"urlPath\":"+"\""+rights.get(s).getUrlPath()+"\""+",\"subMenu\":\"null\"}";
+                    Sumt+="{\"id\":\""+rights.get(s).getId()+"\",\"index\":"+"\""+columnPosition.toString()+"\""+",\"title\":"+"\""+rights.get(s).getName()+"\""+",\"urlPath\":"+"\""+rights.get(s).getUrlPath()+"\""+",\"subMenu\":\"null\"}";
+                }else{
+                    Sumt+="{\"id\":"+rights.get(s).getId()+",\"index\":"+"\""+columnPosition.toString()+"-"+rowPosition.toString()+"\""+",\"title\":"+"\""+rights.get(s).getName()+"\""+",\"urlPath\":"+"\""+rights.get(s).getUrlPath()+"\""+",\"subMenu\":\"null\"}]}";
+                }
+            }else{
+                r1=rights.get(s);
+                r2=rights.get(s+1);
+                if(r1.getAbscissa()==r2.getAbscissa()){
+                    if(r1.getOrdinate()==1){
+                        Sumt+="{\"id\":"+r1.getId()+",\"index\":"+"\""+columnPosition.toString()+"\""+",\"title\":"+"\""+r1.getName()+"\""+",\"urlPath\":"+"\""+r1.getUrlPath()+"\""+",\"subMenu\":[";
+                    }else{
+                        Sumt+="{\"id\":"+r1.getId()+",\"index\":"+"\""+columnPosition.toString()+"-"+rowPosition.toString()+"\""+",\"title\":"+"\""+r1.getName()+"\""+",\"urlPath\":"+"\""+r1.getUrlPath()+"\""+",\"subMenu\":\"null\"},";
+                    }
+                    rowPosition++;
+                }else{
+                    if(r1.getOrdinate()==1){
+                        Sumt+="{\"id\":"+r1.getId()+",\"index\":"+"\""+columnPosition.toString()+"\""+",\"title\":"+"\""+r1.getName()+"\""+",\"urlPath\":"+"\""+r1.getUrlPath()+"\""+",\"subMenu\":\"null\"},";
+                    }else{
+                        Sumt+="{\"id\":"+r1.getId()+",\"index\":"+"\""+columnPosition.toString()+"-"+rowPosition.toString()+"\""+",\"title\":"+"\""+r1.getName()+"\""+",\"urlPath\":"+"\""+r1.getUrlPath()+"\""+",\"subMenu\":\"null\"}]},";
+                    }
+                    columnPosition++;
+                    rowPosition=0;
+                }
+            }
+        }
+        Sumt+="]}";
+        return Sumt;
+    }
+
+    /**
+     * 请求角色的所有权限
+     * @param id 用户id
+     * @return
+     */
+    public String getRightsByRights(String id){
+        Map<String,Integer> map = new HashMap<>();
+        Integer rowPosition=0; //横向递增
+        Integer columnPosition=1; //纵向递增
+        Integer temp; //暂存
+        RightsAndcharacters r1;
+        RightsAndcharacters r2;
+        String Sumt="{\"headerLists\": [";
+        List<RightsAndcharacters> rights = charactersRightService.getRights(id);
+        temp=rights.get(0).getAbscissa();
+        for (int s=0;s<rights.size();s++) {
+            if(s==rights.size()-1){
+                if(rights.get(s).getOrdinate()==1){
+                    Sumt+="{\"id\":\""+rights.get(s).getId()+"\",\"index\":"+"\""+columnPosition.toString()+"\""+",\"title\":"+"\""+rights.get(s).getName()+"\""+",\"urlPath\":"+"\""+rights.get(s).getUrlPath()+"\""+",\"subMenu\":\"null\"}";
                 }else{
                     Sumt+="{\"id\":"+rights.get(s).getId()+",\"index\":"+"\""+columnPosition.toString()+"-"+rowPosition.toString()+"\""+",\"title\":"+"\""+rights.get(s).getName()+"\""+",\"urlPath\":"+"\""+rights.get(s).getUrlPath()+"\""+",\"subMenu\":\"null\"}]}";
                 }

@@ -27,6 +27,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public Project queryById(String id) {
         return this.projectDao.queryById(id);
     }
@@ -38,6 +39,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public List<Project> queryByUserId(String userId) {
         return this.projectDao.queryByUserId(userId);
     }
@@ -50,6 +52,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<Project> queryAllByLimit(int offset, int limit) {
         return this.projectDao.queryAllByLimit(offset, limit);
     }
@@ -60,6 +63,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<Project> findAll() {
         return this.projectDao.findAll();
     }

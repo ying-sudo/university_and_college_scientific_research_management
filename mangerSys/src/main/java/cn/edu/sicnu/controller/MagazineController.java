@@ -5,9 +5,11 @@ import cn.edu.sicnu.entity.Magazine;
 import cn.edu.sicnu.service.AchievementMagazineService;
 import cn.edu.sicnu.service.MagazineService;
 import cn.edu.sicnu.utils.Message;
+import com.alibaba.druid.sql.visitor.SQLASTOutputVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -40,6 +42,7 @@ public class MagazineController {
      *
      * @return 所有数据
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/papers')")
     @GetMapping("/magazine")
     public Message findAll() {
         List<Magazine> magazineList = magazineService.findAll();
@@ -52,6 +55,7 @@ public class MagazineController {
      * @param achievementId 成果或者项目id
      * @return 所有数据
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/papers')")
     @GetMapping("/magazine/{achievementId}")
     public Message findByAchievementId(@PathVariable("achievementId") String achievementId) {
         AchievementMagazine achievementMagazine = achievementMagazineService.queryById(achievementId);
@@ -64,8 +68,10 @@ public class MagazineController {
      * @param achievementMagazine 对应期刊收录情况实体类
      * @return 插入成功返回true，失败返回false
      */
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/papers')")
     @PostMapping("/magazine")
     public Message insert(@RequestBody AchievementMagazine achievementMagazine) {
+        System.out.println("achievementMagazine = " + achievementMagazine.toString());
         boolean insert = achievementMagazineService.insert(achievementMagazine);
         if (insert) {
             operLogger.info("插入期刊收录情况成功");
@@ -75,7 +81,7 @@ public class MagazineController {
             return Message.fail();
         }
     }
-
+    @PreAuthorize("hasAnyAuthority('/achievements','/table/papers')")
     @PutMapping("/magazine")
     public Message update(@RequestBody AchievementMagazine achievementMagazine) {
         boolean update = achievementMagazineService.update(achievementMagazine);

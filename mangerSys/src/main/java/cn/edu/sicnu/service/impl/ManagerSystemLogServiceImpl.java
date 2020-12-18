@@ -29,6 +29,7 @@ public class ManagerSystemLogServiceImpl implements ManagerSystemLogService {
      * @return 所有系统日志
      */
     @Override
+    @Transactional
     public List<ManagerSystemLog> findAll() {
         return systemLogDao.findAll();
     }

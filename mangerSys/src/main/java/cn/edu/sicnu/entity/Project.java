@@ -1,5 +1,6 @@
 package cn.edu.sicnu.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
@@ -19,6 +20,9 @@ public class Project implements Serializable {
     private String name;
 
     private String userId;
+
+    @TableField(exist = false)
+    private String userName;
 
     private String collegeId;
 
@@ -49,6 +53,14 @@ public class Project implements Serializable {
     private String approvalNumber;
 
     private int score;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public int getScore() {
         return score;

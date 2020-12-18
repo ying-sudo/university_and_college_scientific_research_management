@@ -29,6 +29,7 @@ public class OperationLogServiceImpl implements OperationLogService {
      * @return 所有日志记录
      */
     @Override
+    @Transactional
     public List<OperationLog> findAll() {
         return operationLogDao.findAll();
     }

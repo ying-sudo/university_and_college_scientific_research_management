@@ -140,5 +140,18 @@ public class LogController {
             return Message.fail();
         }
     }
+    /**
+     * 删除单条数据
+     */
+    @PreAuthorize("hasAnyAuthority('/admin')")
+    @PostMapping("/deleteOne")
+    public Message deleteOne(@RequestBody String id){
+        try{
+            operationLogService.deleteById(id);
+            return Message.success();
+        }catch (Exception e){
+            return Message.fail();
+        }
+    }
 
 }

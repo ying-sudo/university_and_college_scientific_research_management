@@ -42,6 +42,7 @@ public class CharactersRightServiceImpl implements CharactersRightService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public List<CharactersRight> queryByCharacterId(String characterId) {
         return charactersRightDao.queryByCharacterId(characterId);
     }
@@ -113,6 +114,7 @@ public class CharactersRightServiceImpl implements CharactersRightService {
      * id 参数
      */
     @Override
+    @Transactional
     public List<RightsAndcharacters> getRights(String id) {
         return charactersRightDao.getRights(id);
     }

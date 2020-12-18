@@ -102,6 +102,7 @@ public class CharactersServiceImpl implements CharactersService {
      * @return 影响行数
      */
     @Override
+    @Transactional
     public boolean deleteByName(String name) {
         return this.charactersDao.deleteByName(name)>0;
     }

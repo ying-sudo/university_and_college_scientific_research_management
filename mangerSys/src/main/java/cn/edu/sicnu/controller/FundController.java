@@ -42,7 +42,7 @@ public class FundController {
      *
      * @return 经费记录列表
      */
-    @PreAuthorize("hasAnyAuthority()")
+    @PreAuthorize("hasAnyAuthority('/projects','/table/fundlists')")
     @GetMapping("/funds/users/{userId}")
     public Message getFunds(@PathVariable("userId") String userId) {
         List<Fund> fundList = fundService.getFundByUserId(userId);

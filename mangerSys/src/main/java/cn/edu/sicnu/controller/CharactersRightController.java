@@ -58,7 +58,7 @@ public class CharactersRightController {
      * 改变权限
      * map<String,Object> 参数
      */
-    @PreAuthorize("hasAnyAuthority('/admin','/table/authoritylists')")
+    @PreAuthorize("hasAnyAuthority('/admin','/noIdtable/authoritylists')")
     @PostMapping("updataRights")
     public String updateRights(@RequestBody Map<String,Object> map){
         getRights get = new getRights(userCharacterService,charactersRightService);

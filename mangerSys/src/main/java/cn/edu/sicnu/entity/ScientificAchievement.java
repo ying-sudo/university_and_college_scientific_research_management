@@ -1,5 +1,6 @@
 package cn.edu.sicnu.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
@@ -21,6 +22,7 @@ public class ScientificAchievement implements Serializable {
     private String collegeId;
 
 //    表中无此字段，只是为了向前端返回方便
+    @TableField(exist = false)
     private String collegeName;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -29,6 +31,7 @@ public class ScientificAchievement implements Serializable {
     private String userId;
 
     //    表中无此字段，只是为了向前端返回方便
+    @TableField(exist = false)
     private String userName;
 
     private String isTranslate;
@@ -44,6 +47,17 @@ public class ScientificAchievement implements Serializable {
     private String workSource;
 
     private String information;
+
+    private Integer state;
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+    @TableField(exist = false)
     private int score;
 
     public int getScore() {

@@ -29,6 +29,7 @@ public class PaperAchievementServiceImpl implements PaperAchievementService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public PaperAchievement queryById(String id) {
         return this.paperAchievementDao.queryById(id);
     }
@@ -40,6 +41,7 @@ public class PaperAchievementServiceImpl implements PaperAchievementService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public List<PaperAchievement> queryByUserId(String id) {
         return paperAchievementDao.queryByUserId(id);
     }
@@ -52,6 +54,7 @@ public class PaperAchievementServiceImpl implements PaperAchievementService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<PaperAchievement> queryAllByLimit(int offset, int limit) {
         return this.paperAchievementDao.queryAllByLimit(offset, limit);
     }
@@ -62,6 +65,7 @@ public class PaperAchievementServiceImpl implements PaperAchievementService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<PaperAchievement> findAll() {
         return this.paperAchievementDao.findAll();
     }

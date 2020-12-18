@@ -27,6 +27,7 @@ public class TeamServiceImpl implements TeamService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public Team queryById(String id) {
         return this.teamDao.queryById(id);
     }
@@ -39,6 +40,7 @@ public class TeamServiceImpl implements TeamService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<Team> queryAllByLimit(int offset, int limit) {
         return this.teamDao.queryAllByLimit(offset, limit);
     }
@@ -49,6 +51,7 @@ public class TeamServiceImpl implements TeamService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<Team> findAll() {
         return this.teamDao.findAll();
     }
@@ -60,6 +63,7 @@ public class TeamServiceImpl implements TeamService {
      * @return 符合条件的所有对象的list
      */
     @Override
+    @Transactional
     public List<Team> queryAll(Team team) {
         return teamDao.queryAll(team);
     }

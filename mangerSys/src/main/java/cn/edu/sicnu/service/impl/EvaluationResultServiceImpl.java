@@ -43,6 +43,7 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
      * @return 实例对象
      */
     @Override
+    @Transactional
     public EvaluationResult queryById(String id) {
         return this.evaluationResultDao.queryById(id);
     }
@@ -55,6 +56,7 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<EvaluationResult> queryAllByLimit(int offset, int limit) {
         return this.evaluationResultDao.queryAllByLimit(offset, limit);
     }
@@ -73,6 +75,7 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
      * 其中每一项的分数(score)设置为从审核结果表查出的分数
      */
     @Override
+    @Transactional
     public List<Object> queryBySort(String sort) {
         if (sort.matches("project|paper|scientific|patent|work")) {
             EvaluationResult result = new EvaluationResult();
@@ -134,6 +137,7 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
      * @return
      */
     @Override
+    @Transactional
     public List<Object> queryByUserId(String sort, String userId) {
         if (!sort.matches("project|paper|scientific|patent|work")) {
             return null;
@@ -214,6 +218,7 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
      * @return 对象列表
      */
     @Override
+    @Transactional
     public List<EvaluationResult> findAll() {
         return this.evaluationResultDao.findAll();
     }

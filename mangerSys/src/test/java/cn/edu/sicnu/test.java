@@ -43,7 +43,7 @@ public class test {
 
     @Test
     public void findAll(){
-        String encrypt = MD5.encrypt("2011000416");
+        String encrypt = MD5.encrypt("123");
         System.out.println("encrypt = " + encrypt);
     }
 }
