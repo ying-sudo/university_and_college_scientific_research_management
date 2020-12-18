@@ -218,7 +218,7 @@
             })
             .catch((error) => {
               this.loading = false;
-              Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
+              // Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         } else {
           //申报
@@ -256,7 +256,7 @@
             })
             .catch((error) => {
               this.loading = false;
-              Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
+              // Global.methods.message_error(this, '网络或服务器错误，请稍后重试');
             });
         }
       },

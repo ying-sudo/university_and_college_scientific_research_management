@@ -1,30 +1,30 @@
 [
     {
         "id": 1,
-        "label": "编号",
+        "label": "角色编号",
         "type": "text",
-        "prop": "authority_id",
-        "width":"130"
+        "prop": "id",
+        "width":"160"
     },
     {
         "id": 2,
-        "label": "分组名称",
+        "label": "角色名称",
         "type": "text",
-        "prop": "authority_group_name",
-        "width":"130"
+        "prop": "name",
+        "width":"160"
     },
     {
         "id": 3,
-        "label": "分组描述",
+        "label": "角色人员数量",
         "type": "text",
-        "prop": "authority_group_description",
-        "width":"130"
+        "prop": "number",
+        "width":"160"
     },
     {
         "id": 4,
-        "label": "用户列表",
+        "label": "备注",
         "type": "text",
-        "prop": "authority_user_list",
-        "width":"130"
+        "prop": "note",
+        "width":"300"
     }
 ]

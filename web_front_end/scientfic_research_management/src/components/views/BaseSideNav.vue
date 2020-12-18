@@ -69,10 +69,10 @@ export default {
 
   methods: {
     handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
     handleClose(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
 
     /**
@@ -83,7 +83,7 @@ export default {
      * @param index: 鼠标点击的位置
      */
     getURL: function (menu, index) {
-      console.log("getURL: " + index);
+      // console.log("getURL: " + index);
       let path = "";
 
       if (menu.subMenu !== null) {
@@ -93,7 +93,7 @@ export default {
       } else {
         path = menu.urlPath;
       }
-      console.log(path);
+      // console.log(path);
 
       return path;
     },

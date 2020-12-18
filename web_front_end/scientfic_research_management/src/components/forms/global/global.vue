@@ -276,7 +276,7 @@
             if (response.data.resultCode == 0) {} else {}
           })
           .catch((error) => {
-            Global.methods.message_error(that, '网络或服务器错误，请稍后重试');
+            // Global.methods.message_error(that, '网络或服务器错误，请稍后重试');
           });
       },
 

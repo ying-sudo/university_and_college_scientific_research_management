@@ -87,11 +87,11 @@ export default {
       console.log("this.backEndInterface:" + this.backEndInterface);
     },
     getTableData: function (newVal) {
-      var token = localStorage.getItem('token');
+      var token = sessionStorage.getItem('token');
       this.axios.defaults.headers.common["Authorization"] = token;
 
       // this.axios.get(newVal).then((res) => {
-      let userId = localStorage.getItem("userid");
+      let userId = sessionStorage.getItem("userId");
       console.log(userId);
 
       this.axios.get(`${this.GLOBAL.BASE_URL}/${newVal}/${userId}`).then((res) => {

@@ -195,33 +195,33 @@ let dataVal = {
           id: "18",
           index: "7-2",
           title: "项目考核",
-          urlPath: "/table/project",
+          urlPath: "/table/project_check",
           subMenu: null
         },
         {
           id: "19",
           index: "7-3",
           title: "论文考核",
-          urlPath: "/table/paper_result",
+          urlPath: "/table/paper_check",
           subMenu: null
         }, {
           id: "42",
           index: "7-4",
           title: "著作考核",
-          urlPath: "/table/work_result",
+          urlPath: "/table/work_check",
           subMenu: null
         }, {
           id: "43",
           index: "7-5",
           title: "科研成果考核",
-          urlPath: "/table/scientific_result",
+          urlPath: "/table/scientific_check",
           subMenu: null
         },
         {
           id: "44",
           index: "7-6",
           title: "专利考核",
-          urlPath: "/table/patent_result",
+          urlPath: "/table/patent_check",
           subMenu: null
         },
         // {
@@ -293,7 +293,7 @@ let dataVal = {
           id: "29",
           index: "9-3",
           title: "权限设置",
-          urlPath: "/table/authoritylists",
+          urlPath: "/noIdtable/authoritylists",
           subMenu: null
         },
         {

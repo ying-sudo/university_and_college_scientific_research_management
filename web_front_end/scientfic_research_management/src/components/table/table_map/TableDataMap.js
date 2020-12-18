@@ -1,7 +1,7 @@
 export function getTableDataMap() {
     var table_data_map = new Map([
         ["projectlists", "mangerSys/projects/users"], 
-        ["fundlists", "mangerSys/funds/projects"], 
+        ["fundlists", "mangerSys/funds/users"], 
 
         ["papers", "mangerSys/achievements/paper/users"], 
         ["works", "mangerSys/achievements/work/users"],  
@@ -14,7 +14,14 @@ export function getTableDataMap() {
         ["paper_result", "mangerSys/assess/papers/user"], 
         ["scientific_result", "mangerSys/assess/scientifics/user"], 
         ["work_result", "mangerSys/assess/works/user"], 
-        ["patent_result", "mangerSys/assess/patents/user"],   
+        ["patent_result", "mangerSys/assess/patents/user"],  
+        
+        ["project_check", "mangerSys/assess/projects/user"], 
+        ["paper_check", "mangerSys/assess/papers/user"], 
+        ["scientific_check", "mangerSys/assess/scientifics/user"], 
+        ["work_check", "mangerSys/assess/works/user"], 
+        ["patent_check", "mangerSys/assess/patents/user"],
+        
 
         ["authoritylists", "/api/table_data"], 
 

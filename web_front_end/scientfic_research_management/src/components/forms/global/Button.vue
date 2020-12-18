@@ -1,6 +1,3 @@
-<template>
-  <!--  <div style="height: 750px; width: 100%; background-color: #000000;">
- -->
 
   <div>
     <PaperButton :isDisabled="isDisabled"></PaperButton>

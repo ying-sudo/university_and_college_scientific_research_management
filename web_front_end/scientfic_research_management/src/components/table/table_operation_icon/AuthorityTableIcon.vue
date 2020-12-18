@@ -84,14 +84,39 @@
         @click="handleClick()"
       ></el-button>
     </el-tooltip>
+    <!-- <p>{{this.TableRow}}</p> -->
   </div>
 </template>
 
 <script>
 export default {
+  props: ["TableRow"],
+  data() {
+    return {
+      role_authority: [],
+    };
+  },
   methods: {
     handleClick() {
-      this.$router.push("/author");
+      var token = sessionStorage.getItem("token");
+      this.axios.defaults.headers.common["Authorization"] = token;
+
+      this.axios
+        .get(
+          `${this.GLOBAL.BASE_URL}/mangerSys/characters/findAllRights/${this.TableRow.id}`
+        )
+        .then((res) => {
+          this.role_authority = res.data.data;
+          // console.log("role_authority:");
+          // console.log(res.data.data);
+        });
+
+      if (this.role_authority.length != 0) {
+        this.$router.push({
+          path: "/author",
+          query: { role_authority: this.role_authority },
+        });
+      }
     },
   },
 };
