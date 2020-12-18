@@ -176,11 +176,13 @@
                     this.login_success();
                   } else if (resultCode == -1) {
                     //失败
-                    this.login_failing("用户名或密码错误");
+                    // this.login_failing("用户名或密码错误");
+                    error_text = "用户名或密码错误";
                     Global.methods.message_error(this, error_text);
                   } else {
                     //后端返回值不是0，-1 其他原因
-                    this.login_failing("服务器错误，请稍后再试");
+                    // this.login_failing("服务器错误，请稍后再试");
+                    error_text = "服务器错误，请稍后再试";
                     Global.methods.message_error(this, error_text);
                   }
                 })
