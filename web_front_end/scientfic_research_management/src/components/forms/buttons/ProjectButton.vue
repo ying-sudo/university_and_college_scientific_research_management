@@ -64,6 +64,16 @@
       openAlertDialog() {
         this.loading = true;
         this.reload = new Date().getTime();
+
+        this.axios
+          .get(this.GLOBAL.BASE_URL + "/mangerSys/sorts/1")
+          .then( (response) => {
+
+          })
+          .catch( (error) => {
+
+          });
+
         this.firstDiscipline = this.otherAll.firstDiscipline;
         this.level = this.otherAll.level;
         this.sort = this.otherAll.sort;
@@ -77,8 +87,20 @@
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
       },
       getAllData() {
-        Global.methods.getCollegeData(this, this.collegeInfo);
-        Global.methods.getOtherData(this, this.otherAll);
+        var i = [1, 2, 3];
+        // Global.methods.getFormData(this, i, 0, this.otherAll);
+
+        this.axios
+          .get(this.GLOBAL.BASE_URL + "/mangerSys/sorts/1")
+          .then( (response) => {
+            console.log(response);
+          })
+          .catch( (Error) => {
+            console.log(Error);
+          })
+
+        // Global.methods.getCollegeData(this, this.collegeInfo);
+        // Global.methods.getOtherData(this, this.otherAll);
 
         return;
       },

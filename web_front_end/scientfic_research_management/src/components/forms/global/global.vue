@@ -162,10 +162,26 @@
         });
       },
 
-      getCollegeData(that, collegeInfo) {
-        //从后端获取表单需要的所有学院的信息，并返回
+
+      getSelectAllData(that, collegeInfo, otherAll) {
         var token = sessionStorage.getItem('token');
         that.axios.defaults.headers.common["Authorization"] = token;
+        that.axios
+          .get(this.GLOBAL.BASE_URL + "/mangerSys/colleges")
+          .then( (response) => {
+
+            that.axios
+              .get(this.GLOBAL.BASE_URL + "/mangerSys/sorts")
+              .then( (response) => {
+
+              })
+
+
+          })
+
+      },
+      getCollegeData(that, collegeInfo) {
+        //从后端获取表单需要的所有学院的信息，并返回
         that.axios.get(that.GLOBAL.BASE_URL + "/mangerSys/colleges").then(
           (response) => {
             for (var i = 0; i < response.data.data.length; i++) {
@@ -182,6 +198,7 @@
         //从后端获取表单需要的所有其他选择的信息，并返回
         that.axios.get(that.GLOBAL.BASE_URL + "/mangerSys/sorts").then(
           (response) => {
+            console.log(response);
             for (var key in response.data.data) {
               for (var i = 0; i < response.data.data[key].length; i++) {
                 sort[key].push(response.data.data[key][i]);
@@ -189,6 +206,24 @@
             }
 
             return;
+          })
+      },
+      
+      getFormData(that, i, n, formData) {
+        
+        if (i.length >= n) {
+          return;
+        }
+        
+        var token = sessionStorage.getItem('token');
+        that.axios.defaults.headers.common["Authorization"] = token;
+        
+        this.axios
+          .get(this.GLOBAL.BASE_URL + "/mangerSys/sorts/" + i[n])
+          .then( (response) => {
+            console.log(i[n] + '  aa  ');
+            console.log(response);
+            this.getFormData(that, i, ++n, formData);
           })
       },
 
@@ -250,7 +285,7 @@
         var res = [];
         var sum = 0;
         res[0] = arr[0];
-        res[1] = arr[1];
+        res[1] = arr[0];
 
         for (var i = 0; i < arr.length; i++) {
           if (res[0] <= arr[i]) {

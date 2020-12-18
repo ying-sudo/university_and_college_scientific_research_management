@@ -63,10 +63,12 @@
     methods: {
       openAlertDialog() {
         this.loading = true;
-        // this.reload = new Date().getTime();
-        this.firstDiscipline = this.otherAll.firstDiscipline;
+        this.reload = new Date().getTime();
 
-        console.log(this.firstDiscipline);
+        // this.axios
+        //   .get(this.GLOBAL.BASE_URL + "/mangerSys/sorts/" + )
+
+        this.firstDiscipline = this.otherAll.firstDiscipline;
 
         Global.methods.openAlertDialog(this.flag, this.isDisabled);
       },
@@ -74,10 +76,6 @@
 
         Global.methods.getCollegeData(this, this.collegeInfo);
         Global.methods.getOtherData(this, this.otherAll);
-
-        // if (this.TableRow) {
-        //   console.log(this.TableRow.id);
-        // }
 
         if (this.flag.isDisabled) {
           //修改的按钮
